@@ -1,0 +1,312 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const problems = [
+  "工具买了一堆，工作流没变",
+  "信息散落在微信、备忘录、文件夹",
+  "AI 能执行，但判断和知识没有沉淀",
+];
+
+const packageItems = [
+  "Obsidian vault 结构与模板",
+  "Hermes Agent 配置与 Skill 体系",
+  "Tamarin 环境搭建说明",
+  "AI 可读安装教程（让 AI 按教程帮你安装）",
+];
+
+const fitList = [
+  "想搭建自己 AI 工作系统，但不知道怎么开始",
+  "厌倦在多个 AI 工具间切换",
+  "希望个人判断和知识能被 AI 持续调取",
+];
+
+const principles = [
+  {
+    title: "人做判断，AI 做执行",
+    desc: "需要选择、品味、承担后果的，人做；重复、有规则、可标准化的，交给 AI。",
+  },
+  {
+    title: "不是模板，是生长的系统",
+    desc: "它长在你的真实工作流里，长在判断习惯里。",
+  },
+  {
+    title: "教程是给 AI 看的",
+    desc: "你让 AI 读取安装教程，它就知道怎么帮你一步步搭建。",
+  },
+];
+---
+
+<Layout title="个人操作系统" description="个人操作系统是思远 AI Lab 的核心标品，用 Obsidian、Hermes 和 Tamarin 搭建 AI 助理与记忆系统。">
+  <Header />
+
+  <main class="site-main personal-os-page">
+    <section class="os-hero" aria-labelledby="os-title">
+      <div class="container os-hero-grid">
+        <div>
+          <p class="kicker">核心标品</p>
+          <h1 id="os-title">个人操作系统：你的第一个 AI 助理</h1>
+          <p class="hero-lede">
+            不是买更多 AI 工具，而是搭一套让工具和人协作起来的系统。用 Obsidian 做记忆底座，Hermes 做执行接口，Tamarin 做环境。
+          </p>
+          <div class="hero-actions">
+            <a href="/contact/" class="btn">联系获取</a>
+            <a href="/lab/skills/" class="btn btn-outline">查看 Skill 展厅</a>
+          </div>
+        </div>
+
+        <aside class="status-panel" aria-label="当前状态">
+          <p class="meta">当前状态</p>
+          <dl>
+            <div>
+              <dt>形态</dt>
+              <dd>线上部署包 + 教程</dd>
+            </div>
+            <div>
+              <dt>获取</dt>
+              <dd>首期付费会员可联系获取</dd>
+            </div>
+            <div>
+              <dt>支付</dt>
+              <dd>本站不接入在线支付</dd>
+            </div>
+            <div>
+              <dt>进度</dt>
+              <dd>部署包整理中</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="problems-title">
+      <div class="container split-grid">
+        <div>
+          <p class="kicker">解决什么问题</p>
+          <h2 id="problems-title" class="section-title">先把系统搭起来，再谈效率</h2>
+        </div>
+        <ul class="line-list">
+          {problems.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="package-title">
+      <div class="container">
+        <p class="kicker">包含什么</p>
+        <h2 id="package-title" class="section-title">交付的是部署入口，不是空泛理念</h2>
+        <div class="item-grid">
+          {packageItems.map((item, index) => (
+            <article class="item-card">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="fit-title">
+      <div class="container split-grid">
+        <div>
+          <p class="kicker">适合谁</p>
+          <h2 id="fit-title" class="section-title">适合想让 AI 进入真实工作的人</h2>
+        </div>
+        <ul class="line-list">
+          {fitList.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="principles-title">
+      <div class="container">
+        <p class="kicker">关键话术</p>
+        <h2 id="principles-title" class="section-title">这套系统的三条边界</h2>
+        <div class="principle-grid">
+          {principles.map(item => (
+            <article class="principle-card">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-section" aria-labelledby="final-title">
+      <div class="container final-panel">
+        <div>
+          <p class="kicker">下一步</p>
+          <h2 id="final-title">部署包整理中，先通过联系页获取</h2>
+          <p>
+            付费会员权益为实验室线上内容：个人操作系统部署包、Skill 包和教程。不包含线下安装、陪跑或咨询。
+          </p>
+        </div>
+        <a href="/contact/" class="btn">联系获取</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .personal-os-page {
+    overflow: hidden;
+  }
+
+  .os-hero {
+    padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 8vw, 88px);
+  }
+
+  .os-hero-grid,
+  .split-grid,
+  .final-panel {
+    display: grid;
+    gap: clamp(28px, 6vw, 76px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  }
+
+  .os-hero-grid,
+  .final-panel {
+    align-items: center;
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .os-hero h1 {
+    font-size: clamp(2.25rem, 5.8vw, 4.5rem);
+    line-height: 1.1;
+    max-width: 880px;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.04rem, 1.7vw, 1.22rem);
+  }
+
+  .hero-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .status-panel,
+  .final-panel {
+    background: rgba(245, 241, 233, 0.8);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: clamp(22px, 4vw, 36px);
+  }
+
+  .status-panel dl {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .status-panel div {
+    border-top: 1px solid var(--lead);
+    padding-top: 1rem;
+  }
+
+  .status-panel dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .status-panel dd {
+    margin: 0.25rem 0 0;
+  }
+
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .line-list {
+    border-top: 2px solid var(--ink);
+    list-style: none;
+    margin: 0;
+  }
+
+  .line-list li {
+    border-bottom: 1px solid var(--lead);
+    padding: 1rem 0;
+  }
+
+  .item-grid,
+  .principle-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .principle-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .item-card,
+  .principle-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    min-height: 210px;
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .item-card span {
+    color: var(--lead);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+  }
+
+  .item-card h3 {
+    font-size: 1.18rem;
+  }
+
+  .principle-card p,
+  .final-panel p {
+    color: var(--grey);
+  }
+
+  .final-panel {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .final-panel p,
+  .final-panel .kicker {
+    color: rgba(245, 241, 233, 0.75);
+  }
+
+  .final-panel .btn {
+    justify-self: end;
+  }
+
+  @media (max-width: 900px) {
+    .os-hero-grid,
+    .split-grid,
+    .final-panel,
+    .item-grid,
+    .principle-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .final-panel .btn {
+      justify-self: start;
+    }
+  }
+</style>

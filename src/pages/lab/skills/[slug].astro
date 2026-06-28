@@ -1,0 +1,403 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+
+export function getStaticPaths() {
+  const skills = {
+    "proposal-planning": {
+      name: "提案策划管线",
+      type: "工作流",
+      status: "已完成",
+      summary: "从需求澄清到 A/B 骨架再到定稿提案的完整 Workflow",
+      why: "思远的判断比 AI 生成更值钱；管线的价值是「逼判断、沉认知」。",
+      solves: [
+        "接到 case 后，不再直接让 AI 写方案，而是先澄清目标、边界和验收口径。",
+        "把资料调研、形式定义、A/B 骨架和定稿提案拆成可检查的中间产物。",
+        "让最终方案能交接给 Agent、同事或下一阶段执行，而不是停留在聊天记录里。",
+      ],
+      flow: [
+        "Step 0 场景识别",
+        "Step 1 需求澄清",
+        "Step 2 资料调研",
+        "Step 3 形式定义",
+        "Step 4 A/B 骨架",
+        "Step 5 方案生成",
+        "Step 6 交接",
+      ],
+      takeaway: "SKILL.md + 子 Skill + 模板 + 使用说明",
+      fit: "需要写提案、做项目规划、做商业判断的人",
+      unfit: "想要一键生成完美方案的人",
+      placeholder: false,
+    },
+    "ai-coach": {
+      name: "AI Coach 管线",
+      type: "开发辅助",
+      status: "已完成",
+      summary: "把模糊想法变成可执行的 Skill 开发方案",
+      why: "先保留简洁说明，完整详情二期补齐。",
+      solves: ["辅助深度思考和目标拆解。", "把 Skill 开发需求整理成可执行方案。"],
+      flow: ["需求成型", "方案提纯", "执行终审"],
+      takeaway: "Prompt / 框架 / 使用说明整理中",
+      fit: "需要把模糊想法推进成 Skill 开发任务的人",
+      unfit: "只想要一次性聊天建议的人",
+      placeholder: true,
+    },
+    "private-board-prompt": {
+      name: "私董会 Prompt",
+      type: "决策辅助",
+      status: "可整理",
+      summary: "模拟 8 位顶级商业人物组成顾问团，帮你做重要决策",
+      why: "先保留简洁说明，完整详情二期补齐。",
+      solves: ["在重大选择前引入多视角追问。", "帮助识别机会、风险和盲区。"],
+      flow: ["提出决策问题", "多角色审视", "收敛判断"],
+      takeaway: "Prompt 框架整理中",
+      fit: "需要在重要决策前换视角的人",
+      unfit: "希望 Prompt 替你承担决策后果的人",
+      placeholder: true,
+    },
+    "leverage-advisor": {
+      name: "杠杆思维顾问",
+      type: "思维模型",
+      status: "可整理",
+      summary: "从杠杆视角审视支点、杠杆类型、放大效应和边际成本",
+      why: "先保留简洁说明，完整详情二期补齐。",
+      solves: ["重新审视问题和资源。", "判断一件事是否有更高杠杆的做法。"],
+      flow: ["找支点", "判断杠杆类型", "评估放大效应与边际成本"],
+      takeaway: "思维模型 Prompt 整理中",
+      fit: "需要提高资源使用效率的人",
+      unfit: "只想追求短期技巧的人",
+      placeholder: true,
+    },
+    "decision-advisor": {
+      name: "决策顾问思维",
+      type: "思维模型",
+      status: "可整理",
+      summary: "通过六步苏格拉底式提问把模糊问题变成可执行方案",
+      why: "先保留简洁说明，完整详情二期补齐。",
+      solves: ["减少情绪对判断的干扰。", "把模糊问题拆成可执行选项。"],
+      flow: ["界定问题", "澄清约束", "列出选项", "比较代价", "形成行动"],
+      takeaway: "决策提问框架整理中",
+      fit: "在复杂选择中需要结构化判断的人",
+      unfit: "希望 AI 直接替你拍板的人",
+      placeholder: true,
+    },
+    "user-research-insight": {
+      name: "用户调研洞察管线",
+      type: "工作流",
+      status: "开发中",
+      summary: "把零散信息变成可验证的用户洞察",
+      why: "先保留简洁说明，完整详情二期补齐。",
+      solves: ["整理零散访谈、评论和观察。", "把信息变成可验证的用户洞察。"],
+      flow: ["收集信息", "归纳主题", "提炼假设", "设计验证"],
+      takeaway: "工作流与模板开发中",
+      fit: "需要从用户信息里提炼判断的人",
+      unfit: "没有真实用户信息输入的人",
+      placeholder: true,
+    },
+  };
+
+  return Object.keys(skills).map(slug => ({
+    params: { slug },
+    props: { skill: skills[slug] },
+  }));
+}
+
+const { skill } = Astro.props;
+---
+
+<Layout title={skill.name} description={`${skill.name}：${skill.summary}`}>
+  <Header />
+
+  <main class="site-main skill-detail-page">
+    <section class="detail-hero" aria-labelledby="skill-title">
+      <div class="container detail-hero-grid">
+        <div>
+          <p class="kicker">Skill 详情</p>
+          <h1 id="skill-title">{skill.name}</h1>
+          <p class="hero-lede">{skill.summary}</p>
+          <div class="hero-actions">
+            <a href="/contact/" class="btn">联系获取</a>
+            <a href="/lab/skills/" class="btn btn-outline">返回 Skill 展厅</a>
+          </div>
+        </div>
+
+        <aside class="status-panel" aria-label="Skill 状态">
+          <p class="meta">{skill.type}</p>
+          <dl>
+            <div>
+              <dt>当前状态</dt>
+              <dd>{skill.status}</dd>
+            </div>
+            <div>
+              <dt>详情完整度</dt>
+              <dd>{skill.placeholder ? "简洁占位，二期补齐" : "已按 Brief 补齐"}</dd>
+            </div>
+            <div>
+              <dt>获取方式</dt>
+              <dd>联系获取</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    {skill.placeholder && (
+      <section class="placeholder-note" aria-label="占位说明">
+        <div class="container">
+          <p>本页先保留 Skill 基本信息，不虚构深度内容。完整设计理念、案例和模板说明将在二期补齐。</p>
+        </div>
+      </section>
+    )}
+
+    <section class="section" aria-labelledby="why-title">
+      <div class="container split-grid">
+        <div>
+          <p class="kicker">为什么做这个</p>
+          <h2 id="why-title" class="section-title">设计理念</h2>
+        </div>
+        <p class="big-copy">{skill.why}</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="solve-title">
+      <div class="container split-grid">
+        <div>
+          <p class="kicker">它能解决什么问题</p>
+          <h2 id="solve-title" class="section-title">从模糊到可推进</h2>
+        </div>
+        <ul class="line-list">
+          {skill.solves.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="flow-title">
+      <div class="container">
+        <p class="kicker">核心结构 / 流程</p>
+        <h2 id="flow-title" class="section-title">按步骤逼近判断</h2>
+        <ol class="flow-list">
+          {skill.flow.map(item => <li>{item}</li>)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="takeaway-title">
+      <div class="container fit-grid">
+        <article>
+          <p class="kicker">你带走什么</p>
+          <h2 id="takeaway-title">{skill.takeaway}</h2>
+        </article>
+        <article>
+          <p class="kicker">适合谁</p>
+          <p>{skill.fit}</p>
+        </article>
+        <article>
+          <p class="kicker">不适合谁</p>
+          <p>{skill.unfit}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section final-section" aria-labelledby="final-title">
+      <div class="container final-panel">
+        <div>
+          <p class="kicker">当前状态</p>
+          <h2 id="final-title">{skill.status}</h2>
+          <p>本期所有 Skill 获取入口统一走联系页，不接入站内支付。</p>
+        </div>
+        <a href="/contact/" class="btn">联系获取</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .skill-detail-page {
+    overflow: hidden;
+  }
+
+  .detail-hero {
+    padding: clamp(56px, 8vw, 96px) 0 clamp(42px, 7vw, 84px);
+  }
+
+  .detail-hero-grid,
+  .split-grid,
+  .final-panel {
+    display: grid;
+    gap: clamp(28px, 6vw, 76px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  }
+
+  .detail-hero-grid,
+  .final-panel {
+    align-items: center;
+  }
+
+  .kicker,
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta {
+    font-size: 0.76rem;
+  }
+
+  .detail-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.7rem);
+    line-height: 1.08;
+  }
+
+  .hero-lede,
+  .big-copy {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  }
+
+  .hero-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .status-panel,
+  .final-panel {
+    background: rgba(245, 241, 233, 0.8);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: clamp(22px, 4vw, 36px);
+  }
+
+  .status-panel dl {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .status-panel div {
+    border-top: 1px solid var(--lead);
+    padding-top: 1rem;
+  }
+
+  .status-panel dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .status-panel dd {
+    margin: 0.25rem 0 0;
+  }
+
+  .placeholder-note .container {
+    background: rgba(212, 201, 191, 0.25);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+
+  .placeholder-note p {
+    color: var(--grey);
+    margin-bottom: 0;
+    max-width: none;
+  }
+
+  .line-list {
+    border-top: 2px solid var(--ink);
+    list-style: none;
+    margin: 0;
+  }
+
+  .line-list li {
+    border-bottom: 1px solid var(--lead);
+    padding: 1rem 0;
+  }
+
+  .flow-list {
+    counter-reset: flow;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    margin-top: var(--space-block);
+  }
+
+  .flow-list li {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    min-height: 150px;
+    padding: clamp(18px, 3vw, 28px);
+  }
+
+  .flow-list li::before {
+    color: var(--lead);
+    content: counter(flow, decimal-leading-zero);
+    counter-increment: flow;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .fit-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  }
+
+  .fit-grid article {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .fit-grid p:last-child {
+    color: var(--grey);
+    margin-bottom: 0;
+  }
+
+  .final-panel {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .final-panel p,
+  .final-panel .kicker {
+    color: rgba(245, 241, 233, 0.75);
+  }
+
+  .final-panel .btn {
+    justify-self: end;
+  }
+
+  @media (max-width: 980px) {
+    .flow-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .detail-hero-grid,
+    .split-grid,
+    .final-panel,
+    .flow-list {
+      grid-template-columns: 1fr;
+    }
+
+    .final-panel .btn {
+      justify-self: start;
+    }
+  }
+</style>

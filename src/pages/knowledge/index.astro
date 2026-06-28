@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const knowledgeDomains = [
+  { slug: "principles", title: "基础原理", desc: "AI、Agent、Prompt 和个人系统的底层判断。" },
+  { slug: "workflows", title: "工作流装备", desc: "能被 AI 助理调用的流程、模板和操作说明。" },
+  { slug: "cases", title: "案例拆解", desc: "真实业务、内容生产和产品化过程中的复盘材料。" },
+  { slug: "sources", title: "信源索引", desc: "值得长期跟踪的观点、工具、人物和资料来源。" },
+];
+---
+
+<Layout title="知识库" description="思远 AI Lab 知识库，是给 AI 调用的装备资料库，整理工作流、案例、信源和基础判断。">
+  <Header />
+
+  <main class="site-main">
+    <section class="section">
+      <div class="container">
+        <p class="kicker">知识库</p>
+        <h1>AI 可调用的装备资料库</h1>
+        <p>
+          这里不是传统文章目录，而是给个人 AI 助理调用的资料架。1.0 先放四类方向占位，后续逐步补入可检索、可引用、可复用的知识卡片。
+        </p>
+        <div class="card-grid">
+          {knowledgeDomains.map(domain => (
+            <div class="card">
+              <span class="meta">{domain.slug}</span>
+              <h3>{domain.title}</h3>
+              <p>{domain.desc}</p>
+              <p>内容整理中</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    max-width: 760px;
+  }
+
+  .card h3 {
+    margin-top: 1.3rem;
+  }
+
+  .card p:last-child {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 0;
+  }
+</style>

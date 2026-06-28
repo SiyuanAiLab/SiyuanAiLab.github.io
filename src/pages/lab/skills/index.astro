@@ -1,0 +1,235 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+
+const skills = [
+  {
+    title: "提案策划管线",
+    slug: "proposal-planning",
+    type: "工作流",
+    desc: "从需求澄清到 A/B 骨架再到定稿提案的完整流程",
+    scenes: ["接到 case 后先澄清需求", "需要把模糊想法变成方案", "需要交付可执行提案"],
+    status: "可直接获取",
+  },
+  {
+    title: "AI Coach 管线",
+    slug: "ai-coach",
+    type: "开发辅助",
+    desc: "把模糊想法变成可执行的 Skill 开发方案",
+    scenes: ["整理 Skill 开发思路", "把目标拆成执行步骤", "辅助深度思考与目标拆解"],
+    status: "可直接获取",
+  },
+  {
+    title: "私董会 Prompt",
+    slug: "private-board-prompt",
+    type: "决策辅助",
+    desc: "模拟 8 位顶级商业人物组成顾问团，帮你做重要决策",
+    scenes: ["重大选择前换视角", "需要外部顾问式追问", "判断业务方向和风险"],
+    status: "整理中",
+  },
+  {
+    title: "杠杆思维顾问",
+    slug: "leverage-advisor",
+    type: "思维模型",
+    desc: "从杠杆视角审视支点、杠杆类型、放大效应和边际成本",
+    scenes: ["重新审视问题和资源", "寻找小投入的大效果", "判断一件事是否值得做"],
+    status: "整理中",
+  },
+  {
+    title: "决策顾问思维",
+    slug: "decision-advisor",
+    type: "思维模型",
+    desc: "通过六步苏格拉底式提问把模糊问题变成可执行方案",
+    scenes: ["情绪干扰判断时", "选择太多无法推进时", "需要把问题拆清楚时"],
+    status: "整理中",
+  },
+  {
+    title: "用户调研洞察管线",
+    slug: "user-research-insight",
+    type: "工作流",
+    desc: "把零散信息变成可验证的用户洞察",
+    scenes: ["整理访谈和评论", "从信息里提炼假设", "把洞察变成可验证问题"],
+    status: "开发中",
+  },
+];
+---
+
+<Layout title="Skill 展厅" description="思远 AI Lab 的 Skill 展厅，展示从真实工作流里拆出来的 6 个可复用框架。">
+  <Header />
+
+  <main class="site-main skills-page">
+    <section class="skills-hero" aria-labelledby="skills-title">
+      <div class="container">
+        <p class="kicker">Skill 展厅</p>
+        <h1 id="skills-title">从真实工作流里拆出来的框架</h1>
+        <p class="hero-lede">
+          这些 Skill 不是万能工具，是我自己用、在迭代的工作方法。你可以下载后交给自己的 AI 助理调用。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="skill-grid-title">
+      <div class="container">
+        <p class="kicker">首批 6 个 Skill</p>
+        <h2 id="skill-grid-title" class="section-title">按真实场景整理，不包装成万能工具</h2>
+        <div class="skill-grid">
+          {skills.map(skill => (
+            <article class="skill-card">
+              <div>
+                <p class="meta">{skill.type}</p>
+                <h3>
+                  <a href={`/lab/skills/${skill.slug}/`}>{skill.title}</a>
+                </h3>
+                <p>{skill.desc}</p>
+              </div>
+              <ul>
+                {skill.scenes.map(scene => <li>{scene}</li>)}
+              </ul>
+              <div class="card-foot">
+                <span>{skill.status}</span>
+                <a href="/contact/" class="btn btn-outline">联系获取</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .skills-page {
+    overflow: hidden;
+  }
+
+  .skills-hero {
+    padding: clamp(64px, 9vw, 112px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .kicker,
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta {
+    font-size: 0.75rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .skills-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.8rem);
+    line-height: 1.08;
+    max-width: 860px;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    max-width: 720px;
+  }
+
+  .skill-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .skill-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-height: 430px;
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .skill-card:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .skill-card:first-child p,
+  .skill-card:first-child li,
+  .skill-card:first-child span,
+  .skill-card:first-child .meta,
+  .skill-card:first-child a {
+    color: rgba(245, 241, 233, 0.8);
+  }
+
+  .skill-card:first-child h3 a {
+    color: var(--paper);
+  }
+
+  .skill-card h3 a {
+    text-decoration: none;
+  }
+
+  .skill-card p {
+    color: var(--grey);
+    font-size: 0.95rem;
+  }
+
+  .skill-card ul {
+    border-top: 1px solid var(--lead);
+    list-style: none;
+    margin: auto 0 0;
+    padding-top: 1rem;
+  }
+
+  .skill-card li {
+    color: var(--grey);
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+  }
+
+  .card-foot {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .card-foot span {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .card-foot .btn {
+    font-size: 0.9rem;
+    padding: 0.62rem 0.85rem;
+  }
+
+  @media (max-width: 980px) {
+    .skill-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .skill-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .skill-card {
+      min-height: 0;
+    }
+
+    .card-foot {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

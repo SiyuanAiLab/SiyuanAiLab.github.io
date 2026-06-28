@@ -1,0 +1,647 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "首页";
+const pageDescription = "思远 AI Lab 1.0，帮非技术创业者设计 AI 时代的工作方式：先搭个人操作系统，再获取 Skill 装备，最后探索实验收藏馆。";
+
+const proofPoints = [
+  { value: "12 年", label: "营销实战" },
+  { value: "10 年", label: "管理经验" },
+  { value: "1 人", label: "AI 公司筹备期" },
+  { value: "先行者", label: "不是权威" },
+];
+
+const systemSteps = [
+  {
+    title: "创建人物",
+    meta: "Personal OS",
+    desc: "先搭你的个人操作系统。用 Obsidian 做记忆底座，Hermes 做执行接口，Tamarin 做环境。",
+    href: "/lab/personal-os/",
+    cta: "了解个人操作系统",
+  },
+  {
+    title: "获取装备",
+    meta: "Skills",
+    desc: "再挑适合你的 Skill。它们来自真实工作流，不是万能工具，而是可复用的判断和执行框架。",
+    href: "/lab/skills/",
+    cta: "进入 Skill 展厅",
+  },
+  {
+    title: "探索收藏馆",
+    meta: "Lab",
+    desc: "看看我还在折腾什么。Demo、众筹项目、趣味实验和半成品都会放在实验室里。",
+    href: "/lab/",
+    cta: "进入实验室",
+  },
+];
+
+const knowledgeDomains = [
+  {
+    slug: "free",
+    title: "免费入口",
+    desc: "文章与知识库先开放，用来建立判断坐标。",
+  },
+  {
+    slug: "member",
+    title: "¥99/年付费会员",
+    desc: "获取个人操作系统部署包、Skill 包和教程，暂通过联系获取。",
+  },
+  {
+    slug: "cooperation",
+    title: "合作入口",
+    desc: "如果你有真实业务场景，可以从联系页说明问题。",
+  },
+];
+
+const allArticles = await getCollection('articles');
+const latestArticles = allArticles
+  .filter((article) => article.data.public && !article.data.draft && article.data.auditStatus === 'approved')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main class="site-main homepage">
+    <section class="home-hero" aria-labelledby="hero-title">
+      <div class="container home-hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">思远 AI Lab 1.0</p>
+          <h1 id="hero-title">
+            <span>帮非技术创业者设计</span>
+            <span>AI 时代的工作方式</span>
+          </h1>
+          <p class="hero-lede">
+            这里是杨思远的工作方法实验室。我把自己在 AI 协作中沉淀的个人操作系统、可复用 Skill 和判断文章开放出来，让你先搭系统，再选装备。
+          </p>
+          <div class="hero-rewrite" aria-label="定位修订">
+            <span class="rewrite">创建人物</span>
+            <span class="meta">→</span>
+            <span class="rewrite">获取装备</span>
+            <span class="meta">→</span>
+            <span class="rewrite">探索收藏馆</span>
+          </div>
+          <div class="hero-actions">
+            <a href="/lab/personal-os/" class="btn">先搭个人操作系统</a>
+            <a href="/lab/" class="btn btn-outline">进入实验室</a>
+            <a href="/articles" class="text-link">先读文章</a>
+          </div>
+        </div>
+
+        <aside class="product-card" aria-label="站点入口说明">
+          <p class="meta">第一步去哪</p>
+          <h2>先搭系统，再选装备。</h2>
+          <p>
+            如果你不是程序员，但想让 AI 真正进入自己的工作方式，从个人操作系统开始最稳。
+          </p>
+          <dl>
+            <div>
+              <dt>系统</dt>
+              <dd>个人操作系统</dd>
+            </div>
+            <div>
+              <dt>装备</dt>
+              <dd>可复用 Skill</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>1.0 展厅整理中</dd>
+            </div>
+          </dl>
+          <a href="/contact" class="btn">联系获取</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="proof-band" aria-label="可信事实">
+      <div class="container proof-grid">
+        {proofPoints.map(point => (
+          <div class="proof-item">
+            <strong>{point.value}</strong>
+            <span>{point.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section product-section" aria-labelledby="system-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="kicker">站点路径</p>
+          <h2 id="system-title" class="section-title">创建人物 → 获取装备 → 探索收藏馆</h2>
+          <p>
+            这套站点逻辑借用了“养成”的顺序，但表达保持纸白墨黑的编辑风。先让一个人拥有系统，再给他装备，最后看他还在做哪些实验。
+          </p>
+        </div>
+
+        <div class="article-track-grid">
+          {systemSteps.map(step => (
+            <article class="article-track">
+              <p class="meta">{step.meta}</p>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+              <a href={step.href} class="text-link">{step.cta}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section writing-section" aria-labelledby="writing-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="kicker">最新文章</p>
+          <h2 id="writing-title" class="section-title">判断文章负责解释为什么这样做</h2>
+          <p>
+            这里保留 2-3 篇最新文章入口。文章负责把 AI 时代的判断、产品过程和个人系统经验沉淀下来。
+          </p>
+        </div>
+
+        <div class="article-track-grid">
+          {latestArticles.map(article => (
+            <a class="article-track article-link-card" href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}>
+              <p class="meta">{article.data.seriesTitle ?? article.data.category}</p>
+              <h3>{article.data.title}</h3>
+              <p>{article.data.description}</p>
+            </a>
+          ))}
+        </div>
+
+        <a href="/articles" class="text-link">查看全部文章</a>
+      </div>
+    </section>
+
+    <section class="section knowledge-section" aria-labelledby="knowledge-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="kicker">知识库</p>
+          <h2 id="knowledge-title" class="section-title">知识库负责给 AI 调资料</h2>
+          <p>
+            1.0 的知识库先作为装备资料库占位。它面向的不是一次性浏览，而是让 AI 助理未来可以检索、引用和复用。
+          </p>
+        </div>
+
+        <div class="knowledge-board">
+          {knowledgeDomains.map((domain, index) => (
+            <a class={`knowledge-tile tile-${index}`} href="/knowledge">
+              <span class="meta">{domain.slug}</span>
+              <h3>{domain.title}</h3>
+              <p>{domain.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section route-section" aria-labelledby="route-title">
+      <div class="container route-panel">
+        <div>
+          <p class="kicker">会员说明</p>
+          <h2 id="route-title">免费读判断，付费拿装备。</h2>
+          <p>
+            本期不接入站内支付。免费入口是文章和知识库；付费会员为 ¥99/年，获取实验室线上内容，统一通过联系页占位承接。
+          </p>
+        </div>
+        <ol class="route-list">
+          {knowledgeDomains.map(route => (
+            <li>{route.title}：{route.desc}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section cta-section" aria-labelledby="cta-title">
+      <div class="container cta-panel">
+        <div>
+          <p class="kicker">下一步</p>
+          <h2 id="cta-title">先从个人操作系统开始。</h2>
+          <p>
+            如果你只是想看看判断，可以先读文章；如果你想搭自己的 AI 工作方式，就从个人操作系统和 Skill 展厅进入。
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a href="/lab/personal-os/" class="btn">了解个人操作系统</a>
+          <a href="/contact" class="text-link">联系获取</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .homepage {
+    overflow: hidden;
+  }
+
+  .home-hero {
+    padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 8vw, 88px);
+  }
+
+  .home-hero-grid {
+    align-items: center;
+    display: grid;
+    gap: clamp(32px, 6vw, 80px);
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.8fr);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.35rem, 6vw, 4.9rem);
+    line-height: 1.08;
+    max-width: 880px;
+  }
+
+  .hero-copy h1 span {
+    display: block;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.04rem, 1.7vw, 1.24rem);
+    max-width: 700px;
+  }
+
+  .hero-rewrite {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.85rem;
+    margin: 0 0 1.6rem;
+  }
+
+  .hero-actions,
+  .cta-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+  }
+
+  .product-card {
+    background: linear-gradient(180deg, rgba(245, 241, 233, 0.95), rgba(212, 201, 191, 0.34));
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-paper);
+    padding: clamp(22px, 4vw, 36px);
+    position: relative;
+  }
+
+  .product-card::before {
+    background: var(--accent);
+    content: "";
+    height: 2px;
+    left: 18px;
+    position: absolute;
+    right: 18px;
+    top: 18px;
+  }
+
+  .product-card h2 {
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    margin-top: 1.2rem;
+  }
+
+  .product-card p {
+    color: var(--grey);
+  }
+
+  .product-card dl {
+    border-top: 1px solid var(--lead);
+    margin: 1.5rem 0;
+  }
+
+  .product-card dl div {
+    border-bottom: 1px solid var(--lead);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 84px 1fr;
+    padding: 0.8rem 0;
+  }
+
+  .product-card dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .product-card dd {
+    font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  .proof-band {
+    background: rgba(212, 201, 191, 0.25);
+    border-bottom: 1px solid var(--lead);
+    border-top: 1px solid var(--lead);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .proof-item {
+    border-right: 1px solid rgba(184, 184, 184, 0.7);
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .proof-item:last-child {
+    border-right: 0;
+  }
+
+  .proof-item strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .proof-item span,
+  .section-lede,
+  .section-heading p {
+    color: var(--grey);
+    font-size: 1.04rem;
+  }
+
+  .product-grid,
+  .route-panel {
+    align-items: start;
+    display: grid;
+    gap: clamp(32px, 6vw, 76px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
+  }
+
+  .product-facts {
+    border-top: 2px solid var(--ink);
+  }
+
+  .product-facts p {
+    border-bottom: 1px solid var(--lead);
+    font-family: var(--font-serif);
+    font-size: clamp(1.18rem, 2.6vw, 1.65rem);
+    margin: 0;
+    max-width: none;
+    padding: 1rem 0;
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-block);
+  }
+
+  .article-track-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1.15fr 0.9fr 0.9fr;
+  }
+
+  .article-track {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    min-height: 230px;
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .article-track:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .article-track:first-child .meta,
+  .article-track:first-child p {
+    color: rgba(245, 241, 233, 0.78);
+  }
+
+  .article-track:first-child .text-link {
+    color: var(--paper);
+  }
+
+  .article-track h3 {
+    margin-top: 2.6rem;
+  }
+
+  .article-track p:last-child {
+    margin-bottom: 0;
+  }
+
+  .article-link-card {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .article-link-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: inherit;
+    transform: translateY(-2px);
+  }
+
+  .text-link {
+    color: var(--ink);
+    display: inline-block;
+    font-weight: 700;
+    margin-top: 1.4rem;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 0.25em;
+  }
+
+  .knowledge-board {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .knowledge-tile {
+    background: rgba(245, 241, 233, 0.76);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    color: var(--ink);
+    min-height: 188px;
+    padding: 1.2rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .knowledge-tile:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .knowledge-tile h3 {
+    font-size: 1.15rem;
+    margin-top: 1.4rem;
+  }
+
+  .knowledge-tile p {
+    color: var(--grey);
+    font-size: 0.93rem;
+    margin-bottom: 0;
+  }
+
+  .tile-0 {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .tile-0 .meta,
+  .tile-0 p {
+    color: rgba(245, 241, 233, 0.74);
+  }
+
+  .tile-1 {
+    background: linear-gradient(135deg, rgba(192, 48, 48, 0.16), rgba(245, 241, 233, 0.82));
+  }
+
+  .route-panel {
+    background: rgba(212, 201, 191, 0.25);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .route-panel h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.35rem);
+  }
+
+  .route-panel p {
+    color: var(--grey);
+  }
+
+  .route-list {
+    counter-reset: route;
+    list-style: none;
+  }
+
+  .route-list li {
+    border-bottom: 1px solid var(--lead);
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 2.4vw, 1.48rem);
+    padding: 0.9rem 0 0.9rem 2.8rem;
+    position: relative;
+  }
+
+  .route-list li::before {
+    color: var(--accent);
+    content: "0" counter(route);
+    counter-increment: route;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    left: 0;
+    position: absolute;
+    top: 1.18rem;
+  }
+
+  .cta-panel {
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    color: var(--paper);
+    display: grid;
+    gap: clamp(24px, 4vw, 56px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .cta-panel .kicker,
+  .cta-panel p {
+    color: rgba(245, 241, 233, 0.76);
+  }
+
+  .cta-panel h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+  }
+
+  .cta-panel .btn {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
+
+  .cta-panel .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  .cta-panel .text-link {
+    color: var(--paper);
+    margin-top: 0;
+  }
+
+  @media (max-width: 900px) {
+    .home-hero-grid,
+    .product-grid,
+    .route-panel,
+    .cta-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .product-card {
+      max-width: 560px;
+    }
+
+    .article-track-grid,
+    .knowledge-board {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .home-hero {
+      padding-top: 44px;
+    }
+
+    .hero-copy h1 {
+      font-size: 2.18rem;
+      line-height: 1.16;
+    }
+
+    .hero-rewrite {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: block;
+    }
+
+    .hero-actions .btn,
+    .cta-actions .btn {
+      margin-bottom: 0.8rem;
+    }
+
+    .proof-grid,
+    .article-track-grid,
+    .knowledge-board {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-item {
+      border-bottom: 1px solid rgba(184, 184, 184, 0.7);
+      border-right: 0;
+    }
+
+    .proof-item:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

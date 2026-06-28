@@ -1,0 +1,249 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const zones = [
+  {
+    title: "个人操作系统",
+    href: "/lab/personal-os/",
+    label: "核心标品",
+    desc: "AI 助理 + 记忆系统部署包，用 Obsidian、Hermes 和 Tamarin 搭起可生长的工作系统。",
+  },
+  {
+    title: "Skill 展厅",
+    href: "/lab/skills/",
+    label: "可复用框架",
+    desc: "从真实工作流里拆出来的 Skill：提案策划、AI Coach、私董会 Prompt 等。",
+  },
+  {
+    title: "众筹与趣味展厅",
+    href: "/lab/crowdfunding/",
+    secondaryHref: "/lab/playground/",
+    label: "可合作项目 / 玩具实验",
+    desc: "半成品、可合作项目、Demo 和玩具实验。赛博六爻、军师 Skill 等先放在这里观察。",
+  },
+];
+---
+
+<Layout title="实验室" description="思远 AI Lab 的实验室入口，展示个人操作系统、Skill 展厅、众筹项目和趣味实验。">
+  <Header />
+
+  <main class="site-main lab-page">
+    <section class="lab-hero" aria-labelledby="lab-title">
+      <div class="container">
+        <p class="kicker">实验室</p>
+        <h1 id="lab-title">
+          <span>我的 AI 协作</span>
+          <span>实验展览</span>
+        </h1>
+        <p class="hero-lede">
+          这里展示我正在开发、已经跑通或还在寻找合作的项目。有些可以直接用，有些只是玩具，有些需要你一起参与。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="zones-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="kicker">三个展区</p>
+          <h2 id="zones-title" class="section-title">先选入口，再看展品</h2>
+        </div>
+
+        <div class="zone-grid">
+          {zones.map((zone, index) => (
+            <article class={`zone-card zone-${index}`}>
+              <span class="zone-index">{String(index + 1).padStart(2, "0")}</span>
+              <p class="meta">{zone.label}</p>
+              <h3>{zone.title}</h3>
+              <p>{zone.desc}</p>
+              <div class="zone-actions">
+                <a class="text-link" href={zone.href}>进入展区</a>
+                {zone.secondaryHref && <a class="text-link muted-link" href={zone.secondaryHref}>看趣味实验</a>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section note-section" aria-labelledby="note-title">
+      <div class="container note-panel">
+        <div>
+          <p class="kicker">当前状态</p>
+          <h2 id="note-title">这是展厅，不是商城</h2>
+        </div>
+        <p>
+          本期不做站内支付、不做真实文件上传、不做复杂交互。可以获取的内容统一通过联系页承接；未整理完的项目会明确标注状态。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .lab-page {
+    overflow: hidden;
+  }
+
+  .lab-hero {
+    padding: clamp(64px, 9vw, 112px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .lab-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.8rem);
+    line-height: 1.08;
+    max-width: 860px;
+  }
+
+  .lab-hero h1 span {
+    display: block;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    max-width: 720px;
+  }
+
+  .section-heading {
+    max-width: 760px;
+  }
+
+  .zone-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .zone-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    color: var(--ink);
+    min-height: 330px;
+    padding: clamp(20px, 3vw, 30px);
+    position: relative;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .zone-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .zone-card:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .zone-card:first-child p,
+  .zone-card:first-child .meta,
+  .zone-card:first-child .zone-index,
+  .zone-card:first-child .text-link {
+    color: rgba(245, 241, 233, 0.78);
+  }
+
+  .zone-index {
+    color: var(--lead);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+  }
+
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .zone-card h3 {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+  }
+
+  .zone-card p {
+    color: var(--grey);
+    font-size: 0.95rem;
+  }
+
+  .text-link {
+    border-bottom: 1px solid var(--accent);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .zone-actions {
+    align-items: center;
+    bottom: clamp(20px, 3vw, 30px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    left: clamp(20px, 3vw, 30px);
+    position: absolute;
+    right: clamp(20px, 3vw, 30px);
+  }
+
+  .muted-link {
+    color: var(--grey);
+  }
+
+  .note-panel {
+    align-items: start;
+    background: rgba(212, 201, 191, 0.25);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: grid;
+    gap: clamp(24px, 5vw, 64px);
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .note-panel h2 {
+    margin-bottom: 0;
+  }
+
+  .note-panel p:last-child {
+    color: var(--grey);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .zone-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .note-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .lab-hero h1 {
+      font-size: 2.18rem;
+      line-height: 1.16;
+    }
+
+    .zone-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .zone-card {
+      min-height: 280px;
+    }
+  }
+</style>

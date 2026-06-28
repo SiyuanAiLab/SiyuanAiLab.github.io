@@ -1,0 +1,565 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "关于";
+const pageDescription = "杨思远，38 岁，现居宁波。12 年营销实战，10 年管理层经验。思远 AI Lab 是他作为先行者开放 AI 工作方式的窗口。";
+
+const quickFacts = [
+  { label: "现居", value: "宁波" },
+  { label: "背景", value: "12 年营销实战" },
+  { label: "定位", value: "先行者 / 开源窗口" },
+];
+
+const abilities = [
+  {
+    name: "内容创作",
+    detail: "品牌包装、故事叙事、脚本创作、视觉审美",
+    proof: "茶品牌手册、育儿侦探短视频系列",
+  },
+  {
+    name: "营销获客",
+    detail: "数据驱动获客、零售全链条、精准投放",
+    proof: "美克零售从全国倒一到第一",
+  },
+  {
+    name: "组织设计",
+    detail: "设计型领导力、示范式教学、培训能力",
+    proof: "业务员培养成全国第一、总裁班培训",
+  },
+  {
+    name: "AI 应用",
+    detail: "用 AI 替代重复执行、Agent 设计、Prompt 工程",
+    proof: "个人操作系统、自媒体生产管线",
+  },
+  {
+    name: "机制设计",
+    detail: "用机制替代人格强度、流程化判断",
+    proof: "Claudian / Hermes 双 Agent 架构",
+  },
+];
+
+const differences = [
+  {
+    title: "判断比技术更值钱",
+    desc: "AI 技术越来越平权，真正稀缺的是经验、取舍和判断。",
+  },
+  {
+    title: "不是 AI 工具推销员",
+    desc: "重点不是推荐工具，而是看懂生意链路，再决定 AI 应该放在哪里。",
+  },
+  {
+    title: "和 AI 对抗者",
+    desc: "不是被动听工具安排，而是在辩论、折腾、挑战中找到真正想要的结果。",
+  },
+  {
+    title: "机制设计师",
+    desc: "不靠天天打鸡血推进工作，而是设计流程和 Agent，让执行自然发生。",
+  },
+  {
+    title: "先行者，不是权威",
+    desc: "我把已经跑通和正在折腾的东西开放出来，让后来者少走一段弯路。",
+  },
+  {
+    title: "开源窗口",
+    desc: "这个站不是简历橱窗，而是我把个人系统、Skill 和判断过程对外展示的入口。",
+  },
+];
+
+const facts = [
+  "12 年营销实战，10 年管理层经验。",
+  "美克家居区域营销，两次从全国倒一做到第一。",
+  "短视频创业「育儿侦探」系列，3-5 个月涨粉 120 万，字节签约。",
+  "现居宁波，一人 AI 创业公司筹备期。",
+  "核心产品方向是企业 AI 服务，包含商业咨询与 AI 辅助。",
+];
+
+const useCases = [
+  "你有业务，但不知道 AI 该放进哪段流程。",
+  "你不是程序员，但想让一个人的小生意更像系统一样运转。",
+  "你需要有人帮你把混乱想法拆成内容、产品或工作机制。",
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main class="site-main about-page">
+    <section class="about-hero" aria-labelledby="about-title">
+      <div class="container about-hero-grid">
+        <div class="about-copy">
+          <p class="kicker">思远 AI Lab 使用说明</p>
+          <h1 id="about-title">一个先行者的 AI 工作方式开源窗口。</h1>
+          <p class="about-lede">
+            杨思远，38 岁，现居宁波。12 年营销实战，10 年管理层经验。他不是程序员，而是一个把业务流程拆清楚的人。
+          </p>
+          <p>
+            现在我把思远 AI Lab 当作公开展厅：一边记录判断，一边开放个人操作系统、Skill 和实验项目。这里强调“先行者”，不包装成权威。
+          </p>
+          <div class="about-actions">
+            <a href="/lab/" class="btn">进入实验室</a>
+            <a href="/articles" class="btn btn-outline">读文章</a>
+            <a href="/contact" class="text-link dark-link">联系入口</a>
+          </div>
+        </div>
+
+        <aside class="about-card" aria-label="杨思远概要">
+          <img src="/assets/paperball-avatar-640.jpg" alt="纸团先生 IP 头像" />
+          <dl>
+            {quickFacts.map(fact => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section use-section" aria-labelledby="use-title">
+      <div class="container use-grid">
+        <div>
+          <h2 id="use-title" class="section-title">什么时候适合找我</h2>
+          <p class="section-lede">
+            如果你只是想学一个新工具，可能不需要我。如果你想重新设计工作方式，这里会更有用。
+          </p>
+        </div>
+        <div class="use-list">
+          {useCases.map(item => (
+            <p>{item}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section ability-section" aria-labelledby="ability-title">
+      <div class="container">
+        <h2 id="ability-title" class="section-title">能力矩阵</h2>
+        <div class="ability-grid">
+          {abilities.map(ability => (
+            <article class="ability-card">
+              <h3>{ability.name}</h3>
+              <p>{ability.detail}</p>
+              <p class="proof">验证：{ability.proof}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section difference-section" aria-labelledby="difference-title">
+      <div class="container">
+        <h2 id="difference-title" class="section-title">我和普通 AI 内容有什么不同</h2>
+        <div class="difference-grid">
+          {differences.map(item => (
+            <article class="difference-item">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section facts-section" aria-labelledby="facts-title">
+      <div class="container facts-panel">
+        <div>
+          <h2 id="facts-title">可验证的事实</h2>
+          <p>
+            这里所有事实都来自已确认的人设说明书。没有包装成“成功学故事”，也不编造未验证成果。
+          </p>
+        </div>
+        <ul class="facts-list">
+          {facts.map(fact => (
+            <li>{fact}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section product-section" aria-labelledby="about-product-title">
+      <div class="container about-product">
+        <div>
+          <p class="kicker">当前产品入口</p>
+          <h2 id="about-product-title">先从个人操作系统和 Skill 装备开始</h2>
+          <p>
+            1.0 阶段不做复杂商城，也不接入站内支付。实验室先展示个人操作系统、Skill 包和教程，付费会员通过联系获取。
+          </p>
+        </div>
+        <div class="product-summary">
+          <p>个人操作系统部署包</p>
+          <p>可复用 Skill 包</p>
+          <p>付费会员 ¥99/年，联系获取</p>
+          <a href="/lab/" class="btn">查看实验室</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section" aria-labelledby="about-cta-title">
+      <div class="container about-cta">
+        <div>
+          <p class="kicker">下一步</p>
+          <h2 id="about-cta-title">先读判断，再看展厅。</h2>
+          <p>
+            如果你想看具体判断和搭建过程，可以先读《清醒时刻》和《落地志》。如果想获取系统和装备，可以进入实验室或联系获取。
+          </p>
+        </div>
+        <div class="about-actions">
+          <a href="/lab/" class="btn">进入实验室</a>
+          <a href="/contact" class="text-link">联系方式</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .about-page {
+    overflow: hidden;
+  }
+
+  .about-hero {
+    padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 8vw, 88px);
+  }
+
+  .about-hero-grid {
+    align-items: center;
+    display: grid;
+    gap: clamp(32px, 6vw, 80px);
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.75fr);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-copy h1 {
+    font-size: clamp(2rem, 5vw, 4.1rem);
+    line-height: 1.12;
+    max-width: 880px;
+  }
+
+  .about-lede {
+    color: var(--grey);
+    font-size: clamp(1.04rem, 1.7vw, 1.22rem);
+  }
+
+  .about-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-paper);
+    padding: clamp(20px, 4vw, 34px);
+  }
+
+  .about-card img {
+    aspect-ratio: 1;
+    border: 1px solid var(--lead);
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1.4rem;
+    max-width: 210px;
+    object-fit: cover;
+    width: 70%;
+  }
+
+  .about-card dl {
+    display: grid;
+    gap: 0;
+    margin: 0;
+  }
+
+  .about-card div {
+    border-top: 1px solid var(--lead);
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: 72px 1fr;
+    padding: 0.9rem 0;
+  }
+
+  .about-card dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .about-card dd {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .use-grid {
+    align-items: start;
+    display: grid;
+    gap: clamp(32px, 6vw, 76px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.85fr);
+  }
+
+  .section-lede {
+    color: var(--grey);
+    font-size: 1.04rem;
+  }
+
+  .use-list {
+    border-top: 2px solid var(--ink);
+  }
+
+  .use-list p {
+    border-bottom: 1px solid var(--lead);
+    font-family: var(--font-serif);
+    font-size: clamp(1.15rem, 2.6vw, 1.7rem);
+    margin: 0;
+    max-width: none;
+    padding: 1rem 0;
+  }
+
+  .ability-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .ability-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    grid-column: span 2;
+    min-height: 210px;
+    padding: clamp(20px, 3vw, 28px);
+  }
+
+  .ability-card:nth-child(1),
+  .ability-card:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  .ability-card h3 {
+    margin-bottom: 1rem;
+  }
+
+  .ability-card p {
+    color: var(--grey);
+  }
+
+  .ability-card .proof {
+    border-top: 1px solid var(--lead);
+    color: var(--ink);
+    font-size: 0.9rem;
+    margin: 1.2rem 0 0;
+    padding-top: 0.9rem;
+  }
+
+  .difference-grid {
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .difference-item {
+    border-bottom: 1px solid var(--lead);
+    padding: clamp(20px, 3vw, 30px) clamp(16px, 3vw, 28px);
+  }
+
+  .difference-item:nth-child(odd) {
+    border-right: 1px solid var(--lead);
+  }
+
+  .difference-item h3 {
+    font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+  }
+
+  .difference-item p {
+    color: var(--grey);
+    margin-bottom: 0;
+  }
+
+  .facts-panel,
+  .about-cta {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: grid;
+    gap: clamp(24px, 4vw, 56px);
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.85fr);
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .facts-panel {
+    background: rgba(212, 201, 191, 0.25);
+  }
+
+  .facts-panel h2,
+  .about-cta h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+  }
+
+  .facts-panel p,
+  .about-cta p {
+    color: var(--grey);
+  }
+
+  .facts-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .facts-list li {
+    border-bottom: 1px solid var(--lead);
+    padding: 0.85rem 0 0.85rem 1.35rem;
+    position: relative;
+  }
+
+  .facts-list li::before {
+    color: var(--accent);
+    content: "-";
+    left: 0;
+    position: absolute;
+  }
+
+  .facts-list li:last-child {
+    border-bottom: 0;
+  }
+
+  .about-cta {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .about-cta .kicker,
+  .about-cta p {
+    color: rgba(245, 241, 233, 0.76);
+  }
+
+  .about-cta .btn {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
+
+  .about-cta .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  .text-link {
+    color: var(--paper);
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 0.25em;
+  }
+
+  .dark-link {
+    color: var(--ink);
+    margin-top: 0;
+  }
+
+  .about-product {
+    align-items: start;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: grid;
+    gap: clamp(24px, 4vw, 56px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .about-product h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+  }
+
+  .about-product p {
+    color: var(--grey);
+  }
+
+  .product-summary {
+    border-top: 2px solid var(--ink);
+  }
+
+  .product-summary p {
+    border-bottom: 1px solid var(--lead);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: clamp(1.08rem, 2.2vw, 1.42rem);
+    margin: 0;
+    max-width: none;
+    padding: 0.9rem 0;
+  }
+
+  .product-summary .btn {
+    margin-top: 1.2rem;
+  }
+
+  @media (max-width: 900px) {
+    .about-hero-grid,
+    .use-grid,
+    .facts-panel,
+    .about-product,
+    .about-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .about-card {
+      max-width: 560px;
+    }
+
+    .ability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ability-card,
+    .ability-card:nth-child(1),
+    .ability-card:nth-child(2) {
+      grid-column: span 1;
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about-hero {
+      padding-top: 44px;
+    }
+
+    .about-actions {
+      display: block;
+    }
+
+    .about-actions .btn {
+      margin-bottom: 0.8rem;
+    }
+
+    .difference-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .difference-item:nth-child(odd) {
+      border-right: 0;
+    }
+
+    .facts-panel,
+    .about-product,
+    .about-cta {
+      padding: 1.4rem;
+    }
+  }
+</style>

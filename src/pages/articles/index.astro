@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const categories = [
+  { slug: 'qingxing-shike', title: '清醒时刻', desc: '判断 AI 时代真实发生的变化。' },
+  { slug: 'luodizhi', title: '落地志', desc: '记录 AI 进入真实工作流的过程。' },
+  { slug: 'tools', title: '工具实测', desc: '筛选能进入业务流程的工具。' },
+];
+
+const allArticles = await getCollection('articles');
+const publishedArticles = allArticles
+  .filter((article) => article.data.public && !article.data.draft && article.data.auditStatus === 'approved')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="文章" description="杨思远的文章专栏，包含《清醒时刻》《落地志》和工具实测。">
+  <Header />
+
+  <main class="site-main articles-page">
+    <section class="articles-hero">
+      <div class="container">
+        <p class="kicker">内容资产</p>
+        <h1>文章不是库存，是判断的入口。</h1>
+        <p class="articles-lede">
+          这里已经同步首批《清醒时刻》和《落地志》。文章负责把真实判断、产品过程和 AI 工作流沉淀成可搜索的长期资产。
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container category-grid">
+        {categories.map((category) => (
+          <a class="category-card" href={`/articles/category/${category.slug}`}>
+            <span class="meta">{category.slug}</span>
+            <h2>{category.title}</h2>
+            <p>{category.desc}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">最新文章</h2>
+        {publishedArticles.length > 0 ? (
+          <div class="article-list">
+            {publishedArticles.map((article) => (
+              <a class="article-row" href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}>
+                <span class="meta">{article.data.seriesTitle ?? article.data.category}</span>
+                <h3>{article.data.title}</h3>
+                <p>{article.data.description}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h3>这个栏目还在整理中</h3>
+            <p>
+              公开文章会先完成来源登记、公开审核和元数据整理。审核通过后，文章会自动出现在这里。
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .articles-hero {
+    padding: clamp(56px, 8vw, 96px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .articles-hero h1 {
+    font-size: clamp(2.1rem, 5vw, 4.3rem);
+    max-width: 820px;
+  }
+
+  .articles-lede {
+    color: var(--grey);
+    font-size: clamp(1.04rem, 1.7vw, 1.22rem);
+  }
+
+  .category-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .category-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    color: var(--ink);
+    min-height: 210px;
+    padding: clamp(20px, 3vw, 30px);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .category-card:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .category-card:first-child .meta,
+  .category-card:first-child p {
+    color: rgba(245, 241, 233, 0.74);
+  }
+
+  .category-card:hover,
+  .article-row:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .category-card:first-child:hover {
+    color: var(--paper);
+  }
+
+  .category-card h2 {
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    margin-top: 2rem;
+  }
+
+  .category-card p {
+    color: var(--grey);
+    margin-bottom: 0;
+  }
+
+  .article-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: var(--space-block);
+  }
+
+  .article-row {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    color: var(--ink);
+    display: block;
+    padding: clamp(20px, 3vw, 30px);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .article-row p,
+  .empty-state p {
+    color: var(--grey);
+  }
+
+  .empty-state {
+    background: rgba(212, 201, 191, 0.25);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    margin-top: var(--space-block);
+    padding: clamp(24px, 5vw, 48px);
+  }
+
+  @media (max-width: 900px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .category-card {
+      min-height: auto;
+    }
+  }
+</style>

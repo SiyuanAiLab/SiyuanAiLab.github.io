@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const projects = [
+  {
+    name: "赛博六爻",
+    type: "Demo / 可合作",
+    status: "程序可用，缺产品化包装",
+    desc: "Agent 模拟传统六爻起卦与解卦，也可以作为硬件玩具继续产品化。",
+    actions: ["体验", "关注", "谈合作"],
+  },
+  {
+    name: "军师 Skill",
+    type: "概念 / 开发中",
+    status: "概念阶段",
+    desc: "用 AI 辅助恋爱关系中的判断与沟通，当前只保留概念占位。",
+    actions: ["关注开发进展", "提供知识卡片建议"],
+  },
+  {
+    name: "更多项目占位",
+    type: "整理中",
+    status: "更多项目整理中",
+    desc: "后续只放 Demo、玩具和可体验项目，不把未成型想法包装成产品。",
+    actions: ["关注更新"],
+  },
+];
+---
+
+<Layout title="趣味展厅" description="思远 AI Lab 的趣味展厅，展示赛博六爻、军师 Skill 等玩具和实验想法。">
+  <Header />
+
+  <main class="site-main playground-page">
+    <section class="playground-hero" aria-labelledby="playground-title">
+      <div class="container">
+        <p class="kicker">趣味展厅</p>
+        <h1 id="playground-title">玩具与实验想法</h1>
+        <p class="hero-lede">
+          这些是我平时琢磨的小东西，有的只是一个概念，有的已经能跑。不一定有用，但可能有趣。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="toy-title">
+      <div class="container">
+        <p class="kicker">首期 Demo / 玩具</p>
+        <h2 id="toy-title" class="section-title">赛博六爻放在趣味展厅，也保留合作入口</h2>
+        <div class="toy-grid">
+          {projects.map(project => (
+            <article class="toy-card">
+              <p class="meta">{project.type}</p>
+              <h3>{project.name}</h3>
+              <p>{project.desc}</p>
+              <dl>
+                <div>
+                  <dt>当前状态</dt>
+                  <dd>{project.status}</dd>
+                </div>
+                <div>
+                  <dt>你可以做什么</dt>
+                  <dd>{project.actions.join(" / ")}</dd>
+                </div>
+              </dl>
+              <a href="/contact/" class="btn btn-outline">联系获取</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .playground-page {
+    overflow: hidden;
+  }
+
+  .playground-hero {
+    padding: clamp(64px, 9vw, 112px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .kicker,
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta {
+    font-size: 0.76rem;
+  }
+
+  .playground-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.8rem);
+    line-height: 1.08;
+    max-width: 860px;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    max-width: 720px;
+  }
+
+  .toy-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .toy-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    min-height: 390px;
+    padding: clamp(20px, 3vw, 30px);
+  }
+
+  .toy-card:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .toy-card:first-child p,
+  .toy-card:first-child dd,
+  .toy-card:first-child dt,
+  .toy-card:first-child .meta,
+  .toy-card:first-child .btn {
+    color: rgba(245, 241, 233, 0.78);
+  }
+
+  .toy-card p {
+    color: var(--grey);
+  }
+
+  .toy-card dl {
+    border-top: 1px solid var(--lead);
+    display: grid;
+    gap: 1rem;
+    margin: auto 0 1.4rem;
+    padding-top: 1rem;
+  }
+
+  .toy-card dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .toy-card dd {
+    color: var(--grey);
+    margin: 0.25rem 0 0;
+  }
+
+  .toy-card .btn {
+    align-self: flex-start;
+  }
+
+  @media (max-width: 900px) {
+    .toy-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .toy-card {
+      min-height: 0;
+    }
+  }
+</style>
