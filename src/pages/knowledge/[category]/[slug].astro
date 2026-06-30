@@ -1,0 +1,518 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const cards = await getCollection('knowledge');
+  const published = cards.filter((c) => c.data.public && !c.data.draft && c.data.category !== 'workflows');
+  return published.map((card) => ({
+    params: {
+      category: card.data.category,
+      slug: card.id.replace(/.*\//, '').replace(/\.mdx?$/, ''),
+    },
+    props: { card },
+  }));
+}
+
+const { card } = Astro.props;
+const { Content } = await render(card);
+
+const categoryLabels: Record<string, string> = {
+  concepts: 'AI 核心概念',
+  workflows: '场景工作流',
+  toolkits: '工具配置与选型',
+  career: '职业安全',
+  sources: '信源与标准',
+};
+
+const allCards = await getCollection('knowledge');
+const categoryCards = allCards
+  .filter((c) => c.data.category === card.data.category && c.data.public && !c.data.draft)
+  .sort((a, b) => {
+    const levelOrder = { '入门': 0, '进阶': 1, '深度': 2 };
+    const levelDiff = levelOrder[a.data.level] - levelOrder[b.data.level];
+    if (levelDiff !== 0) return levelDiff;
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  });
+
+const currentIndex = categoryCards.findIndex((c) => c.id === card.id);
+const prevCard = currentIndex > 0 ? categoryCards[currentIndex - 1] : null;
+const nextCard = currentIndex < categoryCards.length - 1 ? categoryCards[currentIndex + 1] : null;
+
+const otherCategories = Object.entries(categoryLabels)
+  .filter(([slug]) => slug !== card.data.category)
+  .map(([slug, title]) => ({ slug, title }));
+
+const verifiedDateStr = card.data.verifiedDate
+  ? new Date(card.data.verifiedDate).toLocaleDateString('zh-CN')
+  : '';
+
+function getSlugFromCard(c: typeof card): string {
+  return c.id.replace(/.*\//, '').replace(/\.mdx?$/, '');
+}
+---
+
+<Layout title={`${card.data.title} — ${categoryLabels[card.data.category]}`} description={card.data.description}>
+  <Header />
+
+  <main class="site-main card-page">
+    <div class="container two-pane">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <p class="kicker">{categoryLabels[card.data.category]}</p>
+          <h2>{categoryLabels[card.data.category]}</h2>
+        </div>
+
+        <details class="other-cats">
+          <summary>其他分类</summary>
+          <ul>
+            {otherCategories.map((oc) => (
+              <li><a href={`/knowledge/${oc.slug}/`}>{oc.title}</a></li>
+            ))}
+          </ul>
+        </details>
+
+        <nav class="card-nav">
+          <h3>卡片列表</h3>
+          <ul>
+            {categoryCards.map((c) => {
+              const slug = getSlugFromCard(c);
+              const isActive = c.id === card.id;
+              return (
+                <li>
+                  <a
+                    href={`/knowledge/${c.data.category}/${slug}/`}
+                    class={`card-link ${isActive ? 'active' : ''}`}
+                  >
+                    <span class="card-link-title">{c.data.title}</span>
+                    <span class="card-link-meta">
+                      <span class="level-tag">{c.data.level}</span>
+                      {c.data.tags.slice(0, 2).map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="main-content">
+        <header class="card-header">
+          <p class="kicker">{categoryLabels[card.data.category]} · {card.data.level}</p>
+          <h1>{card.data.title}</h1>
+          <div class="meta-row">
+            <span class="curated">{card.data.curated_by}</span>
+            {verifiedDateStr && <span>· {verifiedDateStr}</span>}
+            <span>· 置信度：{card.data.confidence}</span>
+          </div>
+          <div class="tags-row">
+            {card.data.tags.map((t) => (
+              <span class="tag">{t}</span>
+            ))}
+          </div>
+          <p class="description">{card.data.description}</p>
+        </header>
+
+        <div class="card-body">
+          <Content />
+        </div>
+
+        {(card.data.scenario || card.data.audience || card.data.action) && (
+          <div class="scenario-block">
+            <h3>适用场景与行动</h3>
+            {card.data.scenario && (
+              <p><strong>场景：</strong>{card.data.scenario}</p>
+            )}
+            {card.data.audience && (
+              <p><strong>适合谁：</strong>{card.data.audience}</p>
+            )}
+            {card.data.action && (
+              <p><strong>下一步：</strong>{card.data.action}</p>
+            )}
+          </div>
+        )}
+
+        {card.data.related_cards.length > 0 && (
+          <div class="related-cards">
+            <h3>相关卡片</h3>
+            <ul>
+              {card.data.related_cards.map((rc) => (
+                <li>{rc}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="curator-cta">
+          <p>这张卡片由杨思远基于真实工作流和实测经验整理。</p>
+          <p>如发现信息过时或有误，可通过 <a href="/contact">/contact</a> 反馈。</p>
+        </div>
+
+        <nav class="bottom-nav">
+          <div class="nav-links">
+            {prevCard && (
+              <a href={`/knowledge/${prevCard.data.category}/${getSlugFromCard(prevCard)}/`} class="nav-prev">
+                ← 上一张：{prevCard.data.title}
+              </a>
+            )}
+            {nextCard && (
+              <a href={`/knowledge/${nextCard.data.category}/${getSlugFromCard(nextCard)}/`} class="nav-next">
+                下一张：{nextCard.data.title} →
+              </a>
+            )}
+          </div>
+          <a href="/knowledge/" class="btn btn-outline">返回知识库入口</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .card-page {
+    padding: clamp(32px, 5vw, 56px) 0;
+  }
+
+  .two-pane {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    border-right: 1px solid var(--lead);
+    padding-right: 24px;
+  }
+
+  .sidebar-header .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .other-cats {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+  }
+
+  .other-cats summary {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--grey);
+  }
+
+  .other-cats ul {
+    list-style: none;
+    padding: 0.75rem 0 0 0;
+    margin: 0;
+  }
+
+  .other-cats li {
+    padding: 0.35rem 0;
+  }
+
+  .other-cats a {
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .other-cats a:hover {
+    color: var(--accent);
+  }
+
+  .card-nav h3 {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    color: var(--grey);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card-nav li {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .card-link:hover,
+  .card-link.active {
+    border-color: var(--accent);
+    background: rgba(192, 48, 48, 0.04);
+  }
+
+  .card-link.active .card-link-title {
+    color: var(--accent);
+  }
+
+  .card-link-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-link-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .card-header .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 1rem;
+  }
+
+  .meta-row {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--grey);
+    margin-bottom: 0.75rem;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: clamp(1.05rem, 2vw, 1.18rem);
+    color: var(--grey);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--lead);
+  }
+
+  .card-body {
+    max-width: var(--content-max);
+  }
+
+  .card-body :global(h2) {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--warm-grey);
+  }
+
+  .card-body :global(h3) {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-body :global(p),
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    margin-bottom: 1.25rem;
+  }
+
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    padding-left: 1.5rem;
+  }
+
+  .card-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .card-body :global(th),
+  .card-body :global(td) {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--lead);
+    text-align: left;
+  }
+
+  .card-body :global(th) {
+    background: rgba(26, 26, 26, 0.04);
+    font-weight: 700;
+  }
+
+  .card-body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-left: 0;
+    color: var(--grey);
+    font-style: italic;
+  }
+
+  .scenario-block {
+    background: rgba(26, 26, 26, 0.02);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    max-width: var(--content-max);
+  }
+
+  .scenario-block h3 {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .scenario-block p {
+    margin-bottom: 0.75rem;
+  }
+
+  .scenario-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-cards {
+    margin: 2rem 0;
+    max-width: var(--content-max);
+  }
+
+  .related-cards h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .related-cards ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-cards li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(184, 184, 184, 0.3);
+  }
+
+  .curator-cta {
+    background: rgba(26, 26, 26, 0.03);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 2.5rem 0;
+    max-width: var(--content-max);
+    font-size: 0.9rem;
+    color: var(--grey);
+  }
+
+  .curator-cta p {
+    margin-bottom: 0.5rem;
+  }
+
+  .curator-cta p:last-child {
+    margin-bottom: 0;
+  }
+
+  .curator-cta a {
+    color: var(--accent);
+  }
+
+  .bottom-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--lead);
+    max-width: var(--content-max);
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-prev,
+  .nav-next {
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .nav-next {
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    .two-pane {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      border-right: none;
+      border-bottom: 1px solid var(--lead);
+      padding-right: 0;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-nav li {
+      margin-bottom: 0;
+    }
+
+    .card-link {
+      padding: 0.4rem 0.6rem;
+    }
+
+    .nav-links {
+      flex-direction: column;
+    }
+
+    .nav-next {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,217 @@
+---
+interface SearchItem {
+  id: string;
+  title: string;
+  title_en: string;
+  summary: string;
+  tags: string[];
+  url: string;
+  columnTitle?: string;
+  scenario?: string;
+}
+
+interface Props {
+  items: SearchItem[];
+  id?: string;
+  placeholder?: string;
+}
+
+const {
+  items,
+  id = `knowledge-search-${Math.random().toString(36).slice(2)}`,
+  placeholder = '搜索 AI 概念、英文名、标签',
+} = Astro.props;
+---
+
+<div class="knowledge-search" data-knowledge-search={id}>
+  <label class="search-label" for={`${id}-input`}>站内搜索</label>
+  <div class="search-box">
+    <input
+      id={`${id}-input`}
+      type="search"
+      placeholder={placeholder}
+      autocomplete="off"
+      data-search-input
+    />
+    <span class="search-mark">⌕</span>
+  </div>
+  <div class="search-results" data-search-results hidden></div>
+  <script type="application/json" data-search-index set:html={JSON.stringify(items)} />
+</div>
+
+<script is:inline>
+  (() => {
+    const roots = document.querySelectorAll('[data-knowledge-search]');
+
+    roots.forEach((root) => {
+      if (root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      const input = root.querySelector('[data-search-input]');
+      const results = root.querySelector('[data-search-results]');
+      const indexNode = root.querySelector('[data-search-index]');
+      const items = JSON.parse(indexNode.textContent || '[]');
+
+      const normalize = (value) => String(value || '').toLowerCase().trim();
+      const searchable = items.map((item) => ({
+        ...item,
+        haystack: normalize([
+          item.title,
+          item.title_en,
+          item.summary,
+          item.scenario,
+          ...(item.tags || []),
+        ].join(' ')),
+      }));
+
+      const close = () => {
+        results.hidden = true;
+        results.innerHTML = '';
+      };
+
+      const render = (query) => {
+        const needle = normalize(query);
+        if (!needle) {
+          close();
+          return;
+        }
+
+        const matches = searchable
+          .filter((item) => item.haystack.includes(needle))
+          .slice(0, 8);
+
+        results.hidden = false;
+        if (matches.length === 0) {
+          results.innerHTML = '<p class="search-empty">没有找到匹配词条。</p>';
+          return;
+        }
+
+        results.innerHTML = matches.map((item) => `
+          <a class="search-result" href="${item.url}">
+            <span class="result-title">${item.title}</span>
+            <span class="result-meta">${item.title_en}${item.columnTitle ? ` · ${item.columnTitle}` : ''}</span>
+            <span class="result-summary">${item.summary}</span>
+          </a>
+        `).join('');
+      };
+
+      input.addEventListener('input', (event) => render(event.target.value));
+      input.addEventListener('focus', (event) => render(event.target.value));
+
+      document.addEventListener('click', (event) => {
+        if (!root.contains(event.target)) close();
+      });
+
+      const initialQuery = new URLSearchParams(window.location.search).get('q');
+      if (initialQuery && !input.value) {
+        input.value = initialQuery;
+        render(initialQuery);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .knowledge-search {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    z-index: 8;
+  }
+
+  .search-label {
+    display: block;
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .search-box {
+    position: relative;
+  }
+
+  input {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(245, 241, 233, 0.94);
+    color: var(--ink);
+    font: inherit;
+    padding: 0.75rem 2.5rem 0.75rem 0.9rem;
+  }
+
+  input:focus {
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  .search-mark {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+
+  .search-results {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 0.45rem);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+    max-height: min(460px, 70vh);
+    overflow: auto;
+  }
+
+  .search-results :global(.search-result) {
+    display: block;
+    padding: 0.85rem 0.95rem;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 184, 184, 0.42);
+  }
+
+  .search-results :global(.search-result:last-child) {
+    border-bottom: 0;
+  }
+
+  .search-results :global(.search-result:hover) {
+    background: rgba(192, 48, 48, 0.04);
+    color: var(--ink);
+  }
+
+  .search-results :global(.result-title),
+  .search-results :global(.result-meta),
+  .search-results :global(.result-summary) {
+    display: block;
+  }
+
+  .search-results :global(.result-title) {
+    font-weight: 700;
+    margin-bottom: 0.12rem;
+  }
+
+  .search-results :global(.result-meta) {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .search-results :global(.result-summary),
+  .search-results :global(.search-empty) {
+    color: var(--grey);
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .search-results :global(.search-empty) {
+    margin: 0;
+    padding: 0.95rem;
+  }
+</style>

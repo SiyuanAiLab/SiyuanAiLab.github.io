@@ -1,0 +1,157 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import KnowledgeTree from '../../../../components/KnowledgeTree.astro';
+import knowledgeData from '../../../../data/knowledge-cards.json';
+
+export function getStaticPaths() {
+  return knowledgeData.columns.map((column) => ({
+    params: { subcategory: column.id },
+  }));
+}
+
+const { subcategory } = Astro.params;
+const column = knowledgeData.columns.find((item) => item.id === subcategory);
+const cards = knowledgeData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+const columnCards = cards.filter((card) => card.column === subcategory);
+---
+
+<Layout title={`${column?.title ?? 'AI 核心概念'} — AI 核心概念`} description={`思远 AI Lab 知识库：${column?.description ?? 'AI 核心概念子分类'}`}>
+  <Header />
+
+  <main class="site-main ai-core-page">
+    <div class="container knowledge-layout">
+      <KnowledgeTree columns={knowledgeData.columns} cards={cards} activeSubcategory={subcategory} />
+
+      <section class="main-content">
+        <p class="kicker">{column?.title_en}</p>
+        <h1>{column?.title}</h1>
+        <p class="lede">{column?.description}</p>
+        <p class="count-line">共 {columnCards.length} 张词条卡片</p>
+
+        <div class="card-grid-local">
+          {columnCards.map((card) => (
+            <a class="knowledge-card" href={`/knowledge/ai-core/${card.column}/${card.slug}/`}>
+              <span class="card-id">{card.id}</span>
+              <h2>{card.title}</h2>
+              <p class="title-en">{card.title_en}</p>
+              <p>{card.summary}</p>
+              <div class="tag-row">
+                {card.tags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .ai-core-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
+  .knowledge-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .kicker,
+  .card-id {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .kicker {
+    letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    max-width: 760px;
+  }
+
+  .lede {
+    color: var(--grey);
+    font-size: clamp(1.02rem, 2vw, 1.16rem);
+    max-width: 720px;
+    margin-bottom: 0.6rem;
+  }
+
+  .count-line {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-grid-local {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1rem;
+  }
+
+  .knowledge-card {
+    display: block;
+    min-height: 230px;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(245, 241, 233, 0.72);
+    padding: 1.1rem;
+    text-decoration: none;
+  }
+
+  .knowledge-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+  }
+
+  .card-id {
+    display: block;
+    margin-bottom: 0.65rem;
+  }
+
+  .knowledge-card h2 {
+    font-size: 1.18rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .knowledge-card p {
+    color: var(--grey);
+    font-size: 0.92rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .knowledge-card .title-en {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .knowledge-layout {
+      display: block;
+    }
+  }
+</style>

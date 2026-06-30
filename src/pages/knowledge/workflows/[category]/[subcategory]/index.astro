@@ -1,0 +1,180 @@
+---
+import Layout from '../../../../../layouts/Layout.astro';
+import Header from '../../../../../components/Header.astro';
+import Footer from '../../../../../components/Footer.astro';
+import WorkflowTree from '../../../../../components/WorkflowTree.astro';
+import workflowData from '../../../../../data/workflow-cards.json';
+
+export function getStaticPaths() {
+  return workflowData.categories.flatMap((category) =>
+    category.subcategories.map((subcategory) => ({
+      params: {
+        category: category.id,
+        subcategory: subcategory.id,
+      },
+    })),
+  );
+}
+
+const { category, subcategory } = Astro.params;
+const currentCategory = workflowData.categories.find((item) => item.id === category);
+const currentSubcategory = currentCategory?.subcategories.find((item) => item.id === subcategory);
+const cards = workflowData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+const subcategoryCards = cards.filter((card) => card.category === category && card.subcategory === subcategory);
+---
+
+<Layout title={`${currentSubcategory?.title ?? '工作流'} — 工作流专栏`} description={currentSubcategory?.description ?? '思远 AI Lab 工作流专栏列表页'}>
+  <Header />
+
+  <main class="site-main workflow-page">
+    <div class="container workflow-layout">
+      <WorkflowTree
+        categories={workflowData.categories}
+        cards={cards}
+        activeCategory={category}
+        activeSubcategory={subcategory}
+      />
+
+      <section class="main-content">
+        <p class="kicker">{currentCategory?.title} · {currentSubcategory?.title_en}</p>
+        <h1>{currentSubcategory?.title}</h1>
+        <p class="lede">{currentSubcategory?.description}</p>
+        <p class="count-line">当前公开卡片 {subcategoryCards.length} 张</p>
+
+        {subcategoryCards.length > 0 ? (
+          <div class="card-grid-local">
+            {subcategoryCards.map((card) => (
+              <a class="workflow-card" href={`/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}>
+                <span class="card-id">{card.id} · {card.type ?? '工作流解读'} · {card.scenario}</span>
+                <h2>{card.title}</h2>
+                <p class="title-en">{card.title_en}</p>
+                <p>{card.summary}</p>
+                <div class="tag-row">
+                  {card.tags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h2>当前分类暂无公开卡片</h2>
+            <p>这个分类的目录已经就位，后续内容入库后会在这里展示工作流解读卡。</p>
+          </div>
+        )}
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .workflow-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
+  .workflow-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .kicker,
+  .card-id {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .kicker {
+    letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    max-width: 760px;
+  }
+
+  .lede {
+    color: var(--grey);
+    font-size: clamp(1.02rem, 2vw, 1.16rem);
+    max-width: 720px;
+    margin-bottom: 0.6rem;
+  }
+
+  .count-line {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-grid-local {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1rem;
+  }
+
+  .workflow-card,
+  .empty-state {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(245, 241, 233, 0.72);
+    padding: 1.1rem;
+  }
+
+  .workflow-card {
+    display: block;
+    min-height: 240px;
+    text-decoration: none;
+  }
+
+  .workflow-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+  }
+
+  .card-id {
+    display: block;
+    margin-bottom: 0.65rem;
+  }
+
+  .workflow-card h2 {
+    font-size: 1.18rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .workflow-card p,
+  .empty-state p {
+    color: var(--grey);
+    font-size: 0.92rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .workflow-card .title-en {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .workflow-layout {
+      display: block;
+    }
+  }
+</style>

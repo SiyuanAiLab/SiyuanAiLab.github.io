@@ -1,0 +1,2754 @@
+{
+  "version": "2.1",
+  "updated_at": "2026-06-30",
+  "categories": [
+    {
+      "id": "infrastructure",
+      "title": "基础设施层",
+      "title_en": "Infrastructure",
+      "description": "Agent 运行所需的原子能力：打开网页、连接工具、读写文件、稳定调用 API。",
+      "subcategories": [
+        {
+          "id": "browser-automation",
+          "title": "浏览器自动化",
+          "title_en": "Browser Automation",
+          "description": "网页操作、表单填写、截图验证、网页 QA 和浏览器 Agent。"
+        },
+        {
+          "id": "mcp-tools",
+          "title": "MCP 工具",
+          "title_en": "MCP Tools",
+          "description": "用标准接口连接文件、数据库、GitHub、Slack、Notion 和搜索工具。"
+        },
+        {
+          "id": "filesystem-local",
+          "title": "文件系统与本地执行",
+          "title_en": "Filesystem & Local Execution",
+          "description": "文件读写、CLI 执行、批处理、文档转换和本地材料处理。"
+        },
+        {
+          "id": "api-tool-routing",
+          "title": "API 网关与工具路由",
+          "title_en": "API Gateway & Tool Routing",
+          "description": "API wrapper、tool router、function calling、权限边界和多工具调度。"
+        }
+      ]
+    },
+    {
+      "id": "skill-forge",
+      "title": "Skill 生产线",
+      "title_en": "Skill Forge",
+      "description": "把一个场景想法加工成可复用、可测试、可交付 Skill 的生产线。",
+      "subcategories": [
+        {
+          "id": "goal-definition",
+          "title": "目标明确",
+          "title_en": "Goal Definition",
+          "description": "把模糊想法收束成明确目标，拆出任务边界、成功标准和风险点。"
+        },
+        {
+          "id": "skill-design",
+          "title": "Skill 设计",
+          "title_en": "Skill Design",
+          "description": "设计指令结构、输入输出、触发条件、目录结构和交付模板。"
+        },
+        {
+          "id": "implementation",
+          "title": "代码实现",
+          "title_en": "Implementation",
+          "description": "把 Skill 需要的脚本、工具依赖、CLI 和集成方式落地。"
+        },
+        {
+          "id": "testing-evaluation",
+          "title": "测试评估",
+          "title_en": "Testing & Evaluation",
+          "description": "用样例、失败条件、golden samples 和回归检查验证 Skill 是否稳定。"
+        }
+      ]
+    },
+    {
+      "id": "skill-library",
+      "title": "Skill 参考库",
+      "title_en": "Skill Library",
+      "description": "Agent 可参考、可调用、可改造的能力合集，按企业服务和知识工作场景分类。",
+      "subcategories": [
+        {
+          "id": "writing-content",
+          "title": "写作与内容",
+          "title_en": "Writing & Content",
+          "description": "文章生成、标题优化、改写润色、一鱼多吃和内容排版。"
+        },
+        {
+          "id": "research-knowledge",
+          "title": "研究与知识",
+          "title_en": "Research & Knowledge",
+          "description": "网页摘要、论文阅读、知识库构建、标签化和资料归档。"
+        },
+        {
+          "id": "communication-collaboration",
+          "title": "沟通与协作",
+          "title_en": "Communication & Collaboration",
+          "description": "会议记录、邮件草稿、行动项提取、客户沟通和团队同步。"
+        },
+        {
+          "id": "product-project",
+          "title": "产品与项目",
+          "title_en": "Product & Project",
+          "description": "需求拆解、PRD 草稿、项目复盘、任务卡和路线图整理。"
+        },
+        {
+          "id": "data-analysis",
+          "title": "数据与分析",
+          "title_en": "Data & Analysis",
+          "description": "数据清洗、报表生成、可视化、趋势洞察和指标解释。"
+        },
+        {
+          "id": "creative-design",
+          "title": "创意与设计",
+          "title_en": "Creative & Design",
+          "description": "图像提示词、视频脚本、品牌概念、设计评审和视觉规范。"
+        },
+        {
+          "id": "business-marketing",
+          "title": "商业与营销",
+          "title_en": "Business & Marketing",
+          "description": "竞品分析、线索整理、销售话术、SEO 和营销文案。"
+        }
+      ]
+    },
+    {
+      "id": "agent-building",
+      "title": "Agent Building",
+      "title_en": "Agent Building",
+      "description": "从单 Agent + Skill 升级到多 Agent 协作的判断门槛和参考实现。",
+      "standard": "只收录有多步工作流、工作标准、Loop、Harness、工具链或通信机制的真 Agent；不收纯 persona、profile、curated list 或只有 system prompt 的仓库。",
+      "subcategories": [
+        {
+          "id": "multi-agent-frameworks",
+          "title": "多 Agent 框架",
+          "title_en": "Multi-agent Frameworks",
+          "description": "多 Agent 角色分工、任务分配、协作框架和参考实现。"
+        },
+        {
+          "id": "workflow-orchestration",
+          "title": "工作流编排",
+          "title_en": "Workflow Orchestration",
+          "description": "graph workflow、state machine、task routing、handoff 和状态管理。"
+        },
+        {
+          "id": "sub-agent-patterns",
+          "title": "Sub-agent 模式",
+          "title_en": "Sub-agent Patterns",
+          "description": "主 Agent 调度执行小组、specialist agents、review agents 和子线程协作。"
+        },
+        {
+          "id": "harness-evaluation",
+          "title": "Harness 与评估",
+          "title_en": "Harness & Evaluation",
+          "description": "eval harness、trace、回放、benchmark、guardrails 和验收机制。"
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "WF-001",
+      "slug": "infrastructure-browser-automation-design-research",
+      "title": "浏览器自动化参考：design research",
+      "title_en": "design-research",
+      "category": "infrastructure",
+      "subcategory": "browser-automation",
+      "type": "工具解读",
+      "summary": "一个 Claude Code 浏览器自动化研究 Skill，用 10 个专门 agent 分三轮审计网站设计，并合成结构化设计参考文档。",
+      "scenario": "浏览器自动化",
+      "level": "入门",
+      "tags": [
+        "浏览器自动化",
+        "Playwright",
+        "网页QA",
+        "Agent工具"
+      ],
+      "source_skill": {
+        "name": "design-research",
+        "author": "hamelsmu",
+        "url": "https://github.com/hamelsmu/design-research"
+      },
+      "related_concepts": [
+        "ai-core-27-tool-use-function-calling",
+        "ai-core-32-agentic-workflow"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-002",
+      "slug": "infrastructure-browser-automation-microsoft-playwright-mcp",
+      "title": "浏览器自动化参考：playwright mcp",
+      "title_en": "playwright-mcp",
+      "category": "infrastructure",
+      "subcategory": "browser-automation",
+      "type": "工具解读",
+      "summary": "Microsoft 维护的 Playwright MCP server，让 LLM 通过可访问性快照和结构化工具操作网页。",
+      "scenario": "浏览器自动化",
+      "level": "进阶",
+      "tags": [
+        "浏览器自动化",
+        "Playwright",
+        "网页QA",
+        "Agent工具"
+      ],
+      "source_skill": {
+        "name": "playwright-mcp",
+        "author": "microsoft",
+        "url": "https://github.com/microsoft/playwright-mcp"
+      },
+      "related_concepts": [
+        "ai-core-27-tool-use-function-calling",
+        "ai-core-32-agentic-workflow"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-003",
+      "slug": "infrastructure-browser-automation-mote",
+      "title": "浏览器自动化参考：mote",
+      "title_en": "mote",
+      "category": "infrastructure",
+      "subcategory": "browser-automation",
+      "type": "工具解读",
+      "summary": "一个 methodology-first 的浏览器自动化 Agent 框架，用 record → normalize → execute → validate 生命周期把人工流程变成可复用 preset。",
+      "scenario": "浏览器自动化",
+      "level": "入门",
+      "tags": [
+        "浏览器自动化",
+        "Playwright",
+        "网页QA",
+        "Agent工具"
+      ],
+      "source_skill": {
+        "name": "mote",
+        "author": "Te29",
+        "url": "https://github.com/Te29/mote"
+      },
+      "related_concepts": [
+        "ai-core-27-tool-use-function-calling",
+        "ai-core-32-agentic-workflow"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-004",
+      "slug": "infrastructure-browser-automation-playwright-mcp",
+      "title": "浏览器自动化参考：playwright mcp",
+      "title_en": "playwright-mcp",
+      "category": "infrastructure",
+      "subcategory": "browser-automation",
+      "type": "工具解读",
+      "summary": "一个把 Playwright MCP 部署到 Cloudflare Workers 和 Browser Rendering 上的远程浏览器自动化 server。",
+      "scenario": "浏览器自动化",
+      "level": "入门",
+      "tags": [
+        "浏览器自动化",
+        "Playwright",
+        "网页QA",
+        "Agent工具"
+      ],
+      "source_skill": {
+        "name": "playwright-mcp",
+        "author": "cloudflare",
+        "url": "https://github.com/cloudflare/playwright-mcp"
+      },
+      "related_concepts": [
+        "ai-core-27-tool-use-function-calling",
+        "ai-core-32-agentic-workflow"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-005",
+      "slug": "infrastructure-browser-automation-vibetest-use",
+      "title": "浏览器自动化参考：vibetest use",
+      "title_en": "vibetest-use",
+      "category": "infrastructure",
+      "subcategory": "browser-automation",
+      "type": "工具解读",
+      "summary": "一个 MCP QA 工具，用多个 Browser-Use agent 并行检查网站 UI、链接、可访问性和技术问题。",
+      "scenario": "浏览器自动化",
+      "level": "入门",
+      "tags": [
+        "浏览器自动化",
+        "Playwright",
+        "网页QA",
+        "Agent工具"
+      ],
+      "source_skill": {
+        "name": "vibetest-use",
+        "author": "browser-use",
+        "url": "https://github.com/browser-use/vibetest-use"
+      },
+      "related_concepts": [
+        "ai-core-27-tool-use-function-calling",
+        "ai-core-32-agentic-workflow"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-006",
+      "slug": "infrastructure-mcp-tools-fastmcp",
+      "title": "MCP 工具参考：fastmcp",
+      "title_en": "fastmcp",
+      "category": "infrastructure",
+      "subcategory": "mcp-tools",
+      "type": "工具解读",
+      "summary": "一个 Pythonic 的 MCP server/client/app 框架，用函数声明生成工具、资源、提示词和协议生命周期。",
+      "scenario": "MCP 工具",
+      "level": "进阶",
+      "tags": [
+        "MCP",
+        "工具接口",
+        "Agent工具",
+        "协议生态"
+      ],
+      "source_skill": {
+        "name": "fastmcp",
+        "author": "PrefectHQ",
+        "url": "https://github.com/PrefectHQ/fastmcp"
+      },
+      "related_concepts": [
+        "ai-core-31-model-context-protocol",
+        "ai-core-27-tool-use-function-calling"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-007",
+      "slug": "infrastructure-mcp-tools-figma-context-mcp",
+      "title": "MCP 工具参考：Figma Context MCP",
+      "title_en": "Figma-Context-MCP",
+      "category": "infrastructure",
+      "subcategory": "mcp-tools",
+      "type": "工具解读",
+      "summary": "一个 Figma MCP server，把设计文件裁剪成适合 coding agent 使用的布局、样式和图片上下文。",
+      "scenario": "MCP 工具",
+      "level": "进阶",
+      "tags": [
+        "MCP",
+        "工具接口",
+        "Agent工具",
+        "协议生态"
+      ],
+      "source_skill": {
+        "name": "Figma-Context-MCP",
+        "author": "GLips",
+        "url": "https://github.com/GLips/Figma-Context-MCP"
+      },
+      "related_concepts": [
+        "ai-core-31-model-context-protocol",
+        "ai-core-27-tool-use-function-calling"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-008",
+      "slug": "infrastructure-mcp-tools-github-mcp-server",
+      "title": "MCP 工具参考：github mcp server",
+      "title_en": "github-mcp-server",
+      "category": "infrastructure",
+      "subcategory": "mcp-tools",
+      "type": "工具解读",
+      "summary": "GitHub 官方 MCP Server，把仓库、代码、Issue、PR、Actions、安全告警和团队协作能力接入 Agent。",
+      "scenario": "MCP 工具",
+      "level": "进阶",
+      "tags": [
+        "MCP",
+        "工具接口",
+        "Agent工具",
+        "协议生态"
+      ],
+      "source_skill": {
+        "name": "github-mcp-server",
+        "author": "github",
+        "url": "https://github.com/github/github-mcp-server"
+      },
+      "related_concepts": [
+        "ai-core-31-model-context-protocol",
+        "ai-core-27-tool-use-function-calling"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-009",
+      "slug": "infrastructure-mcp-tools-mcp-toolbox",
+      "title": "MCP 工具参考：mcp toolbox",
+      "title_en": "mcp-toolbox",
+      "category": "infrastructure",
+      "subcategory": "mcp-tools",
+      "type": "工具解读",
+      "summary": "Google 开源的数据库 MCP server 和自定义工具框架，把数据库访问、预置工具、结构化查询和观测集中管理。",
+      "scenario": "MCP 工具",
+      "level": "进阶",
+      "tags": [
+        "MCP",
+        "工具接口",
+        "Agent工具",
+        "协议生态"
+      ],
+      "source_skill": {
+        "name": "mcp-toolbox",
+        "author": "googleapis",
+        "url": "https://github.com/googleapis/mcp-toolbox"
+      },
+      "related_concepts": [
+        "ai-core-31-model-context-protocol",
+        "ai-core-27-tool-use-function-calling"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-010",
+      "slug": "infrastructure-mcp-tools-servers",
+      "title": "MCP 工具参考：servers",
+      "title_en": "servers",
+      "category": "infrastructure",
+      "subcategory": "mcp-tools",
+      "type": "工具解读",
+      "summary": "MCP 官方/参考 server 集合，用 Everything、Fetch、Filesystem、Git、Memory、Sequential Thinking、Time 等示例展示协议能力和 SDK 用法。",
+      "scenario": "MCP 工具",
+      "level": "进阶",
+      "tags": [
+        "MCP",
+        "工具接口",
+        "Agent工具",
+        "协议生态"
+      ],
+      "source_skill": {
+        "name": "servers",
+        "author": "modelcontextprotocol",
+        "url": "https://github.com/modelcontextprotocol/servers"
+      },
+      "related_concepts": [
+        "ai-core-31-model-context-protocol",
+        "ai-core-27-tool-use-function-calling"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-011",
+      "slug": "infrastructure-filesystem-local-document-parser-agent",
+      "title": "文件系统与本地执行参考：Document Parser Agent",
+      "title_en": "Document-Parser-Agent",
+      "category": "infrastructure",
+      "subcategory": "filesystem-local",
+      "type": "工具解读",
+      "summary": "一个针对产品更新 Excel 的专用解析 Agent，把多月 worksheet 拆分、LLM 抽取为 JSON，再合并成年度/功能矩阵。",
+      "scenario": "文件系统与本地执行",
+      "level": "入门",
+      "tags": [
+        "文件系统",
+        "本地执行",
+        "文档处理",
+        "CLI"
+      ],
+      "source_skill": {
+        "name": "Document-Parser-Agent",
+        "author": "Micheliliuv87",
+        "url": "https://github.com/Micheliliuv87/Document-Parser-Agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-012",
+      "slug": "infrastructure-filesystem-local-file-system-mcp-server",
+      "title": "文件系统与本地执行参考：file system mcp server",
+      "title_en": "file-system-mcp-server",
+      "category": "infrastructure",
+      "subcategory": "filesystem-local",
+      "type": "工具解读",
+      "summary": "一个基于 FastMCP 的本地文件系统工具 server，提供读写、复制、移动、搜索、目录和系统信息工具。",
+      "scenario": "文件系统与本地执行",
+      "level": "入门",
+      "tags": [
+        "文件系统",
+        "本地执行",
+        "文档处理",
+        "CLI"
+      ],
+      "source_skill": {
+        "name": "file-system-mcp-server",
+        "author": "calebmwelsh",
+        "url": "https://github.com/calebmwelsh/file-system-mcp-server"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-013",
+      "slug": "infrastructure-filesystem-local-filesys",
+      "title": "文件系统与本地执行参考：Filesys",
+      "title_en": "Filesys",
+      "category": "infrastructure",
+      "subcategory": "filesystem-local",
+      "type": "工具解读",
+      "summary": "一个只暴露安全目录中文件列表和读取能力的轻量 MCP server，并附带 Claude 工具客户端示例。",
+      "scenario": "文件系统与本地执行",
+      "level": "入门",
+      "tags": [
+        "文件系统",
+        "本地执行",
+        "文档处理",
+        "CLI"
+      ],
+      "source_skill": {
+        "name": "Filesys",
+        "author": "OmniS0FT",
+        "url": "https://github.com/OmniS0FT/Filesys"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-014",
+      "slug": "infrastructure-filesystem-local-openmoon-ai",
+      "title": "文件系统与本地执行参考：openmoon ai",
+      "title_en": "openmoon-ai",
+      "category": "infrastructure",
+      "subcategory": "filesystem-local",
+      "type": "工具解读",
+      "summary": "一个本地优先的 macOS 系统 Agent，用 Tauri、MCP host、审批卡和审计日志执行多步桌面/文件/系统任务。",
+      "scenario": "文件系统与本地执行",
+      "level": "入门",
+      "tags": [
+        "文件系统",
+        "本地执行",
+        "文档处理",
+        "CLI"
+      ],
+      "source_skill": {
+        "name": "openmoon-ai",
+        "author": "niceappspl",
+        "url": "https://github.com/niceappspl/openmoon-ai"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-015",
+      "slug": "infrastructure-filesystem-local-outline-sync",
+      "title": "文件系统与本地执行参考：outline sync",
+      "title_en": "outline-sync",
+      "category": "infrastructure",
+      "subcategory": "filesystem-local",
+      "type": "工具解读",
+      "summary": "一个 Outline 文档与本地文件系统双向同步工具，并提供 AI 标注、语义搜索和 MCP 文档工具。",
+      "scenario": "文件系统与本地执行",
+      "level": "入门",
+      "tags": [
+        "文件系统",
+        "本地执行",
+        "文档处理",
+        "CLI"
+      ],
+      "source_skill": {
+        "name": "outline-sync",
+        "author": "kingston",
+        "url": "https://github.com/kingston/outline-sync"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-016",
+      "slug": "infrastructure-api-tool-routing-ai",
+      "title": "API 网关与工具路由参考：ai",
+      "title_en": "ai",
+      "category": "infrastructure",
+      "subcategory": "api-tool-routing",
+      "type": "工具解读",
+      "summary": "一个面向 TypeScript 应用和 Agent 的统一模型调用层，把模型、工具调用、结构化输出和 UI 流式响应放在同一套接口里。",
+      "scenario": "API 网关与工具路由",
+      "level": "进阶",
+      "tags": [
+        "API网关",
+        "工具路由",
+        "function calling",
+        "权限边界"
+      ],
+      "source_skill": {
+        "name": "ai",
+        "author": "vercel",
+        "url": "https://github.com/vercel/ai"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-017",
+      "slug": "infrastructure-api-tool-routing-composio",
+      "title": "API 网关与工具路由参考：composio",
+      "title_en": "composio",
+      "category": "infrastructure",
+      "subcategory": "api-tool-routing",
+      "type": "工具解读",
+      "summary": "一个把第三方 SaaS 动作、认证和不同 Agent 框架适配封装起来的工具连接层。",
+      "scenario": "API 网关与工具路由",
+      "level": "进阶",
+      "tags": [
+        "API网关",
+        "工具路由",
+        "function calling",
+        "权限边界"
+      ],
+      "source_skill": {
+        "name": "composio",
+        "author": "ComposioHQ",
+        "url": "https://github.com/ComposioHQ/composio"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-018",
+      "slug": "infrastructure-api-tool-routing-gateway",
+      "title": "API 网关与工具路由参考：gateway",
+      "title_en": "gateway",
+      "category": "infrastructure",
+      "subcategory": "api-tool-routing",
+      "type": "工具解读",
+      "summary": "一个 OpenAI 兼容的 LLM 网关，把模型路由、重试、fallback、负载均衡、guardrails、日志和 MCP 网关集中到一层。",
+      "scenario": "API 网关与工具路由",
+      "level": "进阶",
+      "tags": [
+        "API网关",
+        "工具路由",
+        "function calling",
+        "权限边界"
+      ],
+      "source_skill": {
+        "name": "gateway",
+        "author": "Portkey-AI",
+        "url": "https://github.com/Portkey-AI/gateway"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-019",
+      "slug": "infrastructure-api-tool-routing-litellm",
+      "title": "API 网关与工具路由参考：litellm",
+      "title_en": "litellm",
+      "category": "infrastructure",
+      "subcategory": "api-tool-routing",
+      "type": "工具解读",
+      "summary": "一个把上百个模型供应商统一成 OpenAI 风格接口的 Python SDK 与代理网关。",
+      "scenario": "API 网关与工具路由",
+      "level": "进阶",
+      "tags": [
+        "API网关",
+        "工具路由",
+        "function calling",
+        "权限边界"
+      ],
+      "source_skill": {
+        "name": "litellm",
+        "author": "BerriAI",
+        "url": "https://github.com/BerriAI/litellm"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-020",
+      "slug": "infrastructure-api-tool-routing-petalflow",
+      "title": "API 网关与工具路由参考：petalflow",
+      "title_en": "petalflow",
+      "category": "infrastructure",
+      "subcategory": "api-tool-routing",
+      "type": "工具解读",
+      "summary": "一个用 Go 构建的轻量 Agent 工作流图运行时，把 LLM 步骤、工具、路由、webhook、调度和事件流编排成显式图。",
+      "scenario": "API 网关与工具路由",
+      "level": "入门",
+      "tags": [
+        "API网关",
+        "工具路由",
+        "function calling",
+        "权限边界"
+      ],
+      "source_skill": {
+        "name": "petalflow",
+        "author": "petal-labs",
+        "url": "https://github.com/petal-labs/petalflow"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-021",
+      "slug": "skill-forge-scene-analysis-activepieces",
+      "title": "目标明确参考：activepieces",
+      "title_en": "activepieces",
+      "category": "skill-forge",
+      "subcategory": "goal-definition",
+      "type": "Skill 解读",
+      "summary": "一个把业务自动化先拆成触发器、动作、分支、审批和可复用 Piece 的开源工作流平台，适合参考「想法如何被明确成可执行流程」。",
+      "scenario": "目标明确",
+      "level": "进阶",
+      "tags": [
+        "目标明确",
+        "可行性判断",
+        "Skill生产线"
+      ],
+      "source_skill": {
+        "name": "activepieces",
+        "author": "activepieces",
+        "url": "https://github.com/activepieces/activepieces"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-022",
+      "slug": "skill-forge-scene-analysis-agentic-config",
+      "title": "目标明确参考：agentic config",
+      "title_en": "agentic-config",
+      "category": "skill-forge",
+      "subcategory": "goal-definition",
+      "type": "Skill 解读",
+      "summary": "一个用 pi packages 和 Claude Code plugins 分发 Agent 工作流配置的仓库，重点是把团队级自动化拆成可组合、可固定版本的配置包。",
+      "scenario": "目标明确",
+      "level": "入门",
+      "tags": [
+        "目标明确",
+        "可行性判断",
+        "Skill生产线"
+      ],
+      "source_skill": {
+        "name": "agentic-config",
+        "author": "WaterplanAI",
+        "url": "https://github.com/WaterplanAI/agentic-config"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-023",
+      "slug": "skill-forge-scene-analysis-bot-with-plan",
+      "title": "目标明确参考：bot with plan",
+      "title_en": "bot-with-plan",
+      "category": "skill-forge",
+      "subcategory": "goal-definition",
+      "type": "Skill 解读",
+      "summary": "一个把 ReAct Agent 的「规划」和「函数调用」拆开的实验项目，用来判断任务是否应该先训练/约束 planner，而不是直接让模型调用工具。",
+      "scenario": "目标明确",
+      "level": "入门",
+      "tags": [
+        "目标明确",
+        "可行性判断",
+        "Skill生产线"
+      ],
+      "source_skill": {
+        "name": "bot-with-plan",
+        "author": "krasserm",
+        "url": "https://github.com/krasserm/bot-with-plan"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-024",
+      "slug": "skill-forge-scene-analysis-m8m",
+      "title": "目标明确参考：m8m",
+      "title_en": "m8m",
+      "category": "skill-forge",
+      "subcategory": "goal-definition",
+      "type": "Skill 解读",
+      "summary": "一个用 Next.js、tRPC、Prisma 和 Kafka 做的 AI 工作流自动化平台，适合参考「流程目标如何被建模成节点、边和执行记录」。",
+      "scenario": "目标明确",
+      "level": "入门",
+      "tags": [
+        "目标明确",
+        "可行性判断",
+        "Skill生产线"
+      ],
+      "source_skill": {
+        "name": "m8m",
+        "author": "rohitdevsol",
+        "url": "https://github.com/rohitdevsol/m8m"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-025",
+      "slug": "skill-forge-scene-analysis-workflow-builder-template",
+      "title": "目标明确参考：workflow builder template",
+      "title_en": "workflow-builder-template",
+      "category": "skill-forge",
+      "subcategory": "goal-definition",
+      "type": "Skill 解读",
+      "summary": "一个 Vercel 出品的 AI 工作流 Builder 模板，把自然语言生成、可视化配置、真实集成、执行日志和 TypeScript 代码生成放在同一套应用里。",
+      "scenario": "目标明确",
+      "level": "进阶",
+      "tags": [
+        "目标明确",
+        "可行性判断",
+        "Skill生产线"
+      ],
+      "source_skill": {
+        "name": "workflow-builder-template",
+        "author": "vercel-labs",
+        "url": "https://github.com/vercel-labs/workflow-builder-template"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-026",
+      "slug": "skill-forge-design-agricidaniel-skill-forge",
+      "title": "Skill 设计参考：skill forge",
+      "title_en": "skill-forge",
+      "category": "skill-forge",
+      "subcategory": "skill-design",
+      "type": "Skill 解读",
+      "summary": "一个面向 Claude Code 的 Skill 生产系统，把规划、搭建、评审、演进、发布、转换、评估和 benchmark 做成一组分工明确的技能与脚本。",
+      "scenario": "Skill 设计",
+      "level": "入门",
+      "tags": [
+        "Skill设计",
+        "模板化",
+        "指令结构",
+        "能力封装"
+      ],
+      "source_skill": {
+        "name": "skill-forge",
+        "author": "AgriciDaniel",
+        "url": "https://github.com/AgriciDaniel/skill-forge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "外部系统集成需保留人工确认，本卡只保留方法论参考。"
+      ]
+    },
+    {
+      "id": "WF-027",
+      "slug": "skill-forge-design-bmad-module-skill-forge",
+      "title": "Skill 设计参考：bmad module skill forge",
+      "title_en": "bmad-module-skill-forge",
+      "category": "skill-forge",
+      "subcategory": "skill-design",
+      "type": "Skill 解读",
+      "summary": "一个把代码、文档和开发者讨论编译成「可溯源 AI 指令文件」的 BMAD 模块，核心是让每条 API 用法都有上游证据。",
+      "scenario": "Skill 设计",
+      "level": "入门",
+      "tags": [
+        "Skill设计",
+        "模板化",
+        "指令结构",
+        "能力封装"
+      ],
+      "source_skill": {
+        "name": "bmad-module-skill-forge",
+        "author": "armelhbobdad",
+        "url": "https://github.com/armelhbobdad/bmad-module-skill-forge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-028",
+      "slug": "skill-forge-design-github-skill-forge",
+      "title": "Skill 设计参考：github skill forge",
+      "title_en": "github-skill-forge",
+      "category": "skill-forge",
+      "subcategory": "skill-design",
+      "type": "Skill 解读",
+      "summary": "一个面向 Trae 的轻量 GitHub 仓库转技能工具，用 GitHub API 抓取仓库并打包成 AI 可读的上下文 bundle。",
+      "scenario": "Skill 设计",
+      "level": "入门",
+      "tags": [
+        "Skill设计",
+        "模板化",
+        "指令结构",
+        "能力封装"
+      ],
+      "source_skill": {
+        "name": "github-skill-forge",
+        "author": "YuJunZhiXue",
+        "url": "https://github.com/YuJunZhiXue/github-skill-forge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-029",
+      "slug": "skill-forge-design-skill-forge",
+      "title": "Skill 设计参考：skill forge",
+      "title_en": "skill-forge",
+      "category": "skill-forge",
+      "subcategory": "skill-design",
+      "type": "Skill 解读",
+      "summary": "一个把本地实验技能整理成可安装、可信、可发布 Agent Skill 的后置工程工具，重点是校验、抽取、发布和多平台同步。",
+      "scenario": "Skill 设计",
+      "level": "入门",
+      "tags": [
+        "Skill设计",
+        "模板化",
+        "指令结构",
+        "能力封装"
+      ],
+      "source_skill": {
+        "name": "skill-forge",
+        "author": "motiful",
+        "url": "https://github.com/motiful/skill-forge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-030",
+      "slug": "skill-forge-design-skillforge",
+      "title": "Skill 设计参考：SkillForge",
+      "title_en": "SkillForge",
+      "category": "skill-forge",
+      "subcategory": "skill-design",
+      "type": "Skill 解读",
+      "summary": "一个把 Skill 创建方法论化的 Claude/Codex 技能，强调四阶段架构、11 个分析视角、XML 规格和多 Agent 一致通过。",
+      "scenario": "Skill 设计",
+      "level": "入门",
+      "tags": [
+        "Skill设计",
+        "模板化",
+        "指令结构",
+        "能力封装"
+      ],
+      "source_skill": {
+        "name": "SkillForge",
+        "author": "tripleyak",
+        "url": "https://github.com/tripleyak/SkillForge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-031",
+      "slug": "skill-forge-implementation-ai-architecture-toolkit",
+      "title": "代码实现参考：AI Architecture Toolkit",
+      "title_en": "AI-Architecture-Toolkit",
+      "category": "skill-forge",
+      "subcategory": "implementation",
+      "type": "Skill 解读",
+      "summary": "一个给企业/解决方案架构师使用的 agent、skill、template 仓库，展示了如何把专业交付物变成可复用技能模块和文档模板。",
+      "scenario": "代码实现",
+      "level": "入门",
+      "tags": [
+        "代码实现",
+        "脚手架",
+        "CLI",
+        "工具链"
+      ],
+      "source_skill": {
+        "name": "AI-Architecture-Toolkit",
+        "author": "Future-CX",
+        "url": "https://github.com/Future-CX/AI-Architecture-Toolkit"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-032",
+      "slug": "skill-forge-implementation-copa",
+      "title": "代码实现参考：copa",
+      "title_en": "copa",
+      "category": "skill-forge",
+      "subcategory": "implementation",
+      "type": "Skill 解读",
+      "summary": "一个 prompt 模板语言和 CLI，用占位符把本地文件、目录树、网页内容和子模板组合成可重复生成的结构化提示词。",
+      "scenario": "代码实现",
+      "level": "入门",
+      "tags": [
+        "代码实现",
+        "脚手架",
+        "CLI",
+        "工具链"
+      ],
+      "source_skill": {
+        "name": "copa",
+        "author": "romansky",
+        "url": "https://github.com/romansky/copa"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-033",
+      "slug": "skill-forge-implementation-cross-agent-skills-template",
+      "title": "代码实现参考：cross agent skills template",
+      "title_en": "cross-agent-skills-template",
+      "category": "skill-forge",
+      "subcategory": "implementation",
+      "type": "Skill 解读",
+      "summary": "一个跨 Antigravity、Codex、Gemini CLI、Claude Code 管理技能目录的模板仓库，把 skill catalog、manifest 和安装投影分开。",
+      "scenario": "代码实现",
+      "level": "入门",
+      "tags": [
+        "代码实现",
+        "脚手架",
+        "CLI",
+        "工具链"
+      ],
+      "source_skill": {
+        "name": "cross-agent-skills-template",
+        "author": "yammaku",
+        "url": "https://github.com/yammaku/cross-agent-skills-template"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-034",
+      "slug": "skill-forge-implementation-oh-my-taiyiforge",
+      "title": "代码实现参考：oh my taiyiforge",
+      "title_en": "oh-my-taiyiforge",
+      "category": "skill-forge",
+      "subcategory": "implementation",
+      "type": "Skill 解读",
+      "summary": "一个把 AI 编码流程实现成九阶段状态机和多终端通用命令的工程流水线，强调工件契约、人类门控和断点续传。",
+      "scenario": "代码实现",
+      "level": "入门",
+      "tags": [
+        "代码实现",
+        "脚手架",
+        "CLI",
+        "工具链"
+      ],
+      "source_skill": {
+        "name": "oh-my-taiyiforge",
+        "author": "Dong90",
+        "url": "https://github.com/Dong90/oh-my-taiyiforge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-035",
+      "slug": "skill-forge-implementation-skillforge-core",
+      "title": "代码实现参考：SkillForge Core",
+      "title_en": "SkillForge-Core",
+      "category": "skill-forge",
+      "subcategory": "implementation",
+      "type": "Skill 解读",
+      "summary": "一个本地优先的仓库蒸馏工作台，用 Web UI 把混杂文档扫描、证据抽取、能力聚类和 Skill 导出串成可审阅流水线。",
+      "scenario": "代码实现",
+      "level": "入门",
+      "tags": [
+        "代码实现",
+        "脚手架",
+        "CLI",
+        "工具链"
+      ],
+      "source_skill": {
+        "name": "SkillForge-Core",
+        "author": "wwyharry",
+        "url": "https://github.com/wwyharry/SkillForge-Core"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-036",
+      "slug": "skill-forge-evaluation-claw-bench",
+      "title": "测试评估参考：claw bench",
+      "title_en": "claw-bench",
+      "category": "skill-forge",
+      "subcategory": "testing-evaluation",
+      "type": "Skill 解读",
+      "summary": "一个让真实 AI Agent 直接完成任务、再用 pytest verifier 和加权检查点评分的公开 benchmark。",
+      "scenario": "测试评估",
+      "level": "入门",
+      "tags": [
+        "测试评估",
+        "eval",
+        "benchmark",
+        "回归检查"
+      ],
+      "source_skill": {
+        "name": "claw-bench",
+        "author": "claw-bench",
+        "url": "https://github.com/claw-bench/claw-bench"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-037",
+      "slug": "skill-forge-evaluation-clawbench",
+      "title": "测试评估参考：clawbench",
+      "title_en": "clawbench",
+      "category": "skill-forge",
+      "subcategory": "testing-evaluation",
+      "type": "Skill 解读",
+      "summary": "一个从执行 trace、可靠性、噪声和失败动力学诊断 Agent 的 benchmark，重点不是只看最终输出是否通过。",
+      "scenario": "测试评估",
+      "level": "入门",
+      "tags": [
+        "测试评估",
+        "eval",
+        "benchmark",
+        "回归检查"
+      ],
+      "source_skill": {
+        "name": "clawbench",
+        "author": "openclaw",
+        "url": "https://github.com/openclaw/clawbench"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "项目较新，成熟度待验证。"
+      ]
+    },
+    {
+      "id": "WF-038",
+      "slug": "skill-forge-evaluation-crab",
+      "title": "测试评估参考：crab",
+      "title_en": "crab",
+      "category": "skill-forge",
+      "subcategory": "testing-evaluation",
+      "type": "Skill 解读",
+      "summary": "一个 Python-first 的跨环境 Agent benchmark 框架，用 Action、Environment、Task、Evaluator 和 Benchmark 组织多模态具身任务。",
+      "scenario": "测试评估",
+      "level": "入门",
+      "tags": [
+        "测试评估",
+        "eval",
+        "benchmark",
+        "回归检查"
+      ],
+      "source_skill": {
+        "name": "crab",
+        "author": "camel-ai",
+        "url": "https://github.com/camel-ai/crab"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-039",
+      "slug": "skill-forge-evaluation-frontier-swe",
+      "title": "测试评估参考：frontier swe",
+      "title_en": "frontier-swe",
+      "category": "skill-forge",
+      "subcategory": "testing-evaluation",
+      "type": "Skill 解读",
+      "summary": "一个面向超长程高难软件工程任务的 benchmark，覆盖性能工程、计算科学和机器学习研究类真实问题。",
+      "scenario": "测试评估",
+      "level": "入门",
+      "tags": [
+        "测试评估",
+        "eval",
+        "benchmark",
+        "回归检查"
+      ],
+      "source_skill": {
+        "name": "frontier-swe",
+        "author": "Proximal-Labs",
+        "url": "https://github.com/Proximal-Labs/frontier-swe"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "基于公开 README 解读。"
+      ]
+    },
+    {
+      "id": "WF-040",
+      "slug": "skill-forge-evaluation-theagentcompany",
+      "title": "测试评估参考：TheAgentCompany",
+      "title_en": "TheAgentCompany",
+      "category": "skill-forge",
+      "subcategory": "testing-evaluation",
+      "type": "Skill 解读",
+      "summary": "一个模拟软件公司的 Agent benchmark，用 GitLab、Plane、ownCloud、RocketChat 等服务测试数字员工式任务。",
+      "scenario": "测试评估",
+      "level": "入门",
+      "tags": [
+        "测试评估",
+        "eval",
+        "benchmark",
+        "回归检查"
+      ],
+      "source_skill": {
+        "name": "TheAgentCompany",
+        "author": "TheAgentCompany",
+        "url": "https://github.com/TheAgentCompany/TheAgentCompany"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-041",
+      "slug": "skill-library-writing-ai-social-media-manager",
+      "title": "写作与内容参考：AI Social Media Manager",
+      "title_en": "AI-Social-Media-Manager",
+      "category": "skill-library",
+      "subcategory": "writing-content",
+      "type": "Skill 解读",
+      "summary": "它解决的是社媒团队从品牌资料到内容草稿、质量审核、审批流和排期预览之间的断层。输入包括品牌 profile、平台上下文、主题、竞品/趋势/分析数据；输出是结构化 content package、视觉 brief、hashtag、calend",
+      "scenario": "写作与内容",
+      "level": "入门",
+      "tags": [
+        "写作",
+        "内容改写",
+        "多平台内容",
+        "品牌声音"
+      ],
+      "source_skill": {
+        "name": "AI-Social-Media-Manager",
+        "author": "qurbaneliii",
+        "url": "https://github.com/qurbaneliii/AI-Social-Media-Manager"
+      },
+      "related_concepts": [
+        "ai-core-43-system-prompt",
+        "ai-core-17-prompt-engineering"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-042",
+      "slug": "skill-library-writing-content-repurposer-mvp",
+      "title": "写作与内容参考：content repurposer mvp",
+      "title_en": "content-repurposer-mvp",
+      "category": "skill-library",
+      "subcategory": "writing-content",
+      "type": "Skill 解读",
+      "summary": "一个 Streamlit 内容复用 MVP：把粘贴文本、上传文件或网页正文转换成 LinkedIn、X 和 Newsletter 变体，并导出 CSV。",
+      "scenario": "写作与内容",
+      "level": "入门",
+      "tags": [
+        "写作",
+        "内容改写",
+        "多平台内容",
+        "品牌声音"
+      ],
+      "source_skill": {
+        "name": "content-repurposer-mvp",
+        "author": "tdawe1",
+        "url": "https://github.com/tdawe1/content-repurposer-mvp"
+      },
+      "related_concepts": [
+        "ai-core-43-system-prompt",
+        "ai-core-17-prompt-engineering"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-043",
+      "slug": "skill-library-writing-content-repurposer-skill",
+      "title": "写作与内容参考：content repurposer skill",
+      "title_en": "content-repurposer-skill",
+      "category": "skill-library",
+      "subcategory": "writing-content",
+      "type": "Skill 解读",
+      "summary": "一个把同一技术观点分发到 LinkedIn、X、Newsletter、Substack、Medium 和 GitHub Pages 的 Claude Code 写作 Skill 组，核心资产是共享声音文件而不是平台提示词。",
+      "scenario": "写作与内容",
+      "level": "入门",
+      "tags": [
+        "写作",
+        "内容改写",
+        "多平台内容",
+        "品牌声音"
+      ],
+      "source_skill": {
+        "name": "content-repurposer-skill",
+        "author": "asadani",
+        "url": "https://github.com/asadani/content-repurposer-skill"
+      },
+      "related_concepts": [
+        "ai-core-43-system-prompt",
+        "ai-core-17-prompt-engineering"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-044",
+      "slug": "skill-library-writing-content-repurposer",
+      "title": "写作与内容参考：content repurposer",
+      "title_en": "content-repurposer",
+      "category": "skill-library",
+      "subcategory": "writing-content",
+      "type": "Skill 解读",
+      "summary": "一个从公开视频字幕抽取内容，再生成 LinkedIn、X thread、博客大纲和摘录 quote 的命令行工具。",
+      "scenario": "写作与内容",
+      "level": "入门",
+      "tags": [
+        "写作",
+        "内容改写",
+        "多平台内容",
+        "品牌声音"
+      ],
+      "source_skill": {
+        "name": "content-repurposer",
+        "author": "joemolto",
+        "url": "https://github.com/joemolto/content-repurposer"
+      },
+      "related_concepts": [
+        "ai-core-43-system-prompt",
+        "ai-core-17-prompt-engineering"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-045",
+      "slug": "skill-library-writing-lovpen-obsidian",
+      "title": "写作与内容参考：lovpen obsidian",
+      "title_en": "lovpen-obsidian",
+      "category": "skill-library",
+      "subcategory": "writing-content",
+      "type": "Skill 解读",
+      "summary": "一个 Obsidian 插件，把 Markdown 笔记实时渲染成适配微信、知乎、小红书和 X 的多平台发布稿。",
+      "scenario": "写作与内容",
+      "level": "入门",
+      "tags": [
+        "写作",
+        "内容改写",
+        "多平台内容",
+        "品牌声音"
+      ],
+      "source_skill": {
+        "name": "lovpen-obsidian",
+        "author": "MarkShawn2020",
+        "url": "https://github.com/MarkShawn2020/lovpen-obsidian"
+      },
+      "related_concepts": [
+        "ai-core-43-system-prompt",
+        "ai-core-17-prompt-engineering"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-046",
+      "slug": "skill-library-research-arxiv-sanity-bot",
+      "title": "研究与知识参考：arxiv sanity bot",
+      "title_en": "arxiv-sanity-bot",
+      "category": "skill-library",
+      "subcategory": "research-knowledge",
+      "type": "Skill 解读",
+      "summary": "一个定时抓取 AI/ML 热门论文、排序、总结、提取首图并发布到 X 的 GitHub Actions bot。",
+      "scenario": "研究与知识",
+      "level": "入门",
+      "tags": [
+        "研究",
+        "知识库",
+        "摘要",
+        "RAG"
+      ],
+      "source_skill": {
+        "name": "arxiv-sanity-bot",
+        "author": "giacomov",
+        "url": "https://github.com/giacomov/arxiv-sanity-bot"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-047",
+      "slug": "skill-library-research-headroom",
+      "title": "研究与知识参考：headroom",
+      "title_en": "headroom",
+      "category": "skill-library",
+      "subcategory": "research-knowledge",
+      "type": "Skill 解读",
+      "summary": "一个本地优先的 Agent 上下文压缩层，在工具输出、日志、RAG chunk 和文件进入 LLM 前做内容感知压缩，并可按需找回原文。",
+      "scenario": "研究与知识",
+      "level": "进阶",
+      "tags": [
+        "研究",
+        "知识库",
+        "摘要",
+        "RAG"
+      ],
+      "source_skill": {
+        "name": "headroom",
+        "author": "headroomlabs-ai",
+        "url": "https://github.com/headroomlabs-ai/headroom"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-048",
+      "slug": "skill-library-research-knowledge-base-builder",
+      "title": "研究与知识参考：knowledge base builder",
+      "title_en": "knowledge-base-builder",
+      "category": "skill-library",
+      "subcategory": "research-knowledge",
+      "type": "Skill 解读",
+      "summary": "一个 Python 包和 CLI，把网页、PDF、GitHub、YouTube、arXiv、RSS、Notebook、PPT 等多源材料抽取并合并成 Markdown、llms.txt 或 chunks。",
+      "scenario": "研究与知识",
+      "level": "入门",
+      "tags": [
+        "研究",
+        "知识库",
+        "摘要",
+        "RAG"
+      ],
+      "source_skill": {
+        "name": "knowledge-base-builder",
+        "author": "kostadindev",
+        "url": "https://github.com/kostadindev/knowledge-base-builder"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-049",
+      "slug": "skill-library-research-llmwiki",
+      "title": "研究与知识参考：llmwiki",
+      "title_en": "llmwiki",
+      "category": "skill-library",
+      "subcategory": "research-knowledge",
+      "type": "Skill 解读",
+      "summary": "一个 VS Code 扩展和 MCP Server，让 LLM 维护 `.wiki/raw -> wiki -> index/log` 的持久 Markdown 知识库。",
+      "scenario": "研究与知识",
+      "level": "入门",
+      "tags": [
+        "研究",
+        "知识库",
+        "摘要",
+        "RAG"
+      ],
+      "source_skill": {
+        "name": "llmwiki",
+        "author": "microsoft",
+        "url": "https://github.com/microsoft/llmwiki"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-050",
+      "slug": "skill-library-research-paper2md",
+      "title": "研究与知识参考：paper2md",
+      "title_en": "paper2md",
+      "category": "skill-library",
+      "subcategory": "research-knowledge",
+      "type": "Skill 解读",
+      "summary": "一个把学术 PDF 批量抽取、分块总结并汇总成结构化 Markdown 的论文上下文生成工具。",
+      "scenario": "研究与知识",
+      "level": "入门",
+      "tags": [
+        "研究",
+        "知识库",
+        "摘要",
+        "RAG"
+      ],
+      "source_skill": {
+        "name": "paper2md",
+        "author": "angelotc",
+        "url": "https://github.com/angelotc/paper2md"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-051",
+      "slug": "skill-library-communication-ai-meeting-assistant",
+      "title": "沟通与协作参考：ai meeting assistant",
+      "title_en": "ai-meeting-assistant",
+      "category": "skill-library",
+      "subcategory": "communication-collaboration",
+      "type": "Skill 解读",
+      "summary": "一个 FastAPI 会议智能后端，把 transcript 分析成摘要、决策、行动项、情绪、主题、风险、speaker、follow-up email，并支持搜索和导出。",
+      "scenario": "沟通与协作",
+      "level": "入门",
+      "tags": [
+        "会议纪要",
+        "行动项",
+        "协作",
+        "沟通"
+      ],
+      "source_skill": {
+        "name": "ai-meeting-assistant",
+        "author": "kanizmadix",
+        "url": "https://github.com/kanizmadix/ai-meeting-assistant"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "录音和转写须获得参会者知情同意。"
+      ]
+    },
+    {
+      "id": "WF-052",
+      "slug": "skill-library-communication-ai-meeting-notes-action-items-automator",
+      "title": "沟通与协作参考：AI Meeting Notes Action Items Automator",
+      "title_en": "AI-Meeting-Notes-Action-Items-Automator",
+      "category": "skill-library",
+      "subcategory": "communication-collaboration",
+      "type": "Skill 解读",
+      "summary": "一个 Next.js + Supabase 原型，把会议 transcript 或音频转成可追踪行动项仪表盘。",
+      "scenario": "沟通与协作",
+      "level": "入门",
+      "tags": [
+        "会议纪要",
+        "行动项",
+        "协作",
+        "沟通"
+      ],
+      "source_skill": {
+        "name": "AI-Meeting-Notes-Action-Items-Automator",
+        "author": "ChristosLeptokaropoulos",
+        "url": "https://github.com/ChristosLeptokaropoulos/AI-Meeting-Notes-Action-Items-Automator"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "录音和转写须获得参会者知情同意。"
+      ]
+    },
+    {
+      "id": "WF-053",
+      "slug": "skill-library-communication-ai-powered-meeting-summarizer",
+      "title": "沟通与协作参考：AI Powered Meeting Summarizer",
+      "title_en": "AI-Powered-Meeting-Summarizer",
+      "category": "skill-library",
+      "subcategory": "communication-collaboration",
+      "type": "Skill 解读",
+      "summary": "一个 Gradio 音频上传应用，用 whisper.cpp 本地转写会议录音，再通过 Ollama 本地模型生成摘要。",
+      "scenario": "沟通与协作",
+      "level": "入门",
+      "tags": [
+        "会议纪要",
+        "行动项",
+        "协作",
+        "沟通"
+      ],
+      "source_skill": {
+        "name": "AI-Powered-Meeting-Summarizer",
+        "author": "AlexisBalayre",
+        "url": "https://github.com/AlexisBalayre/AI-Powered-Meeting-Summarizer"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "录音和转写须获得参会者知情同意。"
+      ]
+    },
+    {
+      "id": "WF-054",
+      "slug": "skill-library-communication-amazon-chime-sdk-meeting-summarizer",
+      "title": "沟通与协作参考：amazon chime sdk meeting summarizer",
+      "title_en": "amazon-chime-sdk-meeting-summarizer",
+      "category": "skill-library",
+      "subcategory": "communication-collaboration",
+      "type": "Skill 解读",
+      "summary": "一个 AWS CDK 方案，部署跨平台会议 bot，结合 Chime SDK、Transcribe、Bedrock 和知识库生成转写、摘要、回放和聊天查询。",
+      "scenario": "沟通与协作",
+      "level": "入门",
+      "tags": [
+        "会议纪要",
+        "行动项",
+        "协作",
+        "沟通"
+      ],
+      "source_skill": {
+        "name": "amazon-chime-sdk-meeting-summarizer",
+        "author": "aws-samples",
+        "url": "https://github.com/aws-samples/amazon-chime-sdk-meeting-summarizer"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "录音和转写须获得参会者知情同意。"
+      ]
+    },
+    {
+      "id": "WF-055",
+      "slug": "skill-library-communication-meetingsummarizer",
+      "title": "沟通与协作参考：MeetingSummarizer",
+      "title_en": "MeetingSummarizer",
+      "category": "skill-library",
+      "subcategory": "communication-collaboration",
+      "type": "Skill 解读",
+      "summary": "一个本地桌面/CLI 会议录音工具，用 OpenAI Whisper 转写，再用 GPT-3.5 生成摘要。",
+      "scenario": "沟通与协作",
+      "level": "入门",
+      "tags": [
+        "会议纪要",
+        "行动项",
+        "协作",
+        "沟通"
+      ],
+      "source_skill": {
+        "name": "MeetingSummarizer",
+        "author": "rajpdus",
+        "url": "https://github.com/rajpdus/MeetingSummarizer"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "录音和转写须获得参会者知情同意。"
+      ]
+    },
+    {
+      "id": "WF-056",
+      "slug": "skill-library-product-project-everyone",
+      "title": "产品与项目参考：everyone",
+      "title_en": "everyone",
+      "category": "skill-library",
+      "subcategory": "product-project",
+      "type": "Skill 解读",
+      "summary": "一个面向产品经理的 AI Agent plugin/skill marketplace，聚合 PRD、ASCII 原型和 LLM Wiki 等 PM 工具。",
+      "scenario": "产品与项目",
+      "level": "入门",
+      "tags": [
+        "产品管理",
+        "PRD",
+        "需求分析",
+        "项目管理"
+      ],
+      "source_skill": {
+        "name": "everyone",
+        "author": "nixihz",
+        "url": "https://github.com/nixihz/everyone"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-057",
+      "slug": "skill-library-product-project-oh-my-pm",
+      "title": "产品与项目参考：oh my pm",
+      "title_en": "oh-my-pm",
+      "category": "skill-library",
+      "subcategory": "product-project",
+      "type": "Skill 解读",
+      "summary": "一个 Claude/Codex PM 工作流系统，用 5 层架构、20 个 skills、8 个 subagents 覆盖从需求感知到上线验证的产品生命周期。",
+      "scenario": "产品与项目",
+      "level": "入门",
+      "tags": [
+        "产品管理",
+        "PRD",
+        "需求分析",
+        "项目管理"
+      ],
+      "source_skill": {
+        "name": "oh-my-pm",
+        "author": "kelegele",
+        "url": "https://github.com/kelegele/oh-my-pm"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-058",
+      "slug": "skill-library-product-project-openrequirementsai",
+      "title": "产品与项目参考：OpenRequirementsAI",
+      "title_en": "OpenRequirementsAI",
+      "category": "skill-library",
+      "subcategory": "product-project",
+      "type": "Skill 解读",
+      "summary": "一个 DeFOSPAM 需求验证 Skill，用 7 个分析角色从定义、特性、结果、场景、预测、歧义和缺失七个角度审查需求。",
+      "scenario": "产品与项目",
+      "level": "入门",
+      "tags": [
+        "产品管理",
+        "PRD",
+        "需求分析",
+        "项目管理"
+      ],
+      "source_skill": {
+        "name": "OpenRequirementsAI",
+        "author": "AgenticTesting",
+        "url": "https://github.com/AgenticTesting/OpenRequirementsAI"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-059",
+      "slug": "skill-library-product-project-product-management-ai-agents",
+      "title": "产品与项目参考：product management ai agents",
+      "title_en": "product-management-ai-agents",
+      "category": "skill-library",
+      "subcategory": "product-project",
+      "type": "Skill 解读",
+      "summary": "一个 Cursor 产品管理工作区模板，用 `.cursor/rules`、context、frameworks 和 guides 组织 PM、GTM、Jira、Google Docs、PostHog 工作流。",
+      "scenario": "产品与项目",
+      "level": "入门",
+      "tags": [
+        "产品管理",
+        "PRD",
+        "需求分析",
+        "项目管理"
+      ],
+      "source_skill": {
+        "name": "product-management-ai-agents",
+        "author": "AdamGold",
+        "url": "https://github.com/AdamGold/product-management-ai-agents"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-060",
+      "slug": "skill-library-product-project-rana",
+      "title": "产品与项目参考：rana",
+      "title_en": "rana",
+      "category": "skill-library",
+      "subcategory": "product-project",
+      "type": "Skill 解读",
+      "summary": "一个 UX 需求分析 Skill，把 PM PRD、截图或需求清单转成设计师可用的结构化分析文档，并内置批判规则和质量 gate。",
+      "scenario": "产品与项目",
+      "level": "入门",
+      "tags": [
+        "产品管理",
+        "PRD",
+        "需求分析",
+        "项目管理"
+      ],
+      "source_skill": {
+        "name": "rana",
+        "author": "amumulam",
+        "url": "https://github.com/amumulam/rana"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-061",
+      "slug": "skill-library-data-analysis-claude-data-analysis",
+      "title": "数据与分析参考：claude data analysis",
+      "title_en": "claude-data-analysis",
+      "category": "skill-library",
+      "subcategory": "data-analysis",
+      "type": "Skill 解读",
+      "summary": "一个 Claude Code 数据分析工作区模板，用 sub-agents、slash commands 和 hooks 管理数据探索、可视化、代码生成、报告和质量检查。",
+      "scenario": "数据与分析",
+      "level": "入门",
+      "tags": [
+        "数据分析",
+        "Text-to-SQL",
+        "报表",
+        "可视化"
+      ],
+      "source_skill": {
+        "name": "claude-data-analysis",
+        "author": "liangdabiao",
+        "url": "https://github.com/liangdabiao/claude-data-analysis"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-062",
+      "slug": "skill-library-data-analysis-dbrheo-cli",
+      "title": "数据与分析参考：DbRheo CLI",
+      "title_en": "DbRheo-CLI",
+      "category": "skill-library",
+      "subcategory": "data-analysis",
+      "type": "Skill 解读",
+      "summary": "一个数据库/数据分析 CLI Agent，用自然语言探索 schema、生成安全 SQL、执行查询，并可运行 Python 分析和导出数据。",
+      "scenario": "数据与分析",
+      "level": "入门",
+      "tags": [
+        "数据分析",
+        "Text-to-SQL",
+        "报表",
+        "可视化"
+      ],
+      "source_skill": {
+        "name": "DbRheo-CLI",
+        "author": "Din829",
+        "url": "https://github.com/Din829/DbRheo-CLI"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-063",
+      "slug": "skill-library-data-analysis-langgraph-text-to-sql-agent",
+      "title": "数据与分析参考：langgraph text to sql agent",
+      "title_en": "langgraph-text-to-sql-agent",
+      "category": "skill-library",
+      "subcategory": "data-analysis",
+      "type": "Skill 解读",
+      "summary": "一个 LangGraph + Ollama 的本地 Text-to-SQL demo，用顺序节点把自然语言问题转成 SQL、执行并解释结果。",
+      "scenario": "数据与分析",
+      "level": "入门",
+      "tags": [
+        "数据分析",
+        "Text-to-SQL",
+        "报表",
+        "可视化"
+      ],
+      "source_skill": {
+        "name": "langgraph-text-to-sql-agent",
+        "author": "IshaanLabs",
+        "url": "https://github.com/IshaanLabs/langgraph-text-to-sql-agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-064",
+      "slug": "skill-library-data-analysis-reforce",
+      "title": "数据与分析参考：ReFoRCE",
+      "title_en": "ReFoRCE",
+      "category": "skill-library",
+      "subcategory": "data-analysis",
+      "type": "Skill 解读",
+      "summary": "一个研究级 Text-to-SQL Agent，通过数据库信息压缩、自我修正、多数投票和列探索处理复杂企业 schema。",
+      "scenario": "数据与分析",
+      "level": "入门",
+      "tags": [
+        "数据分析",
+        "Text-to-SQL",
+        "报表",
+        "可视化"
+      ],
+      "source_skill": {
+        "name": "ReFoRCE",
+        "author": "Snowflake-Labs",
+        "url": "https://github.com/Snowflake-Labs/ReFoRCE"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-065",
+      "slug": "skill-library-data-analysis-text-to-sql-agent",
+      "title": "数据与分析参考：text to sql agent",
+      "title_en": "text-to-sql-agent",
+      "category": "skill-library",
+      "subcategory": "data-analysis",
+      "type": "Skill 解读",
+      "summary": "一个 LangChain Text-to-SQL 教程仓库，用 Claude Sonnet、SQLDatabase 和 LangSmith trace 演示自然语言查询 Chinook SQLite。",
+      "scenario": "数据与分析",
+      "level": "入门",
+      "tags": [
+        "数据分析",
+        "Text-to-SQL",
+        "报表",
+        "可视化"
+      ],
+      "source_skill": {
+        "name": "text-to-sql-agent",
+        "author": "langchain-ai",
+        "url": "https://github.com/langchain-ai/text-to-sql-agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-066",
+      "slug": "skill-library-creative-design-ai-image-promptgenerator",
+      "title": "创意与设计参考：AI Image PromptGenerator",
+      "title_en": "AI-Image-PromptGenerator",
+      "category": "skill-library",
+      "subcategory": "creative-design",
+      "type": "Skill 解读",
+      "summary": "一个已归档的 Gradio/Python 图像提示词生成器，用关键词词典、模板、黑名单和导出格式组合 Stable Diffusion/Midjourney prompts。",
+      "scenario": "创意与设计",
+      "level": "入门",
+      "tags": [
+        "创意生成",
+        "设计辅助",
+        "图像提示词",
+        "设计评审"
+      ],
+      "source_skill": {
+        "name": "AI-Image-PromptGenerator",
+        "author": "526christian",
+        "url": "https://github.com/526christian/AI-Image-PromptGenerator"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-067",
+      "slug": "skill-library-creative-design-design-review-ai",
+      "title": "创意与设计参考：design review ai",
+      "title_en": "design-review-ai",
+      "category": "skill-library",
+      "subcategory": "creative-design",
+      "type": "Skill 解读",
+      "summary": "一个商品图审稿自动化脚本，监听产品文件夹，按 5 套图像审查 prompt 分析 infography 和 mobile banner，并生成 Word 报告/邮件。",
+      "scenario": "创意与设计",
+      "level": "入门",
+      "tags": [
+        "创意生成",
+        "设计辅助",
+        "图像提示词",
+        "设计评审"
+      ],
+      "source_skill": {
+        "name": "design-review-ai",
+        "author": "nityansh10",
+        "url": "https://github.com/nityansh10/design-review-ai"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "基于公开 README 解读。"
+      ]
+    },
+    {
+      "id": "WF-068",
+      "slug": "skill-library-creative-design-img-prompt",
+      "title": "创意与设计参考：img prompt",
+      "title_en": "img-prompt",
+      "category": "skill-library",
+      "subcategory": "creative-design",
+      "type": "Skill 解读",
+      "summary": "一个多语言 AI 图像/视频 prompt 编辑器，用 5000+ 原生语言标签生成模型可识别的英文提示词。",
+      "scenario": "创意与设计",
+      "level": "入门",
+      "tags": [
+        "创意生成",
+        "设计辅助",
+        "图像提示词",
+        "设计评审"
+      ],
+      "source_skill": {
+        "name": "img-prompt",
+        "author": "rockbenben",
+        "url": "https://github.com/rockbenben/img-prompt"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-069",
+      "slug": "skill-library-creative-design-interior-design-assistant-agent-skill",
+      "title": "创意与设计参考：interior design assistant agent skill",
+      "title_en": "interior-design-assistant-agent-skill",
+      "category": "skill-library",
+      "subcategory": "creative-design",
+      "type": "Skill 解读",
+      "summary": "一个室内设计分析 Skill，用风水、空间规划、色彩、人体工学和亲自然设计五维评分，并输出改造路线图。",
+      "scenario": "创意与设计",
+      "level": "入门",
+      "tags": [
+        "创意生成",
+        "设计辅助",
+        "图像提示词",
+        "设计评审"
+      ],
+      "source_skill": {
+        "name": "interior-design-assistant-agent-skill",
+        "author": "dungnotnull",
+        "url": "https://github.com/dungnotnull/interior-design-assistant-agent-skill"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-070",
+      "slug": "skill-library-creative-design-reactbits-design-assistant-agent",
+      "title": "创意与设计参考：reactbits design assistant agent",
+      "title_en": "reactbits-design-assistant-agent",
+      "category": "skill-library",
+      "subcategory": "creative-design",
+      "type": "Skill 解读",
+      "summary": "一个 ReactBits 专家 Agent，专门辅助选择动画组件、编排动效、控制性能预算和无障碍实现。",
+      "scenario": "创意与设计",
+      "level": "入门",
+      "tags": [
+        "创意生成",
+        "设计辅助",
+        "图像提示词",
+        "设计评审"
+      ],
+      "source_skill": {
+        "name": "reactbits-design-assistant-agent",
+        "author": "unobtuse",
+        "url": "https://github.com/unobtuse/reactbits-design-assistant-agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-071",
+      "slug": "skill-library-business-marketing-market-research-agent",
+      "title": "商业与营销参考：Market Research Agent",
+      "title_en": "Market-Research-Agent",
+      "category": "skill-library",
+      "subcategory": "business-marketing",
+      "type": "Skill 解读",
+      "summary": "一个 Streamlit + CrewAI 市场研究应用，用多个 agent 搜集公开信息并生成公司金融与市场分析报告。",
+      "scenario": "商业与营销",
+      "level": "入门",
+      "tags": [
+        "商业洞察",
+        "竞品分析",
+        "SEO",
+        "营销"
+      ],
+      "source_skill": {
+        "name": "Market-Research-Agent",
+        "author": "psrane8",
+        "url": "https://github.com/psrane8/Market-Research-Agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-072",
+      "slug": "skill-library-business-marketing-marketresearch-agent-multi-agent-ai-system",
+      "title": "商业与营销参考：MarketResearch Agent Multi Agent AI System",
+      "title_en": "MarketResearch-Agent-Multi-Agent-AI-System-",
+      "category": "skill-library",
+      "subcategory": "business-marketing",
+      "type": "Skill 解读",
+      "summary": "一个 CrewAI 市场情报系统原型，用 5 个 agent 和 Selenium/HTML 抓取生成市场规模、竞品和 GTM 报告。",
+      "scenario": "商业与营销",
+      "level": "入门",
+      "tags": [
+        "商业洞察",
+        "竞品分析",
+        "SEO",
+        "营销"
+      ],
+      "source_skill": {
+        "name": "MarketResearch-Agent-Multi-Agent-AI-System-",
+        "author": "moteprem4-web",
+        "url": "https://github.com/moteprem4-web/MarketResearch-Agent-Multi-Agent-AI-System-"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-073",
+      "slug": "skill-library-business-marketing-seo-ai-agent",
+      "title": "商业与营销参考：seo ai agent",
+      "title_en": "seo-ai-agent",
+      "category": "skill-library",
+      "subcategory": "business-marketing",
+      "type": "Skill 解读",
+      "summary": "一个为 Asendia AI 设计的低成本 SEO Agent，用关键词聚类、竞品审计、内容大纲和机会追踪替代昂贵 SEO 工具。",
+      "scenario": "商业与营销",
+      "level": "入门",
+      "tags": [
+        "商业洞察",
+        "竞品分析",
+        "SEO",
+        "营销"
+      ],
+      "source_skill": {
+        "name": "seo-ai-agent",
+        "author": "badis1996",
+        "url": "https://github.com/badis1996/seo-ai-agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-074",
+      "slug": "skill-library-business-marketing-signal-forge",
+      "title": "商业与营销参考：signal forge",
+      "title_en": "signal-forge",
+      "category": "skill-library",
+      "subcategory": "business-marketing",
+      "type": "Skill 解读",
+      "summary": "一个浏览器里的自主市场/金融研究 Agent，用 LangGraph 规划、Tavily 搜新闻、yfinance 拉行情，并生成投资 memo。",
+      "scenario": "商业与营销",
+      "level": "入门",
+      "tags": [
+        "商业洞察",
+        "竞品分析",
+        "SEO",
+        "营销"
+      ],
+      "source_skill": {
+        "name": "signal-forge",
+        "author": "CaSh007s",
+        "url": "https://github.com/CaSh007s/signal-forge"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "仅供方法论参考，非投资建议。"
+      ]
+    },
+    {
+      "id": "WF-075",
+      "slug": "skill-library-business-marketing-simplersoftwareio-seo-ai-agent",
+      "title": "商业与营销参考：seo ai agent",
+      "title_en": "seo-ai-agent",
+      "category": "skill-library",
+      "subcategory": "business-marketing",
+      "type": "Skill 解读",
+      "summary": "一个生产化 SEO Agent，把 GPT-4o、GSC、GA4、DataForSEO、Firecrawl、SQLite、Streamlit 和 MCP 连接成 weekly SEO loop。",
+      "scenario": "商业与营销",
+      "level": "入门",
+      "tags": [
+        "商业洞察",
+        "竞品分析",
+        "SEO",
+        "营销"
+      ],
+      "source_skill": {
+        "name": "seo-ai-agent",
+        "author": "SimplerSoftwareIO",
+        "url": "https://github.com/SimplerSoftwareIO/seo-ai-agent"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "涉及外部平台内容流转时，需人工确认后执行。"
+      ]
+    },
+    {
+      "id": "WF-076",
+      "slug": "agent-building-frameworks-agent-framework",
+      "title": "多 Agent 框架参考：agent framework",
+      "title_en": "agent-framework",
+      "category": "agent-building",
+      "subcategory": "multi-agent-frameworks",
+      "type": "Agent Building 参考",
+      "summary": "Microsoft 面向生产环境的 Python/.NET Agent 框架，强调图式工作流、持久化、OpenTelemetry、Foundry 托管和跨语言一致接口。",
+      "scenario": "多 Agent 框架",
+      "level": "深度",
+      "tags": [
+        "多Agent",
+        "Agent框架",
+        "协作",
+        "工具调用"
+      ],
+      "source_skill": {
+        "name": "agent-framework",
+        "author": "microsoft",
+        "url": "https://github.com/microsoft/agent-framework"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-077",
+      "slug": "agent-building-frameworks-camel",
+      "title": "多 Agent 框架参考：camel",
+      "title_en": "camel",
+      "category": "agent-building",
+      "subcategory": "multi-agent-frameworks",
+      "type": "Agent Building 参考",
+      "summary": "一个偏研究和大规模实验的多 Agent 社会框架，覆盖 ChatAgent、Agent Societies、数据生成、工具、记忆、存储、benchmark 与人类介入。",
+      "scenario": "多 Agent 框架",
+      "level": "深度",
+      "tags": [
+        "多Agent",
+        "Agent框架",
+        "协作",
+        "工具调用"
+      ],
+      "source_skill": {
+        "name": "camel",
+        "author": "camel-ai",
+        "url": "https://github.com/camel-ai/camel"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-078",
+      "slug": "agent-building-frameworks-metagpt",
+      "title": "多 Agent 框架参考：MetaGPT",
+      "title_en": "MetaGPT",
+      "category": "agent-building",
+      "subcategory": "multi-agent-frameworks",
+      "type": "Agent Building 参考",
+      "summary": "把一句自然语言软件需求拆成产品、架构、项目管理和工程角色协作的 SOP，让多 Agent 按“软件公司”流程产出项目仓库与文档。",
+      "scenario": "多 Agent 框架",
+      "level": "深度",
+      "tags": [
+        "多Agent",
+        "Agent框架",
+        "协作",
+        "工具调用"
+      ],
+      "source_skill": {
+        "name": "MetaGPT",
+        "author": "FoundationAgents",
+        "url": "https://github.com/FoundationAgents/MetaGPT"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-079",
+      "slug": "agent-building-frameworks-openai-agents-python",
+      "title": "多 Agent 框架参考：openai agents python",
+      "title_en": "openai-agents-python",
+      "category": "agent-building",
+      "subcategory": "multi-agent-frameworks",
+      "type": "Agent Building 参考",
+      "summary": "一个以 Agent、Runner、工具、handoff、guardrail 和 tracing 为核心的轻量 Python 多 Agent SDK。",
+      "scenario": "多 Agent 框架",
+      "level": "深度",
+      "tags": [
+        "多Agent",
+        "Agent框架",
+        "协作",
+        "工具调用"
+      ],
+      "source_skill": {
+        "name": "openai-agents-python",
+        "author": "openai",
+        "url": "https://github.com/openai/openai-agents-python"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-080",
+      "slug": "agent-building-frameworks-pydantic-ai",
+      "title": "多 Agent 框架参考：pydantic ai",
+      "title_en": "pydantic-ai",
+      "category": "agent-building",
+      "subcategory": "multi-agent-frameworks",
+      "type": "Agent Building 参考",
+      "summary": "Pydantic 团队做的类型安全 Agent 框架，用 deps、output schema、tool validation、capabilities、evals 和 Logfire 追踪把 Agent 写成可检查的 Python 应用。",
+      "scenario": "多 Agent 框架",
+      "level": "深度",
+      "tags": [
+        "多Agent",
+        "Agent框架",
+        "协作",
+        "工具调用"
+      ],
+      "source_skill": {
+        "name": "pydantic-ai",
+        "author": "pydantic",
+        "url": "https://github.com/pydantic/pydantic-ai"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-081",
+      "slug": "agent-building-orchestration-claude-orchestration",
+      "title": "工作流编排参考：claude orchestration",
+      "title_en": "claude-orchestration",
+      "category": "agent-building",
+      "subcategory": "workflow-orchestration",
+      "type": "Agent Building 参考",
+      "summary": "一个 Claude Code 插件，用 `.flow` 语法把多个 Agent、并行分支、条件、人工 checkpoint、临时 Agent 和状态恢复编排成工作流。",
+      "scenario": "工作流编排",
+      "level": "深度",
+      "tags": [
+        "工作流编排",
+        "状态机",
+        "handoff",
+        "任务路由"
+      ],
+      "source_skill": {
+        "name": "claude-orchestration",
+        "author": "mbruhler",
+        "url": "https://github.com/mbruhler/claude-orchestration"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-082",
+      "slug": "agent-building-orchestration-crewai",
+      "title": "工作流编排参考：crewAI",
+      "title_en": "crewAI",
+      "category": "agent-building",
+      "subcategory": "workflow-orchestration",
+      "type": "Agent Building 参考",
+      "summary": "用 Crews 表达自治 Agent 团队，用 Flows 表达事件驱动控制流的 Python 多 Agent 自动化框架。",
+      "scenario": "工作流编排",
+      "level": "深度",
+      "tags": [
+        "工作流编排",
+        "状态机",
+        "handoff",
+        "任务路由"
+      ],
+      "source_skill": {
+        "name": "crewAI",
+        "author": "crewAIInc",
+        "url": "https://github.com/crewAIInc/crewAI"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-083",
+      "slug": "agent-building-orchestration-glink-engine",
+      "title": "工作流编排参考：glink engine",
+      "title_en": "glink-engine",
+      "category": "agent-building",
+      "subcategory": "workflow-orchestration",
+      "type": "Agent Building 参考",
+      "summary": "一个用 YAML workflow、JSONL blackboard 和轻量 Python daemon 编排多个本地 Agent 的小型流水线引擎。",
+      "scenario": "工作流编排",
+      "level": "深度",
+      "tags": [
+        "工作流编排",
+        "状态机",
+        "handoff",
+        "任务路由"
+      ],
+      "source_skill": {
+        "name": "glink-engine",
+        "author": "garyqlin",
+        "url": "https://github.com/garyqlin/glink-engine"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-084",
+      "slug": "agent-building-orchestration-langgraph",
+      "title": "工作流编排参考：langgraph",
+      "title_en": "langgraph",
+      "category": "agent-building",
+      "subcategory": "workflow-orchestration",
+      "type": "Agent Building 参考",
+      "summary": "LangChain 旗下低层状态图编排框架，用 durable execution、memory、interrupt 和 LangSmith trace 支撑长时、可恢复 Agent 工作流。",
+      "scenario": "工作流编排",
+      "level": "深度",
+      "tags": [
+        "工作流编排",
+        "状态机",
+        "handoff",
+        "任务路由"
+      ],
+      "source_skill": {
+        "name": "langgraph",
+        "author": "langchain-ai",
+        "url": "https://github.com/langchain-ai/langgraph"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-085",
+      "slug": "agent-building-orchestration-multiagent-business-automation",
+      "title": "工作流编排参考：multiagent business automation",
+      "title_en": "multiagent-business-automation",
+      "category": "agent-building",
+      "subcategory": "workflow-orchestration",
+      "type": "Agent Building 参考",
+      "summary": "一个面向业务自动化的多 Agent 平台，用 LangGraph、共享记忆、HITL 审批和仪表盘串起战略、财务、市场、法务、销售等角色。",
+      "scenario": "工作流编排",
+      "level": "深度",
+      "tags": [
+        "工作流编排",
+        "状态机",
+        "handoff",
+        "任务路由"
+      ],
+      "source_skill": {
+        "name": "multiagent-business-automation",
+        "author": "agruai",
+        "url": "https://github.com/agruai/multiagent-business-automation"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "外部系统集成需保留人工确认，本卡只保留方法论参考。"
+      ]
+    },
+    {
+      "id": "WF-086",
+      "slug": "agent-building-subagents-claude-rlm",
+      "title": "Sub-agent 模式参考：claude rlm",
+      "title_en": "claude-rlm",
+      "category": "agent-building",
+      "subcategory": "sub-agent-patterns",
+      "type": "Agent Building 参考",
+      "summary": "一个 Claude Code Skill，把超长输入当作外部对象切片处理，并通过 tmux 子 Claude 递归分析后再聚合。",
+      "scenario": "Sub-agent 模式",
+      "level": "深度",
+      "tags": [
+        "Sub-agent",
+        "任务委派",
+        "专家Agent",
+        "Agent通信"
+      ],
+      "source_skill": {
+        "name": "claude-rlm",
+        "author": "Tenobrus",
+        "url": "https://github.com/Tenobrus/claude-rlm"
+      },
+      "related_concepts": [
+        "ai-core-30-delegation",
+        "ai-core-25-multi-agent-system"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-087",
+      "slug": "agent-building-subagents-dart-agent-core",
+      "title": "Sub-agent 模式参考：dart agent core",
+      "title_en": "dart_agent_core",
+      "category": "agent-building",
+      "subcategory": "sub-agent-patterns",
+      "type": "Agent Building 参考",
+      "summary": "一个移动优先、本地优先的 Dart Agent 库，把工具调用、状态、Skill、Sub-agent、计划、压缩和 eval harness 带进 Flutter/Dart 应用。",
+      "scenario": "Sub-agent 模式",
+      "level": "深度",
+      "tags": [
+        "Sub-agent",
+        "任务委派",
+        "专家Agent",
+        "Agent通信"
+      ],
+      "source_skill": {
+        "name": "dart_agent_core",
+        "author": "memex-lab",
+        "url": "https://github.com/memex-lab/dart_agent_core"
+      },
+      "related_concepts": [
+        "ai-core-30-delegation",
+        "ai-core-25-multi-agent-system"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-088",
+      "slug": "agent-building-subagents-fable-mode",
+      "title": "Sub-agent 模式参考：fable mode",
+      "title_en": "fable-mode",
+      "category": "agent-building",
+      "subcategory": "sub-agent-patterns",
+      "type": "Agent Building 参考",
+      "summary": "一个 Claude Skill，用“阶段计划、可失败验证、可并行委派、自我审稿”约束大任务执行纪律。",
+      "scenario": "Sub-agent 模式",
+      "level": "深度",
+      "tags": [
+        "Sub-agent",
+        "任务委派",
+        "专家Agent",
+        "Agent通信"
+      ],
+      "source_skill": {
+        "name": "fable-mode",
+        "author": "mrtooher",
+        "url": "https://github.com/mrtooher/fable-mode"
+      },
+      "related_concepts": [
+        "ai-core-30-delegation",
+        "ai-core-25-multi-agent-system"
+      ],
+      "related_skills": [],
+      "risk_notes": [
+        "本卡按标准和治理参考解读，不作为可直接采用的完整工具方案。"
+      ]
+    },
+    {
+      "id": "WF-089",
+      "slug": "agent-building-subagents-sagents",
+      "title": "Sub-agent 模式参考：sagents",
+      "title_en": "sagents",
+      "category": "agent-building",
+      "subcategory": "sub-agent-patterns",
+      "type": "Agent Building 参考",
+      "summary": "一个 Elixir/Phoenix 取向的交互式 Agent 编排库，用 GenServer、middleware、HITL、SubAgent、PubSub 和可组合执行模式管理长会话 Agent。",
+      "scenario": "Sub-agent 模式",
+      "level": "深度",
+      "tags": [
+        "Sub-agent",
+        "任务委派",
+        "专家Agent",
+        "Agent通信"
+      ],
+      "source_skill": {
+        "name": "sagents",
+        "author": "sagents-ai",
+        "url": "https://github.com/sagents-ai/sagents"
+      },
+      "related_concepts": [
+        "ai-core-30-delegation",
+        "ai-core-25-multi-agent-system"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-090",
+      "slug": "agent-building-subagents-spellguard",
+      "title": "Sub-agent 模式参考：spellguard",
+      "title_en": "spellguard",
+      "category": "agent-building",
+      "subcategory": "sub-agent-patterns",
+      "type": "Agent Building 参考",
+      "summary": "一个面向 Agent-to-Agent 通信的安全与审计框架，用 Verifier、加密消息、策略执行和审计日志约束 Agent 间交互。",
+      "scenario": "Sub-agent 模式",
+      "level": "深度",
+      "tags": [
+        "Sub-agent",
+        "任务委派",
+        "专家Agent",
+        "Agent通信"
+      ],
+      "source_skill": {
+        "name": "spellguard",
+        "author": "Spellguard",
+        "url": "https://github.com/Spellguard/spellguard"
+      },
+      "related_concepts": [
+        "ai-core-30-delegation",
+        "ai-core-25-multi-agent-system"
+      ],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-091",
+      "slug": "agent-building-harness-evaluation-agent-lens",
+      "title": "Harness 与评估参考：agent lens",
+      "title_en": "agent-lens",
+      "category": "agent-building",
+      "subcategory": "harness-evaluation",
+      "type": "Agent Building 参考",
+      "summary": "一个多会话 Agent 轨迹 harness，可运行 Claude Code/Codex、捕获 ATIF 轨迹、追踪文件 diff、重放/重采样并记录 subagent。",
+      "scenario": "Harness 与评估",
+      "level": "深度",
+      "tags": [
+        "Harness",
+        "trace",
+        "observability",
+        "Agent评估"
+      ],
+      "source_skill": {
+        "name": "agent-lens",
+        "author": "dreadnode",
+        "url": "https://github.com/dreadnode/agent-lens"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-092",
+      "slug": "agent-building-harness-evaluation-claude-code-hooks-multi-agent-observability",
+      "title": "Harness 与评估参考：claude code hooks multi agent observability",
+      "title_en": "claude-code-hooks-multi-agent-observability",
+      "category": "agent-building",
+      "subcategory": "harness-evaluation",
+      "type": "Agent Building 参考",
+      "summary": "一个 Claude Code hooks 可观测系统，把 12 类生命周期事件通过 Python hook 发到 Bun/SQLite/Vue 实时仪表盘。",
+      "scenario": "Harness 与评估",
+      "level": "深度",
+      "tags": [
+        "Harness",
+        "trace",
+        "observability",
+        "Agent评估"
+      ],
+      "source_skill": {
+        "name": "claude-code-hooks-multi-agent-observability",
+        "author": "disler",
+        "url": "https://github.com/disler/claude-code-hooks-multi-agent-observability"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-093",
+      "slug": "agent-building-harness-evaluation-halo",
+      "title": "Harness 与评估参考：HALO",
+      "title_en": "HALO",
+      "category": "agent-building",
+      "subcategory": "harness-evaluation",
+      "type": "Agent Building 参考",
+      "summary": "Hierarchical Agent Loop Optimizer，用 RLM 分析大量执行 trace，找出 harness 级失败模式，再让编码 Agent 修改 harness 并循环验证。",
+      "scenario": "Harness 与评估",
+      "level": "深度",
+      "tags": [
+        "Harness",
+        "trace",
+        "observability",
+        "Agent评估"
+      ],
+      "source_skill": {
+        "name": "HALO",
+        "author": "context-labs",
+        "url": "https://github.com/context-labs/HALO"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": []
+    },
+    {
+      "id": "WF-094",
+      "slug": "agent-building-harness-evaluation-litefuse",
+      "title": "Harness 与评估参考：litefuse",
+      "title_en": "litefuse",
+      "category": "agent-building",
+      "subcategory": "harness-evaluation",
+      "type": "Agent Building 参考",
+      "summary": "一个开源 LLM engineering 平台，覆盖 trace、prompt management、eval、dataset、playground、API 和自托管部署。",
+      "scenario": "Harness 与评估",
+      "level": "深度",
+      "tags": [
+        "Harness",
+        "trace",
+        "observability",
+        "Agent评估"
+      ],
+      "source_skill": {
+        "name": "litefuse",
+        "author": "litefuse",
+        "url": "https://github.com/litefuse/litefuse"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "本卡按标准和治理参考解读，不作为可直接采用的完整工具方案。"
+      ]
+    },
+    {
+      "id": "WF-095",
+      "slug": "agent-building-harness-evaluation-www-project-agent-observability-standard",
+      "title": "Harness 与评估参考：www project agent observability standard",
+      "title_en": "www-project-agent-observability-standard",
+      "category": "agent-building",
+      "subcategory": "harness-evaluation",
+      "type": "Agent Building 参考",
+      "summary": "OWASP 的 Agent Observability Standard，围绕 inspectable、traceable、instrumentable 定义 AOS、AgBOM、OpenTelemetry/OCSF、MCP/A2A hoo",
+      "scenario": "Harness 与评估",
+      "level": "深度",
+      "tags": [
+        "Harness",
+        "trace",
+        "observability",
+        "Agent评估"
+      ],
+      "source_skill": {
+        "name": "www-project-agent-observability-standard",
+        "author": "OWASP",
+        "url": "https://github.com/OWASP/www-project-agent-observability-standard"
+      },
+      "related_concepts": [],
+      "related_skills": [],
+      "risk_notes": [
+        "本卡按标准和治理参考解读，不作为可直接采用的完整工具方案。"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "slug": "prompt-engineering",
+      "reason": "理解 Skill 里的指令结构。"
+    },
+    {
+      "slug": "context-window",
+      "reason": "判断 Skill 为什么要控制输入边界。"
+    },
+    {
+      "slug": "ai-agent",
+      "reason": "理解 Skill 和 Agent 行动能力的关系。"
+    }
+  ]
+}

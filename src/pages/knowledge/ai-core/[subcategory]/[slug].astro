@@ -1,0 +1,348 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import KnowledgeTree from '../../../../components/KnowledgeTree.astro';
+import knowledgeData from '../../../../data/knowledge-cards.json';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allContentCards = await getCollection('knowledge');
+  return knowledgeData.cards.map((card) => {
+    const entry = allContentCards.find((item) => item.id.endsWith(`-${card.slug}`));
+    return {
+      params: {
+        subcategory: card.column,
+        slug: card.slug,
+      },
+      props: {
+        card,
+        entry,
+      },
+    };
+  });
+}
+
+const { card, entry } = Astro.props;
+const { subcategory } = Astro.params;
+const { Content } = entry ? await render(entry) : { Content: null };
+
+const cards = knowledgeData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+const column = knowledgeData.columns.find((item) => item.id === subcategory);
+const columnCards = cards.filter((item) => item.column === subcategory);
+const currentIndex = columnCards.findIndex((item) => item.slug === card.slug);
+const prevCard = currentIndex > 0 ? columnCards[currentIndex - 1] : null;
+const nextCard = currentIndex < columnCards.length - 1 ? columnCards[currentIndex + 1] : null;
+
+const verifiedDateStr = entry?.data.verifiedDate
+  ? new Date(entry.data.verifiedDate).toLocaleDateString('zh-CN')
+  : '';
+---
+
+<Layout title={`${card.title} — ${column?.title ?? 'AI 核心概念'}`} description={card.summary}>
+  <Header />
+
+  <main class="site-main card-page">
+    <div class="container knowledge-layout">
+      <KnowledgeTree
+        columns={knowledgeData.columns}
+        cards={cards}
+        activeSubcategory={subcategory}
+        activeSlug={card.slug}
+      />
+
+      <article class="main-content">
+        <header class="card-header">
+          <p class="kicker">{column?.title} · {card.id}</p>
+          <h1>{entry?.data.title ?? `${card.title}（${card.title_en}）`}</h1>
+          <div class="meta-row">
+            {entry?.data.curated_by && <span>{entry.data.curated_by}</span>}
+            {verifiedDateStr && <span>· {verifiedDateStr}</span>}
+            {entry?.data.confidence && <span>· 置信度：{entry.data.confidence}</span>}
+          </div>
+          <div class="tags-row">
+            {card.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+          <p class="description">{entry?.data.description ?? card.summary}</p>
+        </header>
+
+        {Content ? (
+          <div class="card-body">
+            <Content />
+          </div>
+        ) : (
+          <div class="missing-content">
+            <h2>内容正在整理</h2>
+            <p>{card.summary}</p>
+          </div>
+        )}
+
+        {(entry?.data.scenario || entry?.data.audience || entry?.data.action) && (
+          <div class="scenario-block">
+            <h2>适用场景与行动</h2>
+            {entry.data.scenario && <p><strong>场景：</strong>{entry.data.scenario}</p>}
+            {entry.data.audience && <p><strong>适合谁：</strong>{entry.data.audience}</p>}
+            {entry.data.action && <p><strong>下一步：</strong>{entry.data.action}</p>}
+          </div>
+        )}
+
+        {entry?.data.related_cards && entry.data.related_cards.length > 0 && (
+          <div class="related-cards">
+            <h2>相关卡片</h2>
+            <ul>
+              {entry.data.related_cards.map((related) => <li>{related}</li>)}
+            </ul>
+          </div>
+        )}
+
+        <div class="curator-cta">
+          <p>这张卡片由杨思远基于真实工作流和实测经验整理。</p>
+          <p>如发现信息过时或有误，可通过 <a href="/contact">/contact</a> 反馈。</p>
+        </div>
+
+        <nav class="bottom-nav">
+          <div class="nav-links">
+            {prevCard && (
+              <a href={`/knowledge/ai-core/${prevCard.column}/${prevCard.slug}/`} class="nav-prev">
+                上一张：{prevCard.title}
+              </a>
+            )}
+            {nextCard && (
+              <a href={`/knowledge/ai-core/${nextCard.column}/${nextCard.slug}/`} class="nav-next">
+                下一张：{nextCard.title}
+              </a>
+            )}
+          </div>
+          <div class="return-links">
+            <a href={`/knowledge/ai-core/${subcategory}/`} class="btn btn-outline">返回当前分类</a>
+            <a href="/knowledge/" class="btn">返回知识库入口</a>
+          </div>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .card-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
+  .knowledge-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .card-header {
+    max-width: var(--content-max);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 1rem;
+  }
+
+  .meta-row {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 2vw, 1.18rem);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--lead);
+  }
+
+  .card-body,
+  .missing-content {
+    max-width: var(--content-max);
+  }
+
+  .card-body :global(h1) {
+    display: none;
+  }
+
+  .card-body :global(h2) {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--warm-grey);
+  }
+
+  .card-body :global(h3) {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-body :global(p),
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    margin-bottom: 1.25rem;
+  }
+
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    padding-left: 1.5rem;
+  }
+
+  .card-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .card-body :global(th),
+  .card-body :global(td) {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--lead);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .card-body :global(th) {
+    background: rgba(26, 26, 26, 0.04);
+    font-weight: 700;
+  }
+
+  .card-body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-left: 0;
+    color: var(--grey);
+    font-style: italic;
+  }
+
+  .scenario-block,
+  .curator-cta {
+    max-width: var(--content-max);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 26, 0.025);
+    padding: 1.4rem;
+    margin: 2rem 0;
+  }
+
+  .scenario-block h2,
+  .related-cards h2 {
+    font-size: 1.12rem;
+    margin-bottom: 1rem;
+  }
+
+  .scenario-block p,
+  .curator-cta p {
+    margin-bottom: 0.65rem;
+  }
+
+  .scenario-block p:last-child,
+  .curator-cta p:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-cards {
+    max-width: var(--content-max);
+    margin: 2rem 0;
+  }
+
+  .related-cards ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-cards li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(184, 184, 184, 0.3);
+  }
+
+  .curator-cta {
+    color: var(--grey);
+    font-size: 0.9rem;
+  }
+
+  .curator-cta a {
+    color: var(--accent);
+  }
+
+  .bottom-nav {
+    max-width: var(--content-max);
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--lead);
+  }
+
+  .nav-links,
+  .return-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-prev,
+  .nav-next {
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .nav-next {
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    .knowledge-layout {
+      display: block;
+    }
+
+    .card-body {
+      overflow-x: auto;
+    }
+
+    .nav-links,
+    .return-links {
+      flex-direction: column;
+    }
+
+    .nav-next {
+      margin-left: 0;
+    }
+  }
+</style>

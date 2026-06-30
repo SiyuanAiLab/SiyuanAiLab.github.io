@@ -1,0 +1,309 @@
+---
+import Layout from '../../../../../layouts/Layout.astro';
+import Header from '../../../../../components/Header.astro';
+import Footer from '../../../../../components/Footer.astro';
+import WorkflowTree from '../../../../../components/WorkflowTree.astro';
+import workflowData from '../../../../../data/workflow-cards.json';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('knowledge');
+  return workflowData.cards.map((card) => {
+    const entry = entries.find((item) => item.id === `workflows/${card.category}/${card.subcategory}/${card.slug}`);
+    return {
+      params: {
+        category: card.category,
+        subcategory: card.subcategory,
+        slug: card.slug,
+      },
+      props: {
+        card,
+        entry,
+      },
+    };
+  });
+}
+
+const { card, entry } = Astro.props;
+const { category, subcategory } = Astro.params;
+const { Content } = entry ? await render(entry) : { Content: null };
+
+const cards = workflowData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+const currentCategory = workflowData.categories.find((item) => item.id === category);
+const currentSubcategory = currentCategory?.subcategories.find((item) => item.id === subcategory);
+const subcategoryCards = cards.filter((item) => item.category === category && item.subcategory === subcategory);
+const currentIndex = subcategoryCards.findIndex((item) => item.slug === card.slug);
+const prevCard = currentIndex > 0 ? subcategoryCards[currentIndex - 1] : null;
+const nextCard = currentIndex < subcategoryCards.length - 1 ? subcategoryCards[currentIndex + 1] : null;
+const verifiedDateStr = entry?.data.verifiedDate
+  ? new Date(entry.data.verifiedDate).toLocaleDateString('zh-CN')
+  : '';
+---
+
+<Layout title={`${card.title} — ${currentSubcategory?.title ?? '工作流专栏'}`} description={card.summary}>
+  <Header />
+
+  <main class="site-main card-page">
+    <div class="container workflow-layout">
+      <WorkflowTree
+        categories={workflowData.categories}
+        cards={cards}
+        activeCategory={category}
+        activeSubcategory={subcategory}
+        activeSlug={card.slug}
+      />
+
+      <article class="main-content">
+        <header class="card-header">
+          <p class="kicker">{currentCategory?.title} · {currentSubcategory?.title} · {card.type ?? '工作流解读'} · {card.id}</p>
+          <h1>{entry?.data.title ?? card.title}</h1>
+          <div class="meta-row">
+            {entry?.data.curated_by && <span>{entry.data.curated_by}</span>}
+            {verifiedDateStr && <span>· {verifiedDateStr}</span>}
+            {entry?.data.confidence && <span>· 置信度：{entry.data.confidence}</span>}
+          </div>
+          <div class="tags-row">
+            {card.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+          <p class="description">{entry?.data.description ?? card.summary}</p>
+        </header>
+
+        {Content ? (
+          <div class="card-body">
+            <Content />
+          </div>
+        ) : (
+          <div class="missing-content">
+            <h2>内容正在整理</h2>
+            <p>{card.summary}</p>
+          </div>
+        )}
+
+        <div class="source-block">
+          <h2>参考对象信息</h2>
+          <p><strong>名称：</strong>{card.source_skill.name}</p>
+          <p><strong>作者：</strong>{card.source_skill.author}</p>
+          <p><strong>链接：</strong><a href={card.source_skill.url}>{card.source_skill.url}</a></p>
+        </div>
+
+        {(entry?.data.scenario || entry?.data.audience || entry?.data.action) && (
+          <div class="scenario-block">
+            <h2>适用场景与行动</h2>
+            {entry.data.scenario && <p><strong>场景：</strong>{entry.data.scenario}</p>}
+            {entry.data.audience && <p><strong>适合谁：</strong>{entry.data.audience}</p>}
+            {entry.data.action && <p><strong>下一步：</strong>{entry.data.action}</p>}
+          </div>
+        )}
+
+        <div class="curator-cta">
+          <p>当前内容按公开来源和已审核草稿整理，只作为工作流理解与方法论参考。</p>
+          <p>涉及客户数据、外部平台、会议记录和业务系统的场景，必须保留人工确认与授权边界。</p>
+        </div>
+
+        <nav class="bottom-nav">
+          <div class="nav-links">
+            {prevCard && (
+              <a href={`/knowledge/workflows/${prevCard.category}/${prevCard.subcategory}/${prevCard.slug}/`} class="nav-prev">
+                上一张：{prevCard.title}
+              </a>
+            )}
+            {nextCard && (
+              <a href={`/knowledge/workflows/${nextCard.category}/${nextCard.subcategory}/${nextCard.slug}/`} class="nav-next">
+                下一张：{nextCard.title}
+              </a>
+            )}
+          </div>
+          <div class="return-links">
+            <a href={`/knowledge/workflows/${category}/${subcategory}/`} class="btn btn-outline">返回当前分类</a>
+            <a href="/knowledge/workflows/" class="btn">返回工作流专栏</a>
+          </div>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .card-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
+  .workflow-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .card-header,
+  .card-body,
+  .missing-content,
+  .source-block,
+  .scenario-block,
+  .curator-cta,
+  .bottom-nav {
+    max-width: var(--content-max);
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 1rem;
+  }
+
+  .meta-row {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 2vw, 1.18rem);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--lead);
+  }
+
+  .card-body :global(h1) {
+    display: none;
+  }
+
+  .card-body :global(h2) {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--warm-grey);
+  }
+
+  .card-body :global(p),
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    margin-bottom: 1.25rem;
+  }
+
+  .card-body :global(ul),
+  .card-body :global(ol) {
+    padding-left: 1.5rem;
+  }
+
+  .card-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-left: 0;
+    color: var(--grey);
+    font-style: italic;
+  }
+
+  .source-block,
+  .scenario-block,
+  .curator-cta {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 26, 0.025);
+    padding: 1.4rem;
+    margin: 2rem 0;
+  }
+
+  .source-block h2,
+  .scenario-block h2 {
+    font-size: 1.12rem;
+    margin-bottom: 1rem;
+  }
+
+  .source-block p,
+  .scenario-block p,
+  .curator-cta p {
+    margin-bottom: 0.65rem;
+  }
+
+  .source-block p:last-child,
+  .scenario-block p:last-child,
+  .curator-cta p:last-child {
+    margin-bottom: 0;
+  }
+
+  .source-block a {
+    color: var(--accent);
+  }
+
+  .curator-cta {
+    color: var(--grey);
+    font-size: 0.9rem;
+  }
+
+  .bottom-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--lead);
+  }
+
+  .nav-links,
+  .return-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-prev,
+  .nav-next {
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .nav-next {
+    margin-left: auto;
+  }
+
+  @media (max-width: 768px) {
+    .workflow-layout {
+      display: block;
+    }
+
+    .card-body {
+      overflow-x: auto;
+    }
+
+    .nav-links,
+    .return-links {
+      flex-direction: column;
+    }
+
+    .nav-next {
+      margin-left: 0;
+    }
+  }
+</style>

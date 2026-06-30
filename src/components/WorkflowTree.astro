@@ -1,0 +1,371 @@
+---
+import KnowledgeSearch from './KnowledgeSearch.astro';
+
+interface Subcategory {
+  id: string;
+  title: string;
+  title_en: string;
+  description: string;
+}
+
+interface Category {
+  id: string;
+  title: string;
+  title_en: string;
+  description: string;
+  standard?: string;
+  subcategories: Subcategory[];
+}
+
+interface Card {
+  id: string;
+  slug: string;
+  title: string;
+  title_en: string;
+  category: string;
+  subcategory: string;
+  summary: string;
+  scenario: string;
+  tags: string[];
+  type?: string;
+}
+
+interface Props {
+  categories: Category[];
+  cards: Card[];
+  activeCategory?: string;
+  activeSubcategory?: string;
+  activeSlug?: string;
+}
+
+const {
+  categories,
+  cards,
+  activeCategory = '',
+  activeSubcategory = '',
+  activeSlug = '',
+} = Astro.props;
+
+const getSubcategoryCards = (categoryId: string, subcategoryId: string) => cards
+  .filter((card) => card.category === categoryId && card.subcategory === subcategoryId)
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+
+const searchItems = cards.map((card) => {
+  const category = categories.find((item) => item.id === card.category);
+  const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
+  return {
+    id: card.id,
+    title: card.title,
+    title_en: card.title_en,
+    summary: card.summary,
+    tags: card.tags,
+    scenario: card.scenario,
+    columnTitle: subcategory ? `${category?.title} · ${subcategory.title}` : category?.title,
+    url: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
+  };
+});
+---
+
+<button class="tree-toggle" type="button" data-workflow-tree-open>目录</button>
+<div class="tree-backdrop" data-workflow-tree-close></div>
+
+<aside class="workflow-tree" data-workflow-tree>
+  <div class="tree-head">
+    <div>
+      <p class="tree-kicker">WORKFLOWS</p>
+      <a class="tree-title" href="/knowledge/workflows/">工作流专栏</a>
+    </div>
+    <button class="tree-close" type="button" aria-label="关闭目录" data-workflow-tree-close>×</button>
+  </div>
+
+  <KnowledgeSearch items={searchItems} id="workflow-tree-search" placeholder="搜索 Skill、工具、Agent、标签" />
+
+  <nav class="tree-nav" aria-label="工作流专栏目录">
+    {categories.map((category) => {
+      const isActiveCategory = activeCategory === category.id;
+      return (
+        <details class="tree-group" open={isActiveCategory}>
+          <summary class={isActiveCategory ? 'active' : ''}>
+            <span>{category.title}</span>
+          </summary>
+          {category.standard && <p class="tree-standard">{category.standard}</p>}
+          <ul class="subcategory-list">
+            {category.subcategories.map((subcategory) => {
+              const subcategoryCards = getSubcategoryCards(category.id, subcategory.id);
+              const isActiveSubcategory = isActiveCategory && activeSubcategory === subcategory.id;
+              return (
+                <li>
+                  <a
+                    class={isActiveSubcategory ? 'active-subcategory' : ''}
+                    href={`/knowledge/workflows/${category.id}/${subcategory.id}/`}
+                  >
+                    <span>{subcategory.title}</span>
+                    <strong>{subcategoryCards.length}</strong>
+                  </a>
+                  {isActiveSubcategory && subcategoryCards.length > 0 && (
+                    <ul class="card-list">
+                      {subcategoryCards.map((card) => (
+                        <li>
+                          <a
+                            class={activeSlug === card.slug ? 'active-card' : ''}
+                            href={`/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}
+                          >
+                            <span class="card-id">{card.id}</span>
+                            <span>{card.title}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </details>
+      );
+    })}
+  </nav>
+</aside>
+
+<script is:inline>
+  (() => {
+    const tree = document.querySelector('[data-workflow-tree]');
+    const backdrop = document.querySelector('.tree-backdrop');
+    const openButton = document.querySelector('[data-workflow-tree-open]');
+    const closeButtons = document.querySelectorAll('[data-workflow-tree-close]');
+
+    if (!tree || !openButton) return;
+
+    const open = () => {
+      tree.classList.add('is-open');
+      backdrop?.classList.add('is-open');
+      document.documentElement.classList.add('workflow-tree-lock');
+    };
+
+    const close = () => {
+      tree.classList.remove('is-open');
+      backdrop?.classList.remove('is-open');
+      document.documentElement.classList.remove('workflow-tree-lock');
+    };
+
+    openButton.addEventListener('click', open);
+    closeButtons.forEach((button) => button.addEventListener('click', close));
+    tree.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+  })();
+</script>
+
+<style>
+  .tree-toggle {
+    display: none;
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: var(--paper);
+    font: inherit;
+    margin-bottom: 1rem;
+  }
+
+  .tree-backdrop {
+    display: none;
+  }
+
+  .workflow-tree {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+    max-height: calc(100vh - 112px);
+    overflow: auto;
+    border-right: 1px solid var(--lead);
+    padding-right: 1.25rem;
+  }
+
+  .tree-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+
+  .tree-kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .tree-title {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 1.24rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .tree-close {
+    display: none;
+  }
+
+  .tree-nav {
+    margin-top: 1.2rem;
+  }
+
+  .tree-group {
+    border-top: 1px solid rgba(184, 184, 184, 0.62);
+    padding: 0.35rem 0;
+  }
+
+  .tree-group summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--ink);
+    font-weight: 700;
+    padding: 0.55rem 0.35rem;
+    border-radius: var(--radius);
+  }
+
+  .tree-group summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tree-group summary::before {
+    content: "+";
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-right: 0.35rem;
+  }
+
+  .tree-group[open] summary::before {
+    content: "-";
+  }
+
+  .tree-group summary.active {
+    background: rgba(192, 48, 48, 0.05);
+    color: var(--accent);
+  }
+
+  .tree-standard {
+    color: var(--grey);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    border-left: 2px solid var(--accent);
+    padding-left: 0.7rem;
+    margin: 0.25rem 0 0.6rem 0.9rem;
+  }
+
+  .subcategory-list,
+  .card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .subcategory-list > li > a {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.42rem 0.45rem 0.42rem 1rem;
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .subcategory-list > li > a:hover,
+  .subcategory-list > li > a.active-subcategory {
+    background: rgba(26, 26, 26, 0.04);
+    color: var(--accent);
+  }
+
+  .subcategory-list strong {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .card-list {
+    padding: 0.1rem 0 0.45rem 1rem;
+  }
+
+  .card-list a {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.35rem;
+    padding: 0.32rem 0.45rem;
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-size: 0.84rem;
+    line-height: 1.45;
+    text-decoration: none;
+  }
+
+  .card-list a:hover,
+  .card-list a.active-card {
+    background: rgba(26, 26, 26, 0.04);
+    color: var(--accent);
+  }
+
+  .card-id {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 768px) {
+    :global(html.workflow-tree-lock) {
+      overflow: hidden;
+    }
+
+    .tree-toggle {
+      display: block;
+    }
+
+    .tree-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(26, 26, 26, 0.28);
+    }
+
+    .tree-backdrop.is-open {
+      display: block;
+    }
+
+    .workflow-tree {
+      position: fixed;
+      z-index: 50;
+      inset: 0 auto 0 0;
+      width: min(88vw, 360px);
+      max-height: none;
+      overflow: auto;
+      border-right: 1px solid var(--lead);
+      background: var(--paper);
+      padding: 1rem;
+      transform: translateX(-104%);
+      transition: transform 0.22s ease;
+      box-shadow: var(--shadow-paper);
+    }
+
+    .workflow-tree.is-open {
+      transform: translateX(0);
+    }
+
+    .tree-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--lead);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--ink);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+  }
+</style>

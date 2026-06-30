@@ -2,36 +2,180 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import KnowledgeSearch from '../../components/KnowledgeSearch.astro';
+import knowledgeData from '../../data/knowledge-cards.json';
+import workflowData from '../../data/workflow-cards.json';
 
-const knowledgeDomains = [
-  { slug: "principles", title: "基础原理", desc: "AI、Agent、Prompt 和个人系统的底层判断。" },
-  { slug: "workflows", title: "工作流装备", desc: "能被 AI 助理调用的流程、模板和操作说明。" },
-  { slug: "cases", title: "案例拆解", desc: "真实业务、内容生产和产品化过程中的复盘材料。" },
-  { slug: "sources", title: "信源索引", desc: "值得长期跟踪的观点、工具、人物和资料来源。" },
+type KnowledgeCard = typeof knowledgeData.cards[number];
+
+const aiCoreCards = knowledgeData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+
+const knowledgeSearchItems = aiCoreCards.map((card) => {
+  const column = knowledgeData.columns.find((item) => item.id === card.column);
+  return {
+    id: card.id,
+    title: card.title,
+    title_en: card.title_en,
+    summary: card.summary,
+    tags: card.tags,
+    columnTitle: column?.title,
+    url: `/knowledge/ai-core/${card.column}/${card.slug}/`,
+  };
+});
+
+const workflowSearchItems = workflowData.cards.map((card) => {
+  const category = workflowData.categories.find((item) => item.id === card.category);
+  const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
+  return {
+    id: card.id,
+    title: card.title,
+    title_en: card.title_en,
+    summary: card.summary,
+    tags: card.tags,
+    columnTitle: subcategory ? `工作流 · ${subcategory.title}` : '工作流',
+    url: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
+  };
+});
+
+const searchItems = [...knowledgeSearchItems, ...workflowSearchItems];
+
+const featuredSlugs = ['artificial-intelligence', 'transformer-architecture', 'ai-agent'];
+const featuredCards = featuredSlugs
+  .map((slug) => aiCoreCards.find((card) => card.slug === slug))
+  .filter(Boolean) as KnowledgeCard[];
+
+const featuredWorkflowCards = workflowData.cards.slice(0, 3);
+
+const futurePillars = [
+  { title: '场景案例', desc: '真实任务、业务问题和拆解复盘。' },
+  { title: '工具配置及选型', desc: '工具安装、配置和最佳实践。' },
+  { title: '职业安全', desc: 'AI 时代的职业能力与抗淘汰策略。' },
+  { title: '信源与标准', desc: '可信信息源、评估标准与筛选方法。' },
 ];
 ---
 
-<Layout title="知识库" description="思远 AI Lab 知识库，是给 AI 调用的装备资料库，整理工作流、案例、信源和基础判断。">
+<Layout title="知识库" description="思远 AI Lab 知识库，是给 AI 调用的装备资料库。内容被拆成卡片、标上关系、写上场景，让你的 AI 助理也能帮你调取。">
   <Header />
 
   <main class="site-main">
-    <section class="section">
+    <section class="hero knowledge-hero">
       <div class="container">
         <p class="kicker">知识库</p>
         <h1>AI 可调用的装备资料库</h1>
-        <p>
-          这里不是传统文章目录，而是给个人 AI 助理调用的资料架。1.0 先放四类方向占位，后续逐步补入可检索、可引用、可复用的知识卡片。
+        <p class="lede">
+          这个知识库不是给人一页页读的。它是为了让 AI 能帮你调取概念、方法、信源和参考案例而设计的。
         </p>
-        <div class="card-grid">
-          {knowledgeDomains.map(domain => (
-            <div class="card">
-              <span class="meta">{domain.slug}</span>
-              <h3>{domain.title}</h3>
-              <p>{domain.desc}</p>
-              <p>内容整理中</p>
+        <KnowledgeSearch items={searchItems} id="knowledge-home-search" placeholder="搜索概念、工作流、Skill、Agent Building" />
+      </div>
+    </section>
+
+    <section class="section start-section">
+      <div class="container">
+        <a class="start-card" href="/knowledge/start/">
+          <span class="meta">专题入口</span>
+          <h2>我是如何用 AI 搭建个人管理体系的</h2>
+          <p>一个非技术人的真实搭建思路，从 Obsidian 底座到 Hermes 执行接口。</p>
+          <strong>开始阅读</strong>
+        </a>
+      </div>
+    </section>
+
+    <section class="section directory-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="kicker">母目录</p>
+          <h2 class="section-title">先进入栏目，再选择词条</h2>
+          <p>知识库按可调用的装备类型组织。本轮先开放 AI 核心概念，其他栏目保留入口，等内容审核后再上线。</p>
+        </div>
+
+        <div class="pillar-grid">
+          <a class="pillar-card is-live" href="/knowledge/ai-core/">
+            <span class="meta">已开放</span>
+            <h3>AI 核心概念</h3>
+            <p>44 张已审核公开版卡片，覆盖 6 个子分类：基础概念、模型机制、Agent、工程、交互和安全治理。</p>
+            <strong>进入母目录</strong>
+          </a>
+
+          <a class="pillar-card is-live" href="/knowledge/workflows/">
+            <span class="meta">已开放</span>
+            <h3>工作流</h3>
+            <p>{workflowData.cards.length} 张公开版工作流解读卡，按 Agent 能力栈组织：基础设施、Skill 生产线、Skill 参考库和 Agent Building。</p>
+            <strong>进入工作流专栏</strong>
+          </a>
+
+          {futurePillars.map((pillar) => (
+            <div class="pillar-card is-pending">
+              <span class="meta">整理中</span>
+              <h3>{pillar.title}</h3>
+              <p>{pillar.desc}</p>
             </div>
           ))}
         </div>
+      </div>
+    </section>
+
+    <section class="section featured-section">
+      <div class="container">
+        <div class="section-heading compact">
+          <p class="kicker">精选卡片</p>
+          <h2 class="section-title">从这 3 张开始建立共同语言</h2>
+          <a href="/knowledge/ai-core/" class="text-link">查看全部 44 张</a>
+        </div>
+
+        <div class="featured-grid">
+          {featuredCards.map((card) => {
+            const column = knowledgeData.columns.find((item) => item.id === card.column);
+            return (
+              <a class="knowledge-card" href={`/knowledge/ai-core/${card.column}/${card.slug}/`}>
+                <span class="card-id">{card.id} · {column?.title}</span>
+                <h3>{card.title}</h3>
+                <p class="title-en">{card.title_en}</p>
+                <p>{card.summary}</p>
+                <div class="tag-row">
+                  {card.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="section featured-section">
+      <div class="container">
+        <div class="section-heading compact">
+          <p class="kicker">工作流精选</p>
+          <h2 class="section-title">从概念走到可执行能力</h2>
+          <a href="/knowledge/workflows/" class="text-link">进入工作流专栏</a>
+        </div>
+
+        <div class="featured-grid">
+          {featuredWorkflowCards.map((card) => {
+            const category = workflowData.categories.find((item) => item.id === card.category);
+            const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
+            return (
+              <a class="knowledge-card" href={`/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}>
+                <span class="card-id">{card.id} · {subcategory?.title ?? category?.title}</span>
+                <h3>{card.title}</h3>
+                <p class="title-en">{card.title_en}</p>
+                <p>{card.summary}</p>
+                <div class="tag-row">
+                  {card.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="section notice-section">
+      <div class="container">
+        <p class="notice">
+          AI 核心概念和工作流专栏已完成站点适配。后续真实知识卡继续按公开审核标准分批入站。
+        </p>
       </div>
     </section>
   </main>
@@ -44,21 +188,137 @@ const knowledgeDomains = [
     color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.78rem;
+    letter-spacing: 0.05em;
     margin-bottom: 1.2rem;
+  }
+
+  .knowledge-hero {
+    padding-bottom: clamp(42px, 7vw, 76px);
   }
 
   h1 {
     max-width: 760px;
   }
 
-  .card h3 {
-    margin-top: 1.3rem;
+  .lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 2vw, 1.22rem);
+    max-width: 680px;
+    margin-bottom: 1.75rem;
   }
 
-  .card p:last-child {
+  .start-section,
+  .directory-section,
+  .featured-section,
+  .notice-section {
+    padding-top: 0;
+  }
+
+  .start-card {
+    display: block;
+    max-width: var(--content-max);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 26, 0.03);
+    padding: clamp(1.4rem, 3vw, 2rem);
+    text-decoration: none;
+  }
+
+  .start-card:hover,
+  .pillar-card.is-live:hover,
+  .knowledge-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+  }
+
+  .start-card h2 {
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    margin-bottom: 0.7rem;
+  }
+
+  .start-card p,
+  .section-heading p,
+  .pillar-card p,
+  .knowledge-card p {
+    color: var(--grey);
+  }
+
+  .start-card strong,
+  .pillar-card strong,
+  .text-link {
     color: var(--accent);
     font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .section-heading {
+    max-width: var(--content-max);
+    margin-bottom: 1.8rem;
+  }
+
+  .section-heading.compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .pillar-grid,
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+    gap: 1rem;
+  }
+
+  .pillar-card,
+  .knowledge-card {
+    display: block;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(245, 241, 233, 0.72);
+    padding: 1.2rem;
+    text-decoration: none;
+    min-height: 210px;
+  }
+
+  .pillar-card.is-pending {
+    background: rgba(26, 26, 26, 0.018);
+  }
+
+  .pillar-card h3,
+  .knowledge-card h3 {
+    font-size: 1.22rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .pillar-card .meta,
+  .knowledge-card .card-id {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .knowledge-card .title-en {
+    font-family: var(--font-mono);
     font-size: 0.78rem;
-    margin-bottom: 0;
+    margin-bottom: 0.65rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  .notice {
+    color: var(--grey);
+    font-size: 0.95rem;
+    max-width: var(--content-max);
+    border-top: 1px solid var(--lead);
+    padding-top: 1.5rem;
   }
 </style>

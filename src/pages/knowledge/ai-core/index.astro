@@ -1,0 +1,229 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import KnowledgeTree from '../../../components/KnowledgeTree.astro';
+import knowledgeData from '../../../data/knowledge-cards.json';
+
+const cards = knowledgeData.cards
+  .slice()
+  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
+
+const columns = knowledgeData.columns.map((column) => ({
+  ...column,
+  count: cards.filter((card) => card.column === column.id).length,
+}));
+---
+
+<Layout title="AI 核心概念 — 知识库" description="思远 AI Lab 知识库 AI 核心概念母目录，整理 44 张公开版概念卡片，覆盖基础概念、模型机制、Agent、工程、交互和安全治理。">
+  <Header />
+
+  <main class="site-main ai-core-page">
+    <div class="container knowledge-layout">
+      <KnowledgeTree columns={knowledgeData.columns} cards={cards} />
+
+      <section class="main-content">
+        <p class="kicker">AI 核心概念</p>
+        <h1>先把 44 个底层词讲清楚</h1>
+        <p class="lede">
+          这组母目录把 AI 的常用概念拆成 6 个子分类。它不是技术百科，而是给非技术创业者和 AI 助理共同调用的判断词表。
+        </p>
+
+        <div class="overview-panel">
+          <div>
+            <span class="panel-number">44</span>
+            <p>已审核公开版卡片</p>
+          </div>
+          <div>
+            <span class="panel-number">6</span>
+            <p>子分类目录</p>
+          </div>
+        </div>
+
+        <a class="workflow-bridge" href="/knowledge/workflows/">
+          <span class="meta">下一步</span>
+          <h2>从概念进入工作流</h2>
+          <p>概念负责建立共同语言，工作流负责把这些语言变成可执行的 Skill、工具链和 Agent Building 参考。</p>
+          <strong>进入工作流专栏</strong>
+        </a>
+
+        <div class="category-grid">
+          {columns.map((column) => (
+            <a class="category-card" href={`/knowledge/ai-core/${column.id}/`}>
+              <span class="meta">{column.title_en}</span>
+              <h2>{column.title}</h2>
+              <p>{column.description}</p>
+              <strong>{column.count} 张卡片</strong>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .ai-core-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
+  .knowledge-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    max-width: 760px;
+  }
+
+  .lede {
+    color: var(--grey);
+    font-size: clamp(1.02rem, 2vw, 1.18rem);
+    max-width: 760px;
+    margin-bottom: 1.75rem;
+  }
+
+  .overview-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  .workflow-bridge {
+    display: block;
+    max-width: 760px;
+    border: 1px solid var(--lead);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 26, 0.025);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    text-decoration: none;
+  }
+
+  .workflow-bridge:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+  }
+
+  .workflow-bridge .meta {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .workflow-bridge h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .workflow-bridge p {
+    color: var(--grey);
+    margin-bottom: 0.75rem;
+  }
+
+  .workflow-bridge strong {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .overview-panel > div {
+    border-top: 2px solid var(--ink);
+    padding-top: 0.75rem;
+  }
+
+  .panel-number {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .overview-panel p {
+    color: var(--grey);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1rem;
+  }
+
+  .category-card {
+    display: block;
+    min-height: 220px;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(245, 241, 233, 0.72);
+    padding: 1.2rem;
+    text-decoration: none;
+  }
+
+  .category-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+  }
+
+  .category-card .meta {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .category-card h2 {
+    font-size: 1.28rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .category-card p {
+    color: var(--grey);
+    font-size: 0.92rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-card strong {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 768px) {
+    .knowledge-layout {
+      display: block;
+    }
+
+    .overview-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

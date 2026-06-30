@@ -1,0 +1,385 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const categories = ['concepts', 'toolkits', 'career', 'sources'] as const;
+  return categories.map((cat) => ({ params: { category: cat } }));
+}
+
+const { category } = Astro.params;
+
+const categoryLabels: Record<string, string> = {
+  concepts: 'AI 核心概念',
+  workflows: '场景工作流',
+  toolkits: '工具配置与选型',
+  career: '职业安全',
+  sources: '信源与标准',
+};
+
+const categoryDescs: Record<string, string> = {
+  concepts: 'AI、Agent、Prompt 等基础概念的定义与辨析。',
+  workflows: '可被 AI 调用的流程、模板和操作说明。',
+  toolkits: '工具安装、配置和最佳实践。',
+  career: 'AI 时代的职业能力与抗淘汰策略。',
+  sources: '可信信息源、评估标准与筛选方法。',
+};
+
+const allCards = await getCollection('knowledge');
+const cards = allCards
+  .filter((c) => c.data.category === category && c.data.public && !c.data.draft)
+  .sort((a, b) => {
+    const levelOrder = { '入门': 0, '进阶': 1, '深度': 2 };
+    const levelDiff = levelOrder[a.data.level] - levelOrder[b.data.level];
+    if (levelDiff !== 0) return levelDiff;
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  });
+
+const otherCategories = Object.entries(categoryLabels)
+  .filter(([slug]) => slug !== category)
+  .map(([slug, title]) => ({ slug, title }));
+
+function getSlug(cardId: string): string {
+  return cardId.replace(/.*\//, '').replace(/\.mdx?$/, '');
+}
+---
+
+<Layout title={`${categoryLabels[category]} — 知识库`} description={`思远 AI Lab 知识库：${categoryDescs[category]}`}>
+  <Header />
+
+  <main class="site-main category-page">
+    <div class="container two-pane">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <p class="kicker">知识库</p>
+          <h2>{categoryLabels[category]}</h2>
+          <p class="sidebar-desc">{categoryDescs[category]}</p>
+        </div>
+
+        <details class="other-cats">
+          <summary>其他分类</summary>
+          <ul>
+            {otherCategories.map((oc) => (
+              <li><a href={`/knowledge/${oc.slug}/`}>{oc.title}</a></li>
+            ))}
+          </ul>
+        </details>
+
+        <nav class="card-nav">
+          <h3>卡片列表</h3>
+          {cards.length > 0 ? (
+            <ul>
+              {cards.map((card) => (
+                <li>
+                  <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
+                    <span class="card-link-title">{card.data.title}</span>
+                    <span class="card-link-meta">
+                      <span class="level-tag">{card.data.level}</span>
+                      {card.data.tags.slice(0, 2).map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                      <span class="curated">{card.data.curated_by}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="empty">该分类暂无卡片。</p>
+          )}
+        </nav>
+      </aside>
+
+      <section class="main-content">
+        {cards.length > 0 ? (
+          <div class="category-overview">
+            <p class="kicker">{categoryLabels[category]}</p>
+            <h1>{categoryLabels[category]}</h1>
+            <p class="desc">{categoryDescs[category]}</p>
+            <p class="card-count">共 {cards.length} 张卡片</p>
+            <div class="card-list">
+              {cards.map((card) => (
+                <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-list-item">
+                  <h3>{card.data.title}</h3>
+                  <p>{card.data.description}</p>
+                  <div class="meta-row">
+                    <span class="level-tag">{card.data.level}</span>
+                    {card.data.tags.map((t) => (
+                      <span class="tag">{t}</span>
+                    ))}
+                    <span class="curated">{card.data.curated_by}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h2>该分类正在整理中</h2>
+            <p>首批卡片正在审核和结构化处理中，完成后会自动出现在这里。</p>
+            <a href="/knowledge/" class="btn">返回知识库入口</a>
+          </div>
+        )}
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .category-page {
+    padding: clamp(32px, 5vw, 56px) 0;
+  }
+
+  .two-pane {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    border-right: 1px solid var(--lead);
+    padding-right: 24px;
+  }
+
+  .sidebar-header .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-desc {
+    color: var(--grey);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .other-cats {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+  }
+
+  .other-cats summary {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--grey);
+  }
+
+  .other-cats ul {
+    list-style: none;
+    padding: 0.75rem 0 0 0;
+    margin: 0;
+  }
+
+  .other-cats li {
+    padding: 0.35rem 0;
+  }
+
+  .other-cats a {
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .other-cats a:hover {
+    color: var(--accent);
+  }
+
+  .card-nav h3 {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    color: var(--grey);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card-nav li {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .card-link:hover {
+    border-color: var(--lead);
+    background: rgba(26, 26, 26, 0.02);
+  }
+
+  .card-link-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-link-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .card-link-meta .curated {
+    font-size: 0.72rem;
+    color: var(--grey);
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .category-overview .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-overview h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .category-overview .desc {
+    color: var(--grey);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--grey);
+    margin-bottom: 2rem;
+  }
+
+  .card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 1rem;
+  }
+
+  .card-list-item {
+    display: block;
+    text-decoration: none;
+    background: rgba(26, 26, 26, 0.02);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .card-list-item:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-paper);
+    transform: translateY(-2px);
+  }
+
+  .card-list-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-list-item p {
+    color: var(--grey);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .level-tag {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    border-radius: var(--radius);
+  }
+
+  .curated {
+    font-size: 0.72rem;
+    color: var(--grey);
+    font-family: var(--font-mono);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: clamp(48px, 10vw, 96px) 0;
+  }
+
+  .empty-state h2 {
+    margin-bottom: 1rem;
+  }
+
+  .empty-state p {
+    color: var(--grey);
+    margin-bottom: 1.5rem;
+  }
+
+  .empty {
+    color: var(--grey);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .two-pane {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      border-right: none;
+      border-bottom: 1px solid var(--lead);
+      padding-right: 0;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-nav li {
+      margin-bottom: 0;
+    }
+
+    .card-link {
+      padding: 0.4rem 0.6rem;
+    }
+  }
+</style>

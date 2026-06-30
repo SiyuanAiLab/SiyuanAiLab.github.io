@@ -1,0 +1,748 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-06-29",
+  "columns": [
+    {
+      "id": "foundations",
+      "title": "基础概念",
+      "title_en": "Foundations",
+      "description": "AI 领域最底层的通用概念"
+    },
+    {
+      "id": "models",
+      "title": "模型与机制",
+      "title_en": "Models & Mechanisms",
+      "description": "理解模型如何学习、表示、生成和推理"
+    },
+    {
+      "id": "agents",
+      "title": "Agent 与智能体系统",
+      "title_en": "Agents",
+      "description": "从工具调用到多智能体协作的行动系统"
+    },
+    {
+      "id": "engineering",
+      "title": "工程与架构",
+      "title_en": "Engineering",
+      "description": "把 AI 能力放进真实业务流程的工程方法"
+    },
+    {
+      "id": "interaction",
+      "title": "交互与提示",
+      "title_en": "Interaction",
+      "description": "人与模型协作时的提示、上下文和交互结构"
+    },
+    {
+      "id": "safety",
+      "title": "安全与治理",
+      "title_en": "Safety & Governance",
+      "description": "AI 系统的风险、边界、评估和治理机制"
+    }
+  ],
+  "cards": [
+    {
+      "id": "01-01",
+      "slug": "artificial-intelligence",
+      "title": "人工智能",
+      "title_en": "Artificial Intelligence",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "让机器完成需要人类智能参与的任务，比如识别、判断、生成、规划和行动。",
+      "tags": [
+        "AI",
+        "人工智能",
+        "基础概念"
+      ],
+      "source": "Wikipedia / Google Machine Learning Crash Course",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/01-人工智能-Artificial-Intelligence.md"
+    },
+    {
+      "id": "01-02",
+      "slug": "generative-ai",
+      "title": "生成式 AI",
+      "title_en": "Generative AI",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "能根据提示生成文本、图片、音频、视频或代码的新内容的 AI。",
+      "tags": [
+        "生成式AI",
+        "内容生成",
+        "AI基础"
+      ],
+      "source": "Wikipedia / OpenAI Prompt engineering guide",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/02-生成式-AI-Generative-AI.md"
+    },
+    {
+      "id": "01-03",
+      "slug": "large-language-model",
+      "title": "大语言模型",
+      "title_en": "Large Language Model",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "在海量文本和代码上训练出来、擅长理解和生成语言的大型神经网络。",
+      "tags": [
+        "LLM",
+        "大语言模型",
+        "模型基础"
+      ],
+      "source": "06-Knowledge 改写 / Wikipedia / Attention Is All You Need",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/03-大语言模型-Large-Language-Model.md"
+    },
+    {
+      "id": "01-05",
+      "slug": "machine-learning",
+      "title": "机器学习",
+      "title_en": "Machine Learning",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "让计算机从数据中学习规律，而不是只按人工写死的规则执行。",
+      "tags": [
+        "机器学习",
+        "ML",
+        "基础概念"
+      ],
+      "source": "Google Machine Learning Crash Course / Wikipedia",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/05-机器学习-Machine-Learning.md"
+    },
+    {
+      "id": "01-06",
+      "slug": "neural-network",
+      "title": "神经网络",
+      "title_en": "Neural Network",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "由多层计算单元组成的模型，用来从数据中学习复杂模式。",
+      "tags": [
+        "神经网络",
+        "深度学习",
+        "模型基础"
+      ],
+      "source": "06-Knowledge 改写 / Google ML Crash Course",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/06-神经网络-Neural-Network.md"
+    },
+    {
+      "id": "01-07",
+      "slug": "transformer-architecture",
+      "title": "Transformer 架构",
+      "title_en": "Transformer Architecture",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "一种基于注意力机制的神经网络架构，是现代大语言模型的核心底座。",
+      "tags": [
+        "Transformer",
+        "注意力机制",
+        "LLM"
+      ],
+      "source": "Attention Is All You Need / Wikipedia",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/07-Transformer-架构-Transformer-Architecture.md"
+    },
+    {
+      "id": "01-08",
+      "slug": "parameters",
+      "title": "参数",
+      "title_en": "Parameters",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "模型在训练中学到的内部数值，决定它如何把输入映射成输出。",
+      "tags": [
+        "参数",
+        "模型规模",
+        "模型机制"
+      ],
+      "source": "Wikipedia / Google Machine Learning Crash Course",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/08-参数-Parameters.md"
+    },
+    {
+      "id": "01-09",
+      "slug": "training-data",
+      "title": "训练数据",
+      "title_en": "Training Data",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "用来训练模型的样本集合，模型从中学习语言、图像、行为或任务规律。",
+      "tags": [
+        "训练数据",
+        "数据质量",
+        "模型训练"
+      ],
+      "source": "Google Machine Learning Crash Course / NIST AI Risk Management Framework",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/09-训练数据-Training-Data.md"
+    },
+    {
+      "id": "01-10",
+      "slug": "pre-training",
+      "title": "预训练",
+      "title_en": "Pre-training",
+      "column": "foundations",
+      "category": "01-基础概念",
+      "summary": "在大规模通用数据上先训练模型，让它获得基础语言和世界模式。",
+      "tags": [
+        "预训练",
+        "模型训练",
+        "LLM"
+      ],
+      "source": "Wikipedia / Language Models are Few-Shot Learners",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/10-预训练-Pre-training.md"
+    },
+    {
+      "id": "02-01",
+      "slug": "token",
+      "title": "Token",
+      "title_en": "Token",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "模型处理文本时的基本片段，可能是一个字、词、词根、标点或代码片段。",
+      "tags": [
+        "Token",
+        "上下文",
+        "成本"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Tokenizer",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/11-Token-Token.md"
+    },
+    {
+      "id": "02-02",
+      "slug": "context-window",
+      "title": "上下文窗口",
+      "title_en": "Context Window",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "模型一次对话或调用中能看到的输入与历史内容总容量。",
+      "tags": [
+        "上下文窗口",
+        "Context",
+        "LLM"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Prompt engineering guide",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/12-上下文窗口-Context-Window.md"
+    },
+    {
+      "id": "02-03",
+      "slug": "attention-mechanism",
+      "title": "注意力机制",
+      "title_en": "Attention Mechanism",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "让模型在处理某个位置时，动态关注输入中更相关部分的机制。",
+      "tags": [
+        "注意力机制",
+        "Transformer",
+        "模型机制"
+      ],
+      "source": "Attention Is All You Need",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/13-注意力机制-Attention-Mechanism.md"
+    },
+    {
+      "id": "02-04",
+      "slug": "embedding",
+      "title": "嵌入/向量",
+      "title_en": "Embedding",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "把文本、图片或其他对象转成数字向量，让机器能比较它们的语义距离。",
+      "tags": [
+        "Embedding",
+        "向量",
+        "语义搜索"
+      ],
+      "source": "Google Machine Learning Crash Course / Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/14-嵌入向量-Embedding.md"
+    },
+    {
+      "id": "02-05",
+      "slug": "retrieval-augmented-generation",
+      "title": "检索增强生成",
+      "title_en": "Retrieval-Augmented Generation",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "先从外部资料中检索相关内容，再把检索结果交给模型生成回答的方法。",
+      "tags": [
+        "RAG",
+        "检索增强生成",
+        "知识库"
+      ],
+      "source": "06-Knowledge 改写 / Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/15-检索增强生成-Retrieval-Augmented-Generation.md"
+    },
+    {
+      "id": "02-06",
+      "slug": "fine-tuning",
+      "title": "微调",
+      "title_en": "Fine-tuning",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "在已有模型基础上，用特定数据继续训练，让模型更适合某类任务或风格。",
+      "tags": [
+        "微调",
+        "模型训练",
+        "LLM"
+      ],
+      "source": "OpenAI Fine-tuning guide / Wikipedia",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/16-微调-Fine-tuning.md"
+    },
+    {
+      "id": "02-07",
+      "slug": "prompt-engineering",
+      "title": "提示词工程",
+      "title_en": "Prompt Engineering",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "通过设计输入、指令、示例和约束，让模型更稳定地完成任务的方法。",
+      "tags": [
+        "Prompt Engineering",
+        "提示词",
+        "交互"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Prompt engineering guide / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/17-提示词工程-Prompt-Engineering.md"
+    },
+    {
+      "id": "02-09",
+      "slug": "chain-of-thought",
+      "title": "思维链",
+      "title_en": "Chain-of-Thought",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "通过引导模型分步骤推理，提升复杂问题求解表现的方法。",
+      "tags": [
+        "CoT",
+        "思维链",
+        "推理"
+      ],
+      "source": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/19-思维链-Chain-of-Thought.md"
+    },
+    {
+      "id": "02-10",
+      "slug": "reasoning",
+      "title": "推理",
+      "title_en": "Reasoning",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "模型把已知信息连接起来，进行多步判断、归纳、演绎或规划的能力。",
+      "tags": [
+        "推理",
+        "Reasoning",
+        "LLM"
+      ],
+      "source": "OpenAI Reasoning guide / Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/20-推理-Reasoning.md"
+    },
+    {
+      "id": "02-11",
+      "slug": "hallucination",
+      "title": "幻觉",
+      "title_en": "Hallucination",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "模型生成了看起来可信、但事实不准确或没有依据的内容。",
+      "tags": [
+        "幻觉",
+        "可靠性",
+        "LLM风险"
+      ],
+      "source": "Lilian Weng / Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/21-幻觉-Hallucination.md"
+    },
+    {
+      "id": "02-12",
+      "slug": "alignment",
+      "title": "对齐",
+      "title_en": "Alignment",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "让模型行为更符合人类意图、价值、安全边界和任务要求的训练与约束过程。",
+      "tags": [
+        "对齐",
+        "Alignment",
+        "AI安全"
+      ],
+      "source": "NIST AI Risk Management Framework / OpenAI Safety best practices",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/22-对齐-Alignment.md"
+    },
+    {
+      "id": "02-13",
+      "slug": "temperature",
+      "title": "温度/采样参数",
+      "title_en": "Temperature",
+      "column": "models",
+      "category": "02-模型与机制",
+      "summary": "控制模型生成随机性和多样性的参数，温度越高通常越发散。",
+      "tags": [
+        "Temperature",
+        "采样参数",
+        "生成控制"
+      ],
+      "source": "OpenAI Prompt engineering guide / OpenAI Reasoning guide",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/23-温度采样参数-Temperature.md"
+    },
+    {
+      "id": "03-01",
+      "slug": "ai-agent",
+      "title": "智能体",
+      "title_en": "AI Agent",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "以模型为核心，能接收目标、规划步骤、调用工具并根据反馈持续行动的软件实体。",
+      "tags": [
+        "AI Agent",
+        "智能体",
+        "工具调用"
+      ],
+      "source": "06-Knowledge 改写 / Anthropic / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/24-智能体-AI-Agent.md"
+    },
+    {
+      "id": "03-02",
+      "slug": "multi-agent-system",
+      "title": "多智能体系统",
+      "title_en": "Multi-Agent System",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "多个智能体按角色分工协作，共同完成单个智能体难以处理的任务。",
+      "tags": [
+        "多智能体",
+        "Agent",
+        "协作"
+      ],
+      "source": "06-Knowledge 改写 / Lilian Weng / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/25-多智能体系统-Multi-Agent-System.md"
+    },
+    {
+      "id": "03-04",
+      "slug": "tool-use-function-calling",
+      "title": "工具调用",
+      "title_en": "Tool Use / Function Calling",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "模型通过标准接口调用搜索、计算、数据库、代码执行或业务 API 等外部工具。",
+      "tags": [
+        "工具调用",
+        "Function Calling",
+        "Agent"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Function calling guide / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/27-工具调用-Tool-Use-Function-Calling.md"
+    },
+    {
+      "id": "03-05",
+      "slug": "memory-system",
+      "title": "记忆系统",
+      "title_en": "Memory System",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "让智能体在短期上下文之外保存、检索和更新信息的机制。",
+      "tags": [
+        "记忆系统",
+        "Agent Memory",
+        "上下文"
+      ],
+      "source": "06-Knowledge 改写 / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/28-记忆系统-Memory-System.md"
+    },
+    {
+      "id": "03-06",
+      "slug": "planning",
+      "title": "规划能力",
+      "title_en": "Planning",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "智能体把目标拆成步骤、安排顺序，并根据反馈调整路径的能力。",
+      "tags": [
+        "Planning",
+        "规划",
+        "Agent"
+      ],
+      "source": "06-Knowledge 改写 / Lilian Weng / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/29-规划能力-Planning.md"
+    },
+    {
+      "id": "03-07",
+      "slug": "delegation",
+      "title": "委托机制",
+      "title_en": "Delegation",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "把任务从主控智能体分派给子智能体、工具或人类，并回收结果的机制。",
+      "tags": [
+        "Delegation",
+        "委托",
+        "Subagent"
+      ],
+      "source": "06-Knowledge 改写 / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/30-委托机制-Delegation.md"
+    },
+    {
+      "id": "03-08",
+      "slug": "model-context-protocol",
+      "title": "模型上下文协议",
+      "title_en": "Model Context Protocol",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "一种让 AI 应用以标准方式连接工具、数据源和上下文服务的开放协议。",
+      "tags": [
+        "MCP",
+        "Model Context Protocol",
+        "工具协议"
+      ],
+      "source": "06-Knowledge 改写 / Model Context Protocol documentation",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/31-模型上下文协议-Model-Context-Protocol.md"
+    },
+    {
+      "id": "03-09",
+      "slug": "agentic-workflow",
+      "title": "智能体工作流",
+      "title_en": "Agentic Workflow",
+      "column": "agents",
+      "category": "03-Agent与智能体系统",
+      "summary": "把模型、工具、人工检查和状态流组合成可重复运行的任务流程。",
+      "tags": [
+        "Agentic Workflow",
+        "工作流",
+        "AI工程"
+      ],
+      "source": "06-Knowledge 改写 / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/32-智能体工作流-Agentic-Workflow.md"
+    },
+    {
+      "id": "04-01",
+      "slug": "ai-engineering",
+      "title": "AI 工程学",
+      "title_en": "AI Engineering",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "把大模型能力变成可靠、可控、可维护产品和流程的工程方法。",
+      "tags": [
+        "AI工程学",
+        "AI Engineering",
+        "工程化"
+      ],
+      "source": "06-Knowledge 改写 / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/33-AI-工程学-AI-Engineering.md"
+    },
+    {
+      "id": "04-02",
+      "slug": "llm-gateway",
+      "title": "LLM 网关",
+      "title_en": "LLM Gateway",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "位于应用和多个模型供应商之间的统一入口，用于管理调用、路由、限流、日志和成本。",
+      "tags": [
+        "LLM网关",
+        "模型管理",
+        "AI工程"
+      ],
+      "source": "06-Knowledge 改写",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/34-LLM-网关-LLM-Gateway.md"
+    },
+    {
+      "id": "04-04",
+      "slug": "test-time-compute",
+      "title": "测试时计算",
+      "title_en": "Test-time Compute",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "在模型回答阶段投入更多计算，如多步推理、多次采样、搜索或自检，以换取更好结果。",
+      "tags": [
+        "Test-time Compute",
+        "推理",
+        "成本"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Reasoning guide",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/36-测试时计算-Test-time-Compute.md"
+    },
+    {
+      "id": "04-06",
+      "slug": "context-engineering",
+      "title": "上下文工程",
+      "title_en": "Context Engineering",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "系统性选择、组织、压缩和注入模型所需上下文的工程方法。",
+      "tags": [
+        "上下文工程",
+        "Context",
+        "AI工程"
+      ],
+      "source": "06-Knowledge 改写 / Andrej Karpathy",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/38-上下文工程-Context-Engineering.md"
+    },
+    {
+      "id": "04-07",
+      "slug": "vibe-coding",
+      "title": "Vibe Coding",
+      "title_en": "Vibe Coding",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "用自然语言和 AI 编程工具快速表达意图、生成代码、边跑边改的开发方式。",
+      "tags": [
+        "Vibe Coding",
+        "AI编程",
+        "原型"
+      ],
+      "source": "06-Knowledge 改写 / Andrej Karpathy / Wikipedia",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/39-Vibe-Coding-Vibe-Coding.md"
+    },
+    {
+      "id": "04-08",
+      "slug": "human-in-the-loop",
+      "title": "人参与循环",
+      "title_en": "Human-in-the-loop",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "在 AI 流程中保留人类审核、纠偏或最终决策的机制。",
+      "tags": [
+        "Human-in-the-loop",
+        "人机协同",
+        "治理"
+      ],
+      "source": "06-Knowledge 改写 / Wikipedia / NIST AI Risk Management Framework",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/40-人参与循环-Human-in-the-loop.md"
+    },
+    {
+      "id": "04-09",
+      "slug": "evaluation-methods",
+      "title": "评估方法",
+      "title_en": "Evaluation Methods",
+      "column": "engineering",
+      "category": "04-工程与架构",
+      "summary": "用测试集、基准、人工审核、自动指标或实战任务来判断 AI 系统表现的方法。",
+      "tags": [
+        "评估",
+        "Evals",
+        "质量"
+      ],
+      "source": "06-Knowledge 改写 / OpenAI Evals guide",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/41-评估方法-Evaluation-Methods.md"
+    },
+    {
+      "id": "05-01",
+      "slug": "system-prompt",
+      "title": "系统提示词",
+      "title_en": "System Prompt",
+      "column": "interaction",
+      "category": "05-交互与提示",
+      "summary": "由应用或开发者设置的高优先级指令，用来规定模型角色、边界和行为规则。",
+      "tags": [
+        "System Prompt",
+        "系统提示词",
+        "Prompt"
+      ],
+      "source": "OpenAI Prompt engineering guide / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/43-系统提示词-System-Prompt.md"
+    },
+    {
+      "id": "05-03",
+      "slug": "few-shot-prompting",
+      "title": "少样本提示",
+      "title_en": "Few-shot Prompting",
+      "column": "interaction",
+      "category": "05-交互与提示",
+      "summary": "在提示中提供几个输入输出示例，让模型模仿格式、风格或判断标准。",
+      "tags": [
+        "Few-shot Prompting",
+        "Prompt",
+        "示例"
+      ],
+      "source": "OpenAI Prompt engineering guide / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/45-少样本提示-Few-shot-Prompting.md"
+    },
+    {
+      "id": "05-04",
+      "slug": "role-prompting",
+      "title": "角色提示",
+      "title_en": "Role Prompting",
+      "column": "interaction",
+      "category": "05-交互与提示",
+      "summary": "通过指定模型扮演的专业角色、视角或职责，影响其回答方式。",
+      "tags": [
+        "Role Prompting",
+        "Prompt",
+        "交互"
+      ],
+      "source": "OpenAI Prompt engineering guide / Lilian Weng",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/46-角色提示-Role-Prompting.md"
+    },
+    {
+      "id": "05-05",
+      "slug": "prompt-injection",
+      "title": "提示词注入",
+      "title_en": "Prompt Injection",
+      "column": "interaction",
+      "category": "05-交互与提示",
+      "summary": "攻击者通过输入诱导模型忽略原有规则、泄露信息或执行不该执行的动作。",
+      "tags": [
+        "Prompt Injection",
+        "安全",
+        "LLM风险"
+      ],
+      "source": "OWASP GenAI Security / OpenAI Safety best practices",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/47-提示词注入-Prompt-Injection.md"
+    },
+    {
+      "id": "06-01",
+      "slug": "ai-safety",
+      "title": "AI 安全",
+      "title_en": "AI Safety",
+      "column": "safety",
+      "category": "06-安全与治理",
+      "summary": "研究和实践如何让 AI 系统可靠、可控、不会造成不可接受风险的领域。",
+      "tags": [
+        "AI安全",
+        "治理",
+        "风险"
+      ],
+      "source": "06-Knowledge 改写 / NIST AI Risk Management Framework / OpenAI Safety best practices",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/48-AI-安全-AI-Safety.md"
+    },
+    {
+      "id": "06-03",
+      "slug": "agent-governance",
+      "title": "智能体治理",
+      "title_en": "Agent Governance",
+      "column": "safety",
+      "category": "06-安全与治理",
+      "summary": "对智能体的权限、目标、日志、审核、责任和生命周期进行管理的机制。",
+      "tags": [
+        "Agent Governance",
+        "智能体治理",
+        "AI安全"
+      ],
+      "source": "06-Knowledge 改写 / NIST AI Risk Management Framework / Anthropic",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/50-智能体治理-Agent-Governance.md"
+    },
+    {
+      "id": "06-04",
+      "slug": "model-bias",
+      "title": "模型偏见",
+      "title_en": "Model Bias",
+      "column": "safety",
+      "category": "06-安全与治理",
+      "summary": "模型因训练数据、目标函数或使用方式，对某些群体、观点或场景产生系统性不公平或失真。",
+      "tags": [
+        "模型偏见",
+        "公平性",
+        "治理"
+      ],
+      "source": "NIST AI Risk Management Framework / Google Machine Learning Crash Course",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/51-模型偏见-Model-Bias.md"
+    },
+    {
+      "id": "06-05",
+      "slug": "data-privacy",
+      "title": "数据隐私",
+      "title_en": "Data Privacy",
+      "column": "safety",
+      "category": "06-安全与治理",
+      "summary": "在 AI 系统中保护个人、客户和组织敏感数据不被不当收集、使用、泄露或再训练。",
+      "tags": [
+        "数据隐私",
+        "隐私",
+        "安全"
+      ],
+      "source": "NIST AI Risk Management Framework / OpenAI Safety best practices",
+      "content_path": "06-Knowledge/02-AI与智能系统/01-理论与原理/独立站公开版/52-数据隐私-Data-Privacy.md"
+    }
+  ]
+}
