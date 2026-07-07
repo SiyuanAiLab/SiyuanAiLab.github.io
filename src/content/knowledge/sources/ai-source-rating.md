@@ -2,17 +2,21 @@
 title: AI 工具信源评级手册
 description: 如何判断一条 AI 信息是否可信、是否过时、是否适合自己。
 pubDate: 2026-06-29
+updatedDate: 2026-06-29
 category: sources
 level: 入门
 tags: [信源, 可信度, 信息筛选, 防坑]
+related_cards: [ai-source-principle]
 scenario: 面对大量 AI 教程和工具测评，不知道信哪个
 audience: 非技术初学者、想降低信息筛选成本的职场人
 action: 下次读到一条 AI 信息时，用本手册的 4 个问题快速打分
 source: 用户洞察管线 / 可信度焦虑分析
+sourcePath: 站内早期手工卡片
 confidence: 中
 verifiedDate: 2026-06-29
 curated_by: 杨思远 / 思远 AI Lab
 public: true
+draft: false
 ---
 
 # AI 工具信源评级手册
