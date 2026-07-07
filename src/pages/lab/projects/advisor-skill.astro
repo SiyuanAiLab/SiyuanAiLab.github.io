@@ -1,0 +1,141 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+---
+
+<Layout title="军师 Skill 归档" description="军师 Skill 是思远 AI Lab 的概念归档页，当前只保留基础介绍和状态说明。">
+  <Header />
+
+  <main class="site-main advisor-page">
+    <section class="advisor-hero" aria-labelledby="advisor-title">
+      <div class="container advisor-grid">
+        <div>
+          <p class="kicker">项目归档</p>
+          <h1 id="advisor-title">军师 Skill</h1>
+          <p class="hero-lede">
+            一个用 AI 辅助关系判断和沟通准备的早期 Skill 概念。当前不作为正式产品开放，只保留项目说明，方便后续回看和迭代。
+          </p>
+        </div>
+
+        <aside class="status-panel" aria-label="当前状态">
+          <p class="meta">当前状态</p>
+          <dl>
+            <div>
+              <dt>阶段</dt>
+              <dd>概念归档</dd>
+            </div>
+            <div>
+              <dt>开放状态</dt>
+              <dd>暂不开放获取</dd>
+            </div>
+            <div>
+              <dt>下一步</dt>
+              <dd>等边界、样例和使用风险确认后再判断是否重启</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="archive-title">
+      <div class="container archive-panel">
+        <p class="kicker">说明</p>
+        <h2 id="archive-title">先归档，不包装成产品</h2>
+        <p>
+          军师 Skill 暂时只保留基础介绍。它不会出现在趣味展厅，也不会作为 1.0 会员权益发放。
+        </p>
+        <a href="/lab/playground/" class="btn btn-outline">返回趣味展厅</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .advisor-page {
+    overflow: hidden;
+  }
+
+  .advisor-hero {
+    padding: clamp(64px, 9vw, 112px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .advisor-grid {
+    align-items: center;
+    display: grid;
+    gap: clamp(28px, 6vw, 76px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  }
+
+  .kicker,
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .advisor-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.8rem);
+    line-height: 1.08;
+    max-width: 860px;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    max-width: 720px;
+  }
+
+  .status-panel,
+  .archive-panel {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: clamp(22px, 4vw, 36px);
+  }
+
+  .status-panel dl {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .status-panel div {
+    border-top: 1px solid var(--lead);
+    padding-top: 1rem;
+  }
+
+  .status-panel dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .status-panel dd {
+    margin: 0.25rem 0 0;
+  }
+
+  .archive-panel {
+    max-width: 760px;
+  }
+
+  .archive-panel h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+  }
+
+  .archive-panel p {
+    color: var(--grey);
+  }
+
+  .archive-panel .btn {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .advisor-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

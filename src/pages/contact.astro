@@ -11,24 +11,24 @@ const contactRoutes = [
   },
   {
     title: "付费会员",
-    label: "预定 ¥99/年",
-    desc: "会员权益确认中，期待上线。未来会围绕个人操作系统、Skill 包和教程开放线上内容。",
+    label: "¥299/年会员",
+    desc: "联系微信获取，确认后手动发送网盘链接。1.0 会员先围绕 Skill 包和教程开放线上内容。",
   },
   {
     title: "合作入口",
-    label: "业务场景",
-    desc: "适合已经有具体业务问题，需要讨论 AI 工作流、内容产品化或企业 AI 服务合作。",
+    label: "暂不开放",
+    desc: "合作入口暂不开放，先不承压；后续等服务边界成熟后再开放。",
   },
 ];
 
 const pendingItems = [
   "付费会员权益确认中，暂不开放站内支付。",
-  "会员实际内容页跳转将在权益开放后补齐。",
-  "合作咨询入口待思远确认是否开放。",
+  "¥299/年会员通过微信联系获取，确认后手动发送网盘链接。",
+  "合作入口暂不开放，先不承压。",
 ];
 ---
 
-<Layout title="联系" description="联系杨思远，关注公众号「思远AiLab」，添加微信 ysy61879257，获取思远 AI Lab 更新。">
+<Layout title="联系" description="联系杨思远，关注公众号「思远AiLab」，添加微信 vosy61879257，获取思远 AI Lab 更新。">
   <Header />
 
   <main class="site-main contact-page">
@@ -38,7 +38,7 @@ const pendingItems = [
           <p class="kicker">联系与关注</p>
           <h1 id="contact-title">先关注更新，再决定要不要深入。</h1>
           <p class="hero-lede">
-            思远 AI Lab 1.0 不在站内做支付和复杂表单。公众号负责更新，微信负责沟通，会员权益确认后再开放获取入口。
+            思远 AI Lab 1.0 不在站内做支付和复杂表单。公众号负责更新，微信负责沟通，会员通过微信联系获取，确认后手动发送网盘链接。
           </p>
           <div class="contact-actions">
             <a href="/lab/" class="btn">查看实验室</a>
@@ -50,7 +50,7 @@ const pendingItems = [
           <img src="/assets/wechat-follow-card-standard.png" alt="思远AiLab 公众号二维码" />
           <div class="contact-lines">
             <p>公众号：思远AiLab</p>
-            <p>微信：ysy61879257</p>
+            <p>微信：vosy61879257</p>
           </div>
         </aside>
       </div>
@@ -76,9 +76,9 @@ const pendingItems = [
       <div class="container pending-panel">
         <div>
           <p class="kicker">上线前待补</p>
-          <h2 id="pending-title">会员权益确认中，期待上线</h2>
+          <h2 id="pending-title">会员手动发放，合作暂不开放</h2>
           <p>
-            当前只展示真实联系方式，不假装已经有完整商业闭环。会员开放后，再补实际内容页和获取路径。
+            当前只展示真实联系方式，不假装已经有完整商业闭环。会员走微信确认和网盘发放，合作入口先不承压。
           </p>
         </div>
         <ul class="pending-list">
