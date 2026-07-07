@@ -3,229 +3,288 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import knowledgeData from '../data/knowledge-cards.json';
+import workflowData from '../data/workflow-cards.json';
 
 const pageTitle = "首页";
-const pageDescription = "思远 AI Lab 1.0，帮非技术创业者设计 AI 时代的工作方式：先搭个人操作系统，再获取 Skill 装备，最后探索实验收藏馆。";
-
-const proofPoints = [
-  { value: "12 年", label: "营销实战" },
-  { value: "10 年", label: "管理经验" },
-  { value: "1 人", label: "AI 公司筹备期" },
-  { value: "先行者", label: "不是权威" },
-];
-
-const systemSteps = [
-  {
-    title: "创建人物",
-    meta: "Personal OS",
-    desc: "先搭你的个人操作系统。用 Obsidian 做记忆底座，Hermes 做执行接口，Tamarin 做环境。",
-    href: "/lab/personal-os/",
-    cta: "了解个人操作系统",
-  },
-  {
-    title: "获取装备",
-    meta: "Skills",
-    desc: "再挑适合你的 Skill。它们来自真实工作流，不是万能工具，而是可复用的判断和执行框架。",
-    href: "/lab/skills/",
-    cta: "进入 Skill 展厅",
-  },
-  {
-    title: "探索收藏馆",
-    meta: "Lab",
-    desc: "看看我还在折腾什么。Demo、众筹项目、趣味实验和半成品都会放在实验室里。",
-    href: "/lab/",
-    cta: "进入实验室",
-  },
-];
-
-const knowledgeDomains = [
-  {
-    slug: "free",
-    title: "免费入口",
-    desc: "文章与知识库先开放，用来建立判断坐标。",
-  },
-  {
-    slug: "member",
-    title: "¥99/年付费会员",
-    desc: "获取个人操作系统部署包、Skill 包和教程，暂通过联系获取。",
-  },
-  {
-    slug: "cooperation",
-    title: "合作入口",
-    desc: "如果你有真实业务场景，可以从联系页说明问题。",
-  },
-];
+const pageDescription = "思远 AI Lab，帮非技术创业者把 AI 放进真实工作流。判断比工具更重要，机制比灵感更可靠。";
 
 const allArticles = await getCollection('articles');
 const latestArticles = allArticles
   .filter((article) => article.data.public && !article.data.draft && article.data.auditStatus === 'approved')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const articleResults = latestArticles.slice(0, 2).map((article) => ({
+  type: '文章',
+  title: article.data.title,
+  desc: article.data.description,
+  meta: article.data.pubDate.toISOString().slice(0, 10),
+  href: `/articles/${article.id.replace(/\.mdx?$/, '')}`,
+}));
+
+const knowledgeResults = [
+  knowledgeData.cards.find((card) => card.slug === 'ai-agent'),
+  knowledgeData.cards.find((card) => card.slug === 'agentic-workflow'),
+].filter(Boolean).map((card) => ({
+  type: '知识卡片',
+  title: card.title,
+  desc: card.summary,
+  meta: card.column === 'concepts' ? '概念' : '工作流',
+  href: `/knowledge/ai-core/${card.column}/${card.slug}/`,
+}));
+
+const skillResults = workflowData.cards
+  .filter((card) => card.title.toLowerCase().includes('agent'))
+  .slice(0, 2)
+  .map((card) => ({
+    type: 'Skill',
+    title: card.title,
+    desc: card.summary,
+    meta: card.category === 'execution' ? '进阶' : '中级',
+    href: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
+  }));
+
+const consoleGroups = [
+  {
+    title: '文章',
+    meta: `${articleResults.length} 条判断`,
+    more: `查看全部 ${latestArticles.length} 篇`,
+    href: '/articles',
+    items: articleResults,
+  },
+  {
+    title: '知识卡片',
+    meta: `${knowledgeResults.length} 张卡片`,
+    more: `查看全部 ${knowledgeResults.length} 张`,
+    href: '/knowledge',
+    items: knowledgeResults,
+  },
+  {
+    title: 'Skill',
+    meta: `${skillResults.length} 个工作流`,
+    more: `查看全部 ${skillResults.length} 个`,
+    href: '/lab/skills/',
+    items: skillResults,
+  },
+];
+
+const searchItems = [...articleResults, ...knowledgeResults, ...skillResults];
+
+const routeRows = [
+  {
+    number: '01',
+    title: '文章',
+    desc: '跨领域的观察与拆解，帮你建立更高质量的判断。',
+    href: '/articles',
+    cta: '进入文章',
+  },
+  {
+    number: '02',
+    title: '知识库',
+    desc: '概念、方法、框架、工作流，可搜索、可引用、可使用。',
+    href: '/knowledge',
+    cta: '探索知识库',
+  },
+  {
+    number: '03',
+    title: '实验室',
+    desc: '个人操作系统、Skill 和正在筹备的 AI 项目，持续进化中。',
+    href: '/lab/',
+    cta: '进入实验室',
+  },
+];
+
+const proofPoints = [
+  { value: '12 年', label: '营销实战' },
+  { value: '10 年', label: '管理经验' },
+  { value: 'AI 公司', label: '筹备期' },
+  { value: '可搜索', label: '知识库' },
+];
+
+const productRoutes = [
+  {
+    title: '个人操作系统',
+    desc: '用 Obsidian、Hermes 和 Tamarin 搭起个人 AI 工作底座。',
+    href: '/lab/personal-os/',
+  },
+  {
+    title: 'Skill 展厅',
+    desc: '把真实工作流拆成可复用的判断与执行框架。',
+    href: '/lab/skills/',
+  },
+  {
+    title: '联系合作',
+    desc: '有真实业务场景时，从问题和边界开始聊。',
+    href: '/contact',
+  },
+];
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
 
-  <main class="site-main homepage">
-    <section class="home-hero" aria-labelledby="hero-title">
-      <div class="container home-hero-grid">
-        <div class="hero-copy">
-          <p class="kicker">思远 AI Lab 1.0</p>
+  <main class="site-main judgment-home">
+    <section class="judgment-hero" aria-labelledby="hero-title">
+      <div class="hero-shell">
+        <div class="hero-thesis" data-reveal>
+          <p class="kicker">思远 AI Lab</p>
           <h1 id="hero-title">
-            <span>帮非技术创业者设计</span>
-            <span>AI 时代的工作方式</span>
+            <span class="headline-line">判断比</span>
+            <span class="headline-line headline-line-wide">
+              <span class="accent-circle">工具</span><span>更重要</span>
+            </span>
           </h1>
+          <p class="editor-note" aria-label="编辑批注">先有判断，才有真正有价值的 AI 工作流。</p>
           <p class="hero-lede">
-            这里是杨思远的工作方法实验室。我把自己在 AI 协作中沉淀的个人操作系统、可复用 Skill 和判断文章开放出来，让你先搭系统，再选装备。
+            帮非技术创业者把 AI 放进真实工作流，而不是停留在工具收集。
           </p>
-          <div class="hero-rewrite" aria-label="定位修订">
-            <span class="rewrite">创建人物</span>
-            <span class="meta">→</span>
-            <span class="rewrite">获取装备</span>
-            <span class="meta">→</span>
-            <span class="rewrite">探索收藏馆</span>
+          <p class="hero-note">
+            先看清问题，再设计机制。AI 负责执行，人负责判断、品味和承担后果。
+          </p>
+
+          <div class="hero-actions" aria-label="首屏入口">
+            <a href="/articles" class="btn btn-accent">开始阅读 <span aria-hidden="true">→</span></a>
+            <a href="/knowledge" class="btn btn-outline">搜索知识库 <span aria-hidden="true">→</span></a>
           </div>
-          <div class="hero-actions">
-            <a href="/lab/personal-os/" class="btn">先搭个人操作系统</a>
-            <a href="/lab/" class="btn btn-outline">进入实验室</a>
-            <a href="/articles" class="text-link">先读文章</a>
+
+          <div class="topic-line" aria-label="核心主题">
+            <span>策略判断</span>
+            <span>工作流设计</span>
+            <span>内容资产</span>
+            <span>个人操作系统</span>
           </div>
         </div>
 
-        <aside class="product-card" aria-label="站点入口说明">
-          <p class="meta">第一步去哪</p>
-          <h2>先搭系统，再选装备。</h2>
-          <p>
-            如果你不是程序员，但想让 AI 真正进入自己的工作方式，从个人操作系统开始最稳。
-          </p>
-          <dl>
-            <div>
-              <dt>系统</dt>
-              <dd>个人操作系统</dd>
+        <aside class="console-panel" aria-labelledby="console-title" data-reveal>
+          <div class="console-header">
+            <p class="console-kicker" id="console-title">Knowledge Console</p>
+            <span>SEARCH</span>
+          </div>
+
+          <div class="console-search">
+            <label for="home-console-search">搜索站内内容</label>
+            <div class="console-input-row">
+              <span aria-hidden="true">&gt;</span>
+              <input
+                id="home-console-search"
+                type="search"
+                value="Agent 工作流"
+                autocomplete="off"
+                data-home-search
+              />
+              <a href="/knowledge/?q=Agent%20%E5%B7%A5%E4%BD%9C%E6%B5%81" aria-label="打开知识库搜索">⌕</a>
             </div>
-            <div>
-              <dt>装备</dt>
-              <dd>可复用 Skill</dd>
-            </div>
-            <div>
-              <dt>状态</dt>
-              <dd>1.0 展厅整理中</dd>
-            </div>
-          </dl>
-          <a href="/contact" class="btn">联系获取</a>
+          </div>
+
+          <div class="console-meta">
+            <span>3 类内容</span>
+            <span>按相关度排序</span>
+          </div>
+
+          <div class="console-results" data-console-results>
+            {consoleGroups.map((group) => (
+              <section class="result-group" aria-labelledby={`group-${group.title}`}>
+                <div class="result-group-head">
+                  <h2 id={`group-${group.title}`}>{group.title}</h2>
+                  <span>{group.meta}</span>
+                </div>
+                <div class="result-list">
+                  {group.items.map((item) => (
+                    <a href={item.href} class="result-row">
+                      <strong>{item.title}</strong>
+                      <span>{item.meta}</span>
+                    </a>
+                  ))}
+                </div>
+                <a class="group-more" href={group.href}>{group.more}</a>
+              </section>
+            ))}
+          </div>
+
+          <p class="console-end">END OF RESULTS</p>
+          <script type="application/json" data-home-search-index set:html={JSON.stringify(searchItems)} />
         </aside>
       </div>
-    </section>
 
-    <section class="proof-band" aria-label="可信事实">
-      <div class="container proof-grid">
-        {proofPoints.map(point => (
-          <div class="proof-item">
-            <strong>{point.value}</strong>
-            <span>{point.label}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="section product-section" aria-labelledby="system-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="kicker">站点路径</p>
-          <h2 id="system-title" class="section-title">创建人物 → 获取装备 → 探索收藏馆</h2>
-          <p>
-            这套站点逻辑借用了“养成”的顺序，但表达保持纸白墨黑的编辑风。先让一个人拥有系统，再给他装备，最后看他还在做哪些实验。
-          </p>
+      <div class="route-board" aria-label="站点路径" data-reveal>
+        <div class="route-intro">
+          <span>Next Routes</span>
+          <p>把首屏的判断，继续落到可以阅读、搜索和探索的三个入口。</p>
         </div>
 
-        <div class="article-track-grid">
-          {systemSteps.map(step => (
-            <article class="article-track">
-              <p class="meta">{step.meta}</p>
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
-              <a href={step.href} class="text-link">{step.cta}</a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section writing-section" aria-labelledby="writing-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="kicker">最新文章</p>
-          <h2 id="writing-title" class="section-title">判断文章负责解释为什么这样做</h2>
-          <p>
-            这里保留 2-3 篇最新文章入口。文章负责把 AI 时代的判断、产品过程和个人系统经验沉淀下来。
-          </p>
-        </div>
-
-        <div class="article-track-grid">
-          {latestArticles.map(article => (
-            <a class="article-track article-link-card" href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}>
-              <p class="meta">{article.data.seriesTitle ?? article.data.category}</p>
-              <h3>{article.data.title}</h3>
-              <p>{article.data.description}</p>
-            </a>
-          ))}
-        </div>
-
-        <a href="/articles" class="text-link">查看全部文章</a>
-      </div>
-    </section>
-
-    <section class="section knowledge-section" aria-labelledby="knowledge-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="kicker">知识库</p>
-          <h2 id="knowledge-title" class="section-title">知识库负责给 AI 调资料</h2>
-          <p>
-            1.0 的知识库先作为装备资料库占位。它面向的不是一次性浏览，而是让 AI 助理未来可以检索、引用和复用。
-          </p>
-        </div>
-
-        <div class="knowledge-board">
-          {knowledgeDomains.map((domain, index) => (
-            <a class={`knowledge-tile tile-${index}`} href="/knowledge">
-              <span class="meta">{domain.slug}</span>
-              <h3>{domain.title}</h3>
-              <p>{domain.desc}</p>
+        <div class="route-list">
+          {routeRows.map((route) => (
+            <a class="route-row" href={route.href}>
+              <span class="route-number">{route.number}</span>
+              <strong>{route.title}</strong>
+              <span>{route.desc}</span>
+              <em>{route.cta}</em>
             </a>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section route-section" aria-labelledby="route-title">
-      <div class="container route-panel">
-        <div>
-          <p class="kicker">会员说明</p>
-          <h2 id="route-title">免费读判断，付费拿装备。</h2>
-          <p>
-            本期不接入站内支付。免费入口是文章和知识库；付费会员为 ¥99/年，获取实验室线上内容，统一通过联系页占位承接。
-          </p>
+    <section class="proof-strip" aria-label="可信事实" data-reveal>
+      <div class="proof-intro">
+        <span>关于思远</span>
+      </div>
+      {proofPoints.map((point) => (
+        <div class="proof-cell">
+          <strong>{point.value}</strong>
+          <span>{point.label}</span>
         </div>
-        <ol class="route-list">
-          {knowledgeDomains.map(route => (
-            <li>{route.title}：{route.desc}</li>
+      ))}
+      <p class="proof-note">
+        把复杂世界整理成可执行的下一步。
+      </p>
+    </section>
+
+    <section class="section section-latest" aria-labelledby="latest-title">
+      <div class="container latest-grid">
+        <div class="section-copy" data-reveal>
+          <p class="kicker">判断文章</p>
+          <h2 id="latest-title">先读判断，再选工具。</h2>
+          <p>
+            文章负责解释为什么这样做。它们不是库存，而是把真实判断、产品过程和 AI 工作流沉淀成长期资产。
+          </p>
+          <a href="/articles" class="text-link">查看全部文章</a>
+        </div>
+
+        <div class="latest-list" data-reveal>
+          {latestArticles.map((article, index) => (
+            <a class="latest-row" href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p>{article.data.seriesTitle ?? article.data.category}</p>
+                <h3>{article.data.title}</h3>
+                <small>{article.data.description}</small>
+              </div>
+            </a>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
 
-    <section class="section cta-section" aria-labelledby="cta-title">
-      <div class="container cta-panel">
-        <div>
-          <p class="kicker">下一步</p>
-          <h2 id="cta-title">先从个人操作系统开始。</h2>
+    <section class="section section-products" aria-labelledby="products-title">
+      <div class="container">
+        <div class="section-copy narrow" data-reveal>
+          <p class="kicker">实验室入口</p>
+          <h2 id="products-title">不卖工具，设计机制。</h2>
           <p>
-            如果你只是想看看判断，可以先读文章；如果你想搭自己的 AI 工作方式，就从个人操作系统和 Skill 展厅进入。
+            实验室承接更具体的系统和装备：个人操作系统、Skill 展厅，以及真实业务场景里的合作入口。
           </p>
         </div>
-        <div class="cta-actions">
-          <a href="/lab/personal-os/" class="btn">了解个人操作系统</a>
-          <a href="/contact" class="text-link">联系获取</a>
+
+        <div class="product-route-grid" data-reveal>
+          {productRoutes.map((route) => (
+            <a class="product-route" href={route.href}>
+              <h3>{route.title}</h3>
+              <p>{route.desc}</p>
+              <span>查看入口</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -234,414 +293,925 @@ const latestArticles = allArticles
   <Footer />
 </Layout>
 
+<script>
+  const input = document.querySelector('[data-home-search]');
+  const results = document.querySelector('[data-console-results]');
+  const indexNode = document.querySelector('[data-home-search-index]');
+  const items = JSON.parse(indexNode?.textContent || '[]');
+
+  const normalize = (value) => String(value || '').toLowerCase().trim();
+  const groupedFallback = results?.innerHTML || '';
+
+  const renderSearch = (query) => {
+    if (!results) return;
+    const needle = normalize(query);
+    if (!needle || needle === normalize('Agent 工作流')) {
+      results.innerHTML = groupedFallback;
+      return;
+    }
+
+    const matches = items
+      .filter((item) => normalize(`${item.type} ${item.title} ${item.desc}`).includes(needle))
+      .slice(0, 6);
+
+    if (!matches.length) {
+      results.innerHTML = '<div class="empty-console">没有找到匹配内容。可以换成“Agent”“工作流”“系统”。</div>';
+      return;
+    }
+
+    results.innerHTML = `
+      <section class="result-group">
+        <div class="result-group-head">
+          <h2>搜索结果</h2>
+          <span>${matches.length} 条</span>
+        </div>
+        <div class="result-list">
+          ${matches.map((item) => `
+            <a href="${item.href}" class="result-row">
+              <strong>${item.title}</strong>
+              <span>${item.desc}</span>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  };
+
+  input?.addEventListener('input', (event) => {
+    renderSearch(event.target.value);
+  });
+
+  const revealItems = document.querySelectorAll('[data-reveal]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16 });
+
+  revealItems.forEach((item) => observer.observe(item));
+</script>
+
 <style>
-  .homepage {
+  .judgment-home {
     overflow: hidden;
   }
 
-  .home-hero {
-    padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 8vw, 88px);
+  .judgment-hero {
+    border-bottom: 1px solid var(--ink);
   }
 
-  .home-hero-grid {
-    align-items: center;
+  .hero-shell {
     display: grid;
-    gap: clamp(32px, 6vw, 80px);
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.8fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.82fr);
+    --console-inset: clamp(36px, 3.4vw, 48px);
+    --hero-gutter: clamp(36px, 4vw, 60px);
+    margin: 0 auto;
+    max-width: var(--page-max);
+    padding: 0 clamp(20px, 4vw, 40px);
   }
 
-  .kicker {
+  .hero-thesis,
+  .console-panel {
+    padding-bottom: 42px;
+    padding-top: 72px;
+  }
+
+  .hero-thesis {
+    border-right: 1px solid var(--lead);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 610px;
+    padding-left: 0;
+    padding-right: var(--hero-gutter);
+    position: relative;
+  }
+
+  .kicker,
+  .console-kicker {
     color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    margin-bottom: 1.2rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
   }
 
-  .hero-copy h1 {
-    font-size: clamp(2.35rem, 6vw, 4.9rem);
-    line-height: 1.08;
-    max-width: 880px;
+  .hero-thesis h1 {
+    font-size: clamp(4.7rem, 6.2vw, 5.9rem);
+    line-height: 1.02;
+    margin: 0 0 1.4rem;
+    max-width: 620px;
   }
 
-  .hero-copy h1 span {
+  .headline-line {
     display: block;
+    white-space: nowrap;
+  }
+
+  .headline-line-wide {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.06em;
+    white-space: nowrap;
+  }
+
+  .accent-circle {
+    display: inline-block;
+    position: relative;
+  }
+
+  .accent-circle::after {
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    content: "";
+    height: 0.92em;
+    left: -0.16em;
+    position: absolute;
+    top: 0.06em;
+    transform: rotate(-4deg);
+    width: 1.92em;
+    z-index: -1;
+  }
+
+  .editor-note {
+    color: var(--accent);
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin: -0.3rem 0 1.15rem;
+    max-width: 260px;
+    position: absolute;
+    right: 0;
+    top: 84px;
+    transform: rotate(-7deg);
+  }
+
+  .editor-note::after {
+    border-bottom: 1.5px solid var(--accent);
+    border-radius: 50%;
+    content: "";
+    display: block;
+    height: 16px;
+    margin-top: 0.2rem;
+    transform: rotate(-5deg);
+    width: 150px;
   }
 
   .hero-lede {
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1.24rem;
+    line-height: 1.7;
+    max-width: 590px;
+  }
+
+  .hero-note {
     color: var(--grey);
-    font-size: clamp(1.04rem, 1.7vw, 1.24rem);
-    max-width: 700px;
+    max-width: 580px;
   }
 
-  .hero-rewrite {
+  .hero-actions {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 0.85rem;
-    margin: 0 0 1.6rem;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
-  .hero-actions,
-  .cta-actions {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem 1rem;
+  .hero-actions .btn {
+    min-width: 190px;
   }
 
-  .product-card {
-    background: linear-gradient(180deg, rgba(245, 241, 233, 0.95), rgba(212, 201, 191, 0.34));
-    border: 1px solid var(--lead);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-paper);
-    padding: clamp(22px, 4vw, 36px);
-    position: relative;
+  .hero-actions .btn span {
+    margin-left: 0.9rem;
   }
 
-  .product-card::before {
+  .btn-accent {
     background: var(--accent);
-    content: "";
-    height: 2px;
-    left: 18px;
-    position: absolute;
-    right: 18px;
-    top: 18px;
-  }
-
-  .product-card h2 {
-    font-size: clamp(1.7rem, 3vw, 2.35rem);
-    margin-top: 1.2rem;
-  }
-
-  .product-card p {
-    color: var(--grey);
-  }
-
-  .product-card dl {
-    border-top: 1px solid var(--lead);
-    margin: 1.5rem 0;
-  }
-
-  .product-card dl div {
-    border-bottom: 1px solid var(--lead);
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 84px 1fr;
-    padding: 0.8rem 0;
-  }
-
-  .product-card dt {
-    color: var(--grey);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-  }
-
-  .product-card dd {
-    font-family: var(--font-serif);
-    font-weight: 700;
-  }
-
-  .proof-band {
-    background: rgba(212, 201, 191, 0.25);
-    border-bottom: 1px solid var(--lead);
-    border-top: 1px solid var(--lead);
-  }
-
-  .proof-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .proof-item {
-    border-right: 1px solid rgba(184, 184, 184, 0.7);
-    padding: clamp(20px, 3vw, 30px);
-  }
-
-  .proof-item:last-child {
-    border-right: 0;
-  }
-
-  .proof-item strong {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .proof-item span,
-  .section-lede,
-  .section-heading p {
-    color: var(--grey);
-    font-size: 1.04rem;
-  }
-
-  .product-grid,
-  .route-panel {
-    align-items: start;
-    display: grid;
-    gap: clamp(32px, 6vw, 76px);
-    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
-  }
-
-  .product-facts {
-    border-top: 2px solid var(--ink);
-  }
-
-  .product-facts p {
-    border-bottom: 1px solid var(--lead);
-    font-family: var(--font-serif);
-    font-size: clamp(1.18rem, 2.6vw, 1.65rem);
-    margin: 0;
-    max-width: none;
-    padding: 1rem 0;
-  }
-
-  .section-heading {
-    margin-bottom: var(--space-block);
-  }
-
-  .article-track-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1.15fr 0.9fr 0.9fr;
-  }
-
-  .article-track {
-    background: rgba(245, 241, 233, 0.78);
-    border: 1px solid var(--lead);
-    border-radius: var(--radius);
-    min-height: 230px;
-    padding: clamp(20px, 3vw, 30px);
-  }
-
-  .article-track:first-child {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  .article-track:first-child .meta,
-  .article-track:first-child p {
-    color: rgba(245, 241, 233, 0.78);
-  }
-
-  .article-track:first-child .text-link {
-    color: var(--paper);
-  }
-
-  .article-track h3 {
-    margin-top: 2.6rem;
-  }
-
-  .article-track p:last-child {
-    margin-bottom: 0;
-  }
-
-  .article-link-card {
-    color: inherit;
-    display: block;
-    text-decoration: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .article-link-card:hover {
     border-color: var(--accent);
-    box-shadow: var(--shadow-paper);
-    color: inherit;
-    transform: translateY(-2px);
+  }
+
+  .btn-accent:hover {
+    background: var(--ink);
+    border-color: var(--ink);
   }
 
   .text-link {
-    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
     display: inline-block;
     font-weight: 700;
-    margin-top: 1.4rem;
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-underline-offset: 0.25em;
-  }
-
-  .knowledge-board {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .knowledge-tile {
-    background: rgba(245, 241, 233, 0.76);
-    border: 1px solid var(--lead);
-    border-radius: var(--radius);
-    color: var(--ink);
-    min-height: 188px;
-    padding: 1.2rem;
+    margin-top: 0;
     text-decoration: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  .knowledge-tile:hover {
-    border-color: var(--accent);
-    box-shadow: var(--shadow-paper);
-    color: var(--ink);
-    transform: translateY(-2px);
-  }
-
-  .knowledge-tile h3 {
-    font-size: 1.15rem;
-    margin-top: 1.4rem;
-  }
-
-  .knowledge-tile p {
+  .topic-line {
+    border-top: 1px solid var(--lead);
     color: var(--grey);
-    font-size: 0.93rem;
-    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    gap: 0.85rem 1.1rem;
+    margin-top: 1.55rem;
+    padding-top: 1rem;
   }
 
-  .tile-0 {
-    background: var(--ink);
-    color: var(--paper);
+  .topic-line span + span::before {
+    color: var(--lead);
+    content: "·";
+    margin-right: 1.1rem;
   }
 
-  .tile-0 .meta,
-  .tile-0 p {
-    color: rgba(245, 241, 233, 0.74);
-  }
-
-  .tile-1 {
-    background: linear-gradient(135deg, rgba(192, 48, 48, 0.16), rgba(245, 241, 233, 0.82));
-  }
-
-  .route-panel {
-    background: rgba(212, 201, 191, 0.25);
-    border: 1px solid var(--lead);
-    border-radius: var(--radius);
-    padding: clamp(24px, 5vw, 52px);
-  }
-
-  .route-panel h2 {
-    font-size: clamp(1.55rem, 3.5vw, 2.35rem);
-  }
-
-  .route-panel p {
-    color: var(--grey);
-  }
-
-  .route-list {
-    counter-reset: route;
-    list-style: none;
-  }
-
-  .route-list li {
-    border-bottom: 1px solid var(--lead);
-    font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 2.4vw, 1.48rem);
-    padding: 0.9rem 0 0.9rem 2.8rem;
+  .console-panel {
+    background: rgba(245, 241, 233, 0.72);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: var(--console-inset);
+    padding-right: 0;
+    padding-top: 46px;
     position: relative;
   }
 
-  .route-list li::before {
+  .console-header,
+  .console-meta,
+  .result-group-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .console-header {
+    border-bottom: 1px dotted var(--lead);
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.55rem;
+    text-transform: uppercase;
+  }
+
+  .console-header p {
+    margin: 0;
+  }
+
+  .console-search label {
+    color: var(--grey);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .console-input-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 56px;
+  }
+
+  .console-input-row span,
+  .console-input-row input,
+  .console-input-row a {
+    background: rgba(245, 241, 233, 0.96);
+    border: 2px solid var(--ink);
+    min-height: 58px;
+  }
+
+  .console-input-row span,
+  .console-input-row a {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    justify-content: center;
+  }
+
+  .console-input-row span {
+    border-right: 0;
+  }
+
+  .console-input-row input {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1.28rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .console-input-row input:focus {
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  .console-input-row a {
+    border-left: 0;
+    color: var(--ink);
+    font-weight: 700;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  .console-input-row a:hover {
     color: var(--accent);
-    content: "0" counter(route);
-    counter-increment: route;
+  }
+
+  .console-meta {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin: 0.65rem 0 0.9rem;
+  }
+
+  .console-results {
+    background: rgba(245, 241, 233, 0.58);
+    border: 1px solid var(--lead);
+    border-bottom: 0;
+  }
+
+  .result-group {
+    border-bottom: 1px solid var(--lead);
+    padding: 0.72rem 1.05rem 0.62rem;
+    position: relative;
+  }
+
+  .result-group:first-child::before {
+    background: var(--accent);
+    content: "";
+    left: -1px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+  }
+
+  .result-group-head {
+    margin-bottom: 0.28rem;
+  }
+
+  .result-group h2 {
+    color: var(--accent);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .result-group-head span {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .result-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .result-row {
+    align-items: baseline;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0.04rem 0;
+    text-decoration: none;
+  }
+
+  .result-row strong {
+    display: block;
+    font-size: 0.94rem;
+    line-height: 1.58;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .result-row span,
+  .empty-console {
+    color: var(--grey);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .result-row:hover strong {
+    color: var(--accent);
+  }
+
+  .empty-console {
+    border: 1px solid var(--lead);
+    padding: 1rem;
+  }
+
+  .group-more {
+    display: inline-block;
+    font-size: 0.84rem;
+    margin-top: 0.3rem;
+    text-decoration: none;
+  }
+
+  .group-more::after {
+    color: var(--accent);
+    content: "→";
+    margin-left: 0.55rem;
+  }
+
+  .console-end {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    margin: 0.8rem 0 0;
+    text-align: right;
+  }
+
+  .route-board {
+    border-top: 1px solid var(--lead);
+    display: grid;
+    gap: clamp(32px, 5vw, 72px);
+    grid-template-columns: minmax(240px, 0.42fr) minmax(0, 1fr);
+    margin: 0 auto;
+    max-width: var(--page-max);
+    padding: clamp(46px, 6vw, 76px) clamp(20px, 4vw, 40px);
+  }
+
+  .route-intro {
+    max-width: 360px;
+  }
+
+  .route-intro span {
+    color: var(--accent);
+    display: block;
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    left: 0;
-    position: absolute;
-    top: 1.18rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
   }
 
-  .cta-panel {
-    background: var(--ink);
-    border: 1px solid var(--ink);
-    border-radius: var(--radius);
-    color: var(--paper);
+  .route-intro p {
+    color: var(--grey);
+    font-family: var(--font-serif);
+    font-size: 1.24rem;
+    line-height: 1.75;
+    margin: 0;
+    max-width: 340px;
+  }
+
+  .route-list {
+    border-top: 1px solid var(--ink);
+  }
+
+  .route-row {
+    align-items: center;
+    border-bottom: 1px solid var(--lead);
+    color: var(--ink);
     display: grid;
-    gap: clamp(24px, 4vw, 56px);
-    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
-    padding: clamp(24px, 5vw, 52px);
+    gap: 1rem;
+    grid-template-columns: 56px 128px minmax(0, 1fr) 150px;
+    min-height: 92px;
+    padding: 1.1rem 0;
+    text-decoration: none;
   }
 
-  .cta-panel .kicker,
-  .cta-panel p {
-    color: rgba(245, 241, 233, 0.76);
-  }
-
-  .cta-panel h2 {
-    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
-  }
-
-  .cta-panel .btn {
-    background: var(--paper);
-    border-color: var(--paper);
+  .route-row:hover {
+    background: rgba(192, 48, 48, 0.045);
     color: var(--ink);
   }
 
-  .cta-panel .btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+  .route-number {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .route-row strong {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+  }
+
+  .route-row span:not(.route-number) {
+    color: var(--grey);
+  }
+
+  .route-row em {
+    font-style: normal;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .route-row em::after,
+  .product-route span::after {
+    color: var(--accent);
+    content: "→";
+    margin-left: 0.8rem;
+  }
+
+  .proof-strip {
+    border-bottom: 1px solid var(--lead);
+    display: grid;
+    gap: clamp(20px, 3vw, 40px);
+    grid-template-columns: 0.72fr repeat(4, minmax(0, 1fr)) 1.2fr;
+    margin: 0 auto;
+    max-width: var(--page-max);
+    padding: clamp(40px, 5.5vw, 72px) clamp(20px, 4vw, 40px);
+  }
+
+  .proof-intro,
+  .proof-cell,
+  .proof-note {
+    border-top: 1px solid var(--lead);
+    min-height: 112px;
+    padding: 1.15rem 0 0;
+  }
+
+  .proof-intro {
+    align-items: center;
+    display: flex;
+  }
+
+  .proof-intro span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0;
+    writing-mode: horizontal-tb;
+  }
+
+  .proof-cell strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .proof-cell span,
+  .proof-note {
+    color: var(--grey);
+  }
+
+  .proof-note {
+    align-items: flex-start;
+    display: flex;
+    margin: 0;
+  }
+
+  .latest-grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  }
+
+  .section-copy h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-copy p {
+    color: var(--grey);
+  }
+
+  .section-copy.narrow {
+    max-width: 720px;
+  }
+
+  .latest-list {
+    border-top: 2px solid var(--ink);
+  }
+
+  .latest-row {
+    border-bottom: 1px solid var(--lead);
+    color: var(--ink);
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: 42px minmax(0, 1fr);
+    padding: 1.15rem 0;
+    text-decoration: none;
+  }
+
+  .latest-row > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+
+  .latest-row p {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .latest-row h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .latest-row small {
+    color: var(--grey);
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .latest-row:hover h3 {
+    color: var(--accent);
+  }
+
+  .section-products {
+    padding-top: 0;
+  }
+
+  .product-route-grid {
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--space-block);
+  }
+
+  .product-route {
+    border-bottom: 1px solid var(--lead);
+    border-right: 1px solid var(--lead);
+    color: var(--ink);
+    min-height: 220px;
+    padding: 1.4rem;
+    text-decoration: none;
+  }
+
+  .product-route:first-child {
+    background: var(--ink);
     color: var(--paper);
   }
 
-  .cta-panel .text-link {
-    color: var(--paper);
-    margin-top: 0;
+  .product-route:last-child {
+    border-right: 0;
   }
 
-  @media (max-width: 900px) {
-    .home-hero-grid,
-    .product-grid,
-    .route-panel,
-    .cta-panel {
+  .product-route h3 {
+    font-size: 1.35rem;
+  }
+
+  .product-route p {
+    color: var(--grey);
+    font-size: 0.95rem;
+  }
+
+  .product-route:first-child p {
+    color: rgba(245, 241, 233, 0.74);
+  }
+
+  .product-route span {
+    border-bottom: 1px solid var(--accent);
+    display: inline-block;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .hero-shell {
       grid-template-columns: 1fr;
     }
 
-    .product-card {
-      max-width: 560px;
+    .hero-thesis,
+    .console-panel {
+      border-right: 0;
+      padding: 56px clamp(24px, 6vw, 52px);
     }
 
-    .article-track-grid,
-    .knowledge-board {
-      grid-template-columns: 1fr 1fr;
+    .hero-thesis {
+      min-height: auto;
+    }
+
+    .console-panel {
+      border-top: 1px solid var(--lead);
+    }
+
+    .hero-thesis h1 {
+      font-size: clamp(4.1rem, 12vw, 5.4rem);
+    }
+
+    .editor-note {
+      display: none;
+    }
+
+    .proof-strip {
+      grid-template-columns: repeat(3, 1fr);
+      padding-inline: clamp(24px, 6vw, 52px);
+    }
+
+    .proof-note {
+      grid-column: span 3;
+    }
+
+    .route-board {
+      grid-template-columns: 1fr;
+      padding-inline: clamp(24px, 6vw, 52px);
     }
   }
 
-  @media (max-width: 600px) {
-    .home-hero {
-      padding-top: 44px;
+  @media (max-width: 760px) {
+    .hero-thesis,
+    .console-panel {
+      padding: 42px 20px;
     }
 
-    .hero-copy h1 {
-      font-size: 2.18rem;
-      line-height: 1.16;
+    .hero-thesis h1 {
+      font-size: clamp(2.7rem, 13.5vw, 3.35rem);
+      line-height: 1.12;
     }
 
-    .hero-rewrite {
-      align-items: flex-start;
+    .hero-lede {
+      font-size: 1.12rem;
+    }
+
+    .hero-actions {
+      align-items: stretch;
       flex-direction: column;
     }
 
-    .hero-actions,
-    .cta-actions {
-      display: block;
-    }
-
     .hero-actions .btn,
-    .cta-actions .btn {
-      margin-bottom: 0.8rem;
+    .hero-actions .text-link {
+      text-align: center;
+      width: 100%;
     }
 
-    .proof-grid,
-    .article-track-grid,
-    .knowledge-board {
+    .topic-line {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .topic-line span + span::before {
+      content: "";
+      margin: 0;
+    }
+
+    .console-input-row {
+      grid-template-columns: 40px minmax(0, 1fr) 48px;
+    }
+
+    .console-input-row span,
+    .console-input-row input,
+    .console-input-row a {
+      font-size: 1rem;
+      min-height: 52px;
+    }
+
+    .console-results {
+      max-height: none;
+    }
+
+    .route-row {
+      align-items: start;
+      gap: 0.45rem 0.8rem;
+      grid-template-columns: 40px minmax(0, 1fr);
+      min-height: auto;
+      padding: 1.15rem 0;
+    }
+
+    .route-row span:not(.route-number),
+    .route-row em {
+      grid-column: 2;
+    }
+
+    .route-row em {
+      justify-content: flex-start;
+    }
+
+    .route-board {
+      padding: 38px 20px;
+    }
+
+    .route-intro p {
+      font-size: 1.12rem;
+    }
+
+    .proof-strip {
+      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 34px 20px;
+    }
+
+    .proof-intro,
+    .proof-note {
+      grid-column: span 2;
+    }
+
+    .latest-grid,
+    .product-route-grid {
       grid-template-columns: 1fr;
     }
 
-    .proof-item {
-      border-bottom: 1px solid rgba(184, 184, 184, 0.7);
+    .product-route {
       border-right: 0;
+      min-height: auto;
     }
+  }
+</style>
 
-    .proof-item:last-child {
-      border-bottom: 0;
-    }
+<style is:global>
+  .judgment-home .console-results .result-group {
+    border-bottom: 1px solid var(--lead);
+    padding: 0.72rem 1.05rem 0.62rem;
+    position: relative;
+  }
+
+  .judgment-home .console-results .result-group:first-child::before {
+    background: var(--accent);
+    bottom: 0;
+    content: "";
+    left: -1px;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
+
+  .judgment-home .console-results .result-group-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.28rem;
+  }
+
+  .judgment-home .console-results .result-group h2 {
+    color: var(--accent);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .judgment-home .console-results .result-group-head span {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .judgment-home .console-results .result-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .judgment-home .console-results .result-row {
+    align-items: baseline;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0.04rem 0;
+    text-decoration: none;
+  }
+
+  .judgment-home .console-results .result-row strong {
+    display: block;
+    font-size: 0.94rem;
+    line-height: 1.58;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .judgment-home .console-results .result-row span,
+  .judgment-home .console-results .empty-console {
+    color: var(--grey);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .judgment-home .console-results .result-row:hover strong {
+    color: var(--accent);
+  }
+
+  .judgment-home .console-results .empty-console {
+    border: 1px solid var(--lead);
+    padding: 1rem;
   }
 </style>
