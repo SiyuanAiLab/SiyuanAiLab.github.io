@@ -4,6 +4,7 @@ description: "消费者 AI 和 AI 视频领域最敏锐的观察者之一。"
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 入门
 tags: ["X", "消费者AI", "AI视频", "信源", "a16z"]
 related_cards: ["ai-social-accounts-directory"]

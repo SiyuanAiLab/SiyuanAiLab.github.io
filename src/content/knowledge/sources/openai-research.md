@@ -4,6 +4,7 @@ description: "OpenAI 的公开研究论文库，覆盖 GPT 系列、DALL-E、对
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 入门
 tags: ["OpenAI", "研究", "生成模型", "对齐", "AI安全"]
 related_cards: ["ai-research-papers-directory"]

@@ -4,6 +4,7 @@ description: "AI 工程师社区的信号放大器，适合捕捉新工具和新
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 入门
 tags: ["X", "AI工程师", "社区", "信源", "Swyx"]
 related_cards: ["ai-social-accounts-directory"]

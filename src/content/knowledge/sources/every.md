@@ -4,6 +4,7 @@ description: "以 AI 为主题的订阅媒体，集合多个专栏作者，提�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["Newsletter", "AI评论", "知识工作者", "付费媒体", "AI学习"]
 related_cards: ["ai-newsletters-curators-directory"]

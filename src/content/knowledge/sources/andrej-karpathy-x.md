@@ -4,6 +4,7 @@ description: "把复杂的 AI 原理讲得最清楚的一线工程师教育者�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 入门
 tags: ["X", "AI教育", "大模型", "信源", "AndrejKarpathy"]
 related_cards: ["ai-social-accounts-directory"]

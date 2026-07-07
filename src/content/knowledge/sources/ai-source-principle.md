@@ -4,6 +4,7 @@ description: "面对海量 AI 信息，先按可信度分级，再决定投入�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "信源分级与框架"
 level: 进阶
 tags: ["信源", "信息验证", "AI学习", "知识库", "独立站"]
 related_cards: ["ai-official-docs-directory", "anthropic-official-docs", "ai-research-papers-directory", "ai-media-insights-directory", "ai-podcasts-videos-directory", "ai-newsletters-curators-directory", "ai-social-accounts-directory"]

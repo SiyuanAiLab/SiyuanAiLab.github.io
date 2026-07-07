@@ -4,6 +4,7 @@ description: "用人工策展对抗信息过载，把信号从噪音里挑出来
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 进阶
 tags: ["信源", "Newsletter", "策展者", "AI学习", "独立站"]
 related_cards: ["ai-source-principle", "bens-bites", "every", "zaras-ai-learning-library", "ai-valley", "ainews-by-smol-ai", "peter-yang"]

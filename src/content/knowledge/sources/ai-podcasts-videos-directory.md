@@ -4,6 +4,7 @@ description: "长视频和深度播客适合建立直觉，但不适合作为事
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 进阶
 tags: ["信源", "AI播客", "AI视频", "学习资源", "独立站"]
 related_cards: ["ai-source-principle", "andrej-karpathy-youtube", "latent-space", "lennys-podcast", "google-deepmind-podcast", "ai-and-i"]

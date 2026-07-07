@@ -4,6 +4,7 @@ description: "面向 AI 工程师的技术 Newsletter，由 smol.ai 团队策展
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["Newsletter", "AI工程师", "Beehiiv", "技术动态", "开源"]
 related_cards: ["ai-newsletters-curators-directory"]

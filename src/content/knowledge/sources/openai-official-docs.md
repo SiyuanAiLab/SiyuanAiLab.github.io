@@ -4,6 +4,7 @@ description: "OpenAI 产品的官方文档，覆盖 GPT、Embeddings、Fine-tuni
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "官方文档与产品更新"
 level: 入门
 tags: ["OpenAI", "GPT", "官方文档", "信源", "AI学习"]
 related_cards: ["ai-official-docs-directory", "anthropic-official-docs", "openai-research"]

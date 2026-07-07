@@ -4,6 +4,7 @@ description: "模型上下文协议（Model Context Protocol）的官方规范�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "官方文档与产品更新"
 level: 入门
 tags: ["MCP", "模型上下文协议", "官方文档", "Agent", "信源"]
 related_cards: ["ai-official-docs-directory", "anthropic-official-docs"]

@@ -4,6 +4,7 @@ description: "创投机构、科技媒体与研究机构对 AI 趋势的判断�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 进阶
 tags: ["信源", "权威媒体", "机构洞察", "AI学习", "独立站"]
 related_cards: ["ai-source-principle", "a16z-ai", "sequoia-ai", "y-combinator-blog", "techcrunch-ai", "the-verge-ai", "mit-technology-review-ai"]

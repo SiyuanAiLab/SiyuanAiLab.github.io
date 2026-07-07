@@ -4,6 +4,7 @@ description: "关注 builder 型账号而非 influencer，把 X 当作 AI 前沿
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 进阶
 tags: ["信源", "社交媒体", "X", "AI学习", "独立站"]
 related_cards: ["ai-source-principle", "andrej-karpathy-x", "swyx", "lenny-rachitsky-x", "greg-isenberg-x", "justine-moore-x"]

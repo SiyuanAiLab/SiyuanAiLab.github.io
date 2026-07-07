@@ -4,6 +4,7 @@ description: "全球最大创业孵化器 YC 的官方博客，最懂早期 AI �
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["YCombinator", "创业", "AI工具栈", "创始人", "孵化器"]
 related_cards: ["ai-media-insights-directory"]

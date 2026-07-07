@@ -4,6 +4,7 @@ description: "把独立开发和社区产品做成公开案例库的创业者，
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 入门
 tags: ["X", "独立开发", "创业", "信源", "GregIsenberg"]
 related_cards: ["ai-social-accounts-directory"]

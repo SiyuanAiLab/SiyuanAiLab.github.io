@@ -4,6 +4,7 @@ description: "AI 产品的说明书和更新日志，是查参数、追功能、
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "官方文档与产品更新"
 level: 进阶
 tags: ["信源", "官方文档", "产品更新", "AI学习", "独立站"]
 related_cards: ["ai-source-principle", "anthropic-official-docs", "openai-official-docs", "google-ai-official-updates", "mcp-official-docs", "midjourney-official-docs"]

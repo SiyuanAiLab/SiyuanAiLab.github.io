@@ -4,6 +4,7 @@ description: "Google AI 与 DeepMind 的官方博客入口，覆盖 Gemini、研
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "官方文档与产品更新"
 level: 入门
 tags: ["Google", "Gemini", "DeepMind", "官方博客", "信源"]
 related_cards: ["ai-official-docs-directory", "google-research-blog", "google-deepmind-podcast"]

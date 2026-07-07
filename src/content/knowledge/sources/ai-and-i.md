@@ -4,6 +4,7 @@ description: "Every 旗下的 AI 播客，展示顶尖从业者如何把 AI 嵌�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 入门
 tags: ["AI应用", "播客", "Every", "知识工作", "信源"]
 related_cards: ["ai-podcasts-videos-directory"]

@@ -4,6 +4,7 @@ description: "MIT 旗下的技术研究型媒体，AI 报道兼顾科学突破�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["MITTechnologyReview", "技术研究", "AI伦理", "突破技术", "科研"]
 related_cards: ["ai-media-insights-directory"]

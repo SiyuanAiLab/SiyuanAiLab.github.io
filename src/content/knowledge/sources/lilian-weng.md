@@ -4,6 +4,7 @@ description: "OpenAI 研究员 Lilian Weng 的个人博客，以高质量长文�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 入门
 tags: ["Lilian-Weng", "博客", "强化学习", "提示词工程", "AI安全"]
 related_cards: ["ai-research-papers-directory"]

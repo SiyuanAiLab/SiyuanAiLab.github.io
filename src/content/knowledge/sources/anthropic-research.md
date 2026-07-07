@@ -4,6 +4,7 @@ description: "Anthropic 的公开研究入口，重点关注可解释性、对�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 入门
 tags: ["Anthropic", "研究", "可解释性", "AI安全", "对齐"]
 related_cards: ["ai-research-papers-directory"]

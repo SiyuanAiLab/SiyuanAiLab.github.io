@@ -4,6 +4,7 @@ description: "由 Hannah Fry 教授主持，听 DeepMind 研究员讲 AI 如何�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 入门
 tags: ["DeepMind", "Google", "AI研究", "播客", "信源"]
 related_cards: ["ai-podcasts-videos-directory"]

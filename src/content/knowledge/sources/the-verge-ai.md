@@ -4,6 +4,7 @@ description: "大众科技媒体 The Verge 的 AI 板块，擅长把 AI 产品�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["TheVerge", "科技媒体", "AI产品", "用户体验", "社会影响"]
 related_cards: ["ai-media-insights-directory"]

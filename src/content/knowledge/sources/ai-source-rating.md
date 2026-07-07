@@ -16,7 +16,7 @@ confidence: 中
 verifiedDate: 2026-06-29
 curated_by: 杨思远 / 思远 AI Lab
 public: true
-draft: false
+draft: true
 ---
 
 # AI 工具信源评级手册

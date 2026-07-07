@@ -4,6 +4,7 @@ description: "AI/ML 领域最大的开放预印本平台，是追踪原始研究
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 入门
 tags: ["arXiv", "预印本", "论文", "AI研究", "信源"]
 related_cards: ["ai-research-papers-directory"]

@@ -34,6 +34,7 @@ const knowledge = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     category: z.enum(knowledgeCategories),
+    subcategory: z.string().optional(),
     level: z.enum(['入门', '进阶', '深度']).default('入门'),
     tags: z.array(z.string()).default([]),
     prerequisites: z.array(z.string()).default([]),

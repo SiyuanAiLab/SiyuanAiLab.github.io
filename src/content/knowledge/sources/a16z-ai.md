@@ -4,6 +4,7 @@ description: "硅谷顶级风投 a16z 的 AI 研究入口，擅长从投资视�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["a16z", "VC", "AI趋势", "基础设施", "创业投资"]
 related_cards: ["ai-media-insights-directory"]

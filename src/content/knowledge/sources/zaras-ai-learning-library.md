@@ -4,6 +4,7 @@ description: "Zara Zhang 维护的免费 AI 学习资源库，面向非技术背
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["资源库", "策展", "非技术学习者", "AI学习", "独立站"]
 related_cards: ["ai-newsletters-curators-directory"]

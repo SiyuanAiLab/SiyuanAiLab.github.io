@@ -4,6 +4,7 @@ description: "一个聚焦 AI 工具和提示词的发现型站点，帮助用�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["AI工具", "提示词", "目录", "Newsletter", "发现"]
 related_cards: ["ai-newsletters-curators-directory"]

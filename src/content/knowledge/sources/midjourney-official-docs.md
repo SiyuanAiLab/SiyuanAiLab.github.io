@@ -4,6 +4,7 @@ description: "Midjourney 的官方使用指南，覆盖参数、指令、风格�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "官方文档与产品更新"
 level: 入门
 tags: ["Midjourney", "图像生成", "官方文档", "信源", "AI设计"]
 related_cards: ["ai-official-docs-directory"]

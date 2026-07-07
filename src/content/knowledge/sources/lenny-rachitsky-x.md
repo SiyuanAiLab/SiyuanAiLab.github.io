@@ -4,6 +4,7 @@ description: "产品人与增长人最系统的经验萃取者，适合找可复
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "社交媒体账号"
 level: 入门
 tags: ["X", "产品管理", "增长", "信源", "LennyRachitsky"]
 related_cards: ["ai-social-accounts-directory"]

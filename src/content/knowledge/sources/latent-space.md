@@ -4,6 +4,7 @@ description: "AI 工程师的播客 + Newsletter，连接前沿研究与工程�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 入门
 tags: ["AI工程", "播客", "Newsletter", "技术深度", "信源"]
 related_cards: ["ai-podcasts-videos-directory"]

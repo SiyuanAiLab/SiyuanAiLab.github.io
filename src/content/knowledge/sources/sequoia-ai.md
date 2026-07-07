@@ -4,6 +4,7 @@ description: "红杉资本的 AI 洞察，擅长从平台转移、创业机会�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["Sequoia", "红杉资本", "AI投资", "创业趋势", "平台转移"]
 related_cards: ["ai-media-insights-directory"]

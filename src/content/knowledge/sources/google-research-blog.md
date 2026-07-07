@@ -4,6 +4,7 @@ description: "Google 研究的官方博客，发布 Gemini、DeepMind、系统�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 入门
 tags: ["Google", "研究博客", "Gemini", "DeepMind", "AI研究"]
 related_cards: ["ai-research-papers-directory"]

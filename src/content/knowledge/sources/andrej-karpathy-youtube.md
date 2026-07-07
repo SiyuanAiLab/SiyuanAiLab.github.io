@@ -4,6 +4,7 @@ description: "前 OpenAI 创始成员、Tesla AI 总监，用长视频把神经�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 入门
 tags: ["AI教育", "YouTube", "深度学习", "大语言模型", "信源"]
 related_cards: ["ai-podcasts-videos-directory"]

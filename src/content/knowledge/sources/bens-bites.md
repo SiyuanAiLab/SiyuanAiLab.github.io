@@ -4,6 +4,7 @@ description: "面向 AI builder 的每日简报，偏重创业、投资和新工
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["Newsletter", "AI工具", "创业", "信源", "AI学习"]
 related_cards: ["ai-newsletters-curators-directory"]

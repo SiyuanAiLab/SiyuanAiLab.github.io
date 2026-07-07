@@ -4,6 +4,7 @@ description: "Anthropic 公司维护的 Claude 系列产品官方文档，是 Cl
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "官方文档与产品更新"
 level: 入门
 tags: ["Anthropic", "Claude", "官方文档", "信源", "AI学习"]
 related_cards: ["ai-source-principle", "ai-official-docs-directory"]

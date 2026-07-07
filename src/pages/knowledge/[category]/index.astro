@@ -41,9 +41,36 @@ const otherCategories = Object.entries(categoryLabels)
   .filter(([slug]) => slug !== category)
   .map(([slug, title]) => ({ slug, title }));
 
+const sourceSubcategoryOrder = [
+  '信源分级与框架',
+  '官方文档与产品更新',
+  '研究论文与预印本',
+  '权威媒体与机构洞察',
+  '深度播客与视频',
+  'Newsletter 与策展者',
+  '社交媒体账号',
+];
+
 function getSlug(cardId: string): string {
   return cardId.replace(/.*\//, '').replace(/\.mdx?$/, '');
 }
+
+function groupSourceCards(items: typeof cards) {
+  const groups = new Map<string, typeof cards>();
+  for (const item of items) {
+    const groupName = item.data.subcategory ?? '其他';
+    const groupItems = groups.get(groupName) ?? [];
+    groupItems.push(item);
+    groups.set(groupName, groupItems);
+  }
+
+  return [...sourceSubcategoryOrder, '其他']
+    .map((title) => ({ title, cards: groups.get(title) ?? [] }))
+    .filter((group) => group.cards.length > 0);
+}
+
+const shouldGroupSidebar = category === 'sources';
+const sidebarGroups = shouldGroupSidebar ? groupSourceCards(cards) : [];
 ---
 
 <Layout title={`${categoryLabels[category]} — 知识库`} description={`思远 AI Lab 知识库：${categoryDescs[category]}`}>
@@ -70,22 +97,48 @@ function getSlug(cardId: string): string {
         <nav class="card-nav">
           <h3>卡片列表</h3>
           {cards.length > 0 ? (
-            <ul>
-              {cards.map((card) => (
-                <li>
-                  <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
-                    <span class="card-link-title">{card.data.title}</span>
-                    <span class="card-link-meta">
-                      <span class="level-tag">{card.data.level}</span>
-                      {card.data.tags.slice(0, 2).map((t) => (
-                        <span class="tag">{t}</span>
+            shouldGroupSidebar ? (
+              <div class="card-groups">
+                {sidebarGroups.map((group) => (
+                  <details class="card-group" open>
+                    <summary>{group.title}</summary>
+                    <ul>
+                      {group.cards.map((card) => (
+                        <li>
+                          <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
+                            <span class="card-link-title">{card.data.title}</span>
+                            <span class="card-link-meta">
+                              <span class="level-tag">{card.data.level}</span>
+                              {card.data.tags.slice(0, 2).map((t) => (
+                                <span class="tag">{t}</span>
+                              ))}
+                              <span class="curated">{card.data.curated_by}</span>
+                            </span>
+                          </a>
+                        </li>
                       ))}
-                      <span class="curated">{card.data.curated_by}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+                    </ul>
+                  </details>
+                ))}
+              </div>
+            ) : (
+              <ul>
+                {cards.map((card) => (
+                  <li>
+                    <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
+                      <span class="card-link-title">{card.data.title}</span>
+                      <span class="card-link-meta">
+                        <span class="level-tag">{card.data.level}</span>
+                        {card.data.tags.slice(0, 2).map((t) => (
+                          <span class="tag">{t}</span>
+                        ))}
+                        <span class="curated">{card.data.curated_by}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
           ) : (
             <p class="empty">该分类暂无卡片。</p>
           )}
@@ -216,6 +269,29 @@ function getSlug(cardId: string): string {
 
   .card-nav li {
     margin-bottom: 0.5rem;
+  }
+
+  .card-groups {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .card-group {
+    border-bottom: 1px solid rgba(184, 184, 184, 0.35);
+    padding-bottom: 0.75rem;
+  }
+
+  .card-group:last-child {
+    border-bottom: none;
+  }
+
+  .card-group summary {
+    cursor: pointer;
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    margin-bottom: 0.55rem;
+    text-transform: uppercase;
   }
 
   .card-link {
@@ -368,9 +444,14 @@ function getSlug(cardId: string): string {
       margin-bottom: 1.5rem;
     }
 
-    .card-nav ul {
+    .card-nav > ul {
       display: flex;
       flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-group ul {
+      display: grid;
       gap: 0.5rem;
     }
 

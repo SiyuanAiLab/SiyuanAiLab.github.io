@@ -4,6 +4,7 @@ description: "老牌科技新闻媒体的 AI 板块，适合跟踪产品发布�
 pubDate: 2026-07-08
 updatedDate: 2026-07-08
 category: sources
+subcategory: "权威媒体与机构洞察"
 level: 入门
 tags: ["TechCrunch", "科技新闻", "AI动态", "融资", "产品发布"]
 related_cards: ["ai-media-insights-directory"]

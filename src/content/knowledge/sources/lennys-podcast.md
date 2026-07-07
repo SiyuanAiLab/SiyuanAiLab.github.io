@@ -4,6 +4,7 @@ description: "产品、增长与职业发展的深度访谈播客，AI 产品话
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "深度播客与视频"
 level: 入门
 tags: ["产品管理", "增长", "播客", "AI产品", "信源"]
 related_cards: ["ai-podcasts-videos-directory"]

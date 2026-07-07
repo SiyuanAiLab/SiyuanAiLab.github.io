@@ -4,6 +4,7 @@ description: "论文和预印本是 AI 领域第 1.5 级信源：比官方文档
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "研究论文与预印本"
 level: 进阶
 tags: ["信源", "研究论文", "预印本", "AI学习", "独立站"]
 related_cards: ["ai-source-principle", "arxiv", "anthropic-research", "lilian-weng", "google-research-blog", "openai-research"]

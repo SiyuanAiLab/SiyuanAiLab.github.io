@@ -4,6 +4,7 @@ description: "面向忙碌人群的实用 AI 教程与访谈，产品经理视�
 pubDate: 2026-07-07
 updatedDate: 2026-07-07
 category: sources
+subcategory: "Newsletter 与策展者"
 level: 入门
 tags: ["Newsletter", "AI教程", "产品经理", "实操", "Substack"]
 related_cards: ["ai-newsletters-curators-directory"]
