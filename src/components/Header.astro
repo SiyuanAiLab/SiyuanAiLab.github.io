@@ -2,11 +2,18 @@
 const navItems = [
   { href: "/", label: "首页" },
   { href: "/lab/", label: "实验室" },
-  { href: "/articles", label: "文章" },
-  { href: "/knowledge", label: "知识库" },
+  { href: "/articles", label: "AI·观" },
+  { href: "/knowledge", label: "AI·外脑" },
   { href: "/about", label: "关于" },
   { href: "/contact", label: "联系" },
 ];
+
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
 ---
 
 <header class="site-header">
@@ -14,8 +21,9 @@ const navItems = [
     <a href="/" class="site-title">思远 AI Lab</a>
     <nav class="site-nav">
       {navItems.map(item => (
-        <a href={item.href}>{item.label}</a>
+        <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
+    <p class="site-tagline">一人 AI 公司 · 整理真实世界的可复用判断</p>
   </div>
 </header>

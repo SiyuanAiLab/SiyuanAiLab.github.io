@@ -10,8 +10,8 @@ tags:
   - "AI 工作流"
   - "产品化"
   - "流水线"
-public: true
-draft: false
+public: false
+draft: true
 auditStatus: "approved"
 sourcePath: "workspace/04-Output/自媒体内容/落地志/EP02-Prompt炼金流水线/01-长文/定稿.md"
 sourceType: "markdown"

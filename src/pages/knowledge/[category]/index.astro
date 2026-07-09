@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const categories = ['concepts', 'toolkits', 'career', 'sources'] as const;
@@ -28,8 +28,23 @@ const categoryDescs: Record<string, string> = {
 };
 
 const allCards = await getCollection('knowledge');
+
+function getSlug(cardId: string): string {
+  return cardId.replace(/.*\//, '').replace(/\.mdx?$/, '');
+}
+
+const categoryIntro = allCards.find((c) => c.data.category === category && getSlug(c.id) === 'index');
+const IntroContent = categoryIntro ? (await render(categoryIntro)).Content : null;
+
 const cards = allCards
-  .filter((c) => c.data.category === category && c.data.public && !c.data.draft)
+  .filter(
+    (c) =>
+      c.data.category === category &&
+      c.data.public &&
+      !c.data.draft &&
+      getSlug(c.id) !== 'index' &&
+      (category !== 'toolkits' || Boolean(c.data.subcategory)),
+  )
   .sort((a, b) => {
     const levelOrder = { '入门': 0, '进阶': 1, '深度': 2 };
     const levelDiff = levelOrder[a.data.level] - levelOrder[b.data.level];
@@ -41,19 +56,113 @@ const otherCategories = Object.entries(categoryLabels)
   .filter(([slug]) => slug !== category)
   .map(([slug, title]) => ({ slug, title }));
 
-function getSlug(cardId: string): string {
-  return cardId.replace(/.*\//, '').replace(/\.mdx?$/, '');
+const sourceSubcategoryOrder = [
+  '信源分级与框架',
+  '官方文档与产品更新',
+  '研究论文与预印本',
+  '权威媒体与机构洞察',
+  '深度播客与视频',
+  'Newsletter 与策展者',
+  '社交媒体账号',
+];
+
+function groupSourceCards(items: typeof cards) {
+  const groups = new Map<string, typeof cards>();
+  for (const item of items) {
+    const groupName = item.data.subcategory ?? '其他';
+    const groupItems = groups.get(groupName) ?? [];
+    groupItems.push(item);
+    groups.set(groupName, groupItems);
+  }
+
+  return [...sourceSubcategoryOrder, '其他']
+    .map((title) => ({ title, cards: groups.get(title) ?? [] }))
+    .filter((group) => group.cards.length > 0);
 }
+
+const toolkitGroupOrder = [
+  'decision',
+  'llm-text',
+  'llm-image',
+  'llm-video',
+  'agent-framework',
+  'code-agent',
+  'knowledge-base',
+  'ai-search',
+  'productivity',
+  'audio',
+  'wearable',
+  'health',
+];
+
+const toolkitGroupLabels: Record<string, string> = {
+  decision: '选型决策',
+  'llm-text': '大语言模型',
+  'llm-image': '图像生成',
+  'llm-video': '视频生成',
+  'agent-framework': 'Agent 框架',
+  'code-agent': '代码型 Agent',
+  'knowledge-base': '知识库',
+  'ai-search': 'AI 搜索',
+  productivity: '效率创作',
+  audio: '音频设备',
+  wearable: '可穿戴设备',
+  health: '健康设备',
+  other: '其他',
+};
+
+const toolkitSubcategoryToGroup: Record<string, string> = {
+  decision: 'decision',
+  'llm-international': 'llm-text',
+  'llm-china': 'llm-text',
+  'llm-image': 'llm-image',
+  'llm-video': 'llm-video',
+  'agent-open-source': 'agent-framework',
+  'agent-china': 'agent-framework',
+  'agent-coding': 'code-agent',
+  'knowledge-base-local': 'knowledge-base',
+  'knowledge-base-cloud': 'knowledge-base',
+  'ai-search-general': 'ai-search',
+  'ai-search-chinese': 'ai-search',
+  'productivity-video': 'productivity',
+  'productivity-image': 'productivity',
+  'productivity-audio': 'productivity',
+  'productivity-presentation': 'productivity',
+  'hardware-audio': 'audio',
+  'hardware-wearable': 'wearable',
+  'hardware-health': 'health',
+};
+
+function groupToolkitCards(items: typeof cards) {
+  const groups = new Map<string, typeof cards>();
+  for (const item of items) {
+    const groupName = toolkitSubcategoryToGroup[item.data.subcategory ?? ''] ?? 'other';
+    const groupItems = groups.get(groupName) ?? [];
+    groupItems.push(item);
+    groups.set(groupName, groupItems);
+  }
+
+  return [...toolkitGroupOrder, 'other']
+    .map((key) => ({ key, title: toolkitGroupLabels[key] ?? key, cards: groups.get(key) ?? [] }))
+    .filter((group) => group.cards.length > 0);
+}
+
+const shouldGroupSidebar = category === 'sources' || category === 'toolkits';
+const sidebarGroups = shouldGroupSidebar
+  ? category === 'sources'
+    ? groupSourceCards(cards)
+    : groupToolkitCards(cards)
+  : [];
 ---
 
-<Layout title={`${categoryLabels[category]} — 知识库`} description={`思远 AI Lab 知识库：${categoryDescs[category]}`}>
+<Layout title={`${categoryLabels[category]} — AI·外脑`} description={`思远 AI Lab AI·外脑：${categoryDescs[category]}`}>
   <Header />
 
   <main class="site-main category-page">
     <div class="container two-pane">
       <aside class="sidebar">
         <div class="sidebar-header">
-          <p class="kicker">知识库</p>
+          <p class="kicker">AI·外脑</p>
           <h2>{categoryLabels[category]}</h2>
           <p class="sidebar-desc">{categoryDescs[category]}</p>
         </div>
@@ -70,22 +179,48 @@ function getSlug(cardId: string): string {
         <nav class="card-nav">
           <h3>卡片列表</h3>
           {cards.length > 0 ? (
-            <ul>
-              {cards.map((card) => (
-                <li>
-                  <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
-                    <span class="card-link-title">{card.data.title}</span>
-                    <span class="card-link-meta">
-                      <span class="level-tag">{card.data.level}</span>
-                      {card.data.tags.slice(0, 2).map((t) => (
-                        <span class="tag">{t}</span>
+            shouldGroupSidebar ? (
+              <div class="card-groups">
+                {sidebarGroups.map((group) => (
+                  <details class="card-group" open>
+                    <summary>{group.title}</summary>
+                    <ul>
+                      {group.cards.map((card) => (
+                        <li>
+                          <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
+                            <span class="card-link-title">{card.data.title}</span>
+                            <span class="card-link-meta">
+                              <span class="level-tag">{card.data.level}</span>
+                              {card.data.tags.slice(0, 2).map((t) => (
+                                <span class="tag">{t}</span>
+                              ))}
+                              <span class="curated">{card.data.curated_by}</span>
+                            </span>
+                          </a>
+                        </li>
                       ))}
-                      <span class="curated">{card.data.curated_by}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+                    </ul>
+                  </details>
+                ))}
+              </div>
+            ) : (
+              <ul>
+                {cards.map((card) => (
+                  <li>
+                    <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
+                      <span class="card-link-title">{card.data.title}</span>
+                      <span class="card-link-meta">
+                        <span class="level-tag">{card.data.level}</span>
+                        {card.data.tags.slice(0, 2).map((t) => (
+                          <span class="tag">{t}</span>
+                        ))}
+                        <span class="curated">{card.data.curated_by}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
           ) : (
             <p class="empty">该分类暂无卡片。</p>
           )}
@@ -97,7 +232,13 @@ function getSlug(cardId: string): string {
           <div class="category-overview">
             <p class="kicker">{categoryLabels[category]}</p>
             <h1>{categoryLabels[category]}</h1>
-            <p class="desc">{categoryDescs[category]}</p>
+            {IntroContent ? (
+              <div class="category-intro">
+                <IntroContent />
+              </div>
+            ) : (
+              <p class="desc">{categoryDescs[category]}</p>
+            )}
             <p class="card-count">共 {cards.length} 张卡片</p>
             <div class="card-list">
               {cards.map((card) => (
@@ -119,7 +260,7 @@ function getSlug(cardId: string): string {
           <div class="empty-state">
             <h2>该分类正在整理中</h2>
             <p>首批卡片正在审核和结构化处理中，完成后会自动出现在这里。</p>
-            <a href="/knowledge/" class="btn">返回知识库入口</a>
+            <a href="/knowledge/" class="btn">返回 AI·外脑入口</a>
           </div>
         )}
       </section>
@@ -218,6 +359,29 @@ function getSlug(cardId: string): string {
     margin-bottom: 0.5rem;
   }
 
+  .card-groups {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .card-group {
+    border-bottom: 1px solid rgba(184, 184, 184, 0.35);
+    padding-bottom: 0.75rem;
+  }
+
+  .card-group:last-child {
+    border-bottom: none;
+  }
+
+  .card-group summary {
+    cursor: pointer;
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    margin-bottom: 0.55rem;
+    text-transform: uppercase;
+  }
+
   .card-link {
     display: block;
     text-decoration: none;
@@ -270,6 +434,32 @@ function getSlug(cardId: string): string {
   .category-overview .desc {
     color: var(--grey);
     margin-bottom: 0.5rem;
+  }
+
+  .category-intro {
+    color: var(--grey);
+    max-width: var(--content-max);
+    margin-bottom: 1rem;
+  }
+
+  .category-intro :global(h1) {
+    display: none;
+  }
+
+  .category-intro :global(h2) {
+    color: var(--ink);
+    font-size: 1.15rem;
+    margin: 1.25rem 0 0.45rem;
+  }
+
+  .category-intro :global(p),
+  .category-intro :global(li) {
+    font-size: 0.96rem;
+  }
+
+  .category-intro :global(ul) {
+    padding-left: 1.15rem;
+    margin: 0.5rem 0 0;
   }
 
   .card-count {
@@ -368,9 +558,14 @@ function getSlug(cardId: string): string {
       margin-bottom: 1.5rem;
     }
 
-    .card-nav ul {
+    .card-nav > ul {
       display: flex;
       flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-group ul {
+      display: grid;
       gap: 0.5rem;
     }
 

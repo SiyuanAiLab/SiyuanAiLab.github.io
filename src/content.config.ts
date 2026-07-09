@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const articleCategories = ['qingxing-shike', 'luodizhi', 'tools'] as const;
+const articleCategories = ['qingxing-shike', 'luodizhi', 'tools', 'siyuan-observation-diary'] as const;
 const knowledgeCategories = ['start', 'concepts', 'workflows', 'toolkits', 'career', 'sources'] as const;
 
 const articles = defineCollection({
@@ -13,6 +13,9 @@ const articles = defineCollection({
     updatedDate: z.coerce.date().optional(),
     category: z.enum(articleCategories),
     seriesTitle: z.string().optional(),
+    author: z.string().optional(),
+    featured: z.boolean().default(false),
+    featuredReason: z.string().optional(),
     episode: z.string().optional(),
     tags: z.array(z.string()).default([]),
     public: z.boolean().default(false),
@@ -34,6 +37,7 @@ const knowledge = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     category: z.enum(knowledgeCategories),
+    subcategory: z.string().optional(),
     level: z.enum(['入门', '进阶', '深度']).default('入门'),
     tags: z.array(z.string()).default([]),
     prerequisites: z.array(z.string()).default([]),

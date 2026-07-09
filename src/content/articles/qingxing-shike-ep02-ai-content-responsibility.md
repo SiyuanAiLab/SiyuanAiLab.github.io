@@ -4,6 +4,7 @@ description: "从毕业论文 AI 检测的荒诞案例切入，讨论内容创�
 pubDate: 2026-06-18
 category: "qingxing-shike"
 seriesTitle: "清醒时刻"
+author: "思远"
 episode: "EP02"
 tags:
   - "AI 检测"

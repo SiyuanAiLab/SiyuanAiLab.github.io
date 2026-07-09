@@ -50,22 +50,20 @@ const featuredWorkflowCards = workflowData.cards.slice(0, 3);
 
 const futurePillars = [
   { title: '场景案例', desc: '真实任务、业务问题和拆解复盘。' },
-  { title: '工具配置及选型', desc: '工具安装、配置和最佳实践。' },
   { title: '职业安全', desc: 'AI 时代的职业能力与抗淘汰策略。' },
-  { title: '信源与标准', desc: '可信信息源、评估标准与筛选方法。' },
 ];
 ---
 
-<Layout title="知识库" description="思远 AI Lab 知识库，是给 AI 调用的装备资料库。内容被拆成卡片、标上关系、写上场景，让你的 AI 助理也能帮你调取。">
+<Layout title="AI·外脑" description="思远 AI Lab 的 AI·外脑，是给 Agent 读的第二大脑。我把自己的 Knowledge 体系公开出来，让 AI 直接读取、复制、吸收。">
   <Header />
 
   <main class="site-main">
     <section class="hero knowledge-hero">
       <div class="container">
-        <p class="kicker">知识库</p>
-        <h1>AI 可调用的装备资料库</h1>
+        <p class="kicker">给 Agent 读的第二大脑</p>
+        <h1>AI·外脑</h1>
         <p class="lede">
-          这个知识库不是给人一页页读的。它是为了让 AI 能帮你调取概念、方法、信源和参考案例而设计的。
+          我把自己的 Knowledge 体系公开出来，让 AI 直接读取、复制、吸收。你也能把它 Ctrl+C / Ctrl+V 进你的 Agent，让它成为你的第二大脑。
         </p>
         <KnowledgeSearch items={searchItems} id="knowledge-home-search" placeholder="搜索概念、工作流、Skill、Agent Building" />
       </div>
@@ -75,8 +73,8 @@ const futurePillars = [
       <div class="container">
         <a class="start-card" href="/knowledge/start/">
           <span class="meta">专题入口</span>
-          <h2>我是如何用 AI 搭建个人管理体系的</h2>
-          <p>一个非技术人的真实搭建思路，从 Obsidian 底座到 Hermes 执行接口。</p>
+          <h2>我如何用 AI 给自己搭建第二大脑</h2>
+          <p>一个非技术人的真实搭建思路：把碎片判断变成 Agent 可调用的 Knowledge 体系。</p>
           <strong>开始阅读</strong>
         </a>
       </div>
@@ -85,9 +83,9 @@ const futurePillars = [
     <section class="section directory-section">
       <div class="container">
         <div class="section-heading">
-          <p class="kicker">母目录</p>
+          <p class="kicker">栏目</p>
           <h2 class="section-title">先进入栏目，再选择词条</h2>
-          <p>知识库按可调用的装备类型组织。本轮先开放 AI 核心概念，其他栏目保留入口，等内容审核后再上线。</p>
+          <p>AI·外脑按可调用的装备类型组织。当前已开放 AI 核心概念、工作流、工具配置与选型、信源与标准，后续栏目等内容审核后再上线。</p>
         </div>
 
         <div class="pillar-grid">
@@ -103,6 +101,20 @@ const futurePillars = [
             <h3>工作流</h3>
             <p>{workflowData.cards.length} 张公开版工作流解读卡，按 Agent 能力栈组织：基础设施、Skill 生产线、Skill 参考库和 Agent Building。</p>
             <strong>进入工作流专栏</strong>
+          </a>
+
+          <a class="pillar-card is-live" href="/knowledge/toolkits/">
+            <span class="meta">已开放</span>
+            <h3>工具配置与选型</h3>
+            <p>62 张公开版工具卡，覆盖选型决策、软件选型和硬件选型，帮助非技术用户按场景找到合适装备。</p>
+            <strong>进入工具专栏</strong>
+          </a>
+
+          <a class="pillar-card is-live" href="/knowledge/sources/">
+            <span class="meta">已开放</span>
+            <h3>信源与标准</h3>
+            <p>可信信息源、评估标准与筛选方法。首批已审核公开的信源分级与策展者清单。</p>
+            <strong>进入信源专栏</strong>
           </a>
 
           {futurePillars.map((pillar) => (
@@ -174,7 +186,7 @@ const futurePillars = [
     <section class="section notice-section">
       <div class="container">
         <p class="notice">
-          AI 核心概念和工作流专栏已完成站点适配。后续真实知识卡继续按公开审核标准分批入站。
+          AI 核心概念、工作流、工具配置与选型、信源与标准已完成站点适配。后续真实知识卡继续按公开审核标准分批入站。
         </p>
       </div>
     </section>

@@ -41,7 +41,7 @@ const verifiedDateStr = entry?.data.verifiedDate
   : '';
 ---
 
-<Layout title={`${card.title} — ${column?.title ?? 'AI 核心概念'}`} description={card.summary}>
+<Layout title={`${card.title} — ${column?.title ?? 'AI 核心概念'} — AI·外脑`} description={card.summary}>
   <Header />
 
   <main class="site-main card-page">
@@ -117,7 +117,7 @@ const verifiedDateStr = entry?.data.verifiedDate
           </div>
           <div class="return-links">
             <a href={`/knowledge/ai-core/${subcategory}/`} class="btn btn-outline">返回当前分类</a>
-            <a href="/knowledge/" class="btn">返回知识库入口</a>
+            <a href="/knowledge/" class="btn">返回 AI·外脑入口</a>
           </div>
         </nav>
       </article>

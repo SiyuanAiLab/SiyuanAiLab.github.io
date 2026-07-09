@@ -4,6 +4,7 @@ description: "从带实习生的经验出发，说明 AI 不是不聪明，而�
 pubDate: 2026-06-15
 category: "qingxing-shike"
 seriesTitle: "清醒时刻"
+author: "思远"
 episode: "EP01"
 tags:
   - "AI"

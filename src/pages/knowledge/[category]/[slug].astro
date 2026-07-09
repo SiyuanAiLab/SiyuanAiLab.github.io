@@ -6,7 +6,14 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const cards = await getCollection('knowledge');
-  const published = cards.filter((c) => c.data.public && !c.data.draft && c.data.category !== 'workflows');
+  const published = cards.filter(
+    (c) =>
+      c.data.public &&
+      !c.data.draft &&
+      c.data.category !== 'workflows' &&
+      c.id.replace(/.*\//, '').replace(/\.mdx?$/, '') !== 'index' &&
+      (c.data.category !== 'toolkits' || Boolean(c.data.subcategory)),
+  );
   return published.map((card) => ({
     params: {
       category: card.data.category,
@@ -29,7 +36,14 @@ const categoryLabels: Record<string, string> = {
 
 const allCards = await getCollection('knowledge');
 const categoryCards = allCards
-  .filter((c) => c.data.category === card.data.category && c.data.public && !c.data.draft)
+  .filter(
+    (c) =>
+      c.data.category === card.data.category &&
+      c.data.public &&
+      !c.data.draft &&
+      getSlugFromCard(c) !== 'index' &&
+      (card.data.category !== 'toolkits' || Boolean(c.data.subcategory)),
+  )
   .sort((a, b) => {
     const levelOrder = { '入门': 0, '进阶': 1, '深度': 2 };
     const levelDiff = levelOrder[a.data.level] - levelOrder[b.data.level];
@@ -49,12 +63,39 @@ const verifiedDateStr = card.data.verifiedDate
   ? new Date(card.data.verifiedDate).toLocaleDateString('zh-CN')
   : '';
 
+const sourceSubcategoryOrder = [
+  '信源分级与框架',
+  '官方文档与产品更新',
+  '研究论文与预印本',
+  '权威媒体与机构洞察',
+  '深度播客与视频',
+  'Newsletter 与策展者',
+  '社交媒体账号',
+];
+
 function getSlugFromCard(c: typeof card): string {
   return c.id.replace(/.*\//, '').replace(/\.mdx?$/, '');
 }
+
+function groupSourceCards(items: typeof categoryCards) {
+  const groups = new Map<string, typeof categoryCards>();
+  for (const item of items) {
+    const groupName = item.data.subcategory ?? '其他';
+    const groupItems = groups.get(groupName) ?? [];
+    groupItems.push(item);
+    groups.set(groupName, groupItems);
+  }
+
+  return [...sourceSubcategoryOrder, '其他']
+    .map((title) => ({ title, cards: groups.get(title) ?? [] }))
+    .filter((group) => group.cards.length > 0);
+}
+
+const shouldGroupSidebar = card.data.category === 'sources';
+const sidebarGroups = shouldGroupSidebar ? groupSourceCards(categoryCards) : [];
 ---
 
-<Layout title={`${card.data.title} — ${categoryLabels[card.data.category]}`} description={card.data.description}>
+<Layout title={`${card.data.title} — ${categoryLabels[card.data.category]} — AI·外脑`} description={card.data.description}>
   <Header />
 
   <main class="site-main card-page">
@@ -76,28 +117,60 @@ function getSlugFromCard(c: typeof card): string {
 
         <nav class="card-nav">
           <h3>卡片列表</h3>
-          <ul>
-            {categoryCards.map((c) => {
-              const slug = getSlugFromCard(c);
-              const isActive = c.id === card.id;
-              return (
-                <li>
-                  <a
-                    href={`/knowledge/${c.data.category}/${slug}/`}
-                    class={`card-link ${isActive ? 'active' : ''}`}
-                  >
-                    <span class="card-link-title">{c.data.title}</span>
-                    <span class="card-link-meta">
-                      <span class="level-tag">{c.data.level}</span>
-                      {c.data.tags.slice(0, 2).map((t) => (
-                        <span class="tag">{t}</span>
-                      ))}
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          {shouldGroupSidebar ? (
+            <div class="card-groups">
+              {sidebarGroups.map((group) => (
+                <details class="card-group" open>
+                  <summary>{group.title}</summary>
+                  <ul>
+                    {group.cards.map((c) => {
+                      const slug = getSlugFromCard(c);
+                      const isActive = c.id === card.id;
+                      return (
+                        <li>
+                          <a
+                            href={`/knowledge/${c.data.category}/${slug}/`}
+                            class={`card-link ${isActive ? 'active' : ''}`}
+                          >
+                            <span class="card-link-title">{c.data.title}</span>
+                            <span class="card-link-meta">
+                              <span class="level-tag">{c.data.level}</span>
+                              {c.data.tags.slice(0, 2).map((t) => (
+                                <span class="tag">{t}</span>
+                              ))}
+                            </span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </details>
+              ))}
+            </div>
+          ) : (
+            <ul>
+              {categoryCards.map((c) => {
+                const slug = getSlugFromCard(c);
+                const isActive = c.id === card.id;
+                return (
+                  <li>
+                    <a
+                      href={`/knowledge/${c.data.category}/${slug}/`}
+                      class={`card-link ${isActive ? 'active' : ''}`}
+                    >
+                      <span class="card-link-title">{c.data.title}</span>
+                      <span class="card-link-meta">
+                        <span class="level-tag">{c.data.level}</span>
+                        {c.data.tags.slice(0, 2).map((t) => (
+                          <span class="tag">{t}</span>
+                        ))}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </nav>
       </aside>
 
@@ -166,7 +239,7 @@ function getSlugFromCard(c: typeof card): string {
               </a>
             )}
           </div>
-          <a href="/knowledge/" class="btn btn-outline">返回知识库入口</a>
+          <a href="/knowledge/" class="btn btn-outline">返回 AI·外脑入口</a>
         </nav>
       </article>
     </div>
@@ -256,6 +329,29 @@ function getSlugFromCard(c: typeof card): string {
 
   .card-nav li {
     margin-bottom: 0.5rem;
+  }
+
+  .card-groups {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .card-group {
+    border-bottom: 1px solid rgba(184, 184, 184, 0.35);
+    padding-bottom: 0.75rem;
+  }
+
+  .card-group:last-child {
+    border-bottom: none;
+  }
+
+  .card-group summary {
+    cursor: pointer;
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    margin-bottom: 0.55rem;
+    text-transform: uppercase;
   }
 
   .card-link {
@@ -493,9 +589,14 @@ function getSlugFromCard(c: typeof card): string {
       margin-bottom: 1.5rem;
     }
 
-    .card-nav ul {
+    .card-nav > ul {
       display: flex;
       flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-group ul {
+      display: grid;
       gap: 0.5rem;
     }
 

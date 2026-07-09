@@ -53,6 +53,11 @@ const skills = [
     status: "开发中",
   },
 ];
+
+const getSkillCta = skill =>
+  skill.status === "可直接获取"
+    ? { href: "/contact/", label: "联系获取" }
+    : { href: `/lab/skills/${skill.slug}/`, label: "查看详情" };
 ---
 
 <Layout title="Skill 展厅" description="思远 AI Lab 的 Skill 展厅，展示从真实工作流里拆出来的 6 个可复用框架。">
@@ -88,7 +93,7 @@ const skills = [
               </ul>
               <div class="card-foot">
                 <span>{skill.status}</span>
-                <a href="/contact/" class="btn btn-outline">联系获取</a>
+                <a href={getSkillCta(skill).href} class="btn btn-outline">{getSkillCta(skill).label}</a>
               </div>
             </article>
           ))}

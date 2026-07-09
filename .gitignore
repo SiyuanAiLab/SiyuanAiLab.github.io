@@ -27,5 +27,6 @@ pnpm-debug.log*
 .vscode/
 docs/
 outputs/
+.codex-screenshots/
 AGENTS.md
 scripts/

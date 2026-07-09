@@ -4,6 +4,7 @@ description: "面对 AI 志愿填报工具，文章提醒家长不要只问就�
 pubDate: 2026-06-18
 category: "qingxing-shike"
 seriesTitle: "清醒时刻"
+author: "思远"
 episode: "EP03"
 tags:
   - "高考志愿"

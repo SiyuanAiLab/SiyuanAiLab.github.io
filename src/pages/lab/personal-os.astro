@@ -16,6 +16,13 @@ const packageItems = [
   "AI 可读安装教程（让 AI 按教程帮你安装）",
 ];
 
+const boundaryItems = [
+  "1.0 会员权益不包含个人 OS，会员价格为 ¥299/年。",
+  "个人 OS 不包含线下安装、陪跑或咨询服务。",
+  "1.0 阶段先提供官方安装方式。",
+  "国内部署上线后，再提供本地安装包。",
+];
+
 const fitList = [
   "想搭建自己 AI 工作系统，但不知道怎么开始",
   "厌倦在多个 AI 工具间切换",
@@ -65,15 +72,15 @@ const principles = [
             </div>
             <div>
               <dt>获取</dt>
-              <dd>首期付费会员可联系获取</dd>
+              <dd>1.0 会员不包含个人 OS</dd>
             </div>
             <div>
               <dt>支付</dt>
-              <dd>本站不接入在线支付</dd>
+              <dd>¥299/年会员，本站不接入在线支付</dd>
             </div>
             <div>
               <dt>进度</dt>
-              <dd>部署包整理中</dd>
+              <dd>先提供官方安装方式，国内部署上线后提供本地安装包</dd>
             </div>
           </dl>
         </aside>
@@ -121,7 +128,7 @@ const principles = [
 
     <section class="section" aria-labelledby="principles-title">
       <div class="container">
-        <p class="kicker">关键话术</p>
+        <p class="kicker">设计原则</p>
         <h2 id="principles-title" class="section-title">这套系统的三条边界</h2>
         <div class="principle-grid">
           {principles.map(item => (
@@ -138,10 +145,12 @@ const principles = [
       <div class="container final-panel">
         <div>
           <p class="kicker">下一步</p>
-          <h2 id="final-title">部署包整理中，先通过联系页获取</h2>
-          <p>
-            付费会员权益为实验室线上内容：个人操作系统部署包、Skill 包和教程。不包含线下安装、陪跑或咨询。
-          </p>
+          <h2 id="final-title">个人 OS 先整理官方安装方式</h2>
+          <ul class="boundary-list">
+            {boundaryItems.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
         <a href="/contact/" class="btn">联系获取</a>
       </div>
@@ -210,6 +219,19 @@ const principles = [
   .status-panel dl {
     display: grid;
     gap: 1rem;
+  }
+
+  .boundary-list {
+    border-top: 2px solid var(--ink);
+    list-style: none;
+    margin: 1.2rem 0 0;
+    padding: 0;
+  }
+
+  .boundary-list li {
+    border-bottom: 1px solid var(--lead);
+    color: var(--grey);
+    padding: 0.7rem 0;
   }
 
   .status-panel div {
