@@ -4,6 +4,7 @@ description: "从 AI Agent 基准测试的结果出发，反思一键生成叙�
 pubDate: 2026-06-18
 category: "qingxing-shike"
 seriesTitle: "清醒时刻"
+author: "思远"
 episode: "EP04"
 tags:
   - "AI Agent"

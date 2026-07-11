@@ -10,8 +10,8 @@ tags:
   - "个人数据"
   - "Agent 记忆"
   - "知识系统"
-public: true
-draft: false
+public: false
+draft: true
 auditStatus: "approved"
 sourcePath: "workspace/04-Output/自媒体内容/落地志/EP04-我的操作系统解读01/01-长文/定稿.md"
 sourceType: "markdown"

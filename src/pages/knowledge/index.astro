@@ -3,179 +3,98 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import KnowledgeSearch from '../../components/KnowledgeSearch.astro';
-import knowledgeData from '../../data/knowledge-cards.json';
-import workflowData from '../../data/workflow-cards.json';
+import AcquisitionPanel from '../../components/AcquisitionPanel.astro';
+import {
+  buildGlobalSearchItems,
+  knowledgePillars,
+  knowledgeTopics,
+} from '../../data/knowledge-directory';
 
-type KnowledgeCard = typeof knowledgeData.cards[number];
-
-const aiCoreCards = knowledgeData.cards
-  .slice()
-  .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
-
-const knowledgeSearchItems = aiCoreCards.map((card) => {
-  const column = knowledgeData.columns.find((item) => item.id === card.column);
-  return {
-    id: card.id,
-    title: card.title,
-    title_en: card.title_en,
-    summary: card.summary,
-    tags: card.tags,
-    columnTitle: column?.title,
-    url: `/knowledge/ai-core/${card.column}/${card.slug}/`,
-  };
-});
-
-const workflowSearchItems = workflowData.cards.map((card) => {
-  const category = workflowData.categories.find((item) => item.id === card.category);
-  const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
-  return {
-    id: card.id,
-    title: card.title,
-    title_en: card.title_en,
-    summary: card.summary,
-    tags: card.tags,
-    columnTitle: subcategory ? `工作流 · ${subcategory.title}` : '工作流',
-    url: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
-  };
-});
-
-const searchItems = [...knowledgeSearchItems, ...workflowSearchItems];
-
-const featuredSlugs = ['artificial-intelligence', 'transformer-architecture', 'ai-agent'];
-const featuredCards = featuredSlugs
-  .map((slug) => aiCoreCards.find((card) => card.slug === slug))
-  .filter(Boolean) as KnowledgeCard[];
-
-const featuredWorkflowCards = workflowData.cards.slice(0, 3);
-
-const futurePillars = [
-  { title: '场景案例', desc: '真实任务、业务问题和拆解复盘。' },
-  { title: '工具配置及选型', desc: '工具安装、配置和最佳实践。' },
-  { title: '职业安全', desc: 'AI 时代的职业能力与抗淘汰策略。' },
-  { title: '信源与标准', desc: '可信信息源、评估标准与筛选方法。' },
-];
+const searchItems = await buildGlobalSearchItems();
 ---
 
-<Layout title="知识库" description="思远 AI Lab 知识库，是给 AI 调用的装备资料库。内容被拆成卡片、标上关系、写上场景，让你的 AI 助理也能帮你调取。">
+<Layout title="AI·外脑" description="思远 AI Lab 的 AI·外脑，是给 Agent 读的第二大脑。我把自己的 Knowledge 体系公开出来，让 AI 直接读取、复制、吸收。">
   <Header />
 
   <main class="site-main">
     <section class="hero knowledge-hero">
       <div class="container">
-        <p class="kicker">知识库</p>
-        <h1>AI 可调用的装备资料库</h1>
+        <p class="kicker">给 Agent 读的第二大脑</p>
+        <h1>AI·外脑</h1>
         <p class="lede">
-          这个知识库不是给人一页页读的。它是为了让 AI 能帮你调取概念、方法、信源和参考案例而设计的。
+          我把自己的 Knowledge 体系公开出来，让 AI 直接读取、复制、吸收。你也能把它搬进你的 Agent，让它成为你的第二大脑。
         </p>
-        <KnowledgeSearch items={searchItems} id="knowledge-home-search" placeholder="搜索概念、工作流、Skill、Agent Building" />
+        <KnowledgeSearch items={searchItems} id="knowledge-home-search" placeholder="搜索全部概念、工作流、工具、信源和职业能力" />
       </div>
     </section>
 
-    <section class="section start-section">
+    <section class="section intro-section">
       <div class="container">
-        <a class="start-card" href="/knowledge/start/">
-          <span class="meta">专题入口</span>
-          <h2>我是如何用 AI 搭建个人管理体系的</h2>
-          <p>一个非技术人的真实搭建思路，从 Obsidian 底座到 Hermes 执行接口。</p>
-          <strong>开始阅读</strong>
-        </a>
+        <div class="intro-grid">
+          <article class="intro-panel">
+            <h2>为什么会有这个想法？</h2>
+            <p>现在讲「用 AI 做知识管理」的内容很多，但大部分停留在一个 LLM、一份 Wiki、一个 Obsidian。工具没有错，问题在结构。</p>
+            <ul class="reason-list">
+              <li><strong>目录不清晰</strong><span>信息和判断混在一起，Agent 不知道该读哪一段。</span></li>
+              <li><strong>命中不准</strong><span>搜索返回的是关键词，不是经过验证的判断。</span></li>
+              <li><strong>上手门槛高</strong><span>教程主要给人看，AI 难以直接读取和执行。</span></li>
+            </ul>
+            <p class="intro-conclusion">真正稀缺的，是一套能被 Agent 调用的判断体系。</p>
+          </article>
+
+          <article class="intro-panel">
+            <h2>AI 外脑到底是什么？</h2>
+            <p>AI·外脑不是 Obsidian 使用技巧。Obsidian 只是展示平台，核心是背后的文件夹目录体系。</p>
+            <p>它给 AI 提供「阅读什么」和「如何构建」的理论依据：先掌握哪些概念、复制哪些工作流、在什么场景选择什么工具、引用哪些信源与标准。</p>
+            <p>目前公开的是我经过交叉验证的通用知识卡片。它们不是百科全书，而是 Agent 可以先读、再判断、再行动的底层装备。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section acquisition-section">
+      <div class="container">
+        <div class="section-heading">
+          <h2 class="section-title">获取 AI·外脑</h2>
+          <p>三种获取方式都在准备中。正式可用前只说明规划和状态，不提供无效地址或占位命令。</p>
+        </div>
+        <AcquisitionPanel compact={true} />
+        <a class="text-link acquisition-link" href="/knowledge/install/">查看获取方式说明</a>
       </div>
     </section>
 
     <section class="section directory-section">
       <div class="container">
         <div class="section-heading">
-          <p class="kicker">母目录</p>
-          <h2 class="section-title">先进入栏目，再选择词条</h2>
-          <p>知识库按可调用的装备类型组织。本轮先开放 AI 核心概念，其他栏目保留入口，等内容审核后再上线。</p>
+          <h2 class="section-title">按目录进入 AI·外脑</h2>
+          <p>主要栏目按可调用的装备类型组织。先选目录，再在栏目表格里扫描词条。</p>
         </div>
 
         <div class="pillar-grid">
-          <a class="pillar-card is-live" href="/knowledge/ai-core/">
-            <span class="meta">已开放</span>
-            <h3>AI 核心概念</h3>
-            <p>44 张已审核公开版卡片，覆盖 6 个子分类：基础概念、模型机制、Agent、工程、交互和安全治理。</p>
-            <strong>进入母目录</strong>
-          </a>
-
-          <a class="pillar-card is-live" href="/knowledge/workflows/">
-            <span class="meta">已开放</span>
-            <h3>工作流</h3>
-            <p>{workflowData.cards.length} 张公开版工作流解读卡，按 Agent 能力栈组织：基础设施、Skill 生产线、Skill 参考库和 Agent Building。</p>
-            <strong>进入工作流专栏</strong>
-          </a>
-
-          {futurePillars.map((pillar) => (
-            <div class="pillar-card is-pending">
-              <span class="meta">整理中</span>
+          {knowledgePillars.map((pillar) => (
+            <a class:list={["pillar-card", { "is-pending": pillar.status === 'pending', "is-live": pillar.status === 'open' }]} href={pillar.url}>
+              <span class:list={["badge", { "badge-pending": pillar.status === 'pending' }]}>{pillar.statusLabel}</span>
               <h3>{pillar.title}</h3>
-              <p>{pillar.desc}</p>
-            </div>
+              <p>{pillar.description}</p>
+              <strong>{pillar.status === 'open' ? '进入栏目' : '查看当前状态'}</strong>
+            </a>
           ))}
         </div>
-      </div>
-    </section>
 
-    <section class="section featured-section">
-      <div class="container">
-        <div class="section-heading compact">
-          <p class="kicker">精选卡片</p>
-          <h2 class="section-title">从这 3 张开始建立共同语言</h2>
-          <a href="/knowledge/ai-core/" class="text-link">查看全部 44 张</a>
-        </div>
-
-        <div class="featured-grid">
-          {featuredCards.map((card) => {
-            const column = knowledgeData.columns.find((item) => item.id === card.column);
-            return (
-              <a class="knowledge-card" href={`/knowledge/ai-core/${card.column}/${card.slug}/`}>
-                <span class="card-id">{card.id} · {column?.title}</span>
-                <h3>{card.title}</h3>
-                <p class="title-en">{card.title_en}</p>
-                <p>{card.summary}</p>
-                <div class="tag-row">
-                  {card.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
-                </div>
+        <div class="topic-directory">
+          <h3>专题入口</h3>
+          <div class="topic-list">
+            {knowledgeTopics.map((topic) => (
+              <a href={topic.url}>
+                <span>
+                  <strong>{topic.title}</strong>
+                  <small>{topic.description}</small>
+                </span>
+                <span class="badge">{topic.statusLabel}</span>
               </a>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section featured-section">
-      <div class="container">
-        <div class="section-heading compact">
-          <p class="kicker">工作流精选</p>
-          <h2 class="section-title">从概念走到可执行能力</h2>
-          <a href="/knowledge/workflows/" class="text-link">进入工作流专栏</a>
-        </div>
-
-        <div class="featured-grid">
-          {featuredWorkflowCards.map((card) => {
-            const category = workflowData.categories.find((item) => item.id === card.category);
-            const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
-            return (
-              <a class="knowledge-card" href={`/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}>
-                <span class="card-id">{card.id} · {subcategory?.title ?? category?.title}</span>
-                <h3>{card.title}</h3>
-                <p class="title-en">{card.title_en}</p>
-                <p>{card.summary}</p>
-                <div class="tag-row">
-                  {card.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-
-    <section class="section notice-section">
-      <div class="container">
-        <p class="notice">
-          AI 核心概念和工作流专栏已完成站点适配。后续真实知识卡继续按公开审核标准分批入站。
-        </p>
       </div>
     </section>
   </main>
@@ -320,5 +239,124 @@ const futurePillars = [
     max-width: var(--content-max);
     border-top: 1px solid var(--lead);
     padding-top: 1.5rem;
+  }
+
+  .intro-section {
+    padding-top: 0;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    border-top: 2px solid var(--ink);
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .intro-panel h2 {
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  }
+
+  .intro-panel p,
+  .reason-list span {
+    color: var(--grey);
+  }
+
+  .reason-list {
+    list-style: none;
+    margin: 1.4rem 0;
+    padding: 0;
+  }
+
+  .reason-list li {
+    display: grid;
+    grid-template-columns: 6.2rem minmax(0, 1fr);
+    gap: 0.8rem;
+    border-top: 1px solid rgba(184, 184, 184, 0.58);
+    padding: 0.7rem 0;
+  }
+
+  .reason-list strong {
+    font-family: var(--font-serif);
+  }
+
+  .intro-conclusion {
+    border-left: 2px solid var(--accent);
+    color: var(--ink) !important;
+    font-weight: 700;
+    padding-left: 0.85rem;
+  }
+
+  .acquisition-section {
+    background: rgba(26, 26, 26, 0.018);
+  }
+
+  .acquisition-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+  }
+
+  .pillar-card .badge {
+    margin-bottom: 0.85rem;
+  }
+
+  .topic-directory {
+    border-top: 1px solid var(--lead);
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .topic-directory > h3 {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .topic-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .topic-list > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid rgba(184, 184, 184, 0.55);
+    padding: 0.9rem 0;
+    text-decoration: none;
+  }
+
+  .topic-list > a:first-child {
+    border-top: 0;
+  }
+
+  .topic-list strong,
+  .topic-list small {
+    display: block;
+  }
+
+  .topic-list small {
+    color: var(--grey);
+    font-size: 0.82rem;
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 767px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .reason-list li {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+
+    .topic-list > a {
+      align-items: flex-start;
+    }
   }
 </style>

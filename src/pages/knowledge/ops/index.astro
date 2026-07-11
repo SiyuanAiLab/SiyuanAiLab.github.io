@@ -1,0 +1,236 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
+import knowledgeData from '../../../data/knowledge-cards.json';
+import workflowData from '../../../data/workflow-cards.json';
+import updateLog from '../../../data/knowledge-update-log.json';
+import { getCollection } from 'astro:content';
+
+const contentCards = (await getCollection('knowledge')).filter((entry) => (
+  entry.data.public &&
+  !entry.data.draft &&
+  entry.id.replace(/.*\//, '').replace(/\.mdx?$/, '') !== 'index'
+));
+
+const sectionCounts = [
+  { title: 'AI 核心概念', count: knowledgeData.cards.length, status: '已开放' },
+  { title: '工作流', count: workflowData.cards.length, status: '已开放' },
+  {
+    title: '工具配置与选型',
+    count: contentCards.filter((entry) => entry.data.category === 'toolkits' && Boolean(entry.data.subcategory)).length,
+    status: '已开放',
+  },
+  { title: '信源与标准', count: contentCards.filter((entry) => entry.data.category === 'sources').length, status: '已开放' },
+  { title: '职业与能力', count: contentCards.filter((entry) => entry.data.category === 'career').length, status: '已开放' },
+  { title: '场景案例', count: 0, status: '整理中' },
+];
+---
+
+<Layout title="AI·外脑建设日志" description="查看思远 AI Lab AI·外脑的公开栏目数量、最近更新和反馈入口。">
+  <Header />
+
+  <main class="site-main knowledge-section-page">
+    <div class="container knowledge-layout">
+      <KnowledgeDirectory activeSection="ops" />
+
+      <article class="knowledge-main ops-page">
+        <header class="page-header">
+          <p class="kicker">建设日志</p>
+          <h1>AI·外脑建设日志</h1>
+          <p class="lede">这里只记录访客能够看到的栏目规模和页面更新，帮助你判断当前哪些内容已经可以使用。</p>
+        </header>
+
+        <section class="ops-section">
+          <div class="section-head">
+            <h2>公开建设进度</h2>
+            <p>数量来自当前静态数据与已公开内容集合。</p>
+          </div>
+          <div class="table-wrap">
+            <table class="stats-table">
+              <thead>
+                <tr><th scope="col">栏目</th><th scope="col">公开词条</th><th scope="col">状态</th></tr>
+              </thead>
+              <tbody>
+                {sectionCounts.map((section) => (
+                  <tr>
+                    <th scope="row">{section.title}</th>
+                    <td>{section.count}</td>
+                    <td><span class:list={["badge", { "badge-pending": section.status !== '已开放' }]}>{section.status}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="ops-section">
+          <div class="section-head">
+            <h2>最近更新</h2>
+            <p>按公开页面变更时间排列。</p>
+          </div>
+          <ol class="update-list">
+            {updateLog.logs.map((log) => (
+              <li>
+                <time datetime={log.date}>{log.date}</time>
+                <div>
+                  <strong>{log.scope}</strong>
+                  <p>{log.change}</p>
+                </div>
+                <span class="badge">{log.status}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="feedback-section">
+          <div>
+            <h2>发现内容问题？</h2>
+            <p>如果词条已经过时、链接失效或表达不清，可以通过现有联系页反馈。</p>
+          </div>
+          <a class="btn btn-outline" href="/contact/">前往联系页</a>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-header,
+  .ops-section,
+  .feedback-section {
+    max-width: 760px;
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+  }
+
+  .lede,
+  .section-head p,
+  .update-list p,
+  .feedback-section p {
+    color: var(--grey);
+  }
+
+  .ops-section {
+    border-top: 1px solid var(--lead);
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-head h2,
+  .section-head p {
+    margin: 0;
+  }
+
+  .section-head h2,
+  .feedback-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .section-head p {
+    font-size: 0.82rem;
+  }
+
+  .stats-table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    border-bottom: 1px solid rgba(184, 184, 184, 0.62);
+    padding: 0.7rem 0.5rem;
+    text-align: left;
+  }
+
+  .stats-table thead th {
+    border-top: 2px solid var(--ink);
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .stats-table tbody th {
+    font-family: var(--font-serif);
+  }
+
+  .stats-table tbody td:nth-child(2) {
+    font-family: var(--font-mono);
+  }
+
+  .update-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .update-list li {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: start;
+    border-top: 2px solid var(--ink);
+    padding: 1rem 0;
+  }
+
+  .update-list time {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .update-list p {
+    margin: 0.25rem 0 0;
+  }
+
+  .feedback-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-top: 2px solid var(--ink);
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    padding-top: 1.4rem;
+  }
+
+  .feedback-section h2,
+  .feedback-section p {
+    margin-bottom: 0.35rem;
+  }
+
+  @media (max-width: 600px) {
+    .section-head,
+    .feedback-section {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .update-list li {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+    }
+  }
+</style>

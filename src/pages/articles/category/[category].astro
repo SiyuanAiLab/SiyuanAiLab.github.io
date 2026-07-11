@@ -6,9 +6,13 @@ import Footer from '../../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const categories = [
-    { slug: 'qingxing-shike', title: '清醒时刻', desc: '判断 AI 时代真实发生的变化。' },
-    { slug: 'luodizhi', title: '落地志', desc: '记录 AI 进入真实工作流的过程。' },
-    { slug: 'tools', title: '工具实测', desc: '筛选能进入业务流程的工具。' },
+    { slug: 'qingxing-shike', title: '清醒时刻', desc: '判断 AI 时代真实发生的变化。', author: '思远' },
+    {
+      slug: 'siyuan-observation-diary',
+      title: '思远观察日记',
+      desc: 'Claudian 站在副驾驶的位置记录。',
+      author: 'Claudian',
+    },
   ];
 
   return categories.map((category) => ({
@@ -23,32 +27,94 @@ const articles = allArticles
   .filter((article) => article.data.category === category.slug)
   .filter((article) => article.data.public && !article.data.draft && article.data.auditStatus === 'approved')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+type Article = (typeof articles)[number];
+
+const articleSlug = (article: Article) => article.id.replace(/\.mdx?$/, '');
+const formatDate = (date: Date) => date.toLocaleDateString('zh-CN');
+const getMonthKey = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+const months = Array.from(
+  articles
+    .reduce((archive, article) => {
+      const month = getMonthKey(article.data.pubDate);
+      archive.set(month, (archive.get(month) ?? 0) + 1);
+      return archive;
+    }, new Map<string, number>())
+    .entries(),
+).map(([month, count]) => {
+  const [year, monthNumber] = month.split('-');
+  return {
+    month,
+    count,
+    label: `${year} 年 ${Number(monthNumber)} 月 · ${count} 篇`,
+  };
+});
 ---
 
 <Layout title={category.title} description={`${category.title}文章分类，${category.desc}`}>
   <Header />
 
-  <main class="site-main category-page">
+  <main class="site-main category-page" data-category-page>
     <section class="section">
       <div class="container">
         <a class="back-link" href="/articles">返回文章</a>
         <h1>{category.title}</h1>
+        <p class="category-author">作者：{category.author}</p>
         <p class="category-lede">{category.desc}</p>
 
+        <div class="month-filter" aria-label="月份筛选">
+          <span>按月查看</span>
+          {months.length > 0 ? (
+            <div class="month-options">
+              <a href={`/articles/category/${category.slug}`} data-month-option data-month-value="all">全部</a>
+              {months.map((month) => (
+                <a
+                  href={`/articles/category/${category.slug}?month=${month.month}`}
+                  data-month-option
+                  data-month-value={month.month}
+                >
+                  {month.label}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p>暂无可筛选月份。</p>
+          )}
+        </div>
+
         {articles.length > 0 ? (
-          <div class="article-list">
-            {articles.map((article) => (
-              <a class="article-row" href={`/articles/${article.id.replace(/\.mdx?$/, '')}`}>
-                <span class="meta">{article.data.pubDate.toLocaleDateString('zh-CN')}</span>
-                <h2>{article.data.title}</h2>
-                <p>{article.data.description}</p>
-              </a>
-            ))}
-          </div>
+          <>
+            <div class="article-list" data-article-list>
+              {articles.map((article) => (
+                <a
+                  class="article-row"
+                  href={`/articles/${articleSlug(article)}`}
+                  data-article-month={getMonthKey(article.data.pubDate)}
+                >
+                  <span class="meta">
+                    {article.data.seriesTitle ?? category.title} · {article.data.author ?? category.author}
+                  </span>
+                  <h2>{article.data.title}</h2>
+                  <p>{article.data.description}</p>
+                  <small>{formatDate(article.data.pubDate)} · {article.data.readingTime ?? '阅读全文'}</small>
+                </a>
+              ))}
+            </div>
+            <div class="empty-state filter-empty" data-filter-empty hidden>
+              <h2>这个月份暂无公开文章</h2>
+              <p>换一个月份，或者返回查看全部文章。</p>
+            </div>
+          </>
         ) : (
           <div class="empty-state">
-            <h2>这个分类的公开文章整理中</h2>
-            <p>内容资产线程会先完成审核，再把文章发布到这里。</p>
+            <h2>{category.slug === 'siyuan-observation-diary' ? '思远观察日记正在审核整理中' : '这个分类的公开文章整理中'}</h2>
+            <p>
+              {category.slug === 'siyuan-observation-diary'
+                ? '这里会保留 Claudian 站在副驾驶位置看到的协作现场，公开后会自动进入月份筛选。'
+                : '内容资产线程会先完成审核，再把文章发布到这里。'}
+            </p>
           </div>
         )}
       </div>
@@ -57,6 +123,37 @@ const articles = allArticles
 
   <Footer />
 </Layout>
+
+<script is:inline>
+  (() => {
+    const page = document.querySelector('[data-category-page]');
+    if (!page) return;
+
+    const selectedMonth = new URLSearchParams(window.location.search).get('month');
+    const rows = Array.from(page.querySelectorAll('[data-article-month]'));
+    const empty = page.querySelector('[data-filter-empty]');
+    const options = Array.from(page.querySelectorAll('[data-month-option]'));
+
+    options.forEach((option) => {
+      const value = option.getAttribute('data-month-value');
+      const active = selectedMonth ? value === selectedMonth : value === 'all';
+      option.toggleAttribute('aria-current', active);
+    });
+
+    if (!selectedMonth || rows.length === 0) return;
+
+    let visibleCount = 0;
+    rows.forEach((row) => {
+      const visible = row.getAttribute('data-article-month') === selectedMonth;
+      row.toggleAttribute('hidden', !visible);
+      if (visible) visibleCount += 1;
+    });
+
+    if (empty) {
+      empty.toggleAttribute('hidden', visibleCount > 0);
+    }
+  })();
+</script>
 
 <style>
   .back-link {
@@ -70,9 +167,54 @@ const articles = allArticles
   }
 
   .category-lede,
+  .category-author,
   .article-row p,
-  .empty-state p {
+  .article-row small,
+  .empty-state p,
+  .month-filter p {
     color: var(--grey);
+  }
+
+  .category-author {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .month-filter {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    margin-top: var(--space-block);
+    padding: clamp(18px, 3vw, 28px);
+  }
+
+  .month-filter > span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .month-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .month-options a {
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    padding: 0.45rem 0.75rem;
+    text-decoration: none;
+  }
+
+  .month-options a:hover,
+  .month-options a[aria-current] {
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .article-list {
@@ -91,11 +233,23 @@ const articles = allArticles
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
 
+  .article-row[hidden],
+  .filter-empty[hidden] {
+    display: none;
+  }
+
   .article-row:hover {
     border-color: var(--accent);
     box-shadow: var(--shadow-paper);
     color: var(--ink);
     transform: translateY(-2px);
+  }
+
+  .article-row small {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-top: 0.7rem;
   }
 
   .empty-state {
@@ -104,5 +258,15 @@ const articles = allArticles
     border-radius: var(--radius);
     margin-top: var(--space-block);
     padding: clamp(24px, 5vw, 48px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-row {
+      transition: none;
+    }
+
+    .article-row:hover {
+      transform: none;
+    }
   }
 </style>

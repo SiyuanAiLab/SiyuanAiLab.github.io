@@ -16,6 +16,16 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
+
+const categoryMeta = {
+  'qingxing-shike': { title: '清醒时刻', author: '思远' },
+  luodizhi: { title: '落地志', author: '思远' },
+  tools: { title: '工具实测', author: '思远' },
+  'siyuan-observation-diary': { title: '思远观察日记', author: 'Claudian' },
+} as const;
+
+const fallback = categoryMeta[article.data.category];
+const articleMeta = `${article.data.seriesTitle ?? fallback.title} · ${article.data.author ?? fallback.author}`;
 ---
 
 <Layout title={article.data.title} description={article.data.description}>
@@ -25,7 +35,7 @@ const { Content } = await render(article);
     <article class="container article-shell">
       <a class="back-link" href="/articles">返回文章</a>
       <header class="article-header">
-        <p class="meta">{article.data.seriesTitle ?? article.data.category}</p>
+        <p class="meta">{articleMeta}</p>
         <h1>{article.data.title}</h1>
         <p>{article.data.description}</p>
       </header>

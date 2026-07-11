@@ -10,8 +10,8 @@ tags:
   - "微信读书"
   - "知识管理"
   - "AI 教练"
-public: true
-draft: false
+public: false
+draft: true
 auditStatus: "approved"
 sourcePath: "workspace/04-Output/自媒体内容/落地志/EP03-阅读成长教练/01-长文/排版.html"
 sourceType: "html"

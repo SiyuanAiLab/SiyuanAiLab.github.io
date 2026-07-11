@@ -4,6 +4,9 @@ description: "从配音老师面对 AI 声音训练的真实处境出发，讨�
 pubDate: 2026-06-24
 category: "qingxing-shike"
 seriesTitle: "清醒时刻"
+author: "思远"
+featured: true
+featuredReason: "最新一篇清醒时刻，适合作为判断视角入口。"
 episode: "EP05"
 tags:
   - "AI 替代"

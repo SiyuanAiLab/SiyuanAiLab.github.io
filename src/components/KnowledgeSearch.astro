@@ -53,16 +53,35 @@ const {
       const items = JSON.parse(indexNode.textContent || '[]');
 
       const normalize = (value) => String(value || '').toLowerCase().trim();
+      const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (character) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;',
+      })[character]);
       const searchable = items.map((item) => ({
         ...item,
+        normalizedTitle: normalize(item.title),
+        normalizedTitleEn: normalize(item.title_en),
+        normalizedTags: (item.tags || []).map(normalize),
         haystack: normalize([
           item.title,
           item.title_en,
           item.summary,
           item.scenario,
+          item.columnTitle,
           ...(item.tags || []),
         ].join(' ')),
       }));
+
+      const score = (item, needle) => {
+        if (item.normalizedTitle === needle || item.normalizedTitleEn === needle) return 0;
+        if (item.normalizedTitle.startsWith(needle) || item.normalizedTitleEn.startsWith(needle)) return 1;
+        if (item.normalizedTitle.includes(needle) || item.normalizedTitleEn.includes(needle)) return 2;
+        if (item.normalizedTags.includes(needle)) return 3;
+        return 4;
+      };
 
       const close = () => {
         results.hidden = true;
@@ -78,6 +97,7 @@ const {
 
         const matches = searchable
           .filter((item) => item.haystack.includes(needle))
+          .sort((a, b) => score(a, needle) - score(b, needle))
           .slice(0, 8);
 
         results.hidden = false;
@@ -86,13 +106,16 @@ const {
           return;
         }
 
-        results.innerHTML = matches.map((item) => `
-          <a class="search-result" href="${item.url}">
-            <span class="result-title">${item.title}</span>
-            <span class="result-meta">${item.title_en}${item.columnTitle ? ` · ${item.columnTitle}` : ''}</span>
-            <span class="result-summary">${item.summary}</span>
+        results.innerHTML = matches.map((item) => {
+          const meta = [item.title_en, item.columnTitle].filter(Boolean).join(' · ');
+          return `
+          <a class="search-result" href="${escapeHtml(item.url)}">
+            <span class="result-title">${escapeHtml(item.title)}</span>
+            <span class="result-meta">${escapeHtml(meta)}</span>
+            <span class="result-summary">${escapeHtml(item.summary)}</span>
           </a>
-        `).join('');
+        `;
+        }).join('');
       };
 
       input.addEventListener('input', (event) => render(event.target.value));

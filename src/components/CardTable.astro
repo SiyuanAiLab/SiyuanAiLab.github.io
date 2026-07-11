@@ -1,0 +1,67 @@
+---
+type CardRecord = Record<string, any>;
+
+interface Props {
+  cards: CardRecord[];
+  showId?: boolean;
+  idField?: string;
+  titleField?: string;
+  titleEnField?: string;
+  summaryField?: string;
+  tagsField?: string;
+  urlBuilder: (card: CardRecord) => string;
+  label?: string;
+}
+
+const {
+  cards,
+  showId = true,
+  idField = 'id',
+  titleField = 'title',
+  titleEnField = 'title_en',
+  summaryField = 'summary',
+  tagsField = 'tags',
+  urlBuilder,
+  label = '词条列表',
+} = Astro.props;
+---
+
+{cards.length > 0 ? (
+  <div class="table-wrap">
+    <table class="card-table">
+      <caption class="visually-hidden">{label}</caption>
+      <thead>
+        <tr>
+          {showId && <th scope="col" class="table-col-id">编号</th>}
+          <th scope="col" class="table-col-title">词条</th>
+          <th scope="col" class="table-col-en">英文名</th>
+          <th scope="col" class="table-col-summary">一句话摘要</th>
+          <th scope="col" class="table-col-tags">标签</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cards.map((card) => {
+          const tags = Array.isArray(card[tagsField]) ? card[tagsField] : [];
+          const titleEn = card[titleEnField] ?? '';
+          return (
+            <tr>
+              {showId && <td class="table-id" data-label="编号">{card[idField]}</td>}
+              <td class="table-title" data-label="词条">
+                <a href={urlBuilder(card)}>{card[titleField]}</a>
+              </td>
+              <td class:list={["table-title-en", { "is-empty": !titleEn }]} data-label="英文名">{titleEn}</td>
+              <td class="table-summary" data-label="一句话摘要">{card[summaryField]}</td>
+              <td class="table-tags" data-label="标签">
+                <div class="card-table-tags">
+                  {tags.slice(0, 3).map((tag: string) => <span class="tag">{tag}</span>)}
+                </div>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+) : (
+  <p class="table-empty">当前目录暂无公开词条。</p>
+)}

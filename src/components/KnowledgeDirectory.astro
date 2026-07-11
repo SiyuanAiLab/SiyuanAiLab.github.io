@@ -1,0 +1,144 @@
+---
+import KnowledgeSearch from './KnowledgeSearch.astro';
+import {
+  buildGlobalSearchItems,
+  knowledgePillars,
+  knowledgeTopics,
+} from '../data/knowledge-directory';
+
+interface Props {
+  activeSection: string;
+}
+
+const { activeSection } = Astro.props;
+const searchItems = await buildGlobalSearchItems();
+const directoryId = `knowledge-directory-${activeSection.replace(/[^a-z0-9-]/gi, '-')}`;
+const hasSubtree = Astro.slots.has('default');
+---
+
+<div class="knowledge-directory-shell" data-knowledge-directory-shell>
+  <button
+    class="knowledge-directory-toggle"
+    type="button"
+    aria-controls={directoryId}
+    aria-expanded="false"
+    data-directory-open
+  >
+    打开 AI·外脑目录
+  </button>
+  <div class="knowledge-directory-backdrop" data-directory-close></div>
+
+  <aside class="knowledge-directory" id={directoryId} aria-label="AI·外脑目录" data-knowledge-directory>
+    <div class="directory-head">
+      <div>
+        <p class="directory-kicker">AI·外脑</p>
+        <a class="directory-title" href="/knowledge/">返回专栏首页</a>
+      </div>
+      <button class="directory-close" type="button" aria-label="关闭 AI·外脑目录" data-directory-close>×</button>
+    </div>
+
+    <KnowledgeSearch
+      items={searchItems}
+      id={`directory-search-${activeSection}`}
+      placeholder="搜索全部概念、工作流、工具和信源"
+    />
+
+    <nav class="directory-primary" aria-label="AI·外脑一级栏目">
+      <p class="directory-label">主要栏目</p>
+      <ul>
+        {knowledgePillars.map((item) => (
+          <li>
+            <a class={activeSection === item.id ? 'is-active' : ''} href={item.url} aria-current={activeSection === item.id ? 'page' : undefined}>
+              <span>{item.title}</span>
+              {item.status === 'pending' && <small>待开发</small>}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p class="directory-label directory-topic-label">专题</p>
+      <ul>
+        {knowledgeTopics.map((item) => (
+          <li>
+            <a class={activeSection === item.id ? 'is-active' : ''} href={item.url} aria-current={activeSection === item.id ? 'page' : undefined}>
+              <span>{item.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    {hasSubtree && (
+      <div class="directory-subtree">
+        <slot />
+      </div>
+    )}
+  </aside>
+</div>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll('[data-knowledge-directory-shell]').forEach((root) => {
+      if (root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      const directory = root.querySelector('[data-knowledge-directory]');
+      const openButton = root.querySelector('[data-directory-open]');
+      const closeButtons = root.querySelectorAll('[data-directory-close]');
+      if (!directory || !openButton) return;
+
+      const mobileDirectory = window.matchMedia('(max-width: 980px)');
+      let isOpen = false;
+      let isMobileViewport = mobileDirectory.matches;
+
+      const syncDirectoryState = () => {
+        const isMobile = mobileDirectory.matches;
+        const isMobileOpen = isMobile && isOpen;
+
+        directory.classList.toggle('is-open', isMobileOpen);
+        root.classList.toggle('is-open', isMobileOpen);
+        document.documentElement.classList.toggle('knowledge-directory-lock', isMobileOpen);
+        openButton.setAttribute('aria-expanded', String(isMobileOpen));
+
+        if (isMobile && !isOpen) {
+          directory.setAttribute('inert', '');
+          directory.setAttribute('aria-hidden', 'true');
+        } else {
+          directory.removeAttribute('inert');
+          directory.removeAttribute('aria-hidden');
+        }
+      };
+
+      const setOpen = (nextOpen, { restoreFocus = false } = {}) => {
+        isOpen = mobileDirectory.matches && nextOpen;
+        syncDirectoryState();
+
+        if (isOpen) {
+          directory.querySelector('[data-search-input]')?.focus();
+        } else if (restoreFocus && mobileDirectory.matches) {
+          openButton.focus();
+        }
+      };
+
+      openButton.addEventListener('click', () => setOpen(true));
+      closeButtons.forEach((button) => button.addEventListener('click', () => setOpen(false, { restoreFocus: true })));
+      directory.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isOpen) setOpen(false, { restoreFocus: true });
+      });
+
+      const handleViewportChange = () => {
+        const nextIsMobileViewport = mobileDirectory.matches;
+        if (nextIsMobileViewport === isMobileViewport) return;
+        isMobileViewport = nextIsMobileViewport;
+        isOpen = false;
+        syncDirectoryState();
+      };
+
+      mobileDirectory.addEventListener('change', handleViewportChange);
+      window.addEventListener('resize', handleViewportChange);
+
+      syncDirectoryState();
+    });
+  })();
+</script>

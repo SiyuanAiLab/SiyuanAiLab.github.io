@@ -1,6 +1,4 @@
 ---
-import KnowledgeSearch from './KnowledgeSearch.astro';
-
 interface Column {
   id: string;
   title: string;
@@ -36,35 +34,10 @@ const cardsByColumn = new Map(
   ]),
 );
 
-const searchItems = cards.map((card) => {
-  const column = columns.find((item) => item.id === card.column);
-  return {
-    id: card.id,
-    title: card.title,
-    title_en: card.title_en,
-    summary: card.summary,
-    tags: card.tags,
-    columnTitle: column?.title,
-    url: `/knowledge/ai-core/${card.column}/${card.slug}/`,
-  };
-});
 ---
 
-<button class="tree-toggle" type="button" data-tree-open>目录</button>
-<div class="tree-backdrop" data-tree-close></div>
-
-<aside class="knowledge-tree" data-knowledge-tree>
-  <div class="tree-head">
-    <div>
-      <p class="tree-kicker">AI CORE</p>
-      <a class="tree-title" href="/knowledge/ai-core/">AI 核心概念</a>
-    </div>
-    <button class="tree-close" type="button" aria-label="关闭目录" data-tree-close>×</button>
-  </div>
-
-  <KnowledgeSearch items={searchItems} id="tree-search" />
-
-  <nav class="tree-nav" aria-label="AI 核心概念目录">
+<nav class="tree-nav" aria-label="AI 核心概念子目录">
+  <a class="tree-title" href="/knowledge/ai-core/">AI 核心概念子目录</a>
     {columns.map((column) => {
       const columnCards = cardsByColumn.get(column.id) ?? [];
       const isActiveColumn = activeSubcategory === column.id;
@@ -92,88 +65,15 @@ const searchItems = cards.map((card) => {
         </details>
       );
     })}
-  </nav>
-</aside>
-
-<script is:inline>
-  (() => {
-    const tree = document.querySelector('[data-knowledge-tree]');
-    const backdrop = document.querySelector('.tree-backdrop');
-    const openButton = document.querySelector('[data-tree-open]');
-    const closeButtons = document.querySelectorAll('[data-tree-close]');
-
-    if (!tree || !openButton) return;
-
-    const open = () => {
-      tree.classList.add('is-open');
-      backdrop?.classList.add('is-open');
-      document.documentElement.classList.add('tree-lock');
-    };
-
-    const close = () => {
-      tree.classList.remove('is-open');
-      backdrop?.classList.remove('is-open');
-      document.documentElement.classList.remove('tree-lock');
-    };
-
-    openButton.addEventListener('click', open);
-    closeButtons.forEach((button) => button.addEventListener('click', close));
-    tree.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
-  })();
-</script>
+</nav>
 
 <style>
-  .tree-toggle {
-    display: none;
-    width: 100%;
-    min-height: 44px;
-    border: 1px solid var(--ink);
-    border-radius: var(--radius);
-    background: var(--ink);
-    color: var(--paper);
-    font: inherit;
-    margin-bottom: 1rem;
-  }
-
-  .tree-backdrop {
-    display: none;
-  }
-
-  .knowledge-tree {
-    position: sticky;
-    top: 88px;
-    align-self: start;
-    max-height: calc(100vh - 112px);
-    overflow: auto;
-    border-right: 1px solid var(--lead);
-    padding-right: 1.25rem;
-  }
-
-  .tree-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: start;
-    margin-bottom: 1rem;
-  }
-
-  .tree-kicker {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    margin-bottom: 0.2rem;
-  }
-
   .tree-title {
     display: inline-block;
     font-family: var(--font-serif);
     font-size: 1.24rem;
     font-weight: 700;
     text-decoration: none;
-  }
-
-  .tree-close {
-    display: none;
   }
 
   .tree-nav {
@@ -261,57 +161,4 @@ const searchItems = cards.map((card) => {
     font-size: 0.72rem;
   }
 
-  @media (max-width: 768px) {
-    :global(html.tree-lock) {
-      overflow: hidden;
-    }
-
-    .tree-toggle {
-      display: block;
-    }
-
-    .tree-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      background: rgba(26, 26, 26, 0.28);
-    }
-
-    .tree-backdrop.is-open {
-      display: block;
-    }
-
-    .knowledge-tree {
-      position: fixed;
-      z-index: 50;
-      inset: 0 auto 0 0;
-      width: min(88vw, 360px);
-      max-height: none;
-      overflow: auto;
-      border-right: 1px solid var(--lead);
-      background: var(--paper);
-      padding: 1rem;
-      transform: translateX(-104%);
-      transition: transform 0.22s ease;
-      box-shadow: var(--shadow-paper);
-    }
-
-    .knowledge-tree.is-open {
-      transform: translateX(0);
-    }
-
-    .tree-close {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--lead);
-      border-radius: var(--radius);
-      background: transparent;
-      color: var(--ink);
-      font-size: 1.4rem;
-      line-height: 1;
-    }
-  }
 </style>

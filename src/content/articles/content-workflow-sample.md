@@ -4,6 +4,7 @@ description: "这是一篇非公开样板稿，用来验证文章字段、内容
 pubDate: 2026-06-24
 category: "qingxing-shike"
 seriesTitle: "内部样板"
+author: "思远"
 episode: "SAMPLE"
 tags:
   - "内容资产"

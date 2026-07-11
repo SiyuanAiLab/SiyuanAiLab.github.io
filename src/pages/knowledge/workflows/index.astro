@@ -2,161 +2,69 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
-import KnowledgeSearch from '../../../components/KnowledgeSearch.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
+import WorkflowTree from '../../../components/WorkflowTree.astro';
+import CardTable from '../../../components/CardTable.astro';
 import workflowData from '../../../data/workflow-cards.json';
-import knowledgeData from '../../../data/knowledge-cards.json';
 
 const cards = workflowData.cards
   .slice()
   .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
 
 const categories = workflowData.categories;
-const skillLibrary = categories.find((category) => category.id === 'skill-library');
-const agentBuilding = categories.find((category) => category.id === 'agent-building');
-
-const searchItems = cards.map((card) => {
-  const category = categories.find((item) => item.id === card.category);
-  const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
-  return {
-    id: card.id,
-    title: card.title,
-    title_en: card.title_en,
-    summary: card.summary,
-    tags: card.tags,
-    scenario: card.scenario,
-    columnTitle: subcategory ? `${category?.title} · ${subcategory.title}` : category?.title,
-    url: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
-  };
-});
-
-const recommendedCards = workflowData.recommendations
-  .map((recommendation) => {
-    const card = knowledgeData.cards.find((item) => item.slug === recommendation.slug);
-    if (!card) return null;
-    const column = knowledgeData.columns.find((item) => item.id === card.column);
-    return { ...card, reason: recommendation.reason, columnTitle: column?.title };
-  })
-  .filter(Boolean);
+const categoryRows = categories.map((category, index) => ({
+  id: String(index + 1).padStart(2, '0'),
+  title: category.title,
+  title_en: category.title_en,
+  summary: category.description,
+  tags: category.subcategories.map((subcategory) => subcategory.title),
+  url: `/knowledge/workflows/${category.id}/${category.subcategories[0]?.id}/`,
+}));
 ---
 
-<Layout title="工作流 — 知识库" description="思远 AI Lab 工作流专栏，按 Agent 能力栈组织基础设施、Skill 生产线、Skill 参考库和 Agent Building。">
+<Layout title="工作流 - AI·外脑" description="思远 AI Lab 工作流专栏，按 Agent 能力栈组织基础设施、Skill 生产线、Skill 参考库和 Agent Building。">
   <Header />
 
-  <main class="site-main">
-    <section class="hero workflow-hero">
-      <div class="container">
+  <main class="site-main workflow-page">
+    <div class="container knowledge-layout">
+      <KnowledgeDirectory activeSection="workflows">
+        <WorkflowTree categories={categories} cards={cards} />
+      </KnowledgeDirectory>
+
+      <section class="main-content knowledge-main">
+        <header class="workflow-hero">
         <p class="kicker">工作流</p>
         <h1>给 AI 装配能力的参考手册</h1>
         <p class="lede">
           按 Agent 的成长路径组织：先看基础设施，再看 Skill 生产线，再查 Skill 参考库，最后判断是否需要升级到 Agent Building。
         </p>
-        <KnowledgeSearch items={searchItems} id="workflow-home-search" placeholder="搜索 Skill、工具、Agent Building、标签" />
-      </div>
-    </section>
+        </header>
 
-    <section class="section entry-section">
-      <div class="container">
+        <section class="workflow-stack">
         <div class="section-heading">
-          <p class="kicker">Agent 能力栈</p>
           <h2 class="section-title">四层入口</h2>
+          <p>从运行基础到多 Agent 协作，先按层级定位，再进入左侧子目录查具体词条。</p>
         </div>
 
-        <div class="layer-grid">
-          {categories.map((category, index) => (
-            <article class={`layer-card ${category.id === 'agent-building' ? 'agent-card' : ''}`}>
-              <a class="layer-head" href={`/knowledge/workflows/${category.id}/${category.subcategories[0]?.id}/`}>
-                <span class="entry-index">{String(index + 1).padStart(2, '0')}</span>
-                <h3>{category.title}</h3>
-                <strong>{category.title_en}</strong>
-                <p>{category.description}</p>
-              </a>
-              {category.id === 'agent-building' && category.standard && (
-                <p class="agent-standard">{category.standard}</p>
-              )}
-              <div class="subcategory-links">
-                {category.subcategories.map((item) => (
-                  <a href={`/knowledge/workflows/${category.id}/${item.id}/`}>
-                    <span>{item.title}</span>
-                    <small>{item.title_en}</small>
-                  </a>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section entry-section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="kicker">Skill Library</p>
-          <h2 class="section-title">参考库 7 个场景区</h2>
-          <p class="section-copy">
-            v2.1 保留 7 个企业服务和知识工作场景，并把“商业与营销”纳入参考库。
-          </p>
-        </div>
-
-        <div class="entry-grid topic-grid">
-          {skillLibrary?.subcategories.map((item) => (
-            <a class="entry-card topic-card" href={`/knowledge/workflows/skill-library/${item.id}/`}>
-              <span class="entry-index">{item.title_en}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section agent-standard-section">
-      <div class="container">
-        <div class="agent-standard-panel">
-          <div>
-            <p class="kicker">Agent Building</p>
-            <h2 class="section-title">这里只收真 Agent</h2>
-          </div>
-          <p>
-            {agentBuilding?.standard}
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section featured-section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="kicker">推荐知识卡片</p>
-          <h2 class="section-title">理解 Skill 前，先补这几块底层积木</h2>
-        </div>
-
-        <div class="featured-grid">
-          {recommendedCards.map((card) => (
-            <a class="knowledge-card" href={`/knowledge/ai-core/${card.column}/${card.slug}/`}>
-              <span class="card-id">{card.id} · {card.columnTitle}</span>
-              <h3>{card.title}</h3>
-              <p class="title-en">{card.title_en}</p>
-              <p>{card.reason}</p>
-              <strong>进入概念卡片</strong>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section notice-section">
-      <div class="container">
-        <p class="notice">
-          当前已入站 {cards.length} 张公开版工作流解读卡，内容按公开 README 和已审核草稿整理。
-        </p>
-      </div>
-    </section>
+        <CardTable
+          cards={categoryRows}
+          label="工作流四层能力栈"
+          urlBuilder={(category) => category.url}
+        />
+        </section>
+        <p class="notice">当前公开 {cards.length} 张工作流解读卡。具体词条可从左侧子目录进入。</p>
+      </section>
+    </div>
   </main>
 
   <Footer />
 </Layout>
 
 <style>
+  .workflow-page {
+    padding: clamp(28px, 5vw, 56px) 0;
+  }
+
   .kicker {
     color: var(--accent);
     font-family: var(--font-mono);
@@ -166,7 +74,11 @@ const recommendedCards = workflowData.recommendations
   }
 
   .workflow-hero {
-    padding-bottom: clamp(42px, 7vw, 76px);
+    padding-bottom: clamp(32px, 5vw, 52px);
+  }
+
+  .workflow-stack {
+    margin-bottom: 2rem;
   }
 
   h1 {

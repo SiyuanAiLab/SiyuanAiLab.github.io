@@ -1,0 +1,57 @@
+---
+interface SubnavItem {
+  id: string;
+  title: string;
+  count?: number;
+}
+
+interface Props {
+  items: SubnavItem[];
+  label?: string;
+}
+
+const { items, label = '当前分类快速导航' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <nav class="category-subnav" aria-label={label}>
+    {items.map((item) => (
+      <a href={`#${item.id}`}>
+        <span>{item.title}</span>
+        {typeof item.count === 'number' && <small>{item.count}</small>}
+      </a>
+    ))}
+  </nav>
+)}
+
+<style>
+  .category-subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.25rem 0 2rem;
+  }
+
+  .category-subnav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 38px;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    padding: 0.4rem 0.65rem;
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+
+  .category-subnav a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .category-subnav small {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+</style>

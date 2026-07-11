@@ -3,6 +3,8 @@ import Layout from '../../../../../layouts/Layout.astro';
 import Header from '../../../../../components/Header.astro';
 import Footer from '../../../../../components/Footer.astro';
 import WorkflowTree from '../../../../../components/WorkflowTree.astro';
+import KnowledgeDirectory from '../../../../../components/KnowledgeDirectory.astro';
+import CardTable from '../../../../../components/CardTable.astro';
 import workflowData from '../../../../../data/workflow-cards.json';
 
 export function getStaticPaths() {
@@ -25,38 +27,32 @@ const cards = workflowData.cards
 const subcategoryCards = cards.filter((card) => card.category === category && card.subcategory === subcategory);
 ---
 
-<Layout title={`${currentSubcategory?.title ?? '工作流'} — 工作流专栏`} description={currentSubcategory?.description ?? '思远 AI Lab 工作流专栏列表页'}>
+<Layout title={`${currentSubcategory?.title ?? '工作流'} - 工作流专栏`} description={currentSubcategory?.description ?? '思远 AI Lab 工作流专栏列表页'}>
   <Header />
 
   <main class="site-main workflow-page">
     <div class="container workflow-layout">
-      <WorkflowTree
-        categories={workflowData.categories}
-        cards={cards}
-        activeCategory={category}
-        activeSubcategory={subcategory}
-      />
+      <KnowledgeDirectory activeSection="workflows">
+        <WorkflowTree
+          categories={workflowData.categories}
+          cards={cards}
+          activeCategory={category}
+          activeSubcategory={subcategory}
+        />
+      </KnowledgeDirectory>
 
-      <section class="main-content">
+      <section class="main-content knowledge-main">
         <p class="kicker">{currentCategory?.title} · {currentSubcategory?.title_en}</p>
         <h1>{currentSubcategory?.title}</h1>
         <p class="lede">{currentSubcategory?.description}</p>
         <p class="count-line">当前公开卡片 {subcategoryCards.length} 张</p>
 
         {subcategoryCards.length > 0 ? (
-          <div class="card-grid-local">
-            {subcategoryCards.map((card) => (
-              <a class="workflow-card" href={`/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}>
-                <span class="card-id">{card.id} · {card.type ?? '工作流解读'} · {card.scenario}</span>
-                <h2>{card.title}</h2>
-                <p class="title-en">{card.title_en}</p>
-                <p>{card.summary}</p>
-                <div class="tag-row">
-                  {card.tags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
-                </div>
-              </a>
-            ))}
-          </div>
+          <CardTable
+            cards={subcategoryCards}
+            label={`${currentSubcategory?.title ?? '工作流'}词条列表`}
+            urlBuilder={(card) => `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`}
+          />
         ) : (
           <div class="empty-state">
             <h2>当前分类暂无公开卡片</h2>
@@ -172,7 +168,7 @@ const subcategoryCards = cards.filter((card) => card.category === category && ca
     margin-top: 1rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     .workflow-layout {
       display: block;
     }
