@@ -1,0 +1,110 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const methods = [
+  {
+    title: '压缩包下载',
+    summary: '计划提供整理好的文件夹目录，方便直接保存到本地。',
+    detail: '正式文件完成校验后，这里会提供清晰的版本说明和下载入口。当前不提供失效地址。',
+  },
+  {
+    title: '命令行获取',
+    summary: '计划提供适合熟悉终端用户的获取方式。',
+    detail: '正式命令确认可执行、可回退后再公开。当前不展示任何占位命令。',
+  },
+  {
+    title: '导入 Obsidian',
+    summary: '计划提供把目录放入 Obsidian 的完整导入说明。',
+    detail: '说明会覆盖新建 Vault 与导入现有 Vault 两种情况，并保留原有笔记边界。',
+  },
+];
+---
+
+<div class:list={["acquisition-panel", { "is-compact": compact }]}>
+  <div class="acquisition-grid">
+    {methods.map((method) => (
+      <article class="acquisition-item">
+        <span class="badge badge-pending">待开发</span>
+        <h3>{method.title}</h3>
+        <p>{method.summary}</p>
+        {!compact && <p class="acquisition-detail">{method.detail}</p>}
+        <button type="button" class="acquisition-placeholder" disabled>尚未开放</button>
+      </article>
+    ))}
+  </div>
+
+  {!compact && (
+    <div class="acquisition-progress">
+      <p>获取方式准备完成后会在本页更新。现在可以通过联系页了解进度。</p>
+      <a class="btn btn-outline" href="/contact/">了解开发进度</a>
+    </div>
+  )}
+</div>
+
+<style>
+  .acquisition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .acquisition-item {
+    border-top: 2px solid var(--ink);
+    padding: 1rem 0.25rem 0;
+  }
+
+  .acquisition-item h3 {
+    font-size: 1.18rem;
+    margin: 0.75rem 0 0.55rem;
+  }
+
+  .acquisition-item p {
+    color: var(--grey);
+    font-size: 0.92rem;
+  }
+
+  .acquisition-detail {
+    min-height: 5.2rem;
+  }
+
+  .acquisition-placeholder {
+    min-height: 40px;
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 26, 0.035);
+    color: var(--grey);
+    font: inherit;
+    font-size: 0.84rem;
+    padding: 0.55rem 0.8rem;
+    cursor: not-allowed;
+  }
+
+  .acquisition-progress {
+    border-top: 1px solid var(--lead);
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+  }
+
+  .acquisition-progress p {
+    color: var(--grey);
+  }
+
+  .is-compact .acquisition-item {
+    min-height: 210px;
+  }
+
+  @media (max-width: 767px) {
+    .acquisition-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .acquisition-detail,
+    .is-compact .acquisition-item {
+      min-height: 0;
+    }
+  }
+</style>

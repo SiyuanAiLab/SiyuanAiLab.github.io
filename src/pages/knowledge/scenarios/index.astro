@@ -1,0 +1,51 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
+---
+
+<Layout title="场景案例 - AI·外脑" description="AI·外脑场景案例正在整理中，后续展示在真实工作场景中的组合用法。">
+  <Header />
+
+  <main class="site-main knowledge-section-page">
+    <div class="container knowledge-layout">
+      <KnowledgeDirectory activeSection="scenarios" />
+
+      <section class="knowledge-main scenarios-page">
+        <span class="badge badge-pending">待开发</span>
+        <h1>场景案例</h1>
+        <p class="lede">整理中。这里将展示 AI·外脑在真实工作场景中的组合用法。</p>
+        <div class="scenario-note">
+          <p>你可以先从已开放的概念、工作流、工具和信源栏目开始浏览。</p>
+          <a class="btn btn-outline" href="/knowledge/">返回 AI·外脑首页</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .scenarios-page {
+    max-width: 720px;
+  }
+
+  .scenarios-page h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    margin-top: 1rem;
+  }
+
+  .lede,
+  .scenario-note p {
+    color: var(--grey);
+    font-size: clamp(1.02rem, 2vw, 1.16rem);
+  }
+
+  .scenario-note {
+    border-top: 1px solid var(--lead);
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+  }
+</style>

@@ -2,28 +2,27 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
+import CardTable from '../../../components/CardTable.astro';
+import CategorySubnav from '../../../components/CategorySubnav.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const categories = ['concepts', 'toolkits', 'career', 'sources'] as const;
+  const categories = ['toolkits', 'career', 'sources'] as const;
   return categories.map((cat) => ({ params: { category: cat } }));
 }
 
 const { category } = Astro.params;
 
 const categoryLabels: Record<string, string> = {
-  concepts: 'AI 核心概念',
-  workflows: '场景工作流',
   toolkits: '工具配置与选型',
-  career: '职业安全',
+  career: '职业与能力',
   sources: '信源与标准',
 };
 
 const categoryDescs: Record<string, string> = {
-  concepts: 'AI、Agent、Prompt 等基础概念的定义与辨析。',
-  workflows: '可被 AI 调用的流程、模板和操作说明。',
-  toolkits: '工具安装、配置和最佳实践。',
-  career: 'AI 时代的职业能力与抗淘汰策略。',
+  toolkits: '按真实用途组织工具判断、配置方法与选型参考。',
+  career: '理解 AI 时代的能力变化，建立更有韧性的职业组合。',
   sources: '可信信息源、评估标准与筛选方法。',
 };
 
@@ -51,10 +50,6 @@ const cards = allCards
     if (levelDiff !== 0) return levelDiff;
     return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
   });
-
-const otherCategories = Object.entries(categoryLabels)
-  .filter(([slug]) => slug !== category)
-  .map(([slug, title]) => ({ slug, title }));
 
 const sourceSubcategoryOrder = [
   '信源分级与框架',
@@ -153,81 +148,55 @@ const sidebarGroups = shouldGroupSidebar
     ? groupSourceCards(cards)
     : groupToolkitCards(cards)
   : [];
+
+const categoryGroups = (shouldGroupSidebar
+  ? sidebarGroups
+  : [{ title: '全部词条', cards }]
+).map((group, index) => ({
+  ...group,
+  id: `group-${index + 1}`,
+}));
+
+const subnavItems = categoryGroups.map((group) => ({
+  id: group.id,
+  title: group.title,
+  count: group.cards.length,
+}));
+
+function toTableCard(entry: typeof cards[number]) {
+  return {
+    id: getSlug(entry.id),
+    title: entry.data.title,
+    title_en: '',
+    summary: entry.data.description,
+    tags: entry.data.tags,
+    url: `/knowledge/${category}/${getSlug(entry.id)}/`,
+  };
+}
 ---
 
-<Layout title={`${categoryLabels[category]} — AI·外脑`} description={`思远 AI Lab AI·外脑：${categoryDescs[category]}`}>
+<Layout title={`${categoryLabels[category]} - AI·外脑`} description={`思远 AI Lab AI·外脑：${categoryDescs[category]}`}>
   <Header />
 
   <main class="site-main category-page">
     <div class="container two-pane">
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <p class="kicker">AI·外脑</p>
-          <h2>{categoryLabels[category]}</h2>
-          <p class="sidebar-desc">{categoryDescs[category]}</p>
-        </div>
-
-        <details class="other-cats">
-          <summary>其他分类</summary>
-          <ul>
-            {otherCategories.map((oc) => (
-              <li><a href={`/knowledge/${oc.slug}/`}>{oc.title}</a></li>
-            ))}
-          </ul>
-        </details>
-
-        <nav class="card-nav">
-          <h3>卡片列表</h3>
-          {cards.length > 0 ? (
-            shouldGroupSidebar ? (
-              <div class="card-groups">
-                {sidebarGroups.map((group) => (
-                  <details class="card-group" open>
-                    <summary>{group.title}</summary>
-                    <ul>
-                      {group.cards.map((card) => (
-                        <li>
-                          <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
-                            <span class="card-link-title">{card.data.title}</span>
-                            <span class="card-link-meta">
-                              <span class="level-tag">{card.data.level}</span>
-                              {card.data.tags.slice(0, 2).map((t) => (
-                                <span class="tag">{t}</span>
-                              ))}
-                              <span class="curated">{card.data.curated_by}</span>
-                            </span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                ))}
-              </div>
-            ) : (
+      <KnowledgeDirectory activeSection={category}>
+        <nav class="category-tree" aria-label={`${categoryLabels[category]}子目录`}>
+          <a class="category-tree-title" href={`/knowledge/${category}/`}>{categoryLabels[category]}子目录</a>
+          {categoryGroups.map((group) => (
+            <details open={category === 'career'}>
+              <summary>{group.title}（{group.cards.length}）</summary>
               <ul>
-                {cards.map((card) => (
-                  <li>
-                    <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-link">
-                      <span class="card-link-title">{card.data.title}</span>
-                      <span class="card-link-meta">
-                        <span class="level-tag">{card.data.level}</span>
-                        {card.data.tags.slice(0, 2).map((t) => (
-                          <span class="tag">{t}</span>
-                        ))}
-                        <span class="curated">{card.data.curated_by}</span>
-                      </span>
-                    </a>
-                  </li>
+                {group.cards.map((card) => (
+                  <li><a href={`/knowledge/${category}/${getSlug(card.id)}/`}>{card.data.title}</a></li>
                 ))}
               </ul>
-            )
-          ) : (
-            <p class="empty">该分类暂无卡片。</p>
-          )}
+            </details>
+          ))}
         </nav>
-      </aside>
+      </KnowledgeDirectory>
 
-      <section class="main-content">
+      <section class="main-content knowledge-main">
         {cards.length > 0 ? (
           <div class="category-overview">
             <p class="kicker">{categoryLabels[category]}</p>
@@ -240,21 +209,28 @@ const sidebarGroups = shouldGroupSidebar
               <p class="desc">{categoryDescs[category]}</p>
             )}
             <p class="card-count">共 {cards.length} 张卡片</p>
-            <div class="card-list">
-              {cards.map((card) => (
-                <a href={`/knowledge/${category}/${getSlug(card.id)}/`} class="card-list-item">
-                  <h3>{card.data.title}</h3>
-                  <p>{card.data.description}</p>
-                  <div class="meta-row">
-                    <span class="level-tag">{card.data.level}</span>
-                    {card.data.tags.map((t) => (
-                      <span class="tag">{t}</span>
-                    ))}
-                    <span class="curated">{card.data.curated_by}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
+
+            <a class="install-guide" href="/knowledge/install/">
+              <span>如何下载这份 AI·外脑</span>
+              <strong>查看获取与安装说明</strong>
+            </a>
+
+            <CategorySubnav items={subnavItems} />
+
+            {categoryGroups.map((group) => (
+              <section class="knowledge-group" id={group.id}>
+                <div class="knowledge-group-head">
+                  <h2>{group.title}</h2>
+                  <span>{group.cards.length} 张</span>
+                </div>
+                <CardTable
+                  cards={group.cards.map(toTableCard)}
+                  showId={false}
+                  label={`${group.title}词条列表`}
+                  urlBuilder={(card) => card.url}
+                />
+              </section>
+            ))}
           </div>
         ) : (
           <div class="empty-state">
@@ -466,7 +442,31 @@ const sidebarGroups = shouldGroupSidebar
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--grey);
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .install-guide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--lead);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    text-decoration: none;
+  }
+
+  .install-guide span,
+  .install-guide strong {
+    display: block;
+  }
+
+  .install-guide strong {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-align: right;
   }
 
   .card-list {
@@ -544,7 +544,7 @@ const sidebarGroups = shouldGroupSidebar
     font-size: 0.9rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     .two-pane {
       grid-template-columns: 1fr;
     }
@@ -575,6 +575,17 @@ const sidebarGroups = shouldGroupSidebar
 
     .card-link {
       padding: 0.4rem 0.6rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .install-guide {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .install-guide strong {
+      text-align: left;
     }
   }
 </style>

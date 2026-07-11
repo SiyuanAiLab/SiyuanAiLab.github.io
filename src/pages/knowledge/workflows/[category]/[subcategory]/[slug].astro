@@ -3,6 +3,7 @@ import Layout from '../../../../../layouts/Layout.astro';
 import Header from '../../../../../components/Header.astro';
 import Footer from '../../../../../components/Footer.astro';
 import WorkflowTree from '../../../../../components/WorkflowTree.astro';
+import KnowledgeDirectory from '../../../../../components/KnowledgeDirectory.astro';
 import workflowData from '../../../../../data/workflow-cards.json';
 import { getCollection, render } from 'astro:content';
 
@@ -42,20 +43,22 @@ const verifiedDateStr = entry?.data.verifiedDate
   : '';
 ---
 
-<Layout title={`${card.title} — ${currentSubcategory?.title ?? '工作流专栏'}`} description={card.summary}>
+<Layout title={`${card.title} - ${currentSubcategory?.title ?? '工作流专栏'}`} description={card.summary}>
   <Header />
 
   <main class="site-main card-page">
     <div class="container workflow-layout">
-      <WorkflowTree
-        categories={workflowData.categories}
-        cards={cards}
-        activeCategory={category}
-        activeSubcategory={subcategory}
-        activeSlug={card.slug}
-      />
+      <KnowledgeDirectory activeSection="workflows">
+        <WorkflowTree
+          categories={workflowData.categories}
+          cards={cards}
+          activeCategory={category}
+          activeSubcategory={subcategory}
+          activeSlug={card.slug}
+        />
+      </KnowledgeDirectory>
 
-      <article class="main-content">
+      <article class="main-content knowledge-main">
         <header class="card-header">
           <p class="kicker">{currentCategory?.title} · {currentSubcategory?.title} · {card.type ?? '工作流解读'} · {card.id}</p>
           <h1>{entry?.data.title ?? card.title}</h1>
@@ -288,11 +291,17 @@ const verifiedDateStr = entry?.data.verifiedDate
     margin-left: auto;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     .workflow-layout {
       display: block;
     }
 
+    .card-body {
+      overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
     .card-body {
       overflow-x: auto;
     }

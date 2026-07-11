@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -11,6 +12,7 @@ export async function getStaticPaths() {
       c.data.public &&
       !c.data.draft &&
       c.data.category !== 'workflows' &&
+      c.data.category !== 'concepts' &&
       c.id.replace(/.*\//, '').replace(/\.mdx?$/, '') !== 'index' &&
       (c.data.category !== 'toolkits' || Boolean(c.data.subcategory)),
   );
@@ -27,10 +29,8 @@ const { card } = Astro.props;
 const { Content } = await render(card);
 
 const categoryLabels: Record<string, string> = {
-  concepts: 'AI 核心概念',
-  workflows: '场景工作流',
   toolkits: '工具配置与选型',
-  career: '职业安全',
+  career: '职业与能力',
   sources: '信源与标准',
 };
 
@@ -54,10 +54,6 @@ const categoryCards = allCards
 const currentIndex = categoryCards.findIndex((c) => c.id === card.id);
 const prevCard = currentIndex > 0 ? categoryCards[currentIndex - 1] : null;
 const nextCard = currentIndex < categoryCards.length - 1 ? categoryCards[currentIndex + 1] : null;
-
-const otherCategories = Object.entries(categoryLabels)
-  .filter(([slug]) => slug !== card.data.category)
-  .map(([slug, title]) => ({ slug, title }));
 
 const verifiedDateStr = card.data.verifiedDate
   ? new Date(card.data.verifiedDate).toLocaleDateString('zh-CN')
@@ -91,90 +87,61 @@ function groupSourceCards(items: typeof categoryCards) {
     .filter((group) => group.cards.length > 0);
 }
 
-const shouldGroupSidebar = card.data.category === 'sources';
-const sidebarGroups = shouldGroupSidebar ? groupSourceCards(categoryCards) : [];
+function groupBySubcategory(items: typeof categoryCards) {
+  const groups = new Map<string, typeof categoryCards>();
+  for (const item of items) {
+    const groupName = item.data.subcategory ?? '全部词条';
+    const groupItems = groups.get(groupName) ?? [];
+    groupItems.push(item);
+    groups.set(groupName, groupItems);
+  }
+  return [...groups.entries()].map(([title, cards]) => ({ title, cards }));
+}
+
+const sidebarGroups = card.data.category === 'sources'
+  ? groupSourceCards(categoryCards)
+  : card.data.category === 'toolkits'
+    ? groupBySubcategory(categoryCards)
+    : [{ title: '全部词条', cards: categoryCards }];
 ---
 
-<Layout title={`${card.data.title} — ${categoryLabels[card.data.category]} — AI·外脑`} description={card.data.description}>
+<Layout title={`${card.data.title} - ${categoryLabels[card.data.category]} - AI·外脑`} description={card.data.description}>
   <Header />
 
   <main class="site-main card-page">
     <div class="container two-pane">
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <p class="kicker">{categoryLabels[card.data.category]}</p>
-          <h2>{categoryLabels[card.data.category]}</h2>
-        </div>
-
-        <details class="other-cats">
-          <summary>其他分类</summary>
-          <ul>
-            {otherCategories.map((oc) => (
-              <li><a href={`/knowledge/${oc.slug}/`}>{oc.title}</a></li>
-            ))}
-          </ul>
-        </details>
-
-        <nav class="card-nav">
-          <h3>卡片列表</h3>
-          {shouldGroupSidebar ? (
-            <div class="card-groups">
-              {sidebarGroups.map((group) => (
-                <details class="card-group" open>
-                  <summary>{group.title}</summary>
-                  <ul>
-                    {group.cards.map((c) => {
-                      const slug = getSlugFromCard(c);
-                      const isActive = c.id === card.id;
-                      return (
-                        <li>
-                          <a
-                            href={`/knowledge/${c.data.category}/${slug}/`}
-                            class={`card-link ${isActive ? 'active' : ''}`}
-                          >
-                            <span class="card-link-title">{c.data.title}</span>
-                            <span class="card-link-meta">
-                              <span class="level-tag">{c.data.level}</span>
-                              {c.data.tags.slice(0, 2).map((t) => (
-                                <span class="tag">{t}</span>
-                              ))}
-                            </span>
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              ))}
-            </div>
-          ) : (
-            <ul>
-              {categoryCards.map((c) => {
-                const slug = getSlugFromCard(c);
-                const isActive = c.id === card.id;
-                return (
-                  <li>
-                    <a
-                      href={`/knowledge/${c.data.category}/${slug}/`}
-                      class={`card-link ${isActive ? 'active' : ''}`}
-                    >
-                      <span class="card-link-title">{c.data.title}</span>
-                      <span class="card-link-meta">
-                        <span class="level-tag">{c.data.level}</span>
-                        {c.data.tags.slice(0, 2).map((t) => (
-                          <span class="tag">{t}</span>
-                        ))}
-                      </span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+      <KnowledgeDirectory activeSection={card.data.category}>
+        <nav class="category-tree" aria-label={`${categoryLabels[card.data.category]}子目录`}>
+          <a class="category-tree-title" href={`/knowledge/${card.data.category}/`}>{categoryLabels[card.data.category]}子目录</a>
+          {sidebarGroups.map((group) => {
+            const hasActiveCard = group.cards.some((item) => item.id === card.id);
+            return (
+              <details open={hasActiveCard}>
+                <summary>{group.title}（{group.cards.length}）</summary>
+                <ul>
+                  {group.cards.map((item) => {
+                    const slug = getSlugFromCard(item);
+                    const isActive = item.id === card.id;
+                    return (
+                      <li>
+                        <a
+                          href={`/knowledge/${item.data.category}/${slug}/`}
+                          class={isActive ? 'is-active' : ''}
+                          aria-current={isActive ? 'page' : undefined}
+                        >
+                          {item.data.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+            );
+          })}
         </nav>
-      </aside>
+      </KnowledgeDirectory>
 
-      <article class="main-content">
+      <article class="main-content knowledge-main">
         <header class="card-header">
           <p class="kicker">{categoryLabels[card.data.category]} · {card.data.level}</p>
           <h1>{card.data.title}</h1>
@@ -575,7 +542,7 @@ const sidebarGroups = shouldGroupSidebar ? groupSourceCards(categoryCards) : [];
     margin-left: auto;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     .two-pane {
       grid-template-columns: 1fr;
     }

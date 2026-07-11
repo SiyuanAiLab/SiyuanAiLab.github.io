@@ -2,13 +2,17 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
 ---
 
 <Layout title="我如何用 AI 给自己搭建第二大脑" description="一个非技术人的真实搭建思路：把碎片判断变成 Agent 可调用的 Knowledge 体系。不是买更多工具，而是让 AI 和人各做各擅长的事。">
   <Header />
 
   <main class="site-main start-page">
-    <article class="container">
+    <div class="container knowledge-layout">
+      <KnowledgeDirectory activeSection="start" />
+
+      <article class="knowledge-main">
       <header class="article-header">
         <p class="kicker">从这里开始</p>
         <h1>我如何用 AI 给自己搭建第二大脑</h1>
@@ -100,11 +104,13 @@ import Footer from '../../../components/Footer.astro';
         <div class="cta-section">
           <p>
             <a href="/lab/personal-os/" class="btn">查看个人操作系统</a>
-            <a href="/knowledge/concepts/" class="btn btn-outline">进入 AI 核心概念</a>
+            <a href="/knowledge/ai-core/" class="btn btn-outline">进入 AI 核心概念</a>
+            <a href="/knowledge/install/" class="btn btn-outline">获取 AI·外脑</a>
           </p>
         </div>
       </div>
-    </article>
+      </article>
+    </div>
   </main>
 
   <Footer />

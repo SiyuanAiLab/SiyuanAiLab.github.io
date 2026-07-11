@@ -1,6 +1,4 @@
 ---
-import KnowledgeSearch from './KnowledgeSearch.astro';
-
 interface Subcategory {
   id: string;
   title: string;
@@ -50,37 +48,10 @@ const getSubcategoryCards = (categoryId: string, subcategoryId: string) => cards
   .filter((card) => card.category === categoryId && card.subcategory === subcategoryId)
   .sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
 
-const searchItems = cards.map((card) => {
-  const category = categories.find((item) => item.id === card.category);
-  const subcategory = category?.subcategories.find((item) => item.id === card.subcategory);
-  return {
-    id: card.id,
-    title: card.title,
-    title_en: card.title_en,
-    summary: card.summary,
-    tags: card.tags,
-    scenario: card.scenario,
-    columnTitle: subcategory ? `${category?.title} · ${subcategory.title}` : category?.title,
-    url: `/knowledge/workflows/${card.category}/${card.subcategory}/${card.slug}/`,
-  };
-});
 ---
 
-<button class="tree-toggle" type="button" data-workflow-tree-open>目录</button>
-<div class="tree-backdrop" data-workflow-tree-close></div>
-
-<aside class="workflow-tree" data-workflow-tree>
-  <div class="tree-head">
-    <div>
-      <p class="tree-kicker">WORKFLOWS</p>
-      <a class="tree-title" href="/knowledge/workflows/">工作流专栏</a>
-    </div>
-    <button class="tree-close" type="button" aria-label="关闭目录" data-workflow-tree-close>×</button>
-  </div>
-
-  <KnowledgeSearch items={searchItems} id="workflow-tree-search" placeholder="搜索 Skill、工具、Agent、标签" />
-
-  <nav class="tree-nav" aria-label="工作流专栏目录">
+<nav class="tree-nav" aria-label="工作流子目录">
+  <a class="tree-title" href="/knowledge/workflows/">工作流子目录</a>
     {categories.map((category) => {
       const isActiveCategory = activeCategory === category.id;
       return (
@@ -124,88 +95,15 @@ const searchItems = cards.map((card) => {
         </details>
       );
     })}
-  </nav>
-</aside>
-
-<script is:inline>
-  (() => {
-    const tree = document.querySelector('[data-workflow-tree]');
-    const backdrop = document.querySelector('.tree-backdrop');
-    const openButton = document.querySelector('[data-workflow-tree-open]');
-    const closeButtons = document.querySelectorAll('[data-workflow-tree-close]');
-
-    if (!tree || !openButton) return;
-
-    const open = () => {
-      tree.classList.add('is-open');
-      backdrop?.classList.add('is-open');
-      document.documentElement.classList.add('workflow-tree-lock');
-    };
-
-    const close = () => {
-      tree.classList.remove('is-open');
-      backdrop?.classList.remove('is-open');
-      document.documentElement.classList.remove('workflow-tree-lock');
-    };
-
-    openButton.addEventListener('click', open);
-    closeButtons.forEach((button) => button.addEventListener('click', close));
-    tree.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
-  })();
-</script>
+</nav>
 
 <style>
-  .tree-toggle {
-    display: none;
-    width: 100%;
-    min-height: 44px;
-    border: 1px solid var(--ink);
-    border-radius: var(--radius);
-    background: var(--ink);
-    color: var(--paper);
-    font: inherit;
-    margin-bottom: 1rem;
-  }
-
-  .tree-backdrop {
-    display: none;
-  }
-
-  .workflow-tree {
-    position: sticky;
-    top: 88px;
-    align-self: start;
-    max-height: calc(100vh - 112px);
-    overflow: auto;
-    border-right: 1px solid var(--lead);
-    padding-right: 1.25rem;
-  }
-
-  .tree-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: start;
-    margin-bottom: 1rem;
-  }
-
-  .tree-kicker {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    margin-bottom: 0.2rem;
-  }
-
   .tree-title {
     display: inline-block;
     font-family: var(--font-serif);
     font-size: 1.24rem;
     font-weight: 700;
     text-decoration: none;
-  }
-
-  .tree-close {
-    display: none;
   }
 
   .tree-nav {
@@ -315,57 +213,4 @@ const searchItems = cards.map((card) => {
     font-size: 0.72rem;
   }
 
-  @media (max-width: 768px) {
-    :global(html.workflow-tree-lock) {
-      overflow: hidden;
-    }
-
-    .tree-toggle {
-      display: block;
-    }
-
-    .tree-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      background: rgba(26, 26, 26, 0.28);
-    }
-
-    .tree-backdrop.is-open {
-      display: block;
-    }
-
-    .workflow-tree {
-      position: fixed;
-      z-index: 50;
-      inset: 0 auto 0 0;
-      width: min(88vw, 360px);
-      max-height: none;
-      overflow: auto;
-      border-right: 1px solid var(--lead);
-      background: var(--paper);
-      padding: 1rem;
-      transform: translateX(-104%);
-      transition: transform 0.22s ease;
-      box-shadow: var(--shadow-paper);
-    }
-
-    .workflow-tree.is-open {
-      transform: translateX(0);
-    }
-
-    .tree-close {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--lead);
-      border-radius: var(--radius);
-      background: transparent;
-      color: var(--ink);
-      font-size: 1.4rem;
-      line-height: 1;
-    }
-  }
 </style>

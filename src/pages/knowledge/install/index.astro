@@ -1,0 +1,116 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import KnowledgeDirectory from '../../../components/KnowledgeDirectory.astro';
+import AcquisitionPanel from '../../../components/AcquisitionPanel.astro';
+---
+
+<Layout title="获取 AI·外脑" description="了解为什么需要第二大脑，以及 AI·外脑规划中的压缩包、命令行和 Obsidian 获取方式。">
+  <Header />
+
+  <main class="site-main knowledge-section-page">
+    <div class="container knowledge-layout">
+      <KnowledgeDirectory activeSection="install" />
+
+      <article class="knowledge-main install-page">
+        <header class="page-header">
+          <p class="kicker">获取与安装</p>
+          <h1>获取 AI·外脑</h1>
+          <p class="lede">先理解它为什么存在，再选择适合自己的获取方式。当前三种方式均在开发中。</p>
+        </header>
+
+        <section class="why-section">
+          <h2>为什么需要第二大脑？</h2>
+          <p>AI 能读很多信息，但信息越多不等于判断越准。没有清楚目录时，资料、经验和结论混在一起，Agent 只能反复猜测该读什么。</p>
+          <p>Obsidian 是展示平台，真正的核心是可被 Agent 读取的文件夹目录体系。目录告诉 AI 哪些内容是概念，哪些是工作流，哪些是工具判断，哪些信源值得引用。</p>
+          <p>一套结构稳定的第二大脑，让人的判断可以被保存，也让 Agent 在行动前有可靠的阅读和构建参考。</p>
+        </section>
+
+        <section class="methods-section">
+          <h2>规划中的三种获取方式</h2>
+          <AcquisitionPanel compact={false} />
+        </section>
+
+        <nav class="next-step" aria-label="下一步">
+          <div>
+            <h2>先看搭建思路</h2>
+            <p>如果你还不确定从哪开始，先了解这套外脑如何分工和生长。</p>
+          </div>
+          <a class="btn" href="/knowledge/start/">从这里开始</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-header,
+  .why-section,
+  .methods-section,
+  .next-step {
+    max-width: 760px;
+  }
+
+  .kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+  }
+
+  .lede {
+    color: var(--grey);
+    font-size: clamp(1.02rem, 2vw, 1.17rem);
+  }
+
+  .why-section,
+  .methods-section {
+    border-top: 1px solid var(--lead);
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+  }
+
+  .why-section h2,
+  .methods-section h2,
+  .next-step h2 {
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  }
+
+  .why-section p {
+    color: var(--grey);
+  }
+
+  .next-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-top: 2px solid var(--ink);
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    padding-top: 1.4rem;
+  }
+
+  .next-step h2,
+  .next-step p {
+    margin-bottom: 0.35rem;
+  }
+
+  .next-step p {
+    color: var(--grey);
+  }
+
+  @media (max-width: 600px) {
+    .next-step {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+</style>

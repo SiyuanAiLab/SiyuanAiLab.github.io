@@ -3,6 +3,8 @@ import Layout from '../../../../layouts/Layout.astro';
 import Header from '../../../../components/Header.astro';
 import Footer from '../../../../components/Footer.astro';
 import KnowledgeTree from '../../../../components/KnowledgeTree.astro';
+import KnowledgeDirectory from '../../../../components/KnowledgeDirectory.astro';
+import CardTable from '../../../../components/CardTable.astro';
 import knowledgeData from '../../../../data/knowledge-cards.json';
 
 export function getStaticPaths() {
@@ -19,32 +21,26 @@ const cards = knowledgeData.cards
 const columnCards = cards.filter((card) => card.column === subcategory);
 ---
 
-<Layout title={`${column?.title ?? 'AI 核心概念'} — AI 核心概念 — AI·外脑`} description={`思远 AI Lab AI·外脑：${column?.description ?? 'AI 核心概念子分类'}`}>
+<Layout title={`${column?.title ?? 'AI 核心概念'} - AI 核心概念 - AI·外脑`} description={`思远 AI Lab AI·外脑：${column?.description ?? 'AI 核心概念子分类'}`}>
   <Header />
 
   <main class="site-main ai-core-page">
     <div class="container knowledge-layout">
-      <KnowledgeTree columns={knowledgeData.columns} cards={cards} activeSubcategory={subcategory} />
+      <KnowledgeDirectory activeSection="ai-core">
+        <KnowledgeTree columns={knowledgeData.columns} cards={cards} activeSubcategory={subcategory} />
+      </KnowledgeDirectory>
 
-      <section class="main-content">
+      <section class="main-content knowledge-main">
         <p class="kicker">{column?.title_en}</p>
         <h1>{column?.title}</h1>
         <p class="lede">{column?.description}</p>
         <p class="count-line">共 {columnCards.length} 张词条卡片</p>
 
-        <div class="card-grid-local">
-          {columnCards.map((card) => (
-            <a class="knowledge-card" href={`/knowledge/ai-core/${card.column}/${card.slug}/`}>
-              <span class="card-id">{card.id}</span>
-              <h2>{card.title}</h2>
-              <p class="title-en">{card.title_en}</p>
-              <p>{card.summary}</p>
-              <div class="tag-row">
-                {card.tags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
-              </div>
-            </a>
-          ))}
-        </div>
+        <CardTable
+          cards={columnCards}
+          label={`${column?.title ?? 'AI 核心概念'}词条列表`}
+          urlBuilder={(card) => `/knowledge/ai-core/${card.column}/${card.slug}/`}
+        />
       </section>
     </div>
   </main>
@@ -149,7 +145,7 @@ const columnCards = cards.filter((card) => card.column === subcategory);
     margin-top: 1rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 980px) {
     .knowledge-layout {
       display: block;
     }
