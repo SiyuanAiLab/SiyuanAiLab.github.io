@@ -1,0 +1,42 @@
+---
+import type { KnowledgeDirectoryItem } from '../data/knowledge-directory';
+
+interface Props {
+  pillars: KnowledgeDirectoryItem[];
+  knowledgeCardCount: number;
+  workflowCount: number;
+}
+
+const { pillars, knowledgeCardCount, workflowCount } = Astro.props;
+---
+
+<section class="home-section home-knowledge" aria-labelledby="knowledge-preview-title" data-reveal>
+  <div class="container">
+    <div class="home-knowledge-heading">
+      <div>
+        <p class="home-kicker">AI·外脑</p>
+        <h2 id="knowledge-preview-title">让知识可以被人和 Agent 共同调用。</h2>
+      </div>
+      <p>不是收藏夹，而是一套能搜索、引用和复用的知识目录。</p>
+    </div>
+
+    <div class="knowledge-index">
+      {pillars.map((pillar, index) => (
+        <a class:list={['knowledge-index-item', pillar.status === 'pending' && 'is-pending']} href={pillar.url}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.description}</p>
+          </div>
+          <em>{pillar.statusLabel}</em>
+        </a>
+      ))}
+    </div>
+
+    <div class="knowledge-summary">
+      <p><strong>{knowledgeCardCount}</strong> 个核心概念</p>
+      <p><strong>{workflowCount}</strong> 个工作流</p>
+      <a href="/knowledge/">进入 AI·外脑 <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

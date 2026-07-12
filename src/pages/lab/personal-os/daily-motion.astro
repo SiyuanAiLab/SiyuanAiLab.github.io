@@ -1,0 +1,130 @@
+---
+import LabPage from '../../../components/LabPage.astro';
+import SectionPager from '../../../components/lab/SectionPager.astro';
+import DailyMotionVisuals from '../../../components/lab/DailyMotionVisuals.astro';
+import '../../../styles/daily-motion.css';
+
+const roles = [
+  {
+    name: '思远',
+    action: '判断与授权',
+    description: '确定优先级、做取舍、设定标准，并决定哪些动作可以继续推进。',
+  },
+  {
+    name: 'CC',
+    action: '汇总与分流',
+    description: '读取状态、识别判断点、收拢今日焦点，并把结果整理回系统。',
+  },
+  {
+    name: 'Codex',
+    action: '执行与验证',
+    description: '推进已经授权的动作，完成构建和检查，在边界处停下并回报。',
+  },
+];
+---
+
+<LabPage
+  title="我如何推进每天的动作"
+  description="杨思远如何通过状态进入、判断分流、授权执行和结果回写，形成每天可持续推进的工作闭环。"
+  eyebrow="AI·LAB / 每日推进"
+  lede="每天不是把清单清空，而是让重要的事情进入正确的下一状态。"
+  status="启动 / 执行 / 收尾"
+>
+  <div class="daily-motion-page">
+    <section class="dm-opening">
+      <div class="container">
+        <p>操作系统的价值发生在每一天。状态先被读进来，需要判断的事交还给人，已经授权的动作继续推进，最后把结果写回系统。</p>
+      </div>
+    </section>
+
+    <section class="lab-section dm-cycle-section" aria-labelledby="cycle-title">
+      <div class="container">
+        <header class="dm-section-head">
+          <p class="lab-label">一天的闭环</p>
+          <h2 id="cycle-title">从启动到收尾，动作不断回流</h2>
+          <p>机制保持简单：状态进入、判断分流、授权执行、结果回写。每一次收尾，都在为下一次启动降低阻力。</p>
+        </header>
+        <DailyMotionVisuals part="storyboard" />
+      </div>
+    </section>
+
+    <section class="lab-section dm-start-section" aria-labelledby="start-title">
+      <div class="container dm-split-section">
+        <div class="dm-section-copy">
+          <h2 id="start-title">启动先校准现实，再决定今天</h2>
+          <p>昨日留下的下一步、本周焦点和已有承诺先被汇总。新输入不会自动获得最高优先级，它需要先经过比较。</p>
+          <ol class="dm-checkpoints">
+            <li><strong>读取状态</strong><span>看清现状、承诺和未完成事项。</span></li>
+            <li><strong>清理噪声</strong><span>让无关输入留在缓冲区，不抢占注意力。</span></li>
+            <li><strong>确定焦点</strong><span>留下今天真正需要推进和判断的事情。</span></li>
+          </ol>
+          <p class="dm-conclusion">启动结束时，我需要知道今天最重要的事，也需要知道哪些事项还在等待判断。</p>
+        </div>
+        <DailyMotionVisuals part="start" />
+      </div>
+    </section>
+
+    <section class="lab-section dm-routing-section" aria-labelledby="routing-title">
+      <div class="container">
+        <header class="dm-section-head is-indented">
+          <h2 id="routing-title">七个域，只汇入三个去向</h2>
+          <p>商业、内容、知识、人脉、健康、财务和系统都会产生状态。分类完成后，它们只去待办、待决策或状态仪表盘。</p>
+        </header>
+        <DailyMotionVisuals part="routing" />
+      </div>
+    </section>
+
+    <section class="lab-section dm-execution-section" aria-labelledby="execution-title">
+      <div class="container">
+        <header class="dm-section-head">
+          <h2 id="execution-title">执行时，两条轨道必须分开</h2>
+          <p>已经决定的事项要继续跑，尚未决定的事项要停在人面前。分开管理，才能避免 AI 把判断题当成执行题。</p>
+        </header>
+        <DailyMotionVisuals part="execution" />
+      </div>
+    </section>
+
+    <section class="lab-section dm-return-section" aria-labelledby="return-title">
+      <div class="container dm-return-layout">
+        <div class="dm-section-copy">
+          <h2 id="return-title">收尾，让今天成为明天的起点</h2>
+          <p>完成项、阻塞项、临时笔记和可复用判断，需要在结束前找到去向。结果一旦写回，下一次启动就不必重新拼上下文。</p>
+          <p class="dm-conclusion">收尾的标准很简单：系统比早上更清楚，而不是留下更多散落的信息。</p>
+        </div>
+        <DailyMotionVisuals part="return" />
+      </div>
+    </section>
+
+    <section class="lab-section dm-roles-section" aria-labelledby="roles-title">
+      <div class="container">
+        <header class="dm-section-head is-indented">
+          <h2 id="roles-title">判断留给人，推进<span class="dm-no-break">交给 AI</span></h2>
+          <p>三方按照同一条边界接力。思远负责取舍，CC 负责让状态可见，Codex 负责把已经授权的动作做完并验证。</p>
+        </header>
+        <div class="dm-role-relay">
+          {roles.map((role, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{role.name}</h3>
+              <strong>{role.action}</strong>
+              <p>{role.description}</p>
+            </article>
+          ))}
+          <div class="dm-relay-return"><span>结果回写</span><strong>状态重新进入下一轮判断</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-section lab-closing dm-closing" aria-labelledby="closing-title">
+      <div class="container">
+        <p class="lab-label">结论</p>
+        <h2 id="closing-title"><span>每天推进工作的标准，</span><span>是让事情进入下一状态。</span></h2>
+        <p>已经完成、正在推进、等待判断或明确暂停。只要状态清楚，动作就能继续，判断也不会被忙碌淹没。</p>
+        <SectionPager
+          previous={{ label: '我如何管理生活与经营', href: '/lab/personal-os/life-and-business/' }}
+          next={{ label: '回到个人操作系统入口', href: '/lab/personal-os/' }}
+        />
+      </div>
+    </section>
+  </div>
+</LabPage>

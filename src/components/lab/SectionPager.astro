@@ -1,0 +1,6 @@
+---
+interface Link { label: string; href: string }
+interface Props { previous: Link; next: Link }
+const { previous, next } = Astro.props;
+---
+<nav class="section-pager" aria-label="个人操作系统板块导航"><a href={previous.href}><span>上一个</span><strong>{previous.label}</strong></a><a class="section-pager-next" href={next.href}><span>下一个</span><strong>{next.label}</strong></a></nav>

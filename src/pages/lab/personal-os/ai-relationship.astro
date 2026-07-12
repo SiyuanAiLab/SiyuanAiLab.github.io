@@ -1,0 +1,233 @@
+---
+import LabPage from '../../../components/LabPage.astro';
+import SectionPager from '../../../components/lab/SectionPager.astro';
+import '../../../styles/ai-relationship.css';
+
+const principles = [
+  {
+    title: '人主驾，AI 副驾',
+    text: 'AI 可以建议和执行，但不会替人担责。目标、取舍和最终判断始终由我确认。',
+  },
+  {
+    title: '用框架驾驭模型',
+    text: '模型能力不断变化，稳定的是框架、思维模型和知识储备。它们决定 AI 能否产出我真正需要的结果。',
+  },
+  {
+    title: '主要入口统一',
+    text: '当前大部分工作由 CC 接住并调度。减少多头沟通，也让任务背景和交接状态保持连续。',
+  },
+  {
+    title: '角色各有主责',
+    text: 'Hermes 收集轻量输入，CC 负责理解与调度，Codex 负责稳定交付和技术验证。',
+  },
+  {
+    title: '执行结果要回流',
+    text: '完成任务只是半程。经过审阅的结果还要回到工作台，成为下一次协作可以调用的上下文。',
+  },
+];
+
+const roles = [
+  {
+    name: 'Hermes',
+    role: '随身助理',
+    tagline: '先把稍纵即逝的东西接住',
+    description: '承接碎片记录、提醒和生活管理类轻量事务。它有自己的独立收件区，不修改工程文件或项目资产。',
+    fit: '记录、提醒、轻量输入',
+    className: 'role-hermes',
+  },
+  {
+    name: 'CC',
+    role: '总调度员',
+    tagline: '把模糊需求变成清楚的下一步',
+    description: '它是当前主要工作入口和总调度。负责理解需求、梳理框架、判断任务归属，并在多个执行角色之间完成交接。',
+    fit: '对话、判断辅助、文字与调度',
+    className: 'role-cc',
+  },
+  {
+    name: 'Codex',
+    role: '事业部负责人',
+    tagline: '把复杂任务做成可验收的交付',
+    description: '负责工程实现、视觉呈现和技术验证，强调稳定执行与结果验收。方向突破和商业取舍仍由人决定。',
+    fit: '工程、视觉、复杂交付',
+    className: 'role-codex',
+  },
+];
+---
+
+<LabPage
+  title="我与 AI 如何相处"
+  description="人握判断权，当前三个主要 AI 角色在明确边界内分工、执行并回流结果。"
+  eyebrow="AI·LAB / 多 Agent 协作"
+  lede="我把方向盘留在手里，AI 负责分工、执行与放大。"
+  status=""
+>
+  <div class="relationship-page">
+    <section class="relationship-opening" aria-labelledby="relationship-thesis">
+      <div class="container">
+        <p id="relationship-thesis" class="relationship-thesis">不是让 AI 替我做决定，而是把不同性质的工作交给合适的角色。我的判断，是整套协作最后一道门。</p>
+        <figure class="relationship-illustration hero-illustration">
+          <span class="relationship-image-feather">
+            <img
+              src="/images/personal-os/ai-relationship/human-driver-ai-codriver-v1.png"
+              width="1672"
+              height="941"
+              loading="eager"
+              decoding="sync"
+              alt="纸团角色握住方向盘，蓝色 AI 助手在副驾驶位置提供路线建议。"
+            />
+          </span>
+          <figcaption>AI 可以给路线、补盲区、做执行，但方向盘始终在人手里。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="relationship-section principles-section" aria-labelledby="principles-title">
+      <div class="container">
+        <header class="relationship-heading">
+          <h2 id="principles-title">相处之前，先把原则说清楚</h2>
+          <p>能力越强，越需要清楚的分工。原则不是限制 AI，而是让它在正确的位置发挥作用。</p>
+        </header>
+        <ol class="principle-ledger">
+          {principles.map((principle, index) => (
+            <li class={index === 0 ? 'is-lead' : ''}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{principle.title}</h3>
+                <p>{principle.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="relationship-section roles-section" aria-labelledby="roles-title">
+      <div class="container">
+        <header class="relationship-heading compact-heading">
+          <h2 id="roles-title">当前三个主要角色</h2>
+          <p>它们不是一套永久不变的架构。现阶段，这三个角色覆盖了记录、调度和复杂交付。</p>
+        </header>
+        <div class="role-constellation">
+          {roles.map((agent) => (
+            <article class={agent.className}>
+              <p class="role-name">{agent.name}</p>
+              <h3>{agent.role}</h3>
+              <strong>{agent.tagline}</strong>
+              <p>{agent.description}</p>
+              <dl>
+                <dt>适合处理</dt>
+                <dd>{agent.fit}</dd>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="relationship-section permission-section" aria-labelledby="permission-title">
+      <div class="container">
+        <header class="relationship-heading">
+          <h2 id="permission-title">能力不等于权限</h2>
+          <p>权限边界只回答三件事：谁负责、做到哪一步、什么时候必须交还给人。</p>
+        </header>
+        <div class="permission-frame">
+          <div class="permission-owner">
+            <span>最终判断源</span>
+            <strong>人</strong>
+            <p>定目标、做取舍、确认公开内容。高风险或不可逆动作需要单独授权。</p>
+          </div>
+          <div class="permission-table-wrap">
+            <table class="permission-matrix">
+              <thead>
+                <tr>
+                  <th>角色</th>
+                  <th>活动边界</th>
+                  <th>可以完成</th>
+                  <th>必须交还给人</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" data-label="角色">Hermes</th>
+                  <td data-label="活动边界">独立收件区</td>
+                  <td data-label="可以完成">记录、提醒、轻量整理</td>
+                  <td data-label="交还给人">是否进入长期系统</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-label="角色">CC</th>
+                  <td data-label="活动边界">已授权的工作台内容</td>
+                  <td data-label="可以完成">理解、调度、文字与框架任务</td>
+                  <td data-label="交还给人">方向冲突与内容发布</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-label="角色">Codex</th>
+                  <td data-label="活动边界">已授权的当前项目</td>
+                  <td data-label="可以完成">工程、视觉、测试与交付</td>
+                  <td data-label="交还给人">项目范围变化与高风险动作</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relationship-section flow-section" aria-labelledby="flow-title">
+      <div class="container">
+        <header class="relationship-heading compact-heading">
+          <h2 id="flow-title">一项任务如何流动</h2>
+          <p>指令从主要入口进入，简单任务直接完成，复杂任务被交给合适的执行角色。结果经过审阅，再回到系统。</p>
+        </header>
+        <figure class="relationship-illustration flow-illustration">
+          <span class="relationship-image-feather">
+            <img
+              src="/images/personal-os/ai-relationship/dispatch-execute-return-v1.png"
+              width="1672"
+              height="941"
+              loading="eager"
+              decoding="sync"
+              alt="纸团角色将任务分发给蓝色执行装置，完成结果经过审阅后回流到系统。"
+            />
+          </span>
+          <figcaption>分发、执行、回流形成一个闭环。每次完成的任务，都为下一次协作留下更好的起点。</figcaption>
+        </figure>
+        <div class="decision-route" aria-label="任务分发与执行回流流程">
+          <article class="route-intake">
+            <span>轻量输入</span>
+            <h3>Hermes 先接住</h3>
+            <p>碎片、提醒和生活事务进入独立收件区，再决定是否需要进入后续流程。</p>
+          </article>
+          <article class="route-dispatch">
+            <span>主要入口</span>
+            <h3>CC 理解并分流</h3>
+            <p>文字、框架和沟通任务可以直接完成。工程、视觉等复杂任务则形成清楚的交接。</p>
+          </article>
+          <article class="route-delivery">
+            <span>复杂交付</span>
+            <h3>Codex 执行并验证</h3>
+            <p>在项目边界内完成实现、检查和报告，让结果达到可以验收的状态。</p>
+          </article>
+          <article class="route-return">
+            <span>审阅回流</span>
+            <h3>人确认，系统更新</h3>
+            <p>人审阅结果与关键判断。确认后的记录回到工作台，成为后续协作的上下文。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="relationship-section relationship-closing" aria-labelledby="closing-title">
+      <div class="container">
+        <div class="closing-statement">
+          <p>最后一道门</p>
+          <h2 id="closing-title">与 AI 相处，不是看它有多强。是让它的强处，在清楚的边界内运行。</h2>
+          <strong>我的判断始终保留，AI 的能力才真正成为放大器。</strong>
+        </div>
+        <SectionPager
+          previous={{ label: 'AI 如何认识我', href: '/lab/personal-os/who-i-am/' }}
+          next={{ label: '信息如何沉淀到大脑', href: '/lab/personal-os/knowledge-input/' }}
+        />
+      </div>
+    </section>
+  </div>
+</LabPage>

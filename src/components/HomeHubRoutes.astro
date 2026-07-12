@@ -1,0 +1,34 @@
+---
+interface HubRoute {
+  number: string;
+  name: string;
+  value: string;
+  evidence: string;
+  meta: string;
+  cta: string;
+  href: string;
+}
+
+interface Props {
+  routes: HubRoute[];
+}
+
+const { routes } = Astro.props;
+---
+
+<nav class="home-routes" aria-label="三个核心板块">
+  {routes.map((route, index) => (
+    <a class:list={['home-route', `home-route-${index + 1}`]} href={route.href}>
+      <span class="home-route-number">{route.number}</span>
+      <div class="home-route-main">
+        <h2>{route.name}</h2>
+        <p>{route.value}</p>
+      </div>
+      <div class="home-route-proof">
+        <span>{route.meta}</span>
+        <strong>{route.evidence}</strong>
+      </div>
+      <span class="home-route-cta">{route.cta}<i aria-hidden="true">→</i></span>
+    </a>
+  ))}
+</nav>

@@ -1,0 +1,53 @@
+---
+interface LabZone {
+  name: string;
+  description: string;
+  href: string;
+}
+
+interface Props {
+  zones: LabZone[];
+}
+
+const { zones } = Astro.props;
+---
+
+<section class="home-section home-lab" aria-labelledby="lab-preview-title" data-reveal>
+  <div class="container home-lab-grid">
+    <div class="home-lab-copy">
+      <p class="home-kicker">AI·LAB</p>
+      <h2 id="lab-preview-title"><span>接受变化，</span><span>创建、创造与 AI</span><span>协同的工作机制。</span></h2>
+
+      <nav class="lab-zone-list" aria-label="AI·LAB 三个展区">
+        {zones.map((zone, index) => (
+          <a href={zone.href}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{zone.name}</h3>
+              <p>{zone.description}</p>
+            </div>
+          </a>
+        ))}
+      </nav>
+
+      <a class="home-text-link" href="/lab/">进入 AI·LAB <span aria-hidden="true">→</span></a>
+    </div>
+
+    <figure class="home-cockpit-preview">
+      <div class="home-cockpit-frame">
+        <img
+          src="/assets/lab-cockpit-preview.png"
+          alt="使用模拟数据的个人操作系统驾驶舱预览"
+          width="1100"
+          height="693"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <figcaption>
+        <strong>这是我的 AI·LAB。</strong>
+        <span>个人操作系统驾驶舱，界面内容为演示数据。</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>

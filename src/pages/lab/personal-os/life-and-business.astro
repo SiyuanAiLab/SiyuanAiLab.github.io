@@ -1,0 +1,96 @@
+---
+import LabPage from '../../../components/LabPage.astro';
+import SectionPager from '../../../components/lab/SectionPager.astro';
+import SanitizedBusinessDashboard from '../../../components/lab/SanitizedBusinessDashboard.astro';
+import MediaPipelinePublic from '../../../components/lab/MediaPipelinePublic.astro';
+import '../../../styles/life-and-business.css';
+
+const otherDomains = [
+  ['商业经营', '把产品、项目与合作放进目标、状态和下一步。'],
+  ['知识管理', '把输入转化为可追溯、可复用的知识与方法。'],
+  ['人脉', '记录关系背景、互动约定与需要主动推进的联系。'],
+  ['健康', '支持观察、计划和回看，不展示个人指标。'],
+  ['财务', '支持分类、检查和决策提醒，不公开金额与账户信息。'],
+  ['系统', '维护规则、工具、权限与各个域之间的连接。'],
+];
+---
+
+<LabPage
+  title="我如何管理生活与经营"
+  description="七个域通过一张经营仪表盘和一套执行管线，使用同一种状态、判断与行动语言。"
+  eyebrow="AI·LAB / 生活与经营"
+  lede="七个域，一张经营仪表盘，一套执行语言。"
+  status=""
+>
+  <div class="life-business-page">
+    <section class="life-business-opening">
+      <div class="container">
+        <p>生活与经营不是两个世界。商业、内容、知识、人脉、健康、财务和系统，都会产生状态与待判断事项。我的操作系统把它们放进同一套管理结构。</p>
+      </div>
+    </section>
+
+    <section class="lab-section dashboard-section" aria-labelledby="dashboard-title">
+      <div class="container">
+        <header class="lb-section-head">
+          <h2 id="dashboard-title">仪表盘，是每天判断的起点</h2>
+          <p>它不替我做决定。它把现状、待判断事项和已经授权的动作分开放，让注意力先回到真正需要人处理的地方。</p>
+        </header>
+        <SanitizedBusinessDashboard />
+        <dl class="dashboard-values" aria-label="经营仪表盘的三个价值">
+          <div><dt>状态可见</dt><dd>七个域当前是稳定、关注还是待判断，一眼可以看清。</dd></div>
+          <div><dt>判断有入口</dt><dd>尚未决定的事项集中出现，不会被混进普通待办。</dd></div>
+          <div><dt>动作可推进</dt><dd>已经授权的事项进入执行，由对应角色继续推进。</dd></div>
+        </dl>
+        <p class="dashboard-conclusion">仪表盘的价值不是展示数据，而是把“需要人判断什么”和“已经授权什么”分开放。</p>
+      </div>
+    </section>
+
+    <section class="lab-section domains-section" aria-labelledby="domains-title">
+      <div class="container">
+        <header class="lb-section-head narrow">
+          <h2 id="domains-title"><span>七个域，</span><span>说同一种管理语言</span></h2>
+          <p>每个域处理的对象不同，但都需要回答三个问题：现在是什么状态、哪里需要判断、下一步由谁推进。</p>
+        </header>
+        <div class="domain-register">
+          <article class="domain-focus">
+            <span>当前案例</span>
+            <h3>个人 IP</h3>
+            <p>让选题、生产、审阅与公开呈现形成管线。</p>
+            <strong>下面用一条真实运行的管线，展示它如何从想法变成可验收的交付。</strong>
+          </article>
+          <ol class="domain-index">
+            {otherDomains.map(([name, description], index) => (
+              <li>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div><h3>{name}</h3><p>{description}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-section pipeline-section" aria-labelledby="pipeline-title">
+      <div class="container">
+        <header class="lb-section-head">
+          <p class="lab-label">核心案例</p>
+          <h2 id="pipeline-title">个人 IP 不是“想起来就写”</h2>
+          <p>它是一条有输入、加工、输出、分发和迭代的管线。CC 与 Codex 在清楚的边界上接力，思远负责选题、标准和公开边界。</p>
+        </header>
+        <MediaPipelinePublic />
+      </div>
+    </section>
+
+    <section class="lab-section lab-closing life-business-closing" aria-labelledby="closing-title">
+      <div class="container">
+        <p class="lab-label">结论</p>
+        <h2 id="closing-title">管理生活与经营，不是列更多清单。</h2>
+        <p>是让每个域都有状态、有判断入口、有下一步。仪表盘让状态可见，管线让动作可推进，人始终握着取舍权。</p>
+        <SectionPager
+          previous={{ label: '我们的信息如何沉淀到大脑', href: '/lab/personal-os/knowledge-input/' }}
+          next={{ label: '我如何推进每天的动作', href: '/lab/personal-os/daily-motion/' }}
+        />
+      </div>
+    </section>
+  </div>
+</LabPage>

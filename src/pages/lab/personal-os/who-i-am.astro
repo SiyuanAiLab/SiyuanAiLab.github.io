@@ -1,0 +1,49 @@
+---
+import LabPage from '../../../components/LabPage.astro';
+import SectionPager from '../../../components/lab/SectionPager.astro';
+
+const palaceLayers = ['驾驶舱','我是谁','Input（输入）','In Process（处理中）','Output（输出）','Action（行动）','Knowledge（知识）','Tools（工具）'];
+const identityDimensions = [
+  ['能力引擎','跨领域解构 → 信息整合 → 重组输出 → 高质量呈现'],
+  ['系统性盲区','获客、主动销售、持续运营、定价与变现闭环'],
+  ['驱动系统','被看见 → 被认可 → 被需要 → 全力投入'],
+  ['与 AI 的关系','不是单向使用工具，而是保持判断权的对抗式共处'],
+  ['核心定位','洞悉生意链路，切入运营环节，用 AI 加速'],
+  ['表达风格','结论前置、短句、真实经历、生活化类比'],
+];
+---
+<LabPage
+  title="AI 如何认识我"
+  description="一座经过人工确认、持续更新的记忆宫殿，如何让 AI 获得准确上下文。"
+  eyebrow="AI·LAB / 我如何和 AI 共用一套大脑"
+  lede="我的工作台就是一座记忆宫殿，让 AI 在授权范围内持续获得关于我的准确上下文。"
+  status=""
+>
+  <section class="lab-section lab-opening"><div class="container"><p class="lab-thesis">不是每次对话都重新介绍自己，而是让 AI 先读取我已经确认过的状态、偏好和判断。对话因此越来越精准，而不是每次都从零开始。</p><p class="tool-foundation"><strong>工具底层</strong><span>Obsidian：基于本地数据库的本地笔记软件</span><span>终端命令行：连接 AI 与工作台的操作入口</span></p></div></section>
+
+  <section class="lab-section"><div class="container">
+    <div class="lab-heading"><p class="lab-label">01 / 记忆宫殿</p><div><h2>AI 不是猜我是谁，<br/>而是读取经过确认的上下文</h2><p>工作台把一个人的长期背景、手头工作和知识工具分层摆放。AI 从对话入口进入，但只能在当前任务所需、人工授权的范围内读取。</p></div></div>
+    <figure class="workbench-figure"><div class="context-workbench" aria-label="记忆宫殿三分界面抽象示意">
+      <nav class="workbench-tree" aria-label="记忆宫殿目录"><p class="workbench-kicker">记忆总览</p><ul>{palaceLayers.map((layer,index)=><li class={index===1?'is-active':''}><span>{String(index+1).padStart(2,'0')}</span>{layer}</li>)}</ul></nav>
+      <section class="workbench-preview" aria-labelledby="preview-title"><p class="workbench-kicker">当前层 / 已脱敏</p><h3 id="preview-title">我是谁</h3><dl><div><dt>定位</dt><dd>AI 理解我的公开真相源</dd></div><div><dt>包含什么</dt><dd>能力体系、盲区、驱动、价值观与表达风格</dd></div><div><dt>读取作用</dt><dd>帮助 AI 判断“我可能怎么看”，不替我做最终决定</dd></div><div><dt>公开结构</dt><dd>能力引擎、盲区、驱动、与 AI 的关系、表达原则</dd></div></dl><p class="review-stamp">每次更新都要经过人工审阅与确认</p></section>
+      <aside class="workbench-dialogue" aria-label="AI 对话入口"><div class="dialogue-head"><span></span><strong>对话入口</strong><small>授权中</small></div><div class="dialogue-thread"><p class="bubble bubble-human">我们先处理今天最重要的判断。</p><p class="bubble bubble-ai">我会先读取核心规则，再按任务调用相关上下文。</p><ol><li>核心规则</li><li>必要的记忆层</li><li>当前任务材料</li></ol></div><p class="dialogue-foot">读取不是记住；沉淀必须由人确认。</p></aside>
+    </div><figcaption>Obsidian 界面示意图</figcaption></figure>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <div class="lab-heading"><p class="lab-label">02 / 共用大脑</p><div><h2>一次对话，如何变成下一次的起点</h2><p>共用大脑不是把所有聊天都存下来。真正有价值的内容要经过梳理、归类和人工确认，才能回到记忆宫殿。</p></div></div>
+    <figure class="lab-illustration"><span class="image-feather"><img src="/images/personal-os/shared-brain/dialogue-to-memory-v2.png" width="1672" height="941" loading="eager" decoding="sync" alt="人物与 AI 在工作台协作：对话内容经过梳理、人工确认后，分别归档到个人认知、工作场景与知识体系。"/></span><figcaption>一次对话的去向：先梳理，再由人确认，最后进入可供下一次调用的记忆宫殿。</figcaption></figure>
+    <div class="review-map"><article><span>01 / 对话结束</span><h3>复盘与拆分</h3><ul><li>当前焦点</li><li>已完成任务</li><li>遗留事项</li><li>知识卡片</li></ul></article><article><span>02 / 提取价值</span><h3>从过程里捞出可复用内容</h3><ul><li>判断</li><li>灵感</li><li>方法论</li><li>素材</li><li>金句</li><li>试错</li></ul></article><article><span>03 / 人工审阅</span><h3>确认准确、必要、可保留</h3><p>AI 负责建议和整理；我决定哪些内容进入长期上下文。</p></article><article><span>04 / 更新去向</span><h3>回到对应的真相源</h3><ul><li>我是谁</li><li>Knowledge</li><li>对应项目的体系文件</li></ul></article></div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <div class="lab-heading"><p class="lab-label">03 / 认识过程</p><div><h2>AI 对“我”的理解，分三步变深</h2><p>先搭一张基础地图，再让日常对话持续校正，最后按任务渐进读取。它更像一套长期协作机制，不是一份静止的人格档案。</p></div></div>
+    <article class="recognition-stage stage-one"><header><span>阶段一 / 初识</span><h3>先建立自我认知框架</h3><p>通过深度对话，把能力、盲区、驱动、定位与表达方式结构化，形成一张可修订的基础地图。</p><p class="skill-note">推荐 Skill：私董会（待接入）</p></header><figure class="lab-illustration compact"><span class="image-feather"><img src="/images/personal-os/shared-brain/identity-map-v1.png" width="1672" height="941" loading="eager" decoding="sync" alt="人物位于自我认知图谱中央，周围连接能力引擎、系统性盲区、驱动系统、核心定位、与 AI 的关系和表达风格六个维度。"/></span><figcaption>自我认知图谱只呈现经过确认、允许公开的抽象维度，不展示具体记忆内容。</figcaption></figure><div class="identity-grid">{identityDimensions.map(([title,text])=><div><h4>{title}</h4><p>{text}</p></div>)}</div></article>
+
+    <article class="recognition-stage stage-two"><header><span>阶段二 / 伴随</span><h3>每次对话都可能带来修正</h3><p>对话结束后提取待办、判断、灵感和素材。只有经过人工审阅确认的部分，才回流到判断、方法和知识体系。</p></header><figure class="lab-illustration compact"><span class="image-feather"><img src="/images/personal-os/shared-brain/conversation-classification-v1.png" width="1672" height="941" loading="eager" decoding="sync" alt="对话内容被拆分为当前焦点、已完成任务、遗留事项与知识卡片，再经过人工审阅，分别更新到个人认知、知识体系和对应项目。"/></span><figcaption>对话结束后的分类与沉淀：先复盘拆分，再经人工审阅后回到对应位置。</figcaption></figure><div class="sediment-loop" aria-label="对话沉淀回流流程"><span>对话</span><i>→</i><span>提取</span><i>→</i><span>人工确认</span><i>→</i><span>回流</span><i>↺</i></div></article>
+
+    <article class="recognition-stage stage-three"><header><span>阶段三 / 日常</span><h3>只读取记忆宫殿中最相关的片段</h3><p><strong>LLM / AI 上下文</strong>容量有限。读取顺序先是核心规则，再到核心记忆与当前现状；需求明确后，才按需调用任务材料、技能、知识或外部调研。</p></header><figure class="lab-illustration compact"><span class="image-feather"><img src="/images/personal-os/shared-brain/progressive-memory-v1.png" width="1672" height="941" loading="eager" decoding="sync" alt="AI 面前是一组分层抽屉，依次装有核心规则、已确认记忆、当前现状，以及按任务调用的材料、技能、知识和外部调研。"/></span><figcaption>日常读取遵循规则 → 核心记忆 → 当前现状 → 按需调用的顺序。</figcaption></figure><div class="context-reading-map"><nav aria-label="记忆宫殿目录树"><strong>记忆宫殿 / 工作台</strong><ul><li>驾驶舱</li><li>我是谁</li><li>Input</li><li class="expanded">Process（处理中）<ul><li>健康</li><li>财务</li><li>人脉</li><li>商业</li><li>个人 IP</li><li>知识管理系统构建</li><li>灵感随想</li></ul></li><li>Output</li><li>Action</li><li class="expanded">Knowledge<ul><li>个人数据</li><li>知识体系<ul><li>知识卡片</li></ul></li></ul></li><li>工具</li></ul></nav><div class="map-connector" aria-hidden="true"><span>→</span></div><section class="context-panel" aria-labelledby="context-rules-title"><h4 id="context-rules-title">调用规则</h4><p>LLM 渐进式读取原则：遵循<span>渐进式披露</span>，只读取当前任务最相关的上下文。</p><div class="context-grid" aria-label="AI 上下文四层读取顺序"><article><span>01</span><strong>核心规则</strong><p>协作原则与边界</p></article><article><span>02</span><strong>核心记忆</strong><p>已确认的个人信息与记忆索引</p></article><article><span>03</span><strong>当前现状</strong><p>驾驶舱与项目进展</p></article><article><span>04</span><strong>按需调用</strong><p>任务材料 · 技能 · 知识 · 外部调研</p></article></div></section></div></article>
+  </div></section>
+
+  <section class="lab-section lab-closing"><div class="container"><p class="lab-label">结论</p><h2>AI 认识我，不靠一次性的自我介绍。</h2><p>靠的是一座持续更新、经过人工确认的记忆宫殿。</p><SectionPager previous={{label:'个人操作系统入口',href:'/lab/personal-os/'}} next={{label:'我与 AI 如何相处',href:'/lab/personal-os/ai-relationship/'}} /></div></section>
+</LabPage>

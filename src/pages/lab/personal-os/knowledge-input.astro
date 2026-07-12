@@ -1,0 +1,147 @@
+---
+import LabPage from '../../../components/LabPage.astro';
+import SectionPager from '../../../components/lab/SectionPager.astro';
+import '../../../styles/knowledge-input.css';
+
+const principles = [
+  ['信息', '知识', '收藏和转发只是获取，还没有形成自己的理解。'],
+  ['加工', '沉淀', '进入缓冲区只是等待处理，还不能成为长期记忆。'],
+  ['公开', '自动', '进入公开层之前，必须经过脱敏、审阅和确认。'],
+];
+
+const mechanisms = [
+  {
+    number: '01',
+    title: '获取',
+    thesis: '把“收藏”改成“发给 AI”',
+    body: '看到值得保留的内容，直接交给 AI 获取原文和来源。视频、文章、网页与零散笔记先集中进入待处理缓冲区。',
+    output: '解决的是：别让有价值的信息散落。',
+  },
+  {
+    number: '02',
+    title: '自动化',
+    thesis: '让规模化输入先完成预处理',
+    body: '系统提取信号、交叉验证、生成候选并给出置信度。异常或有冲突的内容进入审阅队列，最终由人决定。',
+    output: '解决的是：人不必从头阅读每一条。',
+  },
+  {
+    number: '03',
+    title: '信息减法',
+    thesis: '先减少噪音，再增加输入',
+    body: '优先保留权威、可追溯、长期有用的来源。社区讨论只用于观察，营销软文和重复内容不进入正式知识库。',
+    output: '解决的是：注意力不被低质量内容稀释。',
+  },
+];
+
+const confidence = [
+  ['高', '来源可靠、可验证、与现有知识一致', '快速确认，或按已批准规则入库'],
+  ['中', '新主题、有冲突，或需要补充语境', '保留在审阅队列，由人决定更新、合并或延后'],
+  ['低', '重复、不可追溯，或存在明显风险', '不进入正式知识库'],
+];
+
+const frontMatterExample = `---
+type: knowledge-card
+domain: 公开示例领域
+level: 核心概念
+tags: [示例标签, 可复用]
+source: 已脱敏公开来源
+---`;
+---
+
+<LabPage
+  title="我们的信息如何沉淀到大脑"
+  description="外部输入经过获取、过滤、加工、审阅与确认，成为可长期调用的认知资产。"
+  eyebrow="AI·LAB / 信息沉淀系统"
+  lede="信息不是被收藏就变成知识。它要经过获取、过滤、加工、审阅与确认，才能成为可长期调用的认知资产。"
+  status=""
+>
+  <section class="lab-section ki-opening"><div class="container">
+    <div class="ki-opening-grid">
+      <p class="ki-thesis">收藏解决的是“以后可能会看”。知识系统解决的是“需要时能够准确找到、理解和调用”。</p>
+      <p class="ki-opening-note">这套系统不追求存得更多。它先判断什么值得留下，再把经过确认的部分变成结构化知识。</p>
+    </div>
+    <figure class="ki-illustration ki-hero-illustration"><span class="ki-image-feather"><img src="/images/personal-os/knowledge-input/noise-to-asset-v1.png" width="1672" height="941" loading="eager" decoding="sync" alt="纸团角色把杂乱的原始输入经过筛选提炼，转化为少量可连接、可调用的认知资产。"/></span><figcaption>信息沉淀的核心不是搬运，而是筛选、提炼与确认。</figcaption></figure>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">核心理念</p><h2>先把三个误区划掉</h2><p>系统的价值不在于自动保存一切，而在于让每一步都有清楚的门槛。</p></header>
+    <div class="ki-inequalities" aria-label="关于信息沉淀的三个不等式">
+      {principles.map(([left,right,text],index)=><article><span>{String(index+1).padStart(2,'0')}</span><p class="ki-equation"><strong>{left}</strong><b>≠</b><strong>{right}</strong></p><p>{text}</p></article>)}
+    </div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">三种机制同时运转</p><h2>单条信息有路径，整套系统是并行的</h2><p>获取、自动化和信息减法不是三个先后阶段。它们同时工作，但每一条具体信息仍要依次经过获取、筛选、审阅和入库门槛。</p></header>
+    <div class="ki-mechanisms">
+      {mechanisms.map((item)=><article><header><span>{item.number}</span><strong>{item.title}</strong></header><h3>{item.thesis}</h3><p>{item.body}</p><small>{item.output}</small></article>)}
+    </div>
+    <div class="ki-pipeline" aria-label="公开化的知识复合管线">
+      <div class="ki-pipeline-rail"><strong>自动处理区</strong><ol><li>原始输入</li><li>信号提取</li><li>候选评分</li></ol></div>
+      <span class="ki-pipeline-arrow" aria-hidden="true">→</span>
+      <div class="ki-pipeline-rail is-review"><strong>人工判断区</strong><ol><li>异常队列</li><li>审阅确认</li></ol></div>
+      <span class="ki-pipeline-arrow" aria-hidden="true">→</span>
+      <div class="ki-pipeline-rail is-source"><strong>长期沉淀区</strong><ol><li>正式知识库</li></ol></div>
+    </div>
+    <p class="ki-caption">自动化负责缩小范围，人负责处理冲突、边界和最终落点。</p>
+  </div></section>
+
+  <section class="lab-section ki-subtraction-section"><div class="container">
+    <div class="ki-subtraction-grid">
+      <header class="ki-section-head"><p class="lab-label">信源减法</p><h2>真正稀缺的不是信息，是注意力</h2><p>系统先建立来源原则，再决定抓什么。可追溯、长期有用的内容优先；仍需判断的内容暂存观察；明显噪音不进入知识库。</p><p class="ki-plan-note">主动搜索与 Deep Research 属于规划能力，将在需要时按任务发起，不承诺自动常驻抓取。</p></header>
+      <figure class="ki-illustration"><span class="ki-image-feather"><img src="/images/personal-os/knowledge-input/source-subtraction-v1.png" width="1672" height="941" loading="eager" decoding="sync" alt="纸团角色通过三道信息闸门优先保留可靠信号、暂存观察不确定内容，并过滤噪音。"/></span><figcaption>信息经过一道道门槛后变少，但留下的部分更可靠。</figcaption></figure>
+    </div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">知识结构</p><h2>一张卡片，既给人读，也给 AI 找</h2><p>Front Matter 是卡片顶部的结构化说明。正文负责讲清概念，顶部字段负责标注类型、领域、层级、标签和来源。</p></header>
+    <div class="ki-card-anatomy">
+      <article class="ki-frontmatter" aria-label="脱敏的 Front Matter 知识卡片示例">
+        <p class="ki-example-tag">脱敏示例 / 不对应真实路径或真实卡片</p>
+        <pre><code>{frontMatterExample}</code></pre>
+        <div class="ki-card-body"><h3>知识卡片标题</h3><dl><div><dt>一句话定义</dt><dd>先说明它是什么。</dd></div><div><dt>核心机制</dt><dd>再解释它为什么成立。</dd></div><div><dt>适用边界</dt><dd>说明什么时候不能直接套用。</dd></div><div><dt>关联卡片</dt><dd>连接前置概念与延伸知识。</dd></div></dl></div>
+      </article>
+      <aside class="ki-structure-reasons"><h3>为什么用这种结构</h3><ol><li><strong>精准命中</strong><p>卡片体量小、主题单一，AI 更容易找到真正相关的内容。</p></li><li><strong>来源可追溯</strong><p>保留脱敏后的来源说明，结论不是无出处的摘抄。</p></li><li><strong>连接成网络</strong><p>卡片之间可以双向关联，知识不再只是一条长目录。</p></li></ol></aside>
+    </div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">置信度与审阅</p><h2>不是所有候选，都配得上同一种处理</h2><p>置信度不是替人做决定的分数。它只帮助系统安排审阅顺序，最终仍要服从来源、证据和公开边界。</p></header>
+    <div class="ki-confidence" aria-label="置信度分层与审阅方式">
+      {confidence.map(([level,standard,action],index)=><article><div><span>{String(index+1).padStart(2,'0')}</span><strong>{level}置信度</strong></div><p>{standard}</p><p class="ki-action">{action}</p></article>)}
+    </div>
+    <div class="ki-review-path" aria-label="从输入到知识库的审阅路径"><span>多种输入</span><i>→</i><span>待处理缓冲区</span><i>→</i><span>候选知识卡片</span><i>→</i><strong>人工审阅</strong><i>→</i><span>正式知识库</span></div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">系统组成</p><h2>沉淀之后，还要能继续生长与输出</h2><p>系统由三部分组成。第一部分已经在日常运行，后两部分用于未来扩展，不把规划写成已经上线的能力。</p></header>
+    <div class="ki-system-parts">
+      <article class="is-active"><span>现在</span><h3>知识卡片沉淀</h3><p>把收藏、笔记与规模化输入转成候选卡片，经过筛选与审阅后进入正式知识库。</p><ol><li>获取输入</li><li>生成候选</li><li>人工确认</li><li>结构化入库</li></ol></article>
+      <article><span>规划中</span><h3>主动搜索 / Deep Research</h3><p>围绕真实问题拆解搜索方向，分派调研，形成报告，再提炼可复用的知识卡片。</p><p class="ki-future">推荐 Skill：Deep Research（待接入）</p></article>
+      <article><span>待接入</span><h3>AI 外脑专栏</h3><p>从私有知识库中挑选适合公开的内容，完成脱敏和人工确认后，持续更新到独立站。</p><p class="ki-future">公开出口：AI 外脑（待接入）</p></article>
+    </div>
+  </div></section>
+
+  <section class="lab-section"><div class="container">
+    <header class="ki-section-head"><p class="lab-label">产出总图</p><h2>从信息噪音，到可复用认知网络</h2><p>单条内容只有走完门槛路径，才可能成为正式知识。公开内容则在正式知识之上，再多一道脱敏与确认。</p></header>
+    <div class="ki-output-map" aria-label="信息沉淀的完整产出流程">
+      <div class="ki-output-sources"><span>Skill 获取</span><span>笔记同步</span><span>规模化输入</span></div>
+      <i>↓</i>
+      <article><span>01</span><strong>待处理缓冲区</strong><p>集中暂存原始输入，保留来源和最初问题。</p></article>
+      <i>↓</i>
+      <article><span>02</span><strong>候选层</strong><p>提取信号，形成知识卡片候选和可参考资料。</p></article>
+      <i>↓</i>
+      <article><span>03</span><strong>评估与审阅</strong><p>根据来源、证据、置信度和适用边界决定去向。</p></article>
+      <i>↓</i>
+      <article class="is-knowledge"><span>04</span><strong>正式知识库</strong><p>Front Matter 加 Markdown 卡片，持续连接、修订和调用。</p></article>
+      <i>↓</i>
+      <article class="is-public"><span>05 / 规划中</span><strong>AI 外脑公开层</strong><p>只呈现经过脱敏、审阅和人工确认的公开子集。</p></article>
+    </div>
+  </div></section>
+
+  <section class="lab-section lab-closing ki-closing"><div class="container">
+    <p class="lab-label">结论</p>
+    <h2>信息沉淀不会自动发生。</h2>
+    <p>它需要获取、过滤、加工、审阅与确认的闭环，才能从噪音里长出可复用的认知网络。</p>
+    <SectionPager previous={{label:'我与 AI 如何相处',href:'/lab/personal-os/ai-relationship/'}} next={{label:'我如何管理生活与经营',href:'/lab/personal-os/life-and-business/'}} />
+  </div></section>
+</LabPage>

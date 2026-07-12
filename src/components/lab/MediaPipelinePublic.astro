@@ -1,0 +1,102 @@
+---
+const stages = [
+  {
+    title: '输入',
+    transition: '从碎片到命题',
+    items: [
+      ['接住灵感', 'AI 建议，人确认', 'assisted'],
+      ['筛选选题', '必须人工完成', 'human'],
+    ],
+  },
+  {
+    title: '加工',
+    transition: '从命题到成稿',
+    items: [
+      ['引导式创作', 'AI 建议，人确认', 'assisted'],
+      ['观点与结构', '必须人工完成', 'human'],
+    ],
+  },
+  {
+    title: '输出',
+    transition: '从成稿到发布包',
+    items: [
+      ['标题与公开边界', '必须人工完成', 'human'],
+      ['排版、配图与封面', 'AI 建议，人确认', 'assisted'],
+    ],
+  },
+  {
+    title: '分发',
+    transition: '从母稿到多种形态',
+    items: [
+      ['图文与口播转换', '自动', 'automatic'],
+      ['平台公开发布', '必须人工完成', 'human'],
+    ],
+  },
+];
+---
+
+<figure class="media-pipeline" aria-labelledby="pipeline-caption">
+  <div class="pipeline-loops" aria-label="自媒体管线双循环">
+    <section class="pipeline-loop is-production">
+      <span>主循环</span>
+      <h3>内容生产</h3>
+      <p>灵感进入，内容经过加工、输出和分发，再留下可供复盘的结果。</p>
+    </section>
+    <div class="loop-connector" aria-hidden="true">↔</div>
+    <section class="pipeline-loop is-learning">
+      <span>反馈循环</span>
+      <h3>优化迭代</h3>
+      <p>结果被分析，人做判断，标准完成更新，再回到下一轮输入。</p>
+    </section>
+  </div>
+
+  <div class="pipeline-legend" aria-label="自动化程度图例">
+    <span class="legend-automatic">自动</span>
+    <span class="legend-assisted">AI 建议，人确认</span>
+    <span class="legend-human">必须人工完成</span>
+  </div>
+
+  <div class="pipeline-stages" aria-label="输入、加工、输出、分发四阶段">
+    {stages.map((stage, index) => (
+      <section class="pipeline-stage">
+        <header>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <div><h4>{stage.title}</h4><p>{stage.transition}</p></div>
+        </header>
+        <ul>
+          {stage.items.map(([name, mode, modeClass]) => (
+            <li>
+              <strong>{name}</strong>
+              <span class={`mode-${modeClass}`}>{mode}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <div class="pipeline-handoff" aria-label="CC 与 Codex 接力边界">
+    <article>
+      <span>内容判断</span>
+      <strong>CC</strong>
+      <p>梳理选题、结构、标题和公开边界，形成已经确认的内容版本。</p>
+    </article>
+    <section>
+      <span>接力点</span>
+      <strong>交接卡</strong>
+      <p>确认正文、标题、不可改动内容与视觉要求。</p>
+    </section>
+    <article>
+      <span>视觉交付</span>
+      <strong>Codex</strong>
+      <p>完成排版、配图、封面和发布包，并停在公开发布之前。</p>
+    </article>
+  </div>
+
+  <div class="pipeline-feedback" aria-label="优化迭代循环">
+    <strong>结果记录</strong><i>→</i><strong>分析信号</strong><i>→</i><strong>人的判断</strong><i>→</i><strong>标准更新</strong><i>↺</i><span>回到输入</span>
+  </div>
+
+  <p class="pipeline-publish-rule"><strong>发布原则：</strong>自动化可以完成准备工作，但任何内容公开发布前都必须由人确认。</p>
+  <figcaption id="pipeline-caption">一条内容从输入走向分发，并把结果送回下一轮优化。</figcaption>
+</figure>

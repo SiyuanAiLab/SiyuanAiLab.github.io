@@ -1,0 +1,133 @@
+---
+const domains = ['商业经营', '个人 IP', '知识管理', '人脉', '健康', '财务', '系统'];
+
+const storyboard = [
+  {
+    title: '启动',
+    line: '先看全貌，再定今日焦点',
+    scene: 'start',
+  },
+  {
+    title: '执行',
+    line: '已决定的跑起来，没决定的等人拍板',
+    scene: 'run',
+  },
+  {
+    title: '收尾',
+    line: '今天的产出，变成明天的起点',
+    scene: 'close',
+  },
+  {
+    title: '回流',
+    line: '结果写回系统，进入下一次启动',
+    scene: 'return',
+  },
+];
+
+interface Props {
+  part?: 'storyboard' | 'start' | 'routing' | 'execution' | 'return';
+}
+
+const { part = 'storyboard' } = Astro.props;
+---
+
+{part === 'storyboard' && <figure class="dm-storyboard" aria-labelledby="daily-cycle-caption">
+  <div class="dm-storyboard-grid">
+    {storyboard.map((panel, index) => (
+      <article class={`dm-story-panel is-${panel.scene}`}>
+        <header><span>{String(index + 1).padStart(2, '0')}</span><h3>{panel.title}</h3></header>
+
+        {panel.scene === 'start' && (
+          <div class="dm-scene dm-start-scene" aria-hidden="true">
+            <div class="dm-state-cloud"><i>经营</i><i>内容</i><i>知识</i></div>
+            <div class="dm-focus-lens">焦点</div>
+            <div class="dm-people"><span class="dm-person is-cc"><i>CC</i><b>汇总</b></span><span class="dm-person is-human"><i>SY</i><b>判断</b></span></div>
+          </div>
+        )}
+
+        {panel.scene === 'run' && (
+          <div class="dm-scene dm-run-scene" aria-hidden="true">
+            <div class="dm-mini-rail is-go"><span>已授权</span><i>Codex</i><b>推进</b></div>
+            <div class="dm-mini-rail is-wait"><span>待判断</span><i>思远</i><b>拍板</b></div>
+          </div>
+        )}
+
+        {panel.scene === 'close' && (
+          <div class="dm-scene dm-close-scene" aria-hidden="true">
+            <span class="dm-sorter">CC<br/><small>整理</small></span>
+            <div class="dm-mini-bins"><i>今日状态</i><i>知识候选</i><i>归档</i></div>
+          </div>
+        )}
+
+        {panel.scene === 'return' && (
+          <div class="dm-scene dm-return-scene" aria-hidden="true">
+            <span>今日状态</span><i>↺</i><strong>下一次启动</strong>
+          </div>
+        )}
+
+        <p>{panel.line}</p>
+      </article>
+    ))}
+  </div>
+  <figcaption id="daily-cycle-caption">一天从读取现状开始，以写回结果结束。收尾留下的状态，会成为下一次启动的可靠起点。</figcaption>
+</figure>}
+
+{part === 'start' && <figure class="dm-start-focus" aria-labelledby="start-focus-caption">
+  <div class="dm-start-sources" aria-label="状态来源">
+    <span>昨日下一步</span><span>本周焦点</span><span>已有承诺</span><span>新输入</span>
+  </div>
+  <div class="dm-start-filter" aria-hidden="true">
+    <span>CC 汇总</span><i>→</i><strong>去噪</strong><i>→</i><strong>定焦</strong>
+  </div>
+  <div class="dm-focus-output">
+    <span>今天留下什么</span>
+    <h3>今日焦点</h3>
+    <ul><li>真正需要推进的事</li><li>等待人判断的事项</li><li>暂时不进入注意力的输入</li></ul>
+  </div>
+  <figcaption id="start-focus-caption">启动先校准上下文。新增输入只有在更重要时，才会改变今天的焦点。</figcaption>
+</figure>}
+
+{part === 'routing' && <figure class="dm-routing" aria-labelledby="routing-caption">
+  <div class="dm-domain-source" aria-label="七个域的状态来源">
+    {domains.map((domain) => <span>{domain}</span>)}
+  </div>
+  <div class="dm-routing-core" aria-label="状态分类规则">
+    <span>需要人判断吗</span><i>→</i><span>已经形成动作吗</span><i>→</i><span>需要持续看见吗</span>
+  </div>
+  <div class="dm-destination-grid">
+    <article class="is-action"><span>推进</span><h3>待办清单</h3><p>已经决定要做的动作，有负责人和验收标准。</p><strong>AI 按授权推进</strong></article>
+    <article class="is-decision"><span>判断</span><h3>待决策看板</h3><p>仍需取舍的事项，集中等待思远拍板。</p><strong>决定之前不执行</strong></article>
+    <article class="is-state"><span>观察</span><h3>状态仪表盘</h3><p>暂时不行动，但值得持续看见的状态。</p><strong>为下一次判断提供依据</strong></article>
+  </div>
+  <figcaption id="routing-caption">七个域只提供状态。经过同一套分流规则后，它们分别进入推进、判断或观察的位置。</figcaption>
+</figure>}
+
+{part === 'execution' && <figure class="dm-execution-rails" aria-labelledby="execution-caption">
+  <section class="dm-rail is-authorized">
+    <header><span>已经决定</span><h3>待办轨道</h3></header>
+    <div class="dm-rail-track" aria-hidden="true"><i>已授权</i><b>Codex</b><em>推进</em><strong>完成或遇到边界</strong></div>
+    <p>动作、负责人和验收标准已经明确。AI 继续执行，并同步完成项与阻塞项。</p>
+  </section>
+  <div class="dm-boundary"><span>判断边界</span><strong>超出授权就停下</strong></div>
+  <section class="dm-rail is-judgment">
+    <header><span>还未决定</span><h3>待决策轨道</h3></header>
+    <div class="dm-rail-track" aria-hidden="true"><i>待判断</i><b>思远</b><em>拍板</em><strong>授权或暂停</strong></div>
+    <p>需要判断优先级、标准或取舍。决定之前保持原位，不把问题伪装成任务。</p>
+  </section>
+  <figcaption id="execution-caption">待办推进动作，待决策保留判断。两条轨道分开，执行才不会越过人的取舍权。</figcaption>
+</figure>}
+
+{part === 'return' && <figure class="dm-return-flow" aria-labelledby="return-caption">
+  <div class="dm-workbench-left">
+    <span>一天留下的结果</span>
+    <div><i>完成项</i><i>阻塞项</i><i>临时笔记</i><i>可复用判断</i></div>
+  </div>
+  <div class="dm-return-sorter" aria-hidden="true"><span>CC</span><strong>整理去向</strong><i>→</i></div>
+  <div class="dm-return-destinations">
+    <article><span>今日状态</span><p>完成、阻塞和下一步</p></article>
+    <article><span>知识候选</span><p>等待确认的复用内容</p></article>
+    <article><span>归档</span><p>已结束或暂时搁置</p></article>
+  </div>
+  <div class="dm-next-start"><span>↺</span><strong>下一次启动从这里开始</strong></div>
+  <figcaption id="return-caption">收尾把散落的结果整理成可读取的状态。系统因此更清楚，下一天也更容易开始。</figcaption>
+</figure>}

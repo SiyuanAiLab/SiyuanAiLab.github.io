@@ -1,0 +1,472 @@
+---
+import {
+  cockpitModules,
+  demoDate,
+  knowledgeStages,
+  pipelineStages,
+  systemStages,
+  tokenTrend
+} from '../../data/cockpit-demo';
+import '../../styles/cockpit-demo.css';
+
+const total = cockpitModules.length;
+const formatNumber = (value: number) => String(value).padStart(2, '0');
+---
+
+<div class="cockpit-demo" data-cockpit-demo tabindex="-1">
+  <div class="cd-shell">
+    <aside class="cd-sidebar" aria-label="驾驶舱模块">
+      <div class="cd-brand">
+        <span class="cd-brand-mark">SY</span>
+        <span class="cd-brand-copy">
+          <strong>思远 AI Lab</strong>
+          <small>PERSONAL OS</small>
+        </span>
+      </div>
+      <nav class="cd-tabs" aria-label="系统实景模块">
+        {cockpitModules.map((module, index) => (
+          <button
+            class:list={['cd-tab', index === 0 && 'is-active']}
+            type="button"
+            data-demo-tab={index}
+            aria-controls={`cd-panel-${module.id}`}
+            aria-current={index === 0 ? 'page' : undefined}
+          >
+            <span>{module.label}</span>
+            <small>{formatNumber(index + 1)}</small>
+          </button>
+        ))}
+      </nav>
+      <div class="cd-mode">
+        <span>HOT PINK</span>
+        <strong>Command mode</strong>
+        <small>只读演示环境</small>
+      </div>
+    </aside>
+
+    <div class="cd-workspace">
+      <header class="cd-masthead">
+        <div class="cd-title-group">
+          <div class="cd-date">{demoDate}</div>
+          <h3 data-demo-title>{cockpitModules[0].title}</h3>
+          <p data-demo-kicker>{cockpitModules[0].kicker}</p>
+        </div>
+        <div class="cd-masthead-actions">
+          <label class="cd-sr-only" for="cockpit-demo-search">搜索演示内容</label>
+          <input id="cockpit-demo-search" class="cd-search" type="search" placeholder="搜索模块 / 项目 / 动作" readonly />
+          <span class="cd-demo-badge">DEMO DATA <i aria-hidden="true"></i> 演示数据</span>
+        </div>
+      </header>
+
+      <div class="cd-panel-stage" aria-live="polite">
+        {cockpitModules.map((module, moduleIndex) => (
+          <section
+            id={`cd-panel-${module.id}`}
+            class="cd-module-panel"
+            data-demo-panel={moduleIndex}
+            data-demo-title-value={module.title}
+            data-demo-kicker-value={module.kicker}
+            hidden={moduleIndex !== 0}
+            aria-label={module.label}
+          >
+            <section class="cd-content-section" aria-label={`${module.label}指标`}>
+              <h4>场景数据</h4>
+              <div class:list={['cd-metric-grid', module.metrics.length === 6 && 'is-six']}>
+                {module.metrics.map((metric) => (
+                  <article class:list={['cd-metric', `is-${metric.tone ?? 'accent'}`]}>
+                    <span>{metric.label}</span>
+                    <strong>{metric.value}</strong>
+                    <small>{metric.note}</small>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {module.id === 'cockpit' && (
+              <div class="cd-dashboard-grid">
+                <section class="cd-content-section">
+                  <h4>场景运营矩阵</h4>
+                  <div class="cd-scene-matrix">
+                    {module.rows.map((row) => (
+                      <article class="cd-scene">
+                        <header><strong>{row.name}</strong><span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span></header>
+                        <p>{row.meta}</p>
+                        <b>{row.value}</b>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section cd-action-column">
+                  <h4>今日动作</h4>
+                  <ol class="cd-action-list">
+                    <li><span>判断</span><strong>确认本周唯一经营焦点</strong><small>仍需人工拍板</small></li>
+                    <li><span>推进</span><strong>完成两项已授权交付</strong><small>执行 Agent 正在处理</small></li>
+                    <li><span>回流</span><strong>把结果写回当前状态</strong><small>收尾时统一检查</small></li>
+                  </ol>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'business' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>今日关注</h4>
+                  <div class="cd-focus-panel">
+                    <span>当前焦点</span>
+                    <strong>完成内容工作台的公开验证</strong>
+                    <p>资源优先进入一个关键结果，其他项目保持必要推进。</p>
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>项目状态</h4>
+                  <div class="cd-data-table" role="table" aria-label="模拟项目状态">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row" role="row">
+                        <strong role="cell">{row.name}<small>{row.meta}</small></strong>
+                        <span role="cell">{row.value}</span>
+                        <span role="cell" class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section cd-span-all">
+                  <h4>实时队列</h4>
+                  <div class="cd-queue-grid">
+                    <article><span>待办 8</span><strong>已有明确动作</strong><p>按优先级进入今日执行。</p></article>
+                    <article><span>待判断 5</span><strong>停在人面前</strong><p>没有授权，不自动推进。</p></article>
+                    <article><span>待推进 3</span><strong>进入执行队列</strong><p>完成后统一回写状态。</p></article>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'ip' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>内容栏目</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>内容生产状态</h4>
+                  <div class="cd-focus-panel is-compact">
+                    <span>当前动作</span>
+                    <strong>两篇内容完成审阅，等待分发</strong>
+                    <p>每个阶段都留下状态，下一位协作者可以直接接手。</p>
+                  </div>
+                </section>
+                <section class="cd-content-section cd-span-all">
+                  <h4>工程管线</h4>
+                  <div class="cd-flow" aria-label="内容工程管线">
+                    {pipelineStages.map((stage, index) => <span><b>{formatNumber(index + 1)}</b>{stage}</span>)}
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'knowledge' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section cd-span-all">
+                  <h4>知识处理管线</h4>
+                  <div class="cd-flow" aria-label="知识处理管线">
+                    {knowledgeStages.map((stage, index) => <span><b>{formatNumber(index + 1)}</b>{stage}</span>)}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>今日审阅队列</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class="cd-state is-yellow">{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>审阅原则</h4>
+                  <div class="cd-focus-panel is-compact">
+                    <span>人工确认后进入长期记忆</span>
+                    <strong>不是收集得越多越好</strong>
+                    <p>重复信息合并，低价值信息归档，重要判断留下来源。</p>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'network' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>按人聚合</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>按场景聚合</h4>
+                  <div class="cd-queue-stack">
+                    <article><strong>合作沟通</strong><span>2 项</span><small>确认下一次动作</small></article>
+                    <article><strong>用户反馈</strong><span>1 项</span><small>等待外部回复</small></article>
+                    <article><strong>同行交流</strong><span>1 项</span><small>已进入日历</small></article>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'health' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>周期趋势</h4>
+                  <div class="cd-trend" aria-label="健康周期完成趋势">
+                    {[58, 64, 61, 70, 72, 76, 78].map((value, index) => <i style={`--bar:${value}%`}><span>{index + 1}</span></i>)}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>状态摘要</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class="cd-state is-green">{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'finance' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>预算与现金流趋势</h4>
+                  <div class="cd-finance-chart">
+                    <div><span>预算使用</span><i style="--bar:66%"></i><strong>计划内</strong></div>
+                    <div><span>现金流稳定</span><i style="--bar:74%"></i><strong>趋势平稳</strong></div>
+                    <div><span>凭据完整</span><i style="--bar:82%"></i><strong>待补 1 项</strong></div>
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>待核对项</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'system' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section cd-span-all">
+                  <h4>操作系统主链</h4>
+                  <div class="cd-flow" aria-label="个人操作系统主链">
+                    {systemStages.map((stage, index) => <span><b>{formatNumber(index + 1)}</b>{stage}</span>)}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>运行管线</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>检查结果</h4>
+                  <div class="cd-focus-panel is-compact">
+                    <span>系统健康 88 / 100</span>
+                    <strong>主链稳定，三项检查等待处理</strong>
+                    <p>检查结果进入统一队列，由人判断优先级，再交给执行 Agent 处理。</p>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'tokens' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section">
+                  <h4>近期趋势</h4>
+                  <div class="cd-trend is-token" aria-label="Token 演示趋势">
+                    {tokenTrend.map((value, index) => <i style={`--bar:${value}%`}><span>{index + 1}</span></i>)}
+                  </div>
+                  <div class="cd-legend"><span>normalized 计费量</span><span>raw 实际吞吐</span></div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>工具分布</h4>
+                  <div class="cd-data-table">
+                    {module.rows.map((row) => (
+                      <div class="cd-data-row">
+                        <strong>{row.name}<small>{row.meta}</small></strong>
+                        <span>{row.value}</span>
+                        <span class:list={['cd-state', `is-${row.tone}`]}>{row.state}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {module.id === 'admin' && (
+              <div class="cd-detail-layout">
+                <section class="cd-content-section cd-span-all">
+                  <h4>Agent 授权边界</h4>
+                  <div class="cd-agent-grid">
+                    {module.rows.map((row) => (
+                      <article>
+                        <span>{row.meta}</span>
+                        <strong>{row.name}</strong>
+                        <p>{row.value}</p>
+                        <small class:list={['cd-state', `is-${row.tone}`]}>{row.state}</small>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>状态同步</h4>
+                  <div class="cd-queue-stack">
+                    <article><strong>输入状态</strong><span>正常</span><small>已进入统一视图</small></article>
+                    <article><strong>执行回流</strong><span>正常</span><small>结果已写回</small></article>
+                    <article><strong>冲突检查</strong><span>通过</span><small>没有覆盖风险</small></article>
+                  </div>
+                </section>
+                <section class="cd-content-section">
+                  <h4>元规则</h4>
+                  <div class="cd-focus-panel is-compact">
+                    <span>人保留最终判断权</span>
+                    <strong>未授权的事情，系统只提醒，不执行</strong>
+                    <p>每一次执行都需要可检查，每一次结果都需要回流。</p>
+                  </div>
+                </section>
+              </div>
+            )}
+          </section>
+        ))}
+      </div>
+
+      <footer class="cd-controls">
+        <p>界面结构来自运行中的个人操作系统，当前展示内容为模拟数据。</p>
+        <div class="cd-control-group">
+          <button type="button" class="cd-control" data-demo-prev aria-label="上一个模块">上一页</button>
+          <span class="cd-count"><b data-demo-current>01</b> / {formatNumber(total)}</span>
+          <button type="button" class="cd-control" data-demo-next aria-label="下一个模块">下一页</button>
+          <button type="button" class="cd-autoplay" data-demo-autoplay aria-pressed="false">自动演示</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('[data-cockpit-demo]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll('[data-demo-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-demo-panel]'));
+    const title = root.querySelector('[data-demo-title]');
+    const kicker = root.querySelector('[data-demo-kicker]');
+    const current = root.querySelector('[data-demo-current]');
+    const autoplayButton = root.querySelector('[data-demo-autoplay]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeIndex = 0;
+    let autoplayEnabled = false;
+    let timer = null;
+    let isVisible = true;
+
+    const stopTimer = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+
+    const updateAutoplay = () => {
+      autoplayButton?.setAttribute('aria-pressed', String(autoplayEnabled));
+      if (autoplayButton) autoplayButton.textContent = autoplayEnabled ? '停止演示' : '自动演示';
+    };
+
+    const startTimer = () => {
+      stopTimer();
+      if (!autoplayEnabled || !isVisible) return;
+      timer = window.setInterval(() => showModule(activeIndex + 1, false), 7000);
+    };
+
+    const stopAutoplay = () => {
+      autoplayEnabled = false;
+      stopTimer();
+      updateAutoplay();
+    };
+
+    const showModule = (nextIndex, manual = true) => {
+      const safeIndex = (nextIndex + panels.length) % panels.length;
+      activeIndex = safeIndex;
+      panels.forEach((panel, index) => {
+        panel.hidden = index !== safeIndex;
+        panel.classList.toggle('is-entering', index === safeIndex && !reduceMotion.matches);
+      });
+      tabs.forEach((tab, index) => {
+        const selected = index === safeIndex;
+        tab.classList.toggle('is-active', selected);
+        if (selected) tab.setAttribute('aria-current', 'page');
+        else tab.removeAttribute('aria-current');
+      });
+      const selected = tabs[safeIndex];
+      const panel = panels[safeIndex];
+      if (title && panel) title.textContent = panel.getAttribute('data-demo-title-value');
+      if (kicker && panel) kicker.textContent = panel.getAttribute('data-demo-kicker-value');
+      if (current) current.textContent = String(safeIndex + 1).padStart(2, '0');
+      selected?.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+      if (manual) stopAutoplay();
+    };
+
+    tabs.forEach((tab, index) => tab.addEventListener('click', () => showModule(index)));
+    root.querySelector('[data-demo-prev]')?.addEventListener('click', () => showModule(activeIndex - 1));
+    root.querySelector('[data-demo-next]')?.addEventListener('click', () => showModule(activeIndex + 1));
+    autoplayButton?.addEventListener('click', () => {
+      autoplayEnabled = !autoplayEnabled;
+      updateAutoplay();
+      startTimer();
+    });
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showModule(activeIndex - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showModule(activeIndex + 1);
+      }
+    });
+    root.addEventListener('mouseenter', () => {
+      if (autoplayEnabled) stopAutoplay();
+    });
+    root.addEventListener('focusin', (event) => {
+      if (autoplayEnabled && event.target !== autoplayButton) stopAutoplay();
+    });
+    const observer = new IntersectionObserver((entries) => {
+      isVisible = entries[0]?.isIntersecting ?? false;
+      if (isVisible) startTimer();
+      else stopTimer();
+    }, { threshold: 0.08 });
+    observer.observe(root);
+  });
+</script>

@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import '../styles/lab.css';
+interface Props { title:string; description:string; eyebrow?:string; lede:string; status?:string }
+const {title,description,eyebrow='AI·LAB / PERSONAL OS',lede,status='展示框架 · 持续迭代'}=Astro.props;
+---
+<Layout title={title} description={description}><Header/><main class="site-main lab-v2"><section class="lab-hero-v2"><div class="container"><p class="lab-eyebrow">{eyebrow}</p><h1>{title}</h1><p class="lab-lede">{lede}</p><span class="lab-status">{status}</span></div></section><slot/></main><Footer/></Layout>

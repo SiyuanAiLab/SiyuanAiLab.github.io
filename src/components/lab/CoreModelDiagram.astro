@@ -1,0 +1,58 @@
+---
+const layers = [
+  { index:'01', title:'输入层', duty:'多类输入汇聚', items:['微信对话终端','AI 硬件产品终端','对话 / 文件'] },
+  { index:'02', title:'理解与调度', duty:'理解上下文并分流', items:['Claude Code','语义理解','任务拆分'] },
+  { index:'03', title:'执行', duty:'按任务边界实现', items:['Claude Code','Codex'] },
+  { index:'04', title:'审阅与整理', duty:'检查取舍后沉淀', items:['人工审阅','Skill','复盘','过程文档'] },
+  { index:'05', title:'结构化记忆', duty:'形成协作上下文', items:['我是谁','Input','Process','Output','Knowledge'] },
+  { index:'06', title:'Web UI 驾驶舱', duty:'汇总状态与异常', items:['商业经营','个人 IP','知识管理','人脉','健康','财务','系统'], kind:'dashboard' },
+  { index:'07', title:'判断与授权', duty:'人取舍并再授权', items:['查看状态','完成取舍','授权下一步'], kind:'human' },
+];
+const mechanisms = [
+  ['01','输入即汇聚','微信、AI 硬件产品终端与对话 / 文件输入统一进入理解入口，避免多入口信息散落。'],
+  ['02','理解后分流','Claude Code 完成上下文理解、信息整理与任务拆分；执行层按边界交给 Claude Code 或 Codex。'],
+  ['03','结果沉淀为记忆','只有经审阅并确认值得保留的 Skill、复盘和过程文档，才进入协作上下文真相源。'],
+  ['04','驾驶舱服务于判断','Web UI 汇总经过筛选的状态、指标、异常与待判断事项，供人取舍并授权下一步。'],
+  ['05','规则贯穿全程','L1-L4 四层规则栈贯穿全程，高风险动作被拦截，其他偏差通过审查与状态同步纠正。'],
+];
+---
+<div class="core-chart" aria-label="个人操作系统核心主链">
+  <p class="rule-bar"><strong>全程规则约束</strong><span>L1 Hooks</span><b>／</b><span>L2 README</span><b>／</b><span>L3 Memory</span><b>／</b><span>L4 CLAUDE.md</span><small>高风险动作由硬约束拦截，其他偏差通过审查与状态同步纠正。</small></p>
+
+  <div class="main-chain">
+    {layers.map((layer, i) => (
+      <section class:list={['chain-node', layer.kind]}>
+        <span class="node-index">{layer.index}</span>
+        <h3>{layer.title}</h3>
+        <p>{layer.duty}</p>
+        <div class="node-tags">{layer.items.map(item => <span>{item}</span>)}</div>
+        {i < layers.length - 1 && <span class="chain-arrow" aria-hidden="true">→</span>}
+      </section>
+    ))}
+  </div>
+
+  <p class="return-line"><span>人的判断回路</span>07 判断与授权 <b>↺</b> 02 理解与调度</p>
+
+  <div class="support-bands" aria-label="贯穿主链的两项支撑">
+    <section><span>横向支撑 01</span><h3>系统巡检与质量检查</h3><p>跨层检查状态、异常与交付质量。</p></section>
+    <section><span>横向支撑 02</span><h3>工作流支持</h3><p>为执行、审阅和沉淀提供可复用流程。</p></section>
+  </div>
+
+  <div class="mechanisms" aria-label="五项系统机制">
+    {mechanisms.map(item => <article><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></article>)}
+  </div>
+</div>
+
+<style>
+  .core-chart{border-top:2px solid var(--ink)}
+  .rule-bar{max-width:none;margin:0;padding:.85rem 0;border-bottom:1px solid var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .55rem;font:.68rem/1.55 var(--font-mono);color:var(--grey)}.rule-bar strong{color:var(--accent);margin-right:.35rem}.rule-bar b{font-weight:400;color:var(--lead)}.rule-bar small{margin-left:auto;font:inherit;color:var(--grey)}
+  .main-chain{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:18px;padding:clamp(28px,4vw,42px) 0 18px}
+  .chain-node{position:relative;min-width:0;min-height:285px;border:1px solid var(--ink);padding:1rem .85rem;background:var(--paper);display:flex;flex-direction:column}.node-index{font:700 .66rem var(--font-mono);color:var(--accent)}.chain-node h3{font-size:clamp(.96rem,1.3vw,1.12rem);line-height:1.25;margin:1.5rem 0 .55rem}.chain-node>p{font-size:.76rem;line-height:1.5;color:var(--grey);margin:0 0 1rem}.node-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:auto}.node-tags span{border-top:1px solid var(--lead);padding-top:.3rem;width:100%;font:.62rem/1.35 var(--font-mono);color:var(--grey)}
+  .chain-node.dashboard{background:var(--ink);color:var(--paper)}.dashboard .node-index,.dashboard>p,.dashboard .node-tags span{color:var(--warm-grey)}.dashboard .node-tags span{border-color:rgba(245,241,233,.35)}.chain-node.human{border:2px solid var(--accent)}
+  .chain-arrow{position:absolute;z-index:2;right:-16px;top:50%;transform:translateY(-50%);width:13px;background:var(--paper);color:var(--accent);font:700 .85rem var(--font-mono);text-align:center}
+  .return-line{max-width:none;margin:0 0 1.2rem;text-align:right;font:.68rem var(--font-mono);color:var(--grey)}.return-line span{color:var(--accent);margin-right:.65rem}.return-line b{color:var(--accent)}
+  .support-bands{display:grid;grid-template-columns:1fr 1fr;gap:12px}.support-bands section{display:grid;grid-template-columns:auto minmax(170px,.7fr) minmax(0,1fr);gap:1rem;align-items:center;border:1px dashed var(--lead);background:rgba(212,201,191,.18);padding:.75rem 1rem}.support-bands span{font:.62rem var(--font-mono);color:var(--accent)}.support-bands h3{font-size:.9rem;margin:0}.support-bands p{font-size:.72rem;color:var(--grey);margin:0}
+  .mechanisms{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink);margin-top:clamp(24px,4vw,40px)}.mechanisms article{background:var(--paper);padding:clamp(17px,2.2vw,24px);min-height:210px}.mechanisms article>span{font:.68rem var(--font-mono);color:var(--accent)}.mechanisms h3{font-size:1rem;margin:1.7rem 0 .65rem}.mechanisms p{font-size:.8rem;color:var(--grey);margin:0}
+  @media(max-width:900px){.rule-bar small{width:100%;margin-left:0}.main-chain{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding-bottom:24px}.chain-node{min-height:235px}.chain-node:nth-child(5){grid-column:4;grid-row:2}.chain-node:nth-child(6){grid-column:3;grid-row:2}.chain-node:nth-child(7){grid-column:2;grid-row:2}.chain-node:nth-child(4) .chain-arrow{right:50%;top:auto;bottom:-17px;transform:translateX(50%) rotate(90deg)}.chain-node:nth-child(5) .chain-arrow,.chain-node:nth-child(6) .chain-arrow{right:auto;left:-16px;transform:translateY(-50%) rotate(180deg)}.support-bands{grid-template-columns:1fr}.mechanisms{grid-template-columns:repeat(2,1fr)}.mechanisms article:last-child{grid-column:1/-1;min-height:0}}
+  @media(max-width:560px){.rule-bar{gap:.2rem .4rem}.main-chain{display:block;padding:22px 0 14px}.chain-node,.chain-node:nth-child(n){min-height:0;margin-bottom:22px;padding:.8rem .9rem;display:grid;grid-template-columns:auto 1fr;gap:.25rem .7rem}.node-index{grid-row:1/3}.chain-node h3{margin:0;font-size:1rem}.chain-node>p{margin:0;font-size:.72rem}.node-tags{grid-column:1/-1;margin-top:.55rem;display:flex}.node-tags span{width:auto;border:1px solid var(--lead);padding:.22rem .35rem}.chain-arrow,.chain-node:nth-child(n) .chain-arrow{display:block;left:50%;right:auto;top:auto;bottom:-19px;transform:translateX(-50%) rotate(90deg);background:var(--paper)}.return-line{text-align:left;line-height:1.6}.support-bands section{grid-template-columns:1fr;gap:.3rem}.mechanisms{grid-template-columns:1fr}.mechanisms article,.mechanisms article:last-child{grid-column:auto;min-height:0}.mechanisms h3{margin-top:1rem}}
+</style>

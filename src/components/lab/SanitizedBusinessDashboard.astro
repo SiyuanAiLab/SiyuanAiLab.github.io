@@ -1,0 +1,111 @@
+---
+const domains = [
+  ['商业经营', '稳定', '目标与项目持续推进', 'stable'],
+  ['个人 IP', '关注', '内容管线正在运转', 'attention'],
+  ['知识管理', '稳定', '输入与沉淀有序衔接', 'stable'],
+  ['人脉', '关注', '关系维护等待安排', 'attention'],
+  ['健康', '稳定', '按计划观察与回看', 'stable'],
+  ['财务', '稳定', '检查节点已经明确', 'stable'],
+  ['系统', '待判断', '一项规则等待确认', 'decision'],
+];
+
+const pipelines = [
+  ['内容生产', '运行中'],
+  ['知识沉淀', '运行中'],
+  ['项目交付', '等待输入'],
+];
+
+const decisions = [
+  ['已决策', '一个公开页面进入制作', '已授权'],
+  ['已决策', '一项内容进入审阅', '已授权'],
+  ['待判断', '本周优先级需要拍板', '等待人'],
+];
+
+const collaborators = [
+  ['思远', '判断与授权'],
+  ['CC', '理解与调度'],
+  ['Codex', '执行与验证'],
+];
+---
+
+<figure class="business-dashboard" aria-labelledby="dashboard-caption">
+  <header class="dashboard-masthead">
+    <div>
+      <p>七域经营仪表盘</p>
+      <h3>今天先处理需要判断的事</h3>
+    </div>
+    <p class="dashboard-prompt">状态用于定位问题，不用于制造忙碌感。</p>
+  </header>
+
+  <div class="dashboard-columns">
+    <section class="dashboard-column dashboard-situation" aria-labelledby="situation-title">
+      <div class="dashboard-section-title">
+        <h4 id="situation-title">七域状态</h4>
+        <span>现状</span>
+      </div>
+      <div class="dashboard-domain-list">
+        {domains.map(([name, status, note, state]) => (
+          <article>
+            <span class={`dashboard-state is-${state}`}>{status}</span>
+            <strong>{name}</strong>
+            <p>{note}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="dashboard-split-block">
+        <section aria-labelledby="pipeline-status-title">
+          <div class="dashboard-section-title compact">
+            <h4 id="pipeline-status-title">管线</h4>
+            <span>工作系统</span>
+          </div>
+          <dl class="dashboard-pipelines">
+            {pipelines.map(([name, status]) => <div><dt>{name}</dt><dd>{status}</dd></div>)}
+          </dl>
+        </section>
+        <section aria-labelledby="health-title">
+          <div class="dashboard-section-title compact">
+            <h4 id="health-title">系统健康</h4>
+            <span>结构检查</span>
+          </div>
+          <p class="dashboard-health">规则可读<br/>交接可查<br/>边界明确</p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="dashboard-column dashboard-action" aria-labelledby="action-title">
+      <div class="dashboard-section-title">
+        <h4 id="action-title">判断与行动</h4>
+        <span>下一步</span>
+      </div>
+      <div class="dashboard-decision-list">
+        {decisions.map(([type, text, state], index) => (
+          <article class={index === decisions.length - 1 ? 'needs-decision' : ''}>
+            <span>{type}</span>
+            <strong>{text}</strong>
+            <small>{state}</small>
+          </article>
+        ))}
+      </div>
+
+      <section class="dashboard-collaborators" aria-labelledby="collaborators-title">
+        <div class="dashboard-section-title compact">
+          <h4 id="collaborators-title">协作角色</h4>
+          <span>分工</span>
+        </div>
+        <dl>
+          {collaborators.map(([name, role]) => <div><dt>{name}</dt><dd>{role}</dd></div>)}
+        </dl>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="dashboard-resources">
+    <strong>通用资源入口</strong>
+    <span>工作规则</span>
+    <span>任务入口</span>
+    <span>项目档案</span>
+    <span>知识索引</span>
+  </footer>
+  <figcaption id="dashboard-caption">同一张仪表盘，左边看七域现状，右边集中处理判断与行动。</figcaption>
+</figure>
