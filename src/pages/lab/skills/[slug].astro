@@ -117,8 +117,8 @@ const { skill } = Astro.props;
           <h1 id="skill-title">{skill.name}</h1>
           <p class="hero-lede">{skill.summary}</p>
           <div class="hero-actions">
-            <a href="/contact/" class="btn">联系获取</a>
-            <a href="/lab/skills/" class="btn btn-outline">返回 Skill 展厅</a>
+            <a href="/lab/skills/" class="btn">返回 Skill 展厅</a>
+            <a href="/contact/" class="btn btn-outline">关注更新</a>
           </div>
         </div>
 
@@ -134,8 +134,8 @@ const { skill } = Astro.props;
               <dd>{skill.placeholder ? "简洁占位，二期补齐" : "已按 Brief 补齐"}</dd>
             </div>
             <div>
-              <dt>获取方式</dt>
-              <dd>联系获取</dd>
+              <dt>开放方式</dt>
+              <dd>按完成度逐步公开</dd>
             </div>
           </dl>
         </aside>
@@ -204,9 +204,9 @@ const { skill } = Astro.props;
         <div>
           <p class="kicker">当前状态</p>
           <h2 id="final-title">{skill.status}</h2>
-          <p>本期所有 Skill 获取入口统一走联系页，不接入站内支付。</p>
+          <p>经过校验的 Skill 会按页面状态逐步公开；未完成内容只展示结构和整理进度。</p>
         </div>
-        <a href="/contact/" class="btn">联系获取</a>
+        <a href="/lab/skills/" class="btn">查看 Skill 展厅</a>
       </div>
     </section>
   </main>

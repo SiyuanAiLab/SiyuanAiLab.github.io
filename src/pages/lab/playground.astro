@@ -6,10 +6,10 @@ import Footer from '../../components/Footer.astro';
 const projects = [
   {
     name: "赛博六爻",
-    type: "Demo / 可合作",
-    status: "程序可用，缺产品化包装",
-    desc: "Agent 模拟传统六爻起卦与解卦，也可以作为硬件玩具继续产品化。",
-    actions: ["体验", "关注", "谈合作"],
+    type: "Demo / 公开记录",
+    status: "程序可用，说明仍在整理",
+    desc: "Agent 模拟传统六爻起卦与解卦，也可以继续做成一个硬件玩具。",
+    actions: ["查看", "关注更新", "等待说明"],
   },
   {
     name: "更多项目占位",
@@ -21,7 +21,7 @@ const projects = [
 ];
 ---
 
-<Layout title="趣味展厅" description="思远 AI Lab 的趣味展厅，展示赛博六爻等玩具和实验想法。">
+<Layout title="趣味展厅" description="纸间拾光的趣味展厅，展示赛博六爻等玩具和实验想法。">
   <Header />
 
   <main class="site-main playground-page">
@@ -38,7 +38,7 @@ const projects = [
     <section class="section" aria-labelledby="toy-title">
       <div class="container">
         <p class="kicker">首期 Demo / 玩具</p>
-        <h2 id="toy-title" class="section-title">赛博六爻放在趣味展厅，也保留合作入口</h2>
+        <h2 id="toy-title" class="section-title">赛博六爻放在趣味展厅，记录它如何继续生长</h2>
         <div class="toy-grid">
           {projects.map(project => (
             <article class="toy-card">
@@ -55,7 +55,7 @@ const projects = [
                   <dd>{project.actions.join(" / ")}</dd>
                 </div>
               </dl>
-              <a href="/contact/" class="btn btn-outline">联系获取</a>
+              <a href="/contact/" class="btn btn-outline">关注更新</a>
             </article>
           ))}
         </div>

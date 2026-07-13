@@ -18,12 +18,12 @@ const isActive = (href: string) => {
 
 <header class="site-header">
   <div class="container">
-    <a href="/" class="site-title">思远 AI Lab</a>
+    <a href="/" class="site-title">纸间拾光</a>
     <nav class="site-nav">
       {navItems.map(item => (
         <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
-    <p class="site-tagline">一人 AI 公司 · 整理真实世界的可复用判断</p>
+    <p class="site-tagline">杨思远的 AI 实践与开源记录</p>
   </div>
 </header>

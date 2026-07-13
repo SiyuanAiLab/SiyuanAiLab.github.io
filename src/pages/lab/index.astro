@@ -15,11 +15,11 @@ const zones = [
     desc: "从真实工作中提炼出的可复用方法，保留现有展品与状态说明。",
   },
   {
-    title: "众筹与趣味展厅",
+    title: "项目与趣味展厅",
     href: "/lab/crowdfunding/",
     secondaryHref: "/lab/playground/",
-    label: "可合作项目 / 玩具实验",
-    desc: "记录实验与半成品，展示探索过程；内部页面保持现状。",
+    label: "项目记录 / 玩具实验",
+    desc: "记录实验、半成品和探索过程，不把未完成想法包装成成品。",
   },
 ];
 ---
@@ -36,7 +36,7 @@ const zones = [
         <div class="exhibit-list">
           {zones.map((zone, index) => (
             <article class="exhibit">
-              <span class="exhibit-index">{String(index + 1).padStart(2, "0")}</span><div><p class="lab-label">{zone.label}</p><h3>{zone.title}</h3></div><p>{zone.desc}</p><div class="exhibit-actions"><a class="lab-link" href={zone.href}>{zone.secondaryHref ? '进入众筹展厅' : '进入展区'}</a>{zone.secondaryHref && <a class="lab-link" href={zone.secondaryHref}>看趣味实验</a>}</div>
+              <span class="exhibit-index">{String(index + 1).padStart(2, "0")}</span><div><p class="lab-label">{zone.label}</p><h3>{zone.title}</h3></div><p>{zone.desc}</p><div class="exhibit-actions"><a class="lab-link" href={zone.href}>{zone.secondaryHref ? '进入项目展厅' : '进入展区'}</a>{zone.secondaryHref && <a class="lab-link" href={zone.secondaryHref}>看趣味实验</a>}</div>
             </article>
           ))}
         </div>

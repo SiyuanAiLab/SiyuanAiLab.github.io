@@ -70,7 +70,7 @@
       "id": "skill-library",
       "title": "Skill 参考库",
       "title_en": "Skill Library",
-      "description": "Agent 可参考、可调用、可改造的能力合集，按企业服务和知识工作场景分类。",
+      "description": "Agent 可参考、可调用、可改造的能力合集，按个人项目和知识工作场景分类。",
       "subcategories": [
         {
           "id": "writing-content",
@@ -88,7 +88,7 @@
           "id": "communication-collaboration",
           "title": "沟通与协作",
           "title_en": "Communication & Collaboration",
-          "description": "会议记录、邮件草稿、行动项提取、客户沟通和团队同步。"
+          "description": "会议记录、邮件草稿、行动项提取、外部沟通和团队同步。"
         },
         {
           "id": "product-project",

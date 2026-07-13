@@ -4,11 +4,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const pageTitle = "关于";
-const pageDescription = "杨思远，38 岁，现居宁波。12 年营销实战，10 年管理层经验。思远 AI Lab 是他作为先行者开放 AI 工作方式的窗口。";
+const pageDescription = "杨思远，38 岁，现居宁波。16 年营销实战，10 年管理层经验。纸间拾光是他记录并开放个人 AI 工作方式的窗口。";
 
 const quickFacts = [
   { label: "现居", value: "宁波" },
-  { label: "背景", value: "12 年营销实战" },
+  { label: "背景", value: "16 年营销实战" },
   { label: "定位", value: "先行者 / 开源窗口" },
 ];
 
@@ -47,7 +47,7 @@ const differences = [
   },
   {
     title: "不是 AI 工具推销员",
-    desc: "重点不是推荐工具，而是看懂生意链路，再决定 AI 应该放在哪里。",
+    desc: "重点不是推荐工具，而是看懂真实工作，再决定 AI 应该放在哪里。",
   },
   {
     title: "和 AI 对抗者",
@@ -68,17 +68,17 @@ const differences = [
 ];
 
 const facts = [
-  "12 年营销实战，10 年管理层经验。",
+  "16 年营销实战，10 年管理层经验。",
   "美克家居区域营销，两次从全国倒一做到第一。",
   "短视频创业「育儿侦探」系列，3-5 个月涨粉 120 万，字节签约。",
-  "现居宁波，一人 AI 创业公司筹备期。",
-  "核心产品方向是企业 AI 服务，包含商业咨询与 AI 辅助。",
+  "现居宁波，持续记录个人 AI 工作方式的形成过程。",
+  "纸间拾光用于公开个人操作系统、Skill 与实验记录。",
 ];
 
 const useCases = [
-  "你有业务，但不知道 AI 该放进哪段流程。",
-  "你不是程序员，但想让一个人的小生意更像系统一样运转。",
-  "你需要有人帮你把混乱想法拆成内容、产品或工作机制。",
+  "你想看一个非技术背景的人如何把 AI 放进真实工作。",
+  "你希望让一个人的工作更像系统一样运转。",
+  "你正在把混乱想法拆成内容、项目或可复用的工作机制。",
 ];
 ---
 
@@ -89,13 +89,13 @@ const useCases = [
     <section class="about-hero" aria-labelledby="about-title">
       <div class="container about-hero-grid">
         <div class="about-copy">
-          <p class="kicker">思远 AI Lab 使用说明</p>
+          <p class="kicker">纸间拾光使用说明</p>
           <h1 id="about-title">一个先行者的 AI 工作方式开源窗口。</h1>
           <p class="about-lede">
-            杨思远，38 岁，现居宁波。12 年营销实战，10 年管理层经验。他不是程序员，而是一个把业务流程拆清楚的人。
+            杨思远，38 岁，现居宁波。16 年营销实战，10 年管理层经验。他不是程序员，而是一个把复杂工作拆清楚的人。
           </p>
           <p>
-            现在我把思远 AI Lab 当作公开展厅：一边记录判断，一边开放个人操作系统、Skill 和实验项目。这里强调“先行者”，不包装成权威。
+            现在我把纸间拾光当作公开展厅：一边记录判断，一边开放个人操作系统、Skill 和实验项目。这里强调“先行者”，不包装成权威。
           </p>
           <div class="about-actions">
             <a href="/lab/" class="btn">进入实验室</a>
@@ -121,9 +121,9 @@ const useCases = [
     <section class="section use-section" aria-labelledby="use-title">
       <div class="container use-grid">
         <div>
-          <h2 id="use-title" class="section-title">什么时候适合找我</h2>
+          <h2 id="use-title" class="section-title">你会在这里看到什么</h2>
           <p class="section-lede">
-            如果你只是想学一个新工具，可能不需要我。如果你想重新设计工作方式，这里会更有用。
+            这里不追逐工具清单，主要记录工作方式如何被重新设计，以及判断怎样沉淀成可复用结构。
           </p>
         </div>
         <div class="use-list">
@@ -182,16 +182,16 @@ const useCases = [
     <section class="section product-section" aria-labelledby="about-product-title">
       <div class="container about-product">
         <div>
-          <p class="kicker">当前产品入口</p>
-          <h2 id="about-product-title">先从个人操作系统和 Skill 装备开始</h2>
+          <p class="kicker">当前开放内容</p>
+          <h2 id="about-product-title">先从个人操作系统和 Skill 开始</h2>
           <p>
-            1.0 阶段不做复杂商城，也不接入站内支付。实验室先展示个人操作系统、Skill 包和教程，付费会员通过联系获取。
+            实验室展示个人操作系统、Skill 和教程的形成过程。经过脱敏和校验的内容会按页面状态逐步公开。
           </p>
         </div>
         <div class="product-summary">
-          <p>个人操作系统部署包</p>
-          <p>可复用 Skill 包</p>
-          <p>付费会员 ¥299/年，联系获取</p>
+          <p>个人操作系统公开演示</p>
+          <p>可复用 Skill 说明</p>
+          <p>开源进度与使用记录</p>
           <a href="/lab/" class="btn">查看实验室</a>
         </div>
       </div>
@@ -203,7 +203,7 @@ const useCases = [
           <p class="kicker">下一步</p>
           <h2 id="about-cta-title">先读判断，再看展厅。</h2>
           <p>
-            如果你想看具体判断和搭建过程，可以先读《清醒时刻》和《落地志》。如果想获取系统和装备，可以进入实验室或联系获取。
+            如果你想看具体判断和搭建过程，可以先读《清醒时刻》和《落地志》；想继续了解系统结构，可以进入实验室或关注后续更新。
           </p>
         </div>
         <div class="about-actions">

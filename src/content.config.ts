@@ -49,7 +49,7 @@ const knowledge = defineCollection({
     verifiedDate: z.coerce.date().optional(),
     source: z.string(),
     sourcePath: z.string().optional(),
-    curated_by: z.string().default('杨思远 / 思远 AI Lab'),
+    curated_by: z.string().default('杨思远 / 纸间拾光'),
     public: z.literal(true),
     draft: z.boolean().default(false),
   }),

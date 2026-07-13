@@ -51,11 +51,11 @@ export const cockpitModules: DemoModule[] = [
   },
   {
     id: 'business',
-    label: '商业经营',
-    title: '商业经营',
+    label: '项目管理',
+    title: '项目管理',
     kicker: '项目、判断和下一动作在同一张经营视图里。',
     metrics: [
-      { label: '商业项目', value: '5', note: '统一项目口径', tone: 'green' },
+      { label: '个人项目', value: '5', note: '统一项目口径', tone: 'green' },
       { label: '当前焦点', value: '1', note: '资源优先保障', tone: 'accent' },
       { label: '待判断', value: '5', note: '与总览一致', tone: 'yellow' },
       { label: '待推进', value: '3', note: '已有明确动作', tone: 'green' }
@@ -63,7 +63,7 @@ export const cockpitModules: DemoModule[] = [
     rows: [
       { name: '内容工作台', meta: '核心项目', value: '验证期', state: '正常', tone: 'green' },
       { name: '知识助手', meta: '能力项目', value: '建设期', state: '待判断', tone: 'yellow' },
-      { name: '客户反馈系统', meta: '基础设施', value: '运行期', state: '推进中', tone: 'green' }
+      { name: '读者反馈系统', meta: '基础设施', value: '运行期', state: '推进中', tone: 'green' }
     ]
   },
   {
@@ -112,8 +112,8 @@ export const cockpitModules: DemoModule[] = [
       { label: '场景聚合', value: '3', note: '按关系目的分组', tone: 'accent' }
     ],
     rows: [
-      { name: '联系人 A', meta: '合作沟通', value: '2 项承诺', state: '本周跟进', tone: 'yellow' },
-      { name: '联系人 B', meta: '用户反馈', value: '1 项承诺', state: '等待回复', tone: 'muted' },
+      { name: '联系人 A', meta: '交流记录', value: '2 项承诺', state: '本周跟进', tone: 'yellow' },
+      { name: '联系人 B', meta: '读者反馈', value: '1 项承诺', state: '等待回复', tone: 'muted' },
       { name: '联系人 C', meta: '同行交流', value: '1 项承诺', state: '已安排', tone: 'green' }
     ]
   },

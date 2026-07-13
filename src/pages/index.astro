@@ -12,7 +12,7 @@ import workflowData from '../data/workflow-cards.json';
 import '../styles/home.css';
 
 const pageTitle = '首页';
-const pageDescription = '思远 AI Lab，帮非技术创业者把 AI 放进真实工作流。判断比工具更重要，机制比灵感更可靠。';
+const pageDescription = '纸间拾光，记录一个非技术背景的人如何把 AI 放进真实工作流。判断比工具更重要，机制比灵感更可靠。';
 
 const allArticles = await getCollection('articles');
 const publishedArticles = allArticles
@@ -30,7 +30,7 @@ const hubRoutes = [
     number: '01',
     name: 'AI·LAB',
     value: '接受变化，创建、创造与 AI 协同的工作机制。',
-    evidence: '个人操作系统 / Skill 展厅 / 众筹与趣味实验',
+    evidence: '个人操作系统 / Skill 展厅 / 项目与趣味实验',
     meta: '3 个展区',
     cta: '进入 AI·LAB',
     href: '/lab/',
@@ -74,8 +74,8 @@ const labZones = [
     href: '/lab/skills/',
   },
   {
-    name: '众筹与趣味展厅',
-    description: '记录可合作项目、半成品与仍在生长中的实验。',
+    name: '项目与趣味展厅',
+    description: '记录半成品、玩具和仍在生长中的个人实验。',
     href: '/lab/crowdfunding/',
   },
 ];
@@ -87,7 +87,7 @@ const labZones = [
   <main class="site-main home-page">
     <section class="home-intro" aria-labelledby="home-title">
       <div class="container home-hero" data-reveal>
-        <p class="home-brand">思远 AI Lab</p>
+        <p class="home-brand">纸间拾光</p>
         <div class="home-title-wrap">
           <h1 id="home-title">
             <span class="home-title-line">判断比</span>
@@ -95,7 +95,7 @@ const labZones = [
           </h1>
           <p class="home-editor-note">先有判断，才有真正有价值的 AI 工作流。</p>
         </div>
-        <p class="home-lede">帮非技术创业者把 AI 放进真实工作流，而不是停留在工具收集。</p>
+        <p class="home-lede">记录我如何把 AI 放进真实工作流，而不是停留在工具收集。</p>
       </div>
 
       <div class="container" data-reveal>
@@ -149,9 +149,9 @@ const labZones = [
 
     <section class="home-contact" aria-labelledby="home-contact-title" data-reveal>
       <div class="container home-contact-grid">
-        <h2 id="home-contact-title">有真实问题，再开始合作。</h2>
-        <p>先说目标、现状和边界。我会先判断是否适合继续。</p>
-        <a class="btn" href="/contact/">联系思远</a>
+        <h2 id="home-contact-title">如果这些记录对你有用，继续关注更新。</h2>
+        <p>公众号发布长文和阶段进展，联系页保留公开交流入口。</p>
+        <a class="btn" href="/contact/">关注与联系</a>
       </div>
     </section>
   </main>

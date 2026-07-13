@@ -9,22 +9,24 @@ interface Props {
 
 const {
   title,
-  description = "杨思远，AI 机制设计师。帮非技术创业者设计 AI 时代的工作方式。",
-  author = "杨思远 / 思远 AI Lab",
+  description = "纸间拾光，杨思远的 AI 实践与开源记录。",
+  author = "杨思远",
 } = Astro.props;
+
+const siteName = "纸间拾光";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: `${title} | 思远 AI Lab`,
+  name: `${title} | ${siteName}`,
   description,
   author: {
     "@type": "Person",
     name: author,
   },
   publisher: {
-    "@type": "Organization",
-    name: "思远 AI Lab",
+    "@type": "Person",
+    name: "杨思远",
   },
 };
 ---
@@ -37,7 +39,7 @@ const structuredData = {
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} | 思远 AI Lab</title>
+    <title>{title} | {siteName}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -6,27 +6,27 @@ import Footer from '../../components/Footer.astro';
 const projects = [
   {
     name: "赛博六爻",
-    type: "硬件 Demo / 暂不开放",
-    status: "项目暂不公开承压",
+    type: "硬件 Demo / 实验记录",
+    status: "持续整理中",
     desc: "M5StickC Plus 起卦玩具，按键 + 摇晃起卦，屏幕显示卦象与白话解读。",
     shape: "基于 M5StickC Plus 的固件，v0.4 已编译验证",
     done: ["起卦逻辑", "屏幕动画", "64 卦白话解读"],
-    gap: ["暂不开放合作入口", "暂不公开承压", "后续成熟后再开放"],
-    actions: ["先关注更新", "等待后续成熟版本", "暂不主动承接合作"],
+    gap: ["不提供未校验固件", "不公开个人设备数据", "成熟后再补充开源说明"],
+    actions: ["阅读实验记录", "关注后续更新", "等待开源说明"],
   },
 ];
 ---
 
-<Layout title="众筹展厅" description="思远 AI Lab 的众筹展厅，展示半成品、Demo 和可合作项目。">
+<Layout title="项目实验展厅" description="纸间拾光的项目实验展厅，记录半成品、Demo 和仍在迭代的个人项目。">
   <Header />
 
   <main class="site-main crowdfunding-page">
     <section class="crowd-hero" aria-labelledby="crowd-title">
       <div class="container">
-        <p class="kicker">众筹展厅</p>
-        <h1 id="crowd-title">半成品与可合作项目</h1>
+        <p class="kicker">项目实验展厅</p>
+        <h1 id="crowd-title">半成品与个人实验</h1>
         <p class="hero-lede">
-          这些项目暂不公开承压，也暂不开放合作入口。后续等概念、交付方式和合作边界成熟后，再开放出来。
+          这里保留尚未完成的探索过程。经过整理和校验的内容会补充公开说明，未完成部分只记录状态。
         </p>
       </div>
     </section>
@@ -34,7 +34,7 @@ const projects = [
     <section class="section" aria-labelledby="projects-title">
       <div class="container">
         <p class="kicker">首期项目</p>
-        <h2 id="projects-title" class="section-title">先归档，不承接</h2>
+        <h2 id="projects-title" class="section-title">先记录，再逐步整理</h2>
 
         <div class="project-list">
           {projects.map(project => (

@@ -40,6 +40,7 @@ const nextCard = currentIndex < columnCards.length - 1 ? columnCards[currentInde
 const verifiedDateStr = entry?.data.verifiedDate
   ? new Date(entry.data.verifiedDate).toLocaleDateString('zh-CN')
   : '';
+const curatorLabel = entry?.data.curated_by?.replaceAll('思远 AI Lab', '纸间拾光');
 ---
 
 <Layout title={`${card.title} - ${column?.title ?? 'AI 核心概念'} - AI·外脑`} description={card.summary}>
@@ -61,7 +62,7 @@ const verifiedDateStr = entry?.data.verifiedDate
           <p class="kicker">{column?.title} · {card.id}</p>
           <h1>{entry?.data.title ?? `${card.title}（${card.title_en}）`}</h1>
           <div class="meta-row">
-            {entry?.data.curated_by && <span>{entry.data.curated_by}</span>}
+            {curatorLabel && <span>{curatorLabel}</span>}
             {verifiedDateStr && <span>· {verifiedDateStr}</span>}
             {entry?.data.confidence && <span>· 置信度：{entry.data.confidence}</span>}
           </div>

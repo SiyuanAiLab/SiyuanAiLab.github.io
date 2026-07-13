@@ -58,6 +58,7 @@ const nextCard = currentIndex < categoryCards.length - 1 ? categoryCards[current
 const verifiedDateStr = card.data.verifiedDate
   ? new Date(card.data.verifiedDate).toLocaleDateString('zh-CN')
   : '';
+const curatorLabel = card.data.curated_by.replaceAll('思远 AI Lab', '纸间拾光');
 
 const sourceSubcategoryOrder = [
   '信源分级与框架',
@@ -146,7 +147,7 @@ const sidebarGroups = card.data.category === 'sources'
           <p class="kicker">{categoryLabels[card.data.category]} · {card.data.level}</p>
           <h1>{card.data.title}</h1>
           <div class="meta-row">
-            <span class="curated">{card.data.curated_by}</span>
+            <span class="curated">{curatorLabel}</span>
             {verifiedDateStr && <span>· {verifiedDateStr}</span>}
             <span>· 置信度：{card.data.confidence}</span>
           </div>

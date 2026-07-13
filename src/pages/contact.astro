@@ -5,30 +5,30 @@ import Footer from '../components/Footer.astro';
 
 const contactRoutes = [
   {
-    title: "免费入口",
+    title: "阅读公开内容",
     label: "文章 / AI·外脑",
-    desc: "先读公开文章和 AI·外脑占位内容，判断这套 AI 工作方式是否适合你。",
+    desc: "先读公开文章、知识卡片和工作流，了解这套个人 AI 工作方式。",
   },
   {
-    title: "付费会员",
-    label: "¥299/年会员",
-    desc: "联系微信获取，确认后手动发送网盘链接。1.0 会员先围绕 Skill 包和教程开放线上内容。",
+    title: "关注长期更新",
+    label: "公众号",
+    desc: "公众号持续发布观察日记、搭建过程和阶段复盘。",
   },
   {
-    title: "合作入口",
-    label: "暂不开放",
-    desc: "合作入口暂不开放，先不承压；后续等服务边界成熟后再开放。",
+    title: "交流使用反馈",
+    label: "个人微信",
+    desc: "微信用于围绕公开内容交换想法和使用反馈，不承诺固定回复时间。",
   },
 ];
 
 const pendingItems = [
-  "付费会员权益确认中，暂不开放站内支付。",
-  "¥299/年会员通过微信联系获取，确认后手动发送网盘链接。",
-  "合作入口暂不开放，先不承压。",
+  "公开文章和知识内容可以直接浏览。",
+  "Skill 与个人操作系统按完成度逐步开放说明。",
+  "未完成、未校验或涉及个人数据的内容不会公开。",
 ];
 ---
 
-<Layout title="联系" description="联系杨思远，关注公众号「思远AiLab」，添加微信 ysy61879257，获取思远 AI Lab 更新。">
+<Layout title="联系" description="联系杨思远，关注公众号「思远AiLab」，添加微信 ysy61879257，了解纸间拾光更新。">
   <Header />
 
   <main class="site-main contact-page">
@@ -36,9 +36,9 @@ const pendingItems = [
       <div class="container contact-hero-grid">
         <div>
           <p class="kicker">联系与关注</p>
-          <h1 id="contact-title">先关注更新，再决定要不要深入。</h1>
+          <h1 id="contact-title">关注更新，也欢迎交换真实使用反馈。</h1>
           <p class="hero-lede">
-            思远 AI Lab 1.0 不在站内做支付和复杂表单。公众号负责更新，微信负责沟通，会员通过微信联系获取，确认后手动发送网盘链接。
+            公众号负责发布长文和阶段进展，微信保留个人交流入口。这里仅用于内容发布和个人交流。
           </p>
           <div class="contact-actions">
             <a href="/lab/" class="btn">查看实验室</a>
@@ -59,7 +59,7 @@ const pendingItems = [
     <section class="section route-section" aria-labelledby="route-title">
       <div class="container">
           <p class="kicker">入口分流</p>
-        <h2 id="route-title" class="section-title">你现在可以走三条路</h2>
+        <h2 id="route-title" class="section-title">你现在可以从三处继续</h2>
         <div class="route-grid">
           {contactRoutes.map(route => (
             <article class="route-card">
@@ -75,10 +75,10 @@ const pendingItems = [
     <section class="section pending-section" aria-labelledby="pending-title">
       <div class="container pending-panel">
         <div>
-          <p class="kicker">上线前待补</p>
-          <h2 id="pending-title">会员手动发放，合作暂不开放</h2>
+          <p class="kicker">公开边界</p>
+          <h2 id="pending-title">先把真实过程说明白</h2>
           <p>
-            当前只展示真实联系方式，不假装已经有完整商业闭环。会员走微信确认和网盘发放，合作入口先不承压。
+            当前公开的是个人实践、开源进度和经过脱敏的示例。没有完成校验的内容，会明确标注状态而不是提供占位入口。
           </p>
         </div>
         <ul class="pending-list">
