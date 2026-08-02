@@ -44,7 +44,7 @@ GPT Image 是 OpenAI 的图像生成模型系列，包括 gpt-image-2、gpt-imag
 - **GitHub**：无（闭源）
 - **RSS / 动态**：https://openai.com/news/rss.xml
 - **当前主要版本 / 模型矩阵**：gpt-image-2、gpt-image-1.5、gpt-image-1-mini
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：按量付费（API）+ 包含在 ChatGPT 订阅中
 
 ## 四、典型用法（0→1→2→3）

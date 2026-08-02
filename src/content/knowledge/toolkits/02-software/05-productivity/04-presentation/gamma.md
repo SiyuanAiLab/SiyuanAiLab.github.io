@@ -44,7 +44,7 @@ Gamma 是一个 AI 演示工具，可以从 prompt、文档或大纲生成 PPT�
 - **GitHub**：无
 - **RSS / 动态**：https://gamma.app/blog
 - **当前主要版本 / 模型矩阵**：AI presentation、docs、webpages
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Freemium + 订阅制；Free / Plus / Pro / Team / Enterprise
 
 ## 四、典型用法（0→1→2→3）

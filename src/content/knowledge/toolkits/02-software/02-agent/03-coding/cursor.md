@@ -44,7 +44,7 @@ Cursor 把 AI 从“辅助写代码”推进到“参与整个开发流程”，
 - **GitHub**：无
 - **RSS / 动态**：https://cursor.com/blog
 - **当前主要版本 / 模型矩阵**：AI IDE，支持多模型、Tab 补全、Agent、Bugbot
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Freemium + 订阅制 + usage；个人 Pro / Pro+ / Ultra，Teams 计划
 
 ## 四、典型用法（0→1→2→3）

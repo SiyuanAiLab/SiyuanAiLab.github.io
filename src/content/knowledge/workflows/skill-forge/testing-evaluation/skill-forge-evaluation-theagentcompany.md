@@ -29,7 +29,7 @@ TheAgentCompany 解决的是 Agent 在真实办公环境中能否完成复杂工
 
 ## 核心逻辑
 
-真实输入是 175 个任务镜像、预置企业服务数据、`/instruction/task.md`、agent 轨迹、环境 LLM 配置和评估密钥。处理逻辑是：先启动 GitLab、Plane、ownCloud、RocketChat、API server 等服务；每个任务启动 Docker 容器并运行 `/utils/init.sh` 初始化环境；Agent 只应读取任务说明并完成工作；完成后用 `/utils/eval.py` 调 encrypted evaluator 评分，部分任务还用 LLM/NPC 作为同事或语义评估器。输出是 JSON 分数、checkpoint 结果、轨迹、截图和汇总报告。
+真实输入是 175 个任务镜像、预置业务系统数据、`/instruction/task.md`、agent 轨迹、环境 LLM 配置和评估密钥。处理逻辑是：先启动 GitLab、Plane、ownCloud、RocketChat、API server 等服务；每个任务启动 Docker 容器并运行 `/utils/init.sh` 初始化环境；Agent 只应读取任务说明并完成工作；完成后用 `/utils/eval.py` 调 encrypted evaluator 评分，部分任务还用 LLM/NPC 作为同事或语义评估器。输出是 JSON 分数、checkpoint 结果、轨迹、截图和汇总报告。
 
 ## 技术结构
 

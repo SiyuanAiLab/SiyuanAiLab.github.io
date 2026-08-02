@@ -44,7 +44,7 @@ Runway 在 AI 视频的可控性上领先，适合做需要精确镜头、角色
 - **GitHub**：无
 - **RSS / 动态**：https://runwayml.com/research
 - **当前主要版本 / 模型矩阵**：Gen-4.5、Gen-4 Turbo、Aleph
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Freemium + 订阅制 + credits；Standard / Pro 等档位
 
 ## 四、典型用法（0→1→2→3）

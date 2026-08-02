@@ -44,7 +44,7 @@ Codex 把云端模型能力与本地终端结合，并且开源了 CLI，让开�
 - **GitHub**：https://github.com/openai/codex
 - **RSS / 动态**：https://openai.com/news/rss.xml
 - **当前主要版本 / 模型矩阵**：Codex CLI、Codex Web、IDE 插件
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：包含在 ChatGPT 订阅中；Codex CLI 按底层模型调用计费
 
 ## 四、典型用法（0→1→2→3）

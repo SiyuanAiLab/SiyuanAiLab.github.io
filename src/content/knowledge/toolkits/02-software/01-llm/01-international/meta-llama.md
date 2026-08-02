@@ -45,7 +45,7 @@ Meta Llama 是由 Meta AI 发布的大语言模型系列，提供开放权重下
 - **Hugging Face**：https://huggingface.co/meta-llama
 - **RSS / 动态**：https://ai.meta.com/blog/
 - **当前主要版本 / 模型矩阵**：Llama 4 Scout、Llama 4 Maverick、Llama 4 Behemoth（预览）；Llama 3.3 / 3.2 / 3.1 仍可用
-- **国内可用性**：权重可下载，本地/云部署可用；官方 meta.ai 服务需翻墙
+- **国内可用性**：权重可下载，本地/云部署可用；官方 meta.ai 服务的可用地区以官方说明为准
 - **定价模式**：开源权重 / source-available 许可；无官方统一 API，自部署产生硬件/云成本
 
 ## 四、典型用法（0→1→2→3）

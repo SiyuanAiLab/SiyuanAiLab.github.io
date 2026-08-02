@@ -44,7 +44,7 @@ Cursor 和 GitHub Copilot 主要活跃在 IDE 内，而 Claude Code 把 AI 带�
 - **GitHub**：无
 - **RSS / 动态**：https://www.anthropic.com/news
 - **当前主要版本 / 模型矩阵**：随 Claude 模型矩阵更新
-- **国内可用性**：需翻墙；依赖 Claude 服务
+- **国内可用性**：依赖 Claude 服务；访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Claude 订阅 + API 按量
 
 ## 四、典型用法（0→1→2→3）

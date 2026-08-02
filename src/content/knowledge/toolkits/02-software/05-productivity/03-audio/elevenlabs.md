@@ -44,7 +44,7 @@ ElevenLabs 是一个 AI 语音平台，提供文本转语音（TTS）、声音�
 - **GitHub**：https://github.com/elevenlabs
 - **RSS / 动态**：https://elevenlabs.io/blog
 - **当前主要版本 / 模型矩阵**：Text to Speech、Voice Changer、Dubbing、Conversational AI、API
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Freemium + 订阅制 + API；credits 跨产品共享
 
 ## 四、典型用法（0→1→2→3）

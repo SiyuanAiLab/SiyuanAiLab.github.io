@@ -46,7 +46,7 @@ Claude 在长文档理解、代码审查、研究分析和 Agent 工作流中定
 - **GitHub**：https://github.com/anthropics
 - **RSS / 动态**：https://www.anthropic.com/news
 - **当前主要版本 / 模型矩阵**：Claude Fable 5、Claude Mythos 5、Claude Opus 4.8、Claude Sonnet 5、Claude Haiku 4.5 等（以官方模型页为准）
-- **国内可用性**：Claude 网页/APP 需翻墙；API 需海外环境
+- **国内可用性**：官方未面向中国大陆提供稳定服务；实际可用性以官方支持地区为准
 - **定价模式**：订阅制 + API 按量付费
 
 ## 四、典型用法（0→1→2→3）

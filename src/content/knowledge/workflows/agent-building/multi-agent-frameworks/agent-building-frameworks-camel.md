@@ -44,7 +44,7 @@ CAMEL 的价值在于它把 Agent Building 扩展到“实验平台”层面：�
 
 ## 为什么不建议直接套用
 
-CAMEL 的模块面很广，研究味较重。对企业服务或内容工作流来说，直接引入会带来过多概念：agent society、datagen、runtime、benchmark、retriever、interpreter 等都需要理解。README 的 quickstart 也显示工具能力往往需要额外依赖和 API key；若只是想让 2 到 3 个内部 Agent 协作，使用 CAMEL 可能会淹没在研究组件里。
+CAMEL 的模块面很广，研究味较重。对具体业务或内容工作流来说，直接引入会带来过多概念：agent society、datagen、runtime、benchmark、retriever、interpreter 等都需要理解。README 的 quickstart 也显示工具能力往往需要额外依赖和 API key；若只是想让 2 到 3 个内部 Agent 协作，使用 CAMEL 可能会淹没在研究组件里。
 
 ## 如何改造成自己的版本
 

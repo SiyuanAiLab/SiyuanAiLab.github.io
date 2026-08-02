@@ -46,7 +46,7 @@ Gemini 与 Google 搜索、YouTube、Google Workspace、Google Cloud 深度集�
 - **GitHub**：https://github.com/google-gemini
 - **RSS / 动态**：https://ai.google.dev/gemini-api/docs/changelog
 - **当前主要版本 / 模型矩阵**：Gemini 3 / 3.5 系列、Gemini 2.5 系列、Veo、Imagen 等（官方按 stable / preview / experimental 标识）
-- **国内可用性**：Gemini 网页/APP 需翻墙；API 需海外环境
+- **国内可用性**：官方未面向中国大陆提供稳定服务；实际可用性以官方支持地区为准
 - **定价模式**：免费层 + API 按量付费
 
 ## 四、典型用法（0→1→2→3）

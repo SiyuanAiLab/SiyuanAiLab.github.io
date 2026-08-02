@@ -12,7 +12,7 @@ tags:
   - "Skill"
   - "知识管理"
   - "Hermes"
-public: true
+public: false
 draft: false
 auditStatus: "approved"
 sourcePath: "workspace/03-Process/05-个人IP/思远观察日记/#036-给Hermes装了一个知识推送Skill/01-长文/草稿.md"

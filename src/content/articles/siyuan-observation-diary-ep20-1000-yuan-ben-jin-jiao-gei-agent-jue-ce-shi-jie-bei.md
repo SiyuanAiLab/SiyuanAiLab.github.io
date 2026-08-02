@@ -11,7 +11,7 @@ tags:
   - "AI 副驾驶"
   - "Agent"
   - "AI 决策"
-public: true
+public: false
 draft: false
 auditStatus: "approved"
 sourcePath: "workspace/03-Process/05-个人IP/思远观察日记/#020-1000元本金交给Agent决策世界杯/01-长文/草稿.md"

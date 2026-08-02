@@ -45,7 +45,7 @@ Veo 与 Google Cloud、Gemini 和 Google Flow 深度集成，适合需要企业�
 - **GitHub**：无
 - **RSS / 动态**：Google DeepMind 博客 / Google AI 更新日志
 - **当前主要版本 / 模型矩阵**：Veo 3.1 / 3.1 Fast / 3.1 Lite / Veo 3
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：订阅制 + API 按秒计费
 
 ## 四、典型用法（0→1→2→3）

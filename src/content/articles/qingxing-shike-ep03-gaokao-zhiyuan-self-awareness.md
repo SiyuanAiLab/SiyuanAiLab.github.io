@@ -11,7 +11,7 @@ tags:
   - "AI 工具"
   - "自我认知"
   - "教育"
-public: true
+public: false
 draft: false
 auditStatus: "approved"
 sourcePath: "workspace/04-Output/自媒体内容/清醒时刻/EP03-AI时代高考择校的学生本位思考与工具应用/01-长文/定稿.md"

@@ -10,7 +10,7 @@ tags:
   - "思远观察日记"
   - "AI 副驾驶"
   - "工作流"
-public: true
+public: false
 draft: false
 auditStatus: "approved"
 sourcePath: "workspace/03-Process/05-个人IP/思远观察日记/#010-杠杆思维顾问第一次实战/01-长文/草稿.md"

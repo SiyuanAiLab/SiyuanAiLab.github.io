@@ -11,7 +11,7 @@ tags:
   - "AI 副驾驶"
   - "商业判断"
   - "工作流"
-public: true
+public: false
 draft: false
 auditStatus: "approved"
 sourcePath: "workspace/03-Process/05-个人IP/思远观察日记/#008-决策引擎把收费社群否了/01-长文/草稿.md"

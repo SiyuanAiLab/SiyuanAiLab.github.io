@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const projects = [
+  {
+    name: "赛博六爻",
+    type: "硬件 Demo / 实验记录",
+    status: "持续整理中",
+    desc: "M5StickC Plus 起卦玩具，按键 + 摇晃起卦，屏幕显示卦象与白话解读。",
+    shape: "基于 M5StickC Plus 的固件，v0.4 已编译验证",
+    done: ["起卦逻辑", "屏幕动画", "64 卦白话解读"],
+    gap: ["不提供未校验固件", "不公开个人设备数据", "成熟后再补充开源说明"],
+    actions: ["阅读实验记录", "关注后续更新", "等待开源说明"],
+  },
+];
+---
+
+<Layout title="项目实验展厅" description="纸间拾光的项目实验展厅，记录半成品、Demo 和仍在迭代的个人项目。">
+  <Header />
+
+  <main class="site-main projects-page">
+    <section class="project-hero" aria-labelledby="project-title">
+      <div class="container">
+        <p class="kicker">项目实验展厅</p>
+        <h1 id="project-title">半成品与个人实验</h1>
+        <p class="hero-lede">
+          这里保留尚未完成的探索过程。经过整理和校验的内容会补充公开说明，未完成部分只记录状态。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="projects-title">
+      <div class="container">
+        <p class="kicker">首期项目</p>
+        <h2 id="projects-title" class="section-title">先记录，再逐步整理</h2>
+
+        <div class="project-list">
+          {projects.map(project => (
+            <article class="project-card">
+              <div class="project-main">
+                <p class="meta">{project.type}</p>
+                <h3>{project.name}</h3>
+                <p>{project.desc}</p>
+                <dl>
+                  <div>
+                    <dt>当前状态</dt>
+                    <dd>{project.status}</dd>
+                  </div>
+                  <div>
+                    <dt>当前形态</dt>
+                    <dd>{project.shape}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div class="project-detail">
+                <div>
+                  <h4>已完成</h4>
+                  <ul>{project.done.map(item => <li>{item}</li>)}</ul>
+                </div>
+                <div>
+                  <h4>当前边界</h4>
+                  <ul>{project.gap.map(item => <li>{item}</li>)}</ul>
+                </div>
+                <div>
+                  <h4>你可以做什么</h4>
+                  <ul>{project.actions.map(item => <li>{item}</li>)}</ul>
+                </div>
+                <a href="/contact/" class="btn">关注后续更新</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .projects-page {
+    overflow: hidden;
+  }
+
+  .project-hero {
+    padding: clamp(64px, 9vw, 112px) 0 clamp(36px, 6vw, 72px);
+  }
+
+  .kicker,
+  .meta {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta {
+    font-size: 0.76rem;
+  }
+
+  .project-hero h1 {
+    font-size: clamp(2.35rem, 6vw, 4.8rem);
+    line-height: 1.08;
+    max-width: 860px;
+  }
+
+  .hero-lede {
+    color: var(--grey);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    max-width: 760px;
+  }
+
+  .project-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: var(--space-block);
+  }
+
+  .project-card {
+    background: rgba(245, 241, 233, 0.78);
+    border: 1px solid var(--lead);
+    border-radius: var(--radius);
+    display: grid;
+    gap: clamp(24px, 5vw, 64px);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    padding: clamp(24px, 5vw, 48px);
+  }
+
+  .project-card:first-child {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .project-card:first-child p,
+  .project-card:first-child dd,
+  .project-card:first-child dt,
+  .project-card:first-child li,
+  .project-card:first-child .meta {
+    color: rgba(245, 241, 233, 0.78);
+  }
+
+  .project-main p {
+    color: var(--grey);
+  }
+
+  .project-main dl {
+    border-top: 1px solid var(--lead);
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+
+  .project-main dt {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .project-main dd {
+    margin: 0.25rem 0 0;
+  }
+
+  .project-detail {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .project-detail h4 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-detail ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .project-detail li {
+    border-bottom: 1px solid var(--lead);
+    color: var(--grey);
+    padding: 0.45rem 0;
+  }
+
+  .project-detail .btn {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 820px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

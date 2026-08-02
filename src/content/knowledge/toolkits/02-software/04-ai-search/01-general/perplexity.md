@@ -44,7 +44,7 @@ Perplexity 是一个 AI 搜索引擎，用自然语言回答问题并标注信�
 - **GitHub**：无
 - **RSS / 动态**：https://www.perplexity.ai/hub
 - **当前主要版本 / 模型矩阵**：Perplexity Search、Pro、Max、Enterprise、Sonar API
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：Freemium + 订阅制 + API
 
 ## 四、典型用法（0→1→2→3）

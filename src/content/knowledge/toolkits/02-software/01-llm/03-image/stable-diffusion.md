@@ -45,7 +45,7 @@ Stable Diffusion 是 Stability AI 发布的开源图像生成模型，可在本�
 - **Hugging Face**：https://huggingface.co/stabilityai
 - **RSS / 动态**：https://stability.ai/news-updates
 - **当前主要版本 / 模型矩阵**：Stable Diffusion 3.5 Large / Large Turbo / Medium；SDXL 生态仍活跃
-- **国内可用性**：权重可下载，本地/云部署可用；官网需翻墙
+- **国内可用性**：权重可下载，本地/云部署可用；官网可用性以官方支持地区为准
 - **定价模式**：开源权重 + Stability API credits
 
 ## 四、典型用法（0→1→2→3）

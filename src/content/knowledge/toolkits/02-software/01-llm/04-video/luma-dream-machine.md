@@ -45,7 +45,7 @@ Luma Dream Machine 是 Luma AI 的视频生成工具， successor 为 Ray 系列
 - **GitHub**：无
 - **RSS / 动态**：https://lumalabs.ai/learning-hub
 - **当前主要版本 / 模型矩阵**：Dream Machine / Ray3 / Ray3.14
-- **国内可用性**：需翻墙
+- **国内可用性**：访问稳定性与账号可用性以官方支持地区为准
 - **定价模式**：订阅制；Plus / Pro / Ultra
 
 ## 四、典型用法（0→1→2→3）

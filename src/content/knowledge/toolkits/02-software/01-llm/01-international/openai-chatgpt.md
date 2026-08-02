@@ -46,7 +46,7 @@ OpenAI 拥有目前最完整的模型-应用-API 生态，插件、自定义 GPT
 - **GitHub**：https://github.com/openai
 - **RSS / 动态**：https://openai.com/news/rss.xml
 - **当前主要版本 / 模型矩阵**：GPT-4o、GPT-4.1、o3 / o4-mini、GPT-5.5 / GPT-5.4 / GPT-5.3 Instant（以官方 API 定价页为准）、gpt-image 系列
-- **国内可用性**：ChatGPT 网页/APP 需翻墙；API 需海外支付与网络环境
+- **国内可用性**：官方未面向中国大陆提供稳定服务；实际可用性以官方支持地区为准
 - **定价模式**：按量付费 + ChatGPT 订阅；API 按输入/输出 tokens 计费
 
 ## 四、典型用法（0→1→2→3）
