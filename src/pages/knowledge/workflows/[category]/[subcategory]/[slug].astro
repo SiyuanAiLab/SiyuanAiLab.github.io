@@ -41,7 +41,7 @@ const nextCard = currentIndex < subcategoryCards.length - 1 ? subcategoryCards[c
 const verifiedDateStr = entry?.data.verifiedDate
   ? new Date(entry.data.verifiedDate).toLocaleDateString('zh-CN')
   : '';
-const curatorLabel = entry?.data.curated_by?.replaceAll('思远 AI Lab', '纸间拾光');
+const curatorLabel = entry?.data.curated_by?.replaceAll('思远 AI Lab', '思行致远');
 ---
 
 <Layout title={`${card.title} - ${currentSubcategory?.title ?? '工作流专栏'}`} description={card.summary}>

@@ -40,7 +40,7 @@ const nextCard = currentIndex < columnCards.length - 1 ? columnCards[currentInde
 const verifiedDateStr = entry?.data.verifiedDate
   ? new Date(entry.data.verifiedDate).toLocaleDateString('zh-CN')
   : '';
-const curatorLabel = entry?.data.curated_by?.replaceAll('思远 AI Lab', '纸间拾光');
+const curatorLabel = entry?.data.curated_by?.replaceAll('思远 AI Lab', '思行致远');
 ---
 
 <Layout title={`${card.title} - ${column?.title ?? 'AI 核心概念'} - AI·外脑`} description={card.summary}>
