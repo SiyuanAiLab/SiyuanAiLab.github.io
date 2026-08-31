@@ -5,12 +5,14 @@ import Footer from '../../../components/Footer.astro';
 
 const skills = [
   {
-    title: "提案策划管线",
+    title: "商业咨询 Skill",
     slug: "proposal-planning",
-    type: "工作流",
-    desc: "从需求澄清到 A/B 骨架再到定稿提案的完整流程",
+    type: "商业判断",
+    desc: "从需求澄清到 A/B 骨架，再到可执行方案的结构化流程",
     scenes: ["接到 case 后先澄清需求", "需要把模糊想法变成方案", "需要交付可执行提案"],
-    status: "开源说明整理中",
+    status: "已发布 v1.0.0",
+    channel: "GitHub · WorkBuddy SkillHub ID 154299",
+    github: "https://github.com/SiyuanAiLab/business-consult",
   },
   {
     title: "AI Coach 管线",
@@ -18,15 +20,29 @@ const skills = [
     type: "开发辅助",
     desc: "把模糊想法变成可执行的 Skill 开发方案",
     scenes: ["整理 Skill 开发思路", "把目标拆成执行步骤", "辅助深度思考与目标拆解"],
-    status: "开源说明整理中",
+    status: "已发布 v1.1.0",
+    channel: "GitHub · WorkBuddy SkillHub ID 156035",
+    github: "https://github.com/SiyuanAiLab/ai-coach",
   },
   {
-    title: "私董会 Prompt",
+    title: "稷下学宫（私董会）",
     slug: "private-board-prompt",
     type: "决策辅助",
-    desc: "模拟 8 位顶级商业人物组成顾问团，帮你做重要决策",
+    desc: "通过多个顾问角色的连续追问，辅助审视重要决策",
     scenes: ["重大选择前换视角", "需要外部顾问式追问", "判断业务方向和风险"],
-    status: "整理中",
+    status: "已发布 v1.1.0",
+    channel: "GitHub · WorkBuddy SkillHub ID 157422",
+    github: "https://github.com/SiyuanAiLab/private-board",
+  },
+  {
+    title: "Codex Skills 探针集",
+    slug: "codex-skills",
+    type: "公开实验",
+    desc: "收录 ai-daily-card 等可复用 Skill 的公开 beta 探针",
+    scenes: ["观察 Codex Skill 的真实结构", "查看公开实验的迭代记录", "按仓库说明自行检验"],
+    status: "公开 beta 探针",
+    channel: "GitHub 公开 monorepo",
+    github: "https://github.com/SiyuanAiLab/codex-skills",
   },
   {
     title: "杠杆思维顾问",
@@ -34,7 +50,7 @@ const skills = [
     type: "思维模型",
     desc: "从杠杆视角审视支点、杠杆类型、放大效应和边际成本",
     scenes: ["重新审视问题和资源", "寻找小投入的大效果", "判断一件事是否值得做"],
-    status: "整理中",
+    status: "尚未公开",
   },
   {
     title: "决策顾问思维",
@@ -42,7 +58,7 @@ const skills = [
     type: "思维模型",
     desc: "通过六步苏格拉底式提问把模糊问题变成可执行方案",
     scenes: ["情绪干扰判断时", "选择太多无法推进时", "需要把问题拆清楚时"],
-    status: "整理中",
+    status: "尚未公开",
   },
   {
     title: "用户调研洞察管线",
@@ -60,7 +76,7 @@ const getSkillCta = skill => ({
 });
 ---
 
-<Layout title="Skill 展厅" description="思行致远的 Skill 展厅，展示从真实工作流里拆出来的 6 个可复用框架。">
+<Layout title="Skill 展厅" description="思行致远的 Skill 展厅，记录从真实工作流里拆出来的可复用框架与公开实验。">
   <Header />
 
   <main class="site-main skills-page">
@@ -69,14 +85,14 @@ const getSkillCta = skill => ({
         <p class="kicker">Skill 展厅</p>
         <h1 id="skills-title">从真实工作流里拆出来的框架</h1>
         <p class="hero-lede">
-          这些 Skill 不是万能工具，是我自己在用、也在持续整理的工作方法。经过校验的版本会补充开源说明。
+          这些 Skill 不是万能工具，是我自己在用、也在持续校验的工作方法。已发布件直接标注版本与公开入口，未发布件保持实际进度。
         </p>
       </div>
     </section>
 
     <section class="section" aria-labelledby="skill-grid-title">
       <div class="container">
-        <p class="kicker">首批 6 个 Skill</p>
+        <p class="kicker">当前展出的 Skill</p>
         <h2 id="skill-grid-title" class="section-title">按真实场景整理，不包装成万能工具</h2>
         <div class="skill-grid">
           {skills.map(skill => (
@@ -92,8 +108,18 @@ const getSkillCta = skill => ({
                 {skill.scenes.map(scene => <li>{scene}</li>)}
               </ul>
               <div class="card-foot">
-                <span>{skill.status}</span>
-                <a href={getSkillCta(skill).href} class="btn btn-outline">{getSkillCta(skill).label}</a>
+                <div class="release-meta">
+                  <span>{skill.status}</span>
+                  {skill.channel && <small>{skill.channel}</small>}
+                </div>
+                <div class="card-links">
+                  <a href={getSkillCta(skill).href} class="btn btn-outline">{getSkillCta(skill).label}</a>
+                  {skill.github && (
+                    <a href={skill.github} class="github-link" target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  )}
+                </div>
               </div>
             </article>
           ))}
@@ -212,6 +238,42 @@ const getSkillCta = skill => ({
     padding: 0.35rem 0.5rem;
   }
 
+  .release-meta,
+  .card-links {
+    align-items: flex-start;
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .release-meta {
+    flex-direction: column;
+  }
+
+  .release-meta small {
+    color: var(--grey);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.45;
+  }
+
+  .card-links {
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .github-link {
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-underline-offset: 0.18em;
+  }
+
+  .skill-card:first-child .release-meta small,
+  .skill-card:first-child .github-link {
+    color: rgba(245, 241, 233, 0.8);
+  }
+
   .card-foot .btn {
     font-size: 0.9rem;
     padding: 0.62rem 0.85rem;
@@ -235,6 +297,10 @@ const getSkillCta = skill => ({
     .card-foot {
       align-items: flex-start;
       flex-direction: column;
+    }
+
+    .card-links {
+      justify-content: flex-start;
     }
   }
 </style>

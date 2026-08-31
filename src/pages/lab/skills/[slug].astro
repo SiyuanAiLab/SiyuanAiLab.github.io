@@ -6,10 +6,12 @@ import Footer from '../../../components/Footer.astro';
 export function getStaticPaths() {
   const skills = {
     "proposal-planning": {
-      name: "提案策划管线",
-      type: "工作流",
-      status: "已完成",
-      summary: "从需求澄清到 A/B 骨架再到定稿提案的完整 Workflow",
+      name: "商业咨询 Skill",
+      type: "商业判断",
+      status: "已发布 v1.0.0",
+      channel: "GitHub · WorkBuddy SkillHub ID 154299",
+      github: "https://github.com/SiyuanAiLab/business-consult",
+      summary: "从需求澄清到 A/B 骨架，再到可执行方案的结构化流程",
       why: "思远的判断比 AI 生成更值钱；管线的价值是「逼判断、沉认知」。",
       solves: [
         "接到 case 后，不再直接让 AI 写方案，而是先澄清目标、边界和验收口径。",
@@ -33,38 +35,57 @@ export function getStaticPaths() {
     "ai-coach": {
       name: "AI Coach 管线",
       type: "开发辅助",
-      status: "已完成",
+      status: "已发布 v1.1.0",
+      channel: "GitHub · WorkBuddy SkillHub ID 156035",
+      github: "https://github.com/SiyuanAiLab/ai-coach",
       summary: "把模糊想法变成可执行的 Skill 开发方案",
-      why: "先保留简洁说明，完整详情二期补齐。",
-      solves: ["辅助深度思考和目标拆解。", "把 Skill 开发需求整理成可执行方案。"],
-      flow: ["需求成型", "方案提纯", "执行终审"],
-      takeaway: "Prompt / 框架 / 使用说明整理中",
+      why: "把 Skill 开发从一次性对话变成有判定、有规划、有验收的工程流程。",
+      solves: ["辅助深度思考和目标拆解。", "把 Skill 开发需求整理成可执行方案。", "在施工前明确边界与验收口径。"],
+      flow: ["需求判定", "方案规划", "分段确认", "执行与验证"],
+      takeaway: "Skill 开发的规划、执行与验收框架",
       fit: "需要把模糊想法推进成 Skill 开发任务的人",
       unfit: "只想要一次性聊天建议的人",
-      placeholder: true,
+      placeholder: false,
     },
     "private-board-prompt": {
-      name: "私董会 Prompt",
+      name: "稷下学宫（私董会）",
       type: "决策辅助",
-      status: "可整理",
-      summary: "模拟 8 位顶级商业人物组成顾问团，帮你做重要决策",
-      why: "先保留简洁说明，完整详情二期补齐。",
+      status: "已发布 v1.1.0",
+      channel: "GitHub · WorkBuddy SkillHub ID 157422",
+      github: "https://github.com/SiyuanAiLab/private-board",
+      summary: "通过多个顾问角色的连续追问，辅助审视重要决策",
+      why: "重要决策很容易被单一视角限制；多角色追问用于暴露假设、风险和遗漏。",
       solves: ["在重大选择前引入多视角追问。", "帮助识别机会、风险和盲区。"],
       flow: ["提出决策问题", "多角色审视", "收敛判断"],
-      takeaway: "Prompt 框架整理中",
+      takeaway: "多角色决策审视框架与使用说明",
       fit: "需要在重要决策前换视角的人",
       unfit: "希望 Prompt 替你承担决策后果的人",
-      placeholder: true,
+      placeholder: false,
+    },
+    "codex-skills": {
+      name: "Codex Skills 探针集",
+      type: "公开实验",
+      status: "公开 beta 探针",
+      channel: "GitHub 公开 monorepo",
+      github: "https://github.com/SiyuanAiLab/codex-skills",
+      summary: "收录 ai-daily-card 等可复用 Skill 的公开 beta 探针",
+      why: "用公开仓库记录 Codex Skill 的结构、说明与迭代，不把 beta 探针包装成成熟产品。",
+      solves: ["集中查看当前公开的 Codex Skill 探针。", "按仓库说明理解结构并自行检验。"],
+      flow: ["选择探针", "阅读说明", "本地检验", "跟踪迭代"],
+      takeaway: "公开 monorepo 中的 beta 探针与说明",
+      fit: "想了解或检验 Codex Skill 结构的人",
+      unfit: "期待无需配置即可在线运行成熟产品的人",
+      placeholder: false,
     },
     "leverage-advisor": {
       name: "杠杆思维顾问",
       type: "思维模型",
-      status: "可整理",
+      status: "尚未公开",
       summary: "从杠杆视角审视支点、杠杆类型、放大效应和边际成本",
       why: "先保留简洁说明，完整详情二期补齐。",
       solves: ["重新审视问题和资源。", "判断一件事是否有更高杠杆的做法。"],
       flow: ["找支点", "判断杠杆类型", "评估放大效应与边际成本"],
-      takeaway: "思维模型 Prompt 整理中",
+      takeaway: "思维模型 Prompt 尚未公开",
       fit: "需要提高资源使用效率的人",
       unfit: "只想追求短期技巧的人",
       placeholder: true,
@@ -72,12 +93,12 @@ export function getStaticPaths() {
     "decision-advisor": {
       name: "决策顾问思维",
       type: "思维模型",
-      status: "可整理",
+      status: "尚未公开",
       summary: "通过六步苏格拉底式提问把模糊问题变成可执行方案",
       why: "先保留简洁说明，完整详情二期补齐。",
       solves: ["减少情绪对判断的干扰。", "把模糊问题拆成可执行选项。"],
       flow: ["界定问题", "澄清约束", "列出选项", "比较代价", "形成行动"],
-      takeaway: "决策提问框架整理中",
+      takeaway: "决策提问框架尚未公开",
       fit: "在复杂选择中需要结构化判断的人",
       unfit: "希望 AI 直接替你拍板的人",
       placeholder: true,
@@ -90,7 +111,7 @@ export function getStaticPaths() {
       why: "先保留简洁说明，完整详情二期补齐。",
       solves: ["整理零散访谈、评论和观察。", "把信息变成可验证的用户洞察。"],
       flow: ["收集信息", "归纳主题", "提炼假设", "设计验证"],
-      takeaway: "工作流与模板开发中",
+      takeaway: "工作流与模板仍在开发",
       fit: "需要从用户信息里提炼判断的人",
       unfit: "没有真实用户信息输入的人",
       placeholder: true,
@@ -119,6 +140,11 @@ const { skill } = Astro.props;
           <div class="hero-actions">
             <a href="/lab/skills/" class="btn">返回 Skill 展厅</a>
             <a href="/contact/" class="btn btn-outline">关注更新</a>
+            {skill.github && (
+              <a href={skill.github} class="github-link" target="_blank" rel="noopener noreferrer">
+                查看 GitHub 仓库
+              </a>
+            )}
           </div>
         </div>
 
@@ -131,11 +157,11 @@ const { skill } = Astro.props;
             </div>
             <div>
               <dt>详情完整度</dt>
-              <dd>{skill.placeholder ? "简洁占位，二期补齐" : "已按 Brief 补齐"}</dd>
+              <dd>{skill.placeholder ? "仅保留基本信息" : "公开信息已对齐"}</dd>
             </div>
             <div>
               <dt>开放方式</dt>
-              <dd>按完成度逐步公开</dd>
+              <dd>{skill.channel ?? "尚未公开"}</dd>
             </div>
           </dl>
         </aside>
@@ -145,7 +171,7 @@ const { skill } = Astro.props;
     {skill.placeholder && (
       <section class="placeholder-note" aria-label="占位说明">
         <div class="container">
-          <p>本页先保留 Skill 基本信息，不虚构深度内容。完整设计理念、案例和模板说明将在二期补齐。</p>
+          <p>本页只记录目前可公开的基本信息；未发布版本不提供下载或使用入口。</p>
         </div>
       </section>
     )}
@@ -204,9 +230,13 @@ const { skill } = Astro.props;
         <div>
           <p class="kicker">当前状态</p>
           <h2 id="final-title">{skill.status}</h2>
-          <p>经过校验的 Skill 会按页面状态逐步公开；未完成内容只展示结构和整理进度。</p>
+          <p>{skill.github ? "当前公开入口以 GitHub 仓库为准；页面只陈述已确认的版本与渠道信息。" : "未发布内容只展示当前可确认的结构和开发状态。"}</p>
         </div>
-        <a href="/lab/skills/" class="btn">查看 Skill 展厅</a>
+        {skill.github ? (
+          <a href={skill.github} class="btn" target="_blank" rel="noopener noreferrer">打开 GitHub</a>
+        ) : (
+          <a href="/lab/skills/" class="btn">查看 Skill 展厅</a>
+        )}
       </div>
     </section>
   </main>
@@ -265,6 +295,13 @@ const { skill } = Astro.props;
     flex-wrap: wrap;
     gap: 0.8rem 1rem;
     margin-top: 1.5rem;
+  }
+
+  .github-link {
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-underline-offset: 0.2em;
   }
 
   .status-panel,

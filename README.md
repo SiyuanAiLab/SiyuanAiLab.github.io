@@ -48,4 +48,8 @@ npm run preview
 
 ## 部署
 
-GitHub Pages 使用 `.github/workflows/deploy.yml` 自动构建并发布 `dist/`。
+正式站目标为阿里云 OSS + CDN，采用本地人工发布，避免把阿里云长期密钥托管到 GitHub。
+
+- 上线操作单：[`ops/deploy-aliyun-oss.md`](ops/deploy-aliyun-oss.md)
+- `.github/workflows/deploy.yml` 只保留手动构建检查，不再发布 GitHub Pages。
+- OSS 上传、CDN 刷新与 DNS 变更属于生产操作，必须在单次明确授权后执行。
