@@ -1,8 +1,8 @@
 ---
 const sections = [
-  { id: 'curation', title: '认知策展', principle: '输入自己选', description: '把值得读的信息放在一起，保留来源，也分清事实与判断。' },
-  { id: 'decisions', title: '决策主权', principle: '判断自己做', description: '记录一次选择，以及做出这个选择的依据。' },
-  { id: 'work', title: '作品集', principle: '产出自己持有', description: '把想法做成作品，留下可以看见、可以理解的实践。' },
+  { id: 'curation', title: '认知策展', principle: '输入自己选', description: '掌控输入，就是掌控判断的原料。我读什么、信什么、标记什么，判断源公开可查。' },
+  { id: 'decisions', title: '决策主权', principle: '判断自己做', description: '判断不外包。每一次选择，连同依据一起留下。' },
+  { id: 'work', title: '作品集', principle: '产出自己持有', description: '工具自己造，服务于我自己，也有可能服务于你。' },
 ];
 ---
 <!doctype html>
@@ -10,7 +10,7 @@ const sections = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="思远 AI Labs。输入自己选、判断自己做、产出自己持有。" />
+    <meta name="description" content="思远 AI Labs —— AI 赋能的掌控呈现。输入自己选、判断自己做、产出自己持有。" />
     <title>思远 AI Labs</title>
   </head>
   <body>
@@ -22,8 +22,16 @@ const sections = [
     <main id="main">
       <section class="hero" aria-labelledby="title">
         <img class="hero-art" src="/images/homepage-thinking-studio.png" width="2120" height="742" alt="" fetchpriority="high" />
-        <h1 id="title">你好，<br />我是杨思远。</h1>
-        <p class="opening">这里记录我如何选择信息、做出判断，<br />以及把想法变成作品。</p>
+        <blockquote class="epigraph">
+          <h1 id="title">那是最美好的时代，那是最糟糕的时代；那是智慧的年头，也是愚昧的年头。</h1>
+          <p class="quote-original" lang="en">"It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness."</p>
+        </blockquote>
+        <p class="quote-attribution">—— 查尔斯·狄更斯《双城记》</p>
+        <div class="opening">
+          <p>最好——AI 第一次让一个人可以掌控从信息到产出的全链路。</p>
+          <p>最坏——你不掌控，就被掌控：输入被平台喂，判断被算法代劳，产出存在别人的服务器上。</p>
+          <p>这个站，是 AI 赋能我的掌控呈现。</p>
+        </div>
         <a class="browse" href="#directory">浏览三个栏目</a>
       </section>
       <section id="directory" class="directory" aria-labelledby="directory-title">
@@ -67,8 +75,14 @@ const sections = [
   main { display:block; }
   .hero { text-align:center; padding:34px 24px 92px; }
   .hero-art { display:block; width:min(460px,85%); height:auto; margin:0 auto 25px; }
-  h1 { margin:0; font-size:clamp(48px,6.6vw,94px); line-height:1.1; font-weight:800; letter-spacing:-.06em; }
-  .opening { font-size:19px; line-height:1.75; margin:26px auto 23px; color:#484848; }
+  .epigraph { max-width:960px; margin:0 auto; }
+  h1 { margin:0; font-size:clamp(30px,3.2vw,44px); line-height:1.5; font-weight:750; letter-spacing:-.035em; text-wrap:balance; }
+  .quote-original { max-width:690px; margin:20px auto 0; font-size:15px; line-height:1.7; color:#6b6b6b; text-wrap:balance; }
+  .quote-attribution { margin:12px 0 0; font-size:13px; line-height:1.8; color:#6b6b6b; }
+  .opening { max-width:760px; font-size:18px; line-height:1.85; margin:36px auto 27px; color:#484848; text-wrap:pretty; }
+  .opening p { margin:0; }
+  .opening p + p { margin-top:12px; }
+  .opening p:last-child { margin-top:24px; }
   .browse { display:inline-flex; align-items:center; justify-content:center; min-height:46px; border:1px solid #161616; border-radius:7px; background:#161616; color:#fff; font-size:15px; font-weight:600; padding:12px 24px; transition:background .16s ease; }
   .browse:hover { background:#393939; }
   .directory, footer { width:calc(100% - 80px); max-width:1080px; margin-inline:auto; }
@@ -92,7 +106,7 @@ const sections = [
   .skip { position:absolute; left:16px; top:-100px; padding:10px; background:#fff; z-index:2; }
   .skip:focus { top:8px; }
   @media (prefers-reduced-motion:no-preference) {
-    .hero h1,.hero .opening,.hero .browse { animation:arrive .55s both; }
+    .hero .epigraph,.hero .quote-attribution,.hero .opening,.hero .browse { animation:arrive .55s both; }
     .hero .opening { animation-delay:.07s; }
     .hero .browse { animation-delay:.14s; }
     @keyframes arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
@@ -114,9 +128,11 @@ const sections = [
     nav { gap:14px; font-size:12px; }
     .hero { padding:36px 20px 65px; }
     .hero-art { width:min(340px,100%); margin-bottom:28px; }
-    h1 { font-size:clamp(44px,11.8vw,66px); line-height:1.18; }
-    .opening { font-size:15px; margin-top:22px; }
-    .opening br { display:none; }
+    h1 { font-size:clamp(27px,7.2vw,36px); line-height:1.55; }
+    .quote-original { font-size:13px; margin-top:18px; }
+    .quote-attribution { font-size:12px; }
+    .opening { font-size:15px; margin-top:28px; text-align:left; }
+    .opening p:last-child { margin-top:22px; }
     .directory,footer { width:calc(100% - 40px); }
     h2 { font-size:23px; margin-bottom:24px; }
     .columns { grid-template-columns:1fr; }
