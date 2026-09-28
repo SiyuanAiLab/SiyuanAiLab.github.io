@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>六本方法论 · Business Consult 结构页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 640px; margin: 0 auto; }
+  .back { font-size: 13px; color: #999; margin-bottom: 48px; }
+  .back a { color: #999; text-decoration: none; border-bottom: 1px solid #ddd; }
+
+  header { margin-bottom: 48px; }
+  header .en { font-size: 12px; color: #999; letter-spacing: 0.25em; margin-bottom: 16px; }
+  header h1 { font-size: 24px; font-weight: 600; line-height: 1.7; margin-bottom: 16px; }
+  header .intro { font-size: 15px; color: #666; }
+
+  .toc { border: 1px solid #eee; border-radius: 6px; padding: 18px 22px; margin-bottom: 56px; font-size: 14px; }
+  .toc div { display: flex; justify-content: space-between; padding: 4px 0; }
+  .toc span { color: #999; }
+  .toc a { color: #111; text-decoration: none; border-bottom: 1px solid #ddd; }
+
+  .method { border-top: 1px solid #eee; padding: 36px 0; }
+  .method .station-tag { font-size: 12px; color: #bbb; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .method h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .method .for { font-size: 13px; color: #999; margin-bottom: 20px; }
+  .method ol, .method ul { font-size: 14px; color: #444; padding-left: 20px; margin-bottom: 16px; }
+  .method li { margin-bottom: 8px; }
+  .method li b { color: #111; }
+  .method .guard {
+    font-size: 13px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: #555;
+  }
+  .method .guard b { color: #111; }
+
+  footer {
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #aaa;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="back"><a href="2026-09-28-skill作品卡-business-consult-线稿v0.5.html">← 返回作品卡</a></div>
+
+  <header>
+    <div class="en">METHODOLOGY · RESEARCH</div>
+    <h1>六本方法论</h1>
+    <p class="intro">business-consult 的查证不靠模型自由发挥。六个工位，每站配一本内置的方法论——以下是每本的真实骨架，全部来自 Skill 源码。</p>
+  </header>
+
+  <div class="toc">
+    <div><span>站 1 · 行业底盘</span><a href="#m1">横纵分析法</a></div>
+    <div><span>站 2 · 生意模式</span><a href="#m2">横纵分析法 · 价值链</a></div>
+    <div><span>站 3 · 竞争格局</span><a href="#m3">配额制图谱</a></div>
+    <div><span>站 4 · 用户痛点</span><a href="#m4">使用者旅程框架</a></div>
+    <div><span>站 5 · 机会值不值</span><a href="#m5">AI 价值评估矩阵</a></div>
+    <div><span>站 6 · 产品怎么做</span><a href="#m6">产品体系蓝图</a></div>
+  </div>
+
+  <div class="method" id="m1">
+    <div class="station-tag">站 1 · 行业底盘</div>
+    <h2>横纵分析法</h2>
+    <p class="for">两条轴交叉看行业：纵向=时间深度（怎么走到今天），横向=同期广度（在生态里的位置）。本站用纵向。</p>
+    <ol>
+      <li><b>起源追溯</b>——行业诞生的背景：社会需求 / 技术变革 / 监管放开 / 资本流入</li>
+      <li><b>诞生节点</b>——公认的"元年"是哪年，标志性产品 / 事件是什么</li>
+      <li><b>演进阶段</b>——按时间梳 3-5 个关键阶段：标志事件、模式变化、玩家阵营更替</li>
+      <li><b>关键转折</b>——什么让行业从 A 走到 B，谁推动了转折，谁死了谁活了</li>
+      <li><b>当下阶段</b>——现在处于萌芽 / 增长 / 成熟 / 衰退 / 重塑哪一段，最大张力是什么</li>
+    </ol>
+    <div class="guard"><b>防什么：</b>只看当下热点，不懂行业怎么走到今天——没有纵向的人，把周期当趋势。</div>
+  </div>
+
+  <div class="method" id="m2">
+    <div class="station-tag">站 2 · 生意模式</div>
+    <h2>横纵分析法 · 价值链</h2>
+    <p class="for">同一本方法的横向轴：当下时间点，这门生意的钱在哪。</p>
+    <ol>
+      <li><b>核心玩家对比</b>——5-10 个代表玩家，强制分头部 / 中部 / 长尾三档，不只看头部</li>
+      <li><b>商业模式拓扑</b>——这个行业有几种主流赚钱方式，各服务谁，利润点与成本黑洞在哪</li>
+      <li><b>价值链拆解</b>——上游 → 中游 → 下游逐段拆，明确标记【利润核心】与【成本核心】</li>
+      <li><b>生态位与趋势</b>——红海在哪、蓝海在哪、3 年内最可能的颠覆性变化</li>
+    </ol>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">收尾必答 4 个交叉问题：纵向的必然规律是什么 / 横向有什么反常 / 谁踩在双重红利上 / 两轴交汇处接下来出什么新机会。</p>
+    <div class="guard"><b>防什么：</b>把名气当利润——名头最响的环节，经常不是赚钱最多的环节。</div>
+  </div>
+
+  <div class="method" id="m3">
+    <div class="station-tag">站 3 · 竞争格局</div>
+    <h2>配额制图谱</h2>
+    <p class="for">先写配额计划，再动手采集。找人按结构找，不按名气找。</p>
+    <ul>
+      <li><b>直接竞品</b> × 5</li>
+      <li><b>替代品与人工流程</b> × 4</li>
+      <li><b>上下游生态</b> × 4</li>
+      <li><b>跨行业标杆</b> × 3</li>
+    </ul>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">每个候选必须带 URL 和证据状态，并标明它支撑哪条结论。某一类找不够配额？记录为「缺口」，进入未决问题清单。</p>
+    <div class="guard"><b>防什么：</b>拿有名气的凑数——配额不够就明说缺，不许灌水。</div>
+  </div>
+
+  <div class="method" id="m4">
+    <div class="station-tag">站 4 · 用户痛点</div>
+    <h2>使用者旅程框架</h2>
+    <p class="for">痛点不在行业环节里，痛点在具体的人身上。四步从环节穿透到人：</p>
+    <ol>
+      <li><b>识别角色</b>——每个核心环节找 2-4 个具体角色（不是"员工"，是"独立编剧""律所合伙人"），分清决策者 / 执行者 / 审校者</li>
+      <li><b>画工作流</b>——每个角色 5-7 步完整流程，动词开头，不许省略"等待""返工"这类步骤——痛点常藏在那</li>
+      <li><b>4 条判据标痛点</b>——耗时超 20%？靠经验不可教？失败率超 30%？大量重复劳动？中 2 条即为痛点候选</li>
+      <li><b>3 维打分</b>——频率 + 影响 + 当前解决成本，各 1-5 分，满分 15，按总分排序</li>
+    </ol>
+    <div class="guard"><b>防什么：</b>坐在屋里想象用户痛。痛点必须有从业者真实表达过的证据（吐槽帖、招聘 JD、竞品评论区），空想的一律标「待验证」。</div>
+  </div>
+
+  <div class="method" id="m5">
+    <div class="station-tag">站 5 · 机会值不值</div>
+    <h2>AI 价值评估矩阵</h2>
+    <p class="for">痛点 × AI 能力交叉，回答"AI 能解到什么程度"。先定介入档位：替代（AI 全接管）/ 辅助（AI 做 60-80%，人审校）/ 增强（AI 给洞察，人决策）。然后四步：</p>
+    <ol>
+      <li><b>能力匹配 5 问</b>——输出物什么形态？现有模型做到什么质量（可商用/可参考/仅原型）？需要什么上下文和工具？现在有人在做吗（必查）？比人工省多少时间多少钱（要数字）？</li>
+      <li><b>技术评分 3 维</b>——成熟度 / 差异化空间 / 采用可行性，各 1-5 分</li>
+      <li><b>商业可行性强制 4 行</b>——现金流模型 / 获客难度 / 信任壁垒 / 6 周 MVP 可行性，一行不许跳过</li>
+      <li><b>综合排序</b>——综合分 =（三维技术分）×（痛点总分 ÷ 15），低于 5 分的机会建议剔除</li>
+    </ol>
+    <div class="guard"><b>防什么：</b>"AI 什么都能做"的幻觉。每个机会必须搜出真实竞品并附 URL，搜不到的还要回答一个问题：是没人想到，还是不值得做。</div>
+  </div>
+
+  <div class="method" id="m6">
+    <div class="station-tag">站 6 · 产品怎么做</div>
+    <h2>产品体系蓝图</h2>
+    <p class="for">选综合分最高的 1-3 个机会，每个过 4 层 × 5 问（共 20 问，不许跳答）：</p>
+    <ul>
+      <li><b>场景层</b>——谁在什么场景用、什么事件触发、替代了原来的什么动作、一周发生几次</li>
+      <li><b>知识库层</b>——知识从哪来、怎么更新、对质量的杠杆多大、护城河在哪</li>
+      <li><b>上下文层</b>——单次对话需要什么、跨对话记住什么、丢失的后果多严重</li>
+      <li><b>Skill 层</b>——能力封装成几个 Skill、怎么互相调用、哪个免费哪个付费</li>
+    </ul>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">再配一张 6 周 MVP 路径表（第 6 周末必须拿到「第一个客户」或「明确放弃」的二元结论），和一份回退方案：万一失败，沉淀下什么可复用资产——不允许"失败归零"。</p>
+    <div class="guard"><b>防什么：</b>憋大招。从小产品起步，6 周内必须形成可验证闭环。</div>
+  </div>
+
+  <footer>
+    六本方法论全部内置于 business-consult，源码公开可查：<a href="https://github.com/SiyuanAiLab/business-consult" style="color:#aaa;">GitHub 仓库</a> ｜ 本页为打磨期线稿
+  </footer>
+
+</div>
+</body>
+</html>

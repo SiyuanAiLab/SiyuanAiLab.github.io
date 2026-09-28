@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Consult 作品卡 · 线稿 v0.2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { max-width: 640px; margin: 0 auto; }
+
+  /* 模块角标：打磨期路标，定稿删除 */
+  .module-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: #bbb;
+    border: 1px dashed #ddd;
+    border-radius: 3px;
+    padding: 1px 8px;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  section { margin-bottom: 88px; }
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  /* 模块 1：我是谁 */
+  .hero .en {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .hero h1 .cmd-inline {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 22px;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .hero .sub {
+    font-size: 15px;
+    color: #777;
+  }
+
+  /* 模块 2：你的问题 */
+  .pain .scene p {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 16px;
+  }
+  .pain .scene .punch { color: #111; font-weight: 600; }
+
+  /* 模块 3：它怎么带你走出来 */
+  .how .step {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .how .step:last-child { border-bottom: none; }
+  .how .no {
+    font-size: 13px;
+    color: #bbb;
+    min-width: 24px;
+    padding-top: 3px;
+  }
+  .how .body b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .how .body span { font-size: 14px; color: #777; }
+  .how .evidence {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #999;
+  }
+  .how .evidence a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+  .how .stations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+  .how .station {
+    background: #fff;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-decoration: none;
+  }
+  .how .station:hover b { border-bottom: 1px solid #111; }
+  .how .station span { color: #999; }
+  .how .station b { font-weight: 600; color: #111; }
+  .how .note {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #555;
+  }
+  .how .falsified {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .how .f-card {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .how .f-card span {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .how .pending {
+    border: 1px dashed #ddd;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #999;
+    margin-top: 12px;
+  }
+
+  /* 模块 4：评测报告 */
+  .proof .metrics {
+    display: flex;
+    gap: 48px;
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+  }
+  .proof .num { font-size: 24px; font-weight: 600; }
+  .proof .num small { font-size: 13px; color: #999; font-weight: 400; }
+  .proof .label { font-size: 12px; color: #999; margin-top: 2px; }
+  .proof blockquote {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .proof .src { font-size: 12px; color: #aaa; }
+  .proof .src a { color: #999; }
+
+  /* 模块 5：安装方式 */
+  .install p { font-size: 14px; color: #666; margin-bottom: 12px; }
+  .install .cmd {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    background: #f5f5f5;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .install a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+
+  /* 尾巴 */
+  footer {
+    border-top: 1px solid #eee;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ============ 模块 1：我是谁 ============ -->
+  <section class="hero">
+    <span class="module-tag">模块 1 ｜我是谁</span>
+    <div class="en">BUSINESS CONSULT</div>
+    <h1>对一个商业困惑有疑问？<br>输入 <span class="cmd-inline">/business-consult</span>，<br>它给你出一份咨询调研报告。</h1>
+    <p class="sub">要不要进一个行业、一个想法靠不靠谱、客户的问题出在哪——都是它接的题。</p>
+  </section>
+
+  <!-- ============ 模块 2：你的问题 ============ -->
+  <section class="pain">
+    <span class="module-tag">模块 2 ｜你的问题</span>
+    <h2>这三个时刻，你大概率都经历过</h2>
+    <div class="scene">
+      <p>你问 AI「要不要做宠物经济」。但你是想开店、做供应链，还是做内容号？这三件事的市场、对手、本钱完全不同。<br><span class="punch">问题没定边界，报告越漂亮，错得越远——而且没人提醒你。</span></p>
+      <p>报告里写「市场规模 5000 亿」。这个数字是查出来的，还是它编的？你不知道，它也不说。<br><span class="punch">普通 AI 的答案来自它脑子里记不清的旧数据，没有任何机制逼它交代出处。</span></p>
+      <p>你让它验证你的创业想法，它找了一堆支持证据交差。但它找过反证吗？<br><span class="punch">「没找到反对证据」和「这个想法成立」是两回事——前者只是没找够。</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 模块 3：它怎么带你走出来 ============ -->
+  <section class="how">
+    <span class="module-tag">模块 3 ｜解决方案</span>
+    <h2>一份敢让你查账的报告，是怎么做出来的</h2>
+    <div class="step">
+      <div class="no">01</div>
+      <div class="body"><b>先问诊，不急着答</b><span>一轮只问你一个问题，把「你到底要判断什么」问清楚——问题没定边界，报告不许开工。</span>
+      <span class="evidence">五道门：定哪个决定 → 获谁的客 → 平台什么角色 → 人群可见吗 → 什么证据算失败。　<a href="2026-09-28-证据页-问诊实录-skill经济调研-v0.1.html">看一次真实问诊 →</a></span></div>
+    </div>
+    <div class="step">
+      <div class="no">02</div>
+      <div class="body"><b>查证有方法，不只挂牌子</b><span>每条结论的出处，来自一套固定流程——六个工位，每站配一本方法论：</span>
+        <div class="stations">
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m1"><span>行业底盘</span><b>横纵分析法</b></a>
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m2"><span>生意模式</span><b>横纵分析法·价值链</b></a>
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m3"><span>竞争格局</span><b>配额制图谱</b></a>
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m4"><span>用户痛点</span><b>使用者旅程框架</b></a>
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m5"><span>机会值不值</span><b>AI 价值评估矩阵</b></a>
+          <a class="station" href="2026-09-28-结构页-六本方法论-v0.1.html#m6"><span>产品怎么做</span><b>产品体系蓝图</b></a>
+        </div>
+        <span>三条硬纪律：竞品找不够就明说缺，不拿大牌凑数；先写下「我猜的答案」再搜证；每站过机器检查门，打分不够返修最多两轮，修不完的写进「未决问题」。</span>
+        <span>出口处挂牌子：有来源的标「数据」、推算的标「推算」、没验证的标「假设」。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">03</div>
+      <div class="body"><b>专门找茬，不只找支持</b><span>动手搜证前，先把承重结论逐条冻结——写清「什么证据能推翻我」，每条只给 4 次搜证预算，花完就停。2026-09-28 一次真实调研的裁决：12 条冻结，8 条没推翻，<b>2 条被它自己推翻</b>，2 条存疑挂起。</span>
+        <div class="falsified">
+          <div class="f-card"><span>它推翻了自己 ①</span>「办公人群对 Skill 毫无知晓」→ 推翻：行业白皮书记载，2026 年 1 月起非技术用户已开始涌入办公场景。</div>
+          <div class="f-card"><span>它推翻了自己 ②</span>「归因工具全部现成」→ 推翻：小红书禁止内容外链、微信渠道码仅限认证服务号。</div>
+        </div>
+        <span>它甚至在裁决书里自首：一次查询超出了预冻结清单，主动声明剔除、不作证据使用。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">04</div>
+      <div class="body"><b>写成报告：这次它说了什么</b><span>以 2026-09-28 的真实调研为例（课题：Skill 对独立开发者能不能赚钱），它给出的结论是——</span>
+        <div class="falsified">
+          <div class="f-card"><span>结论 ①</span>靠卖 Skill 本体赚钱的路已经不存在：开放标准让 Skill 成了跨平台公共品，GPT Store 的变现承诺落空是前车之鉴。</div>
+          <div class="f-card"><span>结论 ②</span>但间接价值成立：Skill 是你的证明链钩子，钱在传导链末端——内容放大、站点沉淀、后端产品收费。</div>
+          <div class="f-card"><span>结论 ③</span>当前缺的不是更多 Skill，是一台「归因仪」：先能衡量它带来什么，再谈加大投入。</div>
+        </div>
+        <span><a href="../01-基础设施/商业咨询Skill/实战记录/skill市场价值诊断-2026-09-28/report.html">读完整报告 →</a>（每条结论同一行带来源，66 条来源逐条可复核）</span></div>
+    </div>
+    <div class="step">
+      <div class="no">05</div>
+      <div class="body"><b>行动清单：报告的下一页</b><span>报告不是终点。这次调研的结论，经思远与它四轮论证后，压成了五条行动：</span>
+        <div class="falsified" style="grid-template-columns: 1fr;">
+          <div class="f-card"><span>行动 ①</span>每个 Skill 打上「思远 AI Lab」的标——文件头、货架描述、首次运行输出，三处署名。</div>
+          <div class="f-card"><span>行动 ②</span>独立站开 Skills 栏目——每个 Skill 一页，摆证据，不摆说明书。</div>
+          <div class="f-card"><span>行动 ③</span>栏目装上访客计数——谁从哪来的、看了哪一页，自己能看见。</div>
+          <div class="f-card"><span>行动 ④</span>选题二分：要么冲大众爆款，要么做垂直细分——两条腿不混、不抢资源。</div>
+          <div class="f-card"><span>行动 ⑤</span>每个 Skill 配一个真实交付案例——自己没用它干成过事，不许发。</div>
+        </div>
+        <span>你正在看的这张作品卡，就是行动 ② 的第一件产物。</span></div>
+    </div>
+    <p class="note">以上数字全部来自 2026-09-28 一次真实调研：89 条结论逐条登记、66 条来源分级入册、12 条承重结论过对抗性证伪。它自己的原话：「未推翻，不等于为真。」</p>
+  </section>
+
+  <!-- ============ 模块 4：评测报告 ============ -->
+  <section class="proof">
+    <span class="module-tag">模块 4 ｜评测报告</span>
+    <h2>别人验过它</h2>
+    <div class="metrics">
+      <div class="metric"><div class="num">4.6<small> / 5</small></div><div class="label">SkillHub AI 评测 · 优秀</div></div>
+      <div class="metric"><div class="num">111</div><div class="label">次下载（2026-09 口径）</div></div>
+      <div class="metric"><div class="num">安全</div><div class="label">SkillHub 安全审核通过</div></div>
+    </div>
+    <blockquote>「它交付的不是一份报告，是一条可以抽查的证据链。」</blockquote>
+    <p class="src">—— SkillHub 评测报告 · <a href="https://skillhub.cn/skills/user_97f42772/business-consult">查看完整评测</a></p>
+  </section>
+
+  <!-- ============ 模块 5：安装方式 ============ -->
+  <section class="install">
+    <span class="module-tag">模块 5 ｜安装方式</span>
+    <h2>装给你的 AI 用</h2>
+    <p>前置条件：你有一个支持 Skill 的 AI 助手就行（Claude Code、WorkBuddy 等），不用会编程。</p>
+    <p><b>方式一 · SkillHub（推荐，国内直连，最简单）</b><br>打开 <a href="https://skillhub.cn/skills/user_97f42772/business-consult">它的 SkillHub 页面</a>，点「安装到本地 Agent」；或者把页面上的安装提示词复制下来，发给你的 AI——它自己会装好。</p>
+    <p><b>方式二 · GitHub（需要能正常访问 GitHub）</b></p>
+    <div class="cmd">npx skills add SiyuanAiLab/business-consult</div>
+    <p>装完直接对它说人话，比如：「我要不要做宠物殡葬？先别急着调研，帮我把问题界定清楚。」</p>
+    <p style="font-size:13px;color:#999;">源码与完整示例：<a href="https://github.com/SiyuanAiLab/business-consult">GitHub 仓库</a></p>
+  </section>
+
+  <!-- ============ 尾巴 ============ -->
+  <footer>
+    <span>v1.0.0 ｜ 2026-08 更新 ｜ active 持续维护</span>
+    <span>如实说明：中文平台数据采集组件尚在路线图，未建成、不装空壳</span>
+    <span>免费开源 · CC BY 4.0：可自由使用和商用，署名思远即可</span>
+  </footer>
+
+</div>
+</body>
+</html>

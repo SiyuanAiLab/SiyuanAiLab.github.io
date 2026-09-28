@@ -1,0 +1,89 @@
+---
+import SiteNavigation from './SiteNavigation.astro';
+import { Image } from 'astro:assets';
+import researcher from '../assets/business-consult/evidence-researcher.png';
+import organizer from '../assets/business-consult/report-organizer.png';
+import '../styles/work-page.css';
+const { title, active = 'skills', kind = 'work', body } = Astro.props;
+const illustration = kind === 'work' ? researcher : kind === 'report' ? organizer : null;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · 思远 AI Labs</title>
+    <meta name="description" content={title} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="stylesheet" href="/curation/style.css?v=20260925" />
+  </head>
+  <body class="work-view">
+    <a class="skip" href="#main">跳到正文</a>
+    <SiteNavigation active={active} />
+    <div class="work-content">
+      <div class="work-breadcrumb">
+        {active === 'research' ? <><a href="/curation/">认知策展</a><span>/</span><a href="/curation/research/">研究与学习</a></> : <><a href="/#work">作品集</a><span>/</span><a href="/skills/">Skills</a></>}
+      </div>
+      <main id="main" class:list={['frozen-page', kind, { 'has-illustration': illustration }]} tabindex="-1">
+        {illustration && <Image class="page-illustration" src={illustration} alt="" aria-hidden="true" width={200} height={200} densities={[1, 2]} format="webp" loading="eager" />}
+        {kind === 'report' && <div class="report-back"><a href="/skills/business-consult/">← 返回作品卡</a></div>}
+        {body && <div class="frozen-copy" data-frozen-key={kind} set:html={body} />}
+        <slot />
+      </main>
+      <div class="work-footer"><a href="/">思远 AI Labs</a><a href={active === 'research' ? '/curation/research/' : '/skills/'}>{active === 'research' ? '研究与学习' : 'Skills'} ↑</a></div>
+    </div>
+    <div class="scrim" id="scrim" hidden></div>
+  </body>
+</html>
+<script>
+  function revealReport() {
+    const target = document.querySelector<HTMLDetailsElement>('#full-report');
+    const anchor = document.getElementById(location.hash.slice(1));
+    if (target && (anchor === target || (anchor && target.contains(anchor)))) {
+      target.open = true;
+      requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+    }
+  }
+  window.addEventListener('hashchange', revealReport);
+  document.querySelectorAll<HTMLAnchorElement>('a[href$="#full-report"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = document.querySelector<HTMLDetailsElement>('#full-report');
+      if (target) target.open = true;
+    });
+  });
+  revealReport();
+  const menu = document.querySelector<HTMLButtonElement>('#menu')!;
+  const sidebar = document.querySelector<HTMLElement>('#site-nav')!;
+  const scrim = document.querySelector<HTMLElement>('#scrim')!;
+  const content = document.querySelector<HTMLElement>('.work-content')!;
+  function closeMenu(restoreFocus = true) {
+    sidebar.classList.remove('open');
+    scrim.hidden = true;
+    menu.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('drawer-open');
+    content.inert = false;
+    if (restoreFocus) menu.focus();
+  }
+  menu.addEventListener('click', () => {
+    sidebar.classList.add('open');
+    scrim.hidden = false;
+    menu.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('drawer-open');
+    content.inert = true;
+    sidebar.querySelector<HTMLAnchorElement>('a')?.focus();
+  });
+  scrim.addEventListener('click', () => closeMenu());
+  document.addEventListener('keydown', event => {
+    if (!sidebar.classList.contains('open')) return;
+    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Tab') {
+      const links = sidebar.querySelectorAll<HTMLAnchorElement>('a');
+      const first = links[0], last = links[links.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  matchMedia('(min-width:640px)').addEventListener('change', event => {
+    if (event.matches) closeMenu(false);
+  });
+</script>

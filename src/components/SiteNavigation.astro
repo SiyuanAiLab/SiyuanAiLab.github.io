@@ -1,0 +1,5 @@
+---
+const { active } = Astro.props;
+---
+<header class="mobile-header"><a href="/">思远 AI Labs</a><button id="menu" aria-expanded="false" aria-controls="site-nav">栏目</button></header>
+<aside class="site-nav" id="site-nav" aria-label="全站导航"><a class="identity" href="/" aria-label="思远 AI Labs，首页">思远 AI Labs</a><nav><span class="nav-label">认知策展</span><a href="/curation/" data-view="daily" aria-current={active === "daily" ? "page" : undefined}>日报</a><a href="/curation/topics/" data-view="topics" aria-current={active === "topics" ? "page" : undefined}>按主题看信息</a><span class="subnav-pending">研究与学习<small>筹备中</small></span><span class="unavailable">决策主权<small>筹备中</small></span><span class="nav-label">作品集</span><a href="/skills/" aria-current={active === "skills" ? "page" : undefined}>Skills</a><span class="subnav-pending">MCP<small>筹备中</small></span><span class="subnav-pending">操作系统<small>筹备中</small></span></nav><p class="nav-bottom">输入自己选<br>判断自己做<br>产出自己持有</p></aside>

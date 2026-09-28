@@ -1,0 +1,26 @@
+[
+  {
+    "key": "work",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-skill作品卡-business-consult-线稿v0.7.html",
+    "snapshot": "src/data/business-consult/work.html",
+    "sha256": "f811167d31f7e8d79c71b99751d966b8477f02bb14024eff6487f3efb29a9622"
+  },
+  {
+    "key": "diagnosis",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-证据页-问诊实录-skill经济调研-v0.1.html",
+    "snapshot": "src/data/business-consult/diagnosis.html",
+    "sha256": "39bcb17c66a725c8c896c14392389ad280af933d9d9f50d47cd2a146b340ae04"
+  },
+  {
+    "key": "methods",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-结构页-六本方法论-v0.1.html",
+    "snapshot": "src/data/business-consult/methods.html",
+    "sha256": "37fc99d6984a156830b139c9eea203018b0ebf607e97cf102f92d69bc3032fb9"
+  },
+  {
+    "key": "report",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/01-基础设施/商业咨询Skill/实战记录/skill市场价值诊断-2026-09-28/report.html",
+    "snapshot": "src/data/business-consult/report.html",
+    "sha256": "a3292c570417a58ff78d0f380313f7247b7769699d10b8a1ad3770ee275f4cb0"
+  }
+]

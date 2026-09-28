@@ -1,0 +1,158 @@
+---
+import SiteNavigation from '../components/SiteNavigation.astro';
+const skills = [
+  { name: 'Business Consult', category: '可溯源的商业咨询', description: '要不要进一个行业、一个想法靠不靠谱、客户的问题出在哪——都是它接的题。', scenario: '对一个商业困惑有疑问？', output: '它给你出一份咨询调研报告。', href: '/skills/business-consult/' },
+];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="思远自己制作的 Skills：把实际工作中的方法，做成可以重复使用的 AI 技能。" />
+    <link rel="canonical" href={new URL('/skills/', Astro.site)} />
+    <link rel="stylesheet" href="/curation/style.css?v=20260925" />
+    <title>Skills · 作品集 · 思远 AI Labs</title>
+  </head>
+  <body class="skills-view">
+    <a class="skip" href="#main">跳到正文</a>
+    <SiteNavigation active="skills" />
+    <div class="skills-content">
+    <main id="main" tabindex="-1">
+      <p class="breadcrumb"><a href="/#work">作品集</a><span aria-hidden="true"> / </span>Skills</p>
+      <section aria-labelledby="page-title">
+        <p class="principle">产出自己持有</p>
+        <h1 id="page-title">Skills</h1>
+        <p class="intro">把实际工作中的方法，做成可以重复使用的 AI 技能。<br />这里收录我自己制作的 Skills。</p>
+        <div class="search-tools" role="search" aria-label="搜索 Skills" hidden>
+          <label for="skill-search">查找一个 Skill</label>
+          <div class="search-row"><input id="skill-search" type="search" placeholder="搜索名称、分类或用途" aria-controls="skills-list" /><button id="clear-search" type="button" hidden>清空</button></div>
+          <p id="search-status" role="status" aria-live="polite"></p>
+        </div>
+        {skills.length > 0 ? <ul class="skills-list" id="skills-list">
+          {skills.map(skill => <li data-search={[skill.name, 'business-consult', skill.category, skill.description, skill.scenario, skill.output].join(' ')}>
+            <p class="category">{skill.category}</p><h2><a href={skill.href}>{skill.name}</a></h2>
+            <p>{skill.description}</p>
+            <a class="detail-link" href={skill.href}>了解这个 Skill →</a>
+          </li>)}
+        </ul> : <div class="empty"><h2>作品整理中</h2><p>整理好一个，就在这里留下一个。</p></div>}
+        <div class="empty" id="no-results" hidden><h2>没有找到相关 Skill</h2><p>换个关键词，或清空搜索查看全部。</p></div>
+      </section>
+      <a class="back" href="/#work">← 返回作品集</a>
+    </main>
+    <footer>
+      <p>思远 AI Labs</p>
+      <div class="legal">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">浙ICP备2026063003号</a>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33021102001302" target="_blank" rel="noopener noreferrer">浙公网安备33021102001302号</a>
+        <a href="https://github.com/SiyuanAiLab" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </footer>
+    </div>
+    <div class="scrim" id="scrim" hidden></div>
+  </body>
+</html>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#skill-search')!;
+  const clearSearch = document.querySelector<HTMLButtonElement>('#clear-search')!;
+  const cards = [...document.querySelectorAll<HTMLElement>('.skills-list > li')];
+  const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
+  const searchIndex = cards.map(card => ({ card, text: normalize(card.dataset.search || '') }));
+  function filterSkills() {
+    const terms = normalize(search.value).split(/\s+/).filter(Boolean);
+    let count = 0;
+    for (const { card, text } of searchIndex) {
+      card.hidden = !terms.every(term => text.includes(term));
+      if (!card.hidden) count++;
+    }
+    document.querySelector<HTMLElement>('#search-status')!.textContent = terms.length ? `找到 ${count} 个 Skill · 共 ${cards.length} 个` : `全部 ${cards.length} 个 Skills`;
+    document.querySelector<HTMLElement>('#no-results')!.hidden = count > 0 || !terms.length;
+    clearSearch.hidden = !search.value;
+  }
+  if (cards.length) document.querySelector<HTMLElement>('.search-tools')!.hidden = false;
+  search.addEventListener('input', filterSkills);
+  clearSearch.addEventListener('click', () => { search.value = ''; filterSkills(); search.focus(); });
+  filterSkills();
+  const menu = document.querySelector<HTMLButtonElement>('#menu')!;
+  const sidebar = document.querySelector<HTMLElement>('#site-nav')!;
+  const scrim = document.querySelector<HTMLElement>('#scrim')!;
+  function closeMenu() {
+    sidebar.classList.remove('open');
+    scrim.hidden = true;
+    menu.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('drawer-open');
+    menu.focus();
+  }
+  menu.addEventListener('click', () => {
+    sidebar.classList.add('open');
+    scrim.hidden = false;
+    menu.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('drawer-open');
+    sidebar.querySelector<HTMLAnchorElement>('a')?.focus();
+  });
+  scrim.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', event => {
+    if (!sidebar.classList.contains('open')) return;
+    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Tab') {
+      const links = sidebar.querySelectorAll<HTMLAnchorElement>('a');
+      const first = links[0], last = links[links.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  matchMedia('(min-width:640px)').addEventListener('change', event => {
+    if (event.matches && sidebar.classList.contains('open')) closeMenu();
+  });
+</script>
+<style>
+  :root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; color:#161616; background:#fff; color-scheme:light; }
+  * { box-sizing:border-box; }
+  .skills-content { margin-left:210px; min-height:100dvh; display:flex; flex-direction:column; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { text-decoration:underline; text-underline-offset:5px; }
+  :focus-visible { outline:2px solid #222; outline-offset:5px; }
+  main,footer { width:calc(100% - 80px); max-width:1080px; margin-inline:auto; }
+  main { min-height:0; flex:1; padding:30px 0 72px; }
+  .breadcrumb { color:#666; font-size:12px; margin:0 0 56px; }
+  .principle { font-size:13px; color:#646461; margin:0 0 12px; }
+  h1 { margin:0; font-size:clamp(40px,6vw,64px); letter-spacing:-.045em; line-height:1.2; }
+  .intro { font-size:17px; color:#535350; line-height:1.9; margin:22px 0 42px; }
+  .search-tools { margin-bottom:26px; }
+  .search-tools label { display:block; font-size:13px; font-weight:600; margin-bottom:10px; }
+  .search-row { display:flex; gap:12px; align-items:center; }
+  #skill-search { flex:1; min-width:0; width:100%; min-height:48px; padding:12px 16px; background:#f7f7f5; border:1px solid #e1e1dc; border-radius:9px; font-size:14px; }
+  #clear-search { flex-shrink:0; min-height:44px; padding:8px 12px; font-size:13px; }
+  #search-status { margin-top:12px; color:#73736d; font-size:12px; }
+  .skills-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+  .skills-list li,.empty { padding:30px; border:1px solid #e6e6e3; border-radius:12px; background:#f7f7f6; }
+  h2 { margin:0 0 12px; font-size:22px; line-height:1.5; }
+  .skills-list p,.empty p { color:#666; font-size:15px; line-height:1.8; margin:0; }
+  .demo-note { display:inline-block; margin:0 0 20px; padding:5px 9px; background:#f2f0e9; color:#6b6250; font-size:11px; border-radius:4px; }
+  .skills-list .category { font-size:11px; color:#777; margin:0 0 16px; }
+  details { margin-top:25px; }
+  summary { width:fit-content; cursor:pointer; font-size:13px; text-decoration:underline; text-underline-offset:4px; }
+  .skill-detail { border-top:1px solid #e1e1dd; margin-top:20px; padding-top:2px; }
+  .skill-detail h3 { font-size:13px; margin:20px 0 8px; }
+  .skill-detail p { font-size:13px; }
+  .skill-detail .demo-status { margin-top:20px; font-size:11px; color:#777; }
+  .detail-link { display:inline-block; margin-top:24px; font-size:14px; text-decoration:underline; text-underline-offset:4px; }
+  .back { display:inline-block; margin-top:38px; font-size:13px; color:#666; }
+  footer { padding:24px 0 28px; border-top:1px solid #e8e8e6; display:flex; justify-content:space-between; gap:16px; color:#666; }
+  footer p { margin:0; font-size:12px; line-height:1.8; }
+  .legal { display:flex; flex-wrap:wrap; gap:6px 15px; font-size:11px; line-height:1.8; }
+  .skip { position:absolute; top:-100px; left:16px; padding:10px; background:#fff; }
+  .skip:focus { top:8px; }
+  @media(min-width:1600px) { .skills-content { margin-left:230px; } }
+  @media(min-width:640px) and (max-width:1199px) { .skills-content { margin-left:185px; } .skills-list { grid-template-columns:1fr; } }
+  @media(max-width:639px) { .skills-content { margin-left:0; } }
+  @media(max-width:600px) {
+    main,footer { width:calc(100% - 40px); }
+    main { padding-top:22px; }
+    .breadcrumb { margin-bottom:40px; }
+    .intro { font-size:15px; }
+    .skills-list { grid-template-columns:1fr; }
+    .skills-list li,.empty { padding:24px; }
+    footer { flex-direction:column; }
+  }
+</style>

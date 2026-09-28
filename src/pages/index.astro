@@ -41,7 +41,7 @@ const sections = [
             <p class="principle">{section.principle}</p>
             <h3>{section.title}</h3>
             <p class="description">{section.description}</p>
-            {section.id === 'curation' ? <a class="section-link" href="/curation/">阅读日报 <span aria-hidden="true">→</span></a> : <details>
+            {section.id === 'curation' ? <a class="section-link" href="/curation/">阅读日报 <span aria-hidden="true">→</span></a> : section.id === 'work' ? <a class="section-link" href="/skills/">Skills <span aria-hidden="true">→</span></a> : <details>
               <summary>查看栏目</summary>
               <p class="empty">内容整理中。</p>
             </details>}

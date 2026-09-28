@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一次真实问诊 · Business Consult 证据页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 640px; margin: 0 auto; }
+
+  .back { font-size: 13px; color: #999; margin-bottom: 48px; }
+  .back a { color: #999; text-decoration: none; border-bottom: 1px solid #ddd; }
+
+  header { margin-bottom: 56px; }
+  header .en { font-size: 12px; color: #999; letter-spacing: 0.25em; margin-bottom: 16px; }
+  header h1 { font-size: 24px; font-weight: 600; line-height: 1.7; margin-bottom: 16px; }
+  header .intro { font-size: 15px; color: #666; }
+  header .meta { font-size: 12px; color: #aaa; margin-top: 20px; }
+
+  .gate { border-top: 1px solid #eee; padding: 32px 0; }
+  .gate .no { font-size: 12px; color: #bbb; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .gate h2 { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+  .gate .asker { font-size: 12px; color: #999; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .gate .q { font-size: 15px; color: #444; margin-bottom: 14px; }
+  .gate .options { font-size: 14px; color: #777; margin-bottom: 14px; padding-left: 18px; }
+  .gate .options li { margin-bottom: 6px; }
+  .gate .a {
+    font-size: 15px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 14px 18px;
+  }
+  .gate .a .who { font-size: 12px; color: #999; display: block; margin-bottom: 6px; }
+
+  footer {
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #aaa;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="back"><a href="2026-09-28-skill作品卡-business-consult-线稿v0.4.html">← 返回作品卡</a></div>
+
+  <header>
+    <div class="en">EVIDENCE · DIAGNOSE</div>
+    <h1>一次真实问诊：Skill 经济调研</h1>
+    <p class="intro">这是 business-consult 第一道工序「问诊」的真实记录：一轮只问一个问题，五道门过完才许开工。<br><b>提问者：business-consult（被调用的 AI Agent）</b>　<b>回答者：思远</b>（独立开发者，正在做 Skill 分发）</p>
+    <p class="meta">2026-09-28 ｜ 完整实录存档于问诊实录.md ｜ 本页为打磨期线稿</p>
+  </header>
+
+  <div class="gate">
+    <div class="no">第一门 · 定决定</div>
+    <div class="asker">business-consult 问</div>
+    <h2>这轮诊断服务哪个决定？</h2>
+    <ul class="options">
+      <li>A. 检验「Skill 免费引流 + MCP 收费」定调是否成立</li>
+      <li>B. 定调不动，回答免费 Skill 的间接经济价值怎么衡量与兑现</li>
+      <li>C. 开放重估 Skill 直接收费可能性（允许推翻定调）</li>
+    </ul>
+    <div class="a"><span class="who">思远</span>B —— 定调不动，调研聚焦「间接经济价值怎么衡量与兑现」。</div>
+  </div>
+
+  <div class="gate">
+    <div class="no">第二门 · 定客群</div>
+    <div class="asker">business-consult 问</div>
+    <h2>「Skill 免费引流」获的是谁的客？</h2>
+    <ul class="options">
+      <li>A. 开发者/AI 玩家圈层内就有买家</li>
+      <li>B. 必须借开发者圈层过桥到企业主</li>
+      <li>C. 还没想过，两者都有可能</li>
+    </ul>
+    <div class="a"><span class="who">思远</span>（没直选，递了一个新假设）大厂办公 Agent 平台——豆包工作、WorkBuddy、千问办公——正在侵入办公现场。Skill 的自然受众可能已经在发生变化：第一批玩家，可能已经不是原来那群人了。</div>
+  </div>
+
+  <div class="gate">
+    <div class="no">第三门 · 验推理</div>
+    <div class="asker">business-consult 问</div>
+    <h2>大厂 Agent 平台对你的 Skill 是什么角色？</h2>
+    <p class="q">它先把回答者的推理链重构出来，指出最弱环节：平台渗透的是 Agent 使用，不必然是第三方 Skill 使用——如果平台是围墙花园，渗透恰恰把独立开发者挡在门外。</p>
+    <ul class="options">
+      <li>A. 分发通道  B. 需求证据/参照系  C. 竞争对手</li>
+    </ul>
+    <div class="a"><span class="who">思远</span>A —— SkillHub 直接服务 WorkBuddy，我的 Skill 能经它进入办公人群。已发布的 Skill 有约 250 次下载。获客只走社交媒体通道。</div>
+  </div>
+
+  <div class="gate">
+    <div class="no">第四门 · 验事实</div>
+    <div class="asker">business-consult 问</div>
+    <h2>250 次下载背后的人群，可见吗？</h2>
+    <ul class="options">
+      <li>A. 后台能看下载者画像/来源构成</li>
+      <li>B. 只有计数没有画像</li>
+      <li>C. 没仔细看过后台，不确定</li>
+    </ul>
+    <div class="a"><span class="who">思远</span>B —— 只有计数，没有画像。归因链在第一节点就断了。</div>
+  </div>
+
+  <div class="gate">
+    <div class="no">第五门 · 定停止边界</div>
+    <div class="asker">business-consult 问</div>
+    <h2>什么证据出现，你就认「有间接经济价值」不成立？</h2>
+    <ul class="options">
+      <li>①同类头部 Skill 下载天花板极低（千级以下）</li>
+      <li>②办公人群对第三方 Skill 的使用率可忽略</li>
+      <li>③社媒→下载的归因链在现有工具下不可建</li>
+    </ul>
+    <div class="a"><span class="who">思远</span>「我不知道。」——留白也是合法答案：停止边界留待证据出现后再拍。</div>
+  </div>
+
+  <footer>
+    五道门过完，研究规格锁定，进入调研阶段。本页所有问答为真实记录，未改写。
+  </footer>
+
+</div>
+</body>
+</html>

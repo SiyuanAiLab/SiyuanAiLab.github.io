@@ -1,0 +1,16 @@
+---
+import WorkPage from '../../../components/WorkPage.astro';
+import { pages } from '../../../data/business-consult/pages';
+import { Image } from 'astro:assets';
+import organizer from '../../../assets/business-consult/report-organizer.png';
+---
+<WorkPage {...pages.work}>
+  <details id="full-report" class="embedded-report">
+    <summary>完整调研报告 <span>展开 / 收起</span></summary>
+    <div class="embedded-report-lead">
+      <p>AI 原始输出 · Skill 交付示例</p>
+      <Image src={organizer} alt="" aria-hidden="true" width={100} height={100} densities={[1,2]} format="webp" />
+    </div>
+    <div class="frozen-copy" data-frozen-key="report" set:html={pages.report.body.replace('<h1 ', '<h2 class="embedded-report-title" ').replace('</h1>', '</h2>')} />
+  </details>
+</WorkPage>
