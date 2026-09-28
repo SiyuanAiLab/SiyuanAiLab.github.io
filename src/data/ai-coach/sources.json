@@ -1,0 +1,14 @@
+[
+  {
+    "key": "work",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-skill作品卡-ai-coach-线稿v0.1.html",
+    "snapshot": "src/data/ai-coach/work.html",
+    "sha256": "4708a6ffab5d119c8c3dfe7334566852cb7bfc30d4356eb0d366cba942c972e4"
+  },
+  {
+    "key": "evidence",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-证据页-判定卡与KB实录-ai-coach出卡-v0.1.html",
+    "snapshot": "src/data/ai-coach/evidence.html",
+    "sha256": "51d7442a659e96f3487670c59ab2e3374c0f1b87493a93ee84aa185803194850"
+  }
+]

@@ -1,0 +1,160 @@
+{
+  "ok": true,
+  "normalization": "Compare decoded body text with all Unicode whitespace removed; remove only five module-tag spans from each new work source. Separately compare pre text exactly and every href in order using the two approved path mappings. Snapshot bytes and raw SHA remain exact; rendered HTML is NOT byte-identical to source. Business Consult uses its pre-existing approved draft-label removal.",
+  "pages": [
+    {
+      "family": "ai-coach",
+      "key": "work",
+      "route": "/skills/ai-coach/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true,
+        "all_hrefs_exact_approved_mapping": true,
+        "preformatted_text_exact": true,
+        "five_modules": true,
+        "steps_01_to_05": true
+      },
+      "source_sha256": "4708a6ffab5d119c8c3dfe7334566852cb7bfc30d4356eb0d366cba942c972e4",
+      "http_sha256": "d4ced0866ff3b0c8e79181d826e19906bd60afb97302b922af8f7d4583714a49",
+      "source_normalized_text_sha256": "2374d1c561cd54937ef8ac35ecef800cc3cfc440c9ed07139e3380b68f6566a8",
+      "http_normalized_text_sha256": "2374d1c561cd54937ef8ac35ecef800cc3cfc440c9ed07139e3380b68f6566a8"
+    },
+    {
+      "family": "ai-coach",
+      "key": "evidence",
+      "route": "/skills/ai-coach/evidence/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true,
+        "all_hrefs_exact_approved_mapping": true,
+        "preformatted_text_exact": true
+      },
+      "source_sha256": "51d7442a659e96f3487670c59ab2e3374c0f1b87493a93ee84aa185803194850",
+      "http_sha256": "037a13f876db42001cd3d2189ad1828b38f46519d00e40248b22e0b00309ca9e",
+      "source_normalized_text_sha256": "7fd7016623ce82bff8032db877dd653d400dc535838d124e714a237a24c4da36",
+      "http_normalized_text_sha256": "7fd7016623ce82bff8032db877dd653d400dc535838d124e714a237a24c4da36"
+    },
+    {
+      "family": "business-consult",
+      "key": "work",
+      "route": "/skills/business-consult/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true
+      },
+      "source_sha256": "f811167d31f7e8d79c71b99751d966b8477f02bb14024eff6487f3efb29a9622",
+      "http_sha256": "d2eb211627ac7fa6d876f23ee732f683b0a7f0567313022675db7558d75ab866",
+      "source_normalized_text_sha256": "5dbe6b378874100987454aac4a365a4f51661b27b149e6616f7bcdc316924920",
+      "http_normalized_text_sha256": "5dbe6b378874100987454aac4a365a4f51661b27b149e6616f7bcdc316924920"
+    },
+    {
+      "family": "business-consult",
+      "key": "diagnosis",
+      "route": "/skills/business-consult/diagnosis/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true
+      },
+      "source_sha256": "39bcb17c66a725c8c896c14392389ad280af933d9d9f50d47cd2a146b340ae04",
+      "http_sha256": "5b6aef079826716b03a0a01ba6333b91d86d70ac9a5a783c455b9494cd6a11ad",
+      "source_normalized_text_sha256": "b63b7a7da4164fad29b5d1f0454507d2804d317d5755c0bb852045bff9eddf52",
+      "http_normalized_text_sha256": "b63b7a7da4164fad29b5d1f0454507d2804d317d5755c0bb852045bff9eddf52"
+    },
+    {
+      "family": "business-consult",
+      "key": "methods",
+      "route": "/skills/business-consult/methods/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true
+      },
+      "source_sha256": "37fc99d6984a156830b139c9eea203018b0ebf607e97cf102f92d69bc3032fb9",
+      "http_sha256": "fd4fd2f5a7ca875a49dc344ea54a2470ce5e0aba34f2c0c05bab16f720c5eb51",
+      "source_normalized_text_sha256": "7c279d0a027f41873b4161987bba4d260d162126e8ff81c45430feccd0e18ef3",
+      "http_normalized_text_sha256": "7c279d0a027f41873b4161987bba4d260d162126e8ff81c45430feccd0e18ef3"
+    },
+    {
+      "family": "business-consult",
+      "key": "report",
+      "route": "/skills/business-consult/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true
+      },
+      "source_sha256": "a3292c570417a58ff78d0f380313f7247b7769699d10b8a1ad3770ee275f4cb0",
+      "http_sha256": "d2eb211627ac7fa6d876f23ee732f683b0a7f0567313022675db7558d75ab866",
+      "source_normalized_text_sha256": "f3806ff816cad8294bd9ebd78de436169b3e192f9a3a1eb15a257c2d32986f60",
+      "http_normalized_text_sha256": "f3806ff816cad8294bd9ebd78de436169b3e192f9a3a1eb15a257c2d32986f60"
+    },
+    {
+      "family": "private-board",
+      "key": "work",
+      "route": "/skills/private-board/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true,
+        "all_hrefs_exact_approved_mapping": true,
+        "preformatted_text_exact": true,
+        "five_modules": true,
+        "steps_01_to_05": true
+      },
+      "source_sha256": "17dd07db66237b8867b87c9a97477572cba913e172dc219e9c7e4dfbb4887d43",
+      "http_sha256": "90af4c2e742bff683d42346c9b8cf6fc4242847d2bde1580adf34599cc332918",
+      "source_normalized_text_sha256": "337660522b94918fe2d98535602e64a8db5a6402f07d1482e31f19a0103ff7a8",
+      "http_normalized_text_sha256": "337660522b94918fe2d98535602e64a8db5a6402f07d1482e31f19a0103ff7a8"
+    },
+    {
+      "family": "private-board",
+      "key": "evidence",
+      "route": "/skills/private-board/evidence/",
+      "checks": {
+        "snapshot_sha_matches": true,
+        "original_snapshot_bytes_match": true,
+        "normalized_text_equal": true,
+        "external_links_exact_order": true,
+        "no_visible_module_tags": true,
+        "source_ids_preserved": true,
+        "all_hrefs_exact_approved_mapping": true,
+        "preformatted_text_exact": true
+      },
+      "source_sha256": "74a5b468b11aeb0b28d021180b0bcfae500de30b88bebc325d9df26192d79e37",
+      "http_sha256": "1df02ab23f127dd0f36cc795d86d9eae5d3c1f69f77456645b3ed2a8694c5ee4",
+      "source_normalized_text_sha256": "9e65a56afab1b7761909a30d18951dcce3a170655af9846147deb33ecac7f029",
+      "http_normalized_text_sha256": "9e65a56afab1b7761909a30d18951dcce3a170655af9846147deb33ecac7f029"
+    }
+  ],
+  "skills_order": [
+    "Business Consult",
+    "AI Coach",
+    "稷下学宫"
+  ],
+  "research_text": "false\"),document.body.classList.remove(\"drawer-open\"),d.inert=!1,e&&c.focus()}c.addEventListener(\"click\",()=>{n.classList.add(\"open\"),o.hidden=!1,c.setAttribute(\"aria-expanded\",\"true\"),document.body.classList.add(\"drawer-open\"),d.inert=!0,n.querySelector(\"a\")?.focus()});o.addEventListener(\"click\",()=>r());document.addEventListener(\"keydown\",e=>{if(n.classList.contains(\"open\")&&(e.key===\"Escape\"&&r(),e.key===\"Tab\")){const t=n.querySelectorAll(\"a\"),s=t[0],a=t[t.length-1];e.shiftKey&&document.activeElement===s?(e.preventDefault(),a.focus()):!e.shiftKey&&document.activeElement===a&&(e.preventDefault(),s.focus())}});matchMedia(\"(min-width:640px)\").addEventListener(\"change\",e=>{e.matches&&r(!1)});"
+}

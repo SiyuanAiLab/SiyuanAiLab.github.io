@@ -1,0 +1,14 @@
+[
+  {
+    "key": "work",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-skill作品卡-稷下学宫-线稿v0.1.html",
+    "snapshot": "src/data/private-board/work.html",
+    "sha256": "17dd07db66237b8867b87c9a97477572cba913e172dc219e9c7e4dfbb4887d43"
+  },
+  {
+    "key": "evidence",
+    "source": "/Users/yangsiyuan/Desktop/我的工作台/03-Process/04-商业/独立站产品化/2026-09-28-证据页-互驳实录-稷下学宫-v0.1.html",
+    "snapshot": "src/data/private-board/evidence.html",
+    "sha256": "74a5b468b11aeb0b28d021180b0bcfae500de30b88bebc325d9df26192d79e37"
+  }
+]

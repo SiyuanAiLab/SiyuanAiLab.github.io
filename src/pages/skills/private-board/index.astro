@@ -1,0 +1,7 @@
+---
+import WorkPage from '../../../components/WorkPage.astro';
+import { pages } from '../../../data/private-board/pages';
+import discussion from '../../../assets/private-board/roundtable-discussion.png';
+import '../../../styles/private-board.css';
+---
+<WorkPage {...pages.work} illustration={discussion} pageClass="private-board-work" />

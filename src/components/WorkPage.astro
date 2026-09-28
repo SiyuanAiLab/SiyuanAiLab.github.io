@@ -4,8 +4,10 @@ import { Image } from 'astro:assets';
 import researcher from '../assets/business-consult/evidence-researcher.png';
 import organizer from '../assets/business-consult/report-organizer.png';
 import '../styles/work-page.css';
-const { title, active = 'skills', kind = 'work', body } = Astro.props;
-const illustration = kind === 'work' ? researcher : kind === 'report' ? organizer : null;
+const { title, active = 'skills', kind = 'work', body, pageClass, illustration: customIllustration } = Astro.props;
+const illustration = customIllustration === undefined
+  ? (kind === 'work' ? researcher : kind === 'report' ? organizer : null)
+  : customIllustration;
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -24,7 +26,7 @@ const illustration = kind === 'work' ? researcher : kind === 'report' ? organize
       <div class="work-breadcrumb">
         {active === 'research' ? <><a href="/curation/">认知策展</a><span>/</span><a href="/curation/research/">研究与学习</a></> : <><a href="/#work">作品集</a><span>/</span><a href="/skills/">Skills</a></>}
       </div>
-      <main id="main" class:list={['frozen-page', kind, { 'has-illustration': illustration }]} tabindex="-1">
+      <main id="main" class:list={['frozen-page', kind, pageClass, { 'has-illustration': illustration }]} tabindex="-1">
         {illustration && <Image class="page-illustration" src={illustration} alt="" aria-hidden="true" width={200} height={200} densities={[1, 2]} format="webp" loading="eager" />}
         {kind === 'report' && <div class="report-back"><a href="/skills/business-consult/">← 返回作品卡</a></div>}
         {body && <div class="frozen-copy" data-frozen-key={kind} set:html={body} />}

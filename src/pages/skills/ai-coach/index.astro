@@ -1,0 +1,7 @@
+---
+import WorkPage from '../../../components/WorkPage.astro';
+import { pages } from '../../../data/ai-coach/pages';
+import decision from '../../../assets/ai-coach/human-decision.png';
+import '../../../styles/ai-coach.css';
+---
+<WorkPage {...pages.work} illustration={decision} pageClass="coach-work" />

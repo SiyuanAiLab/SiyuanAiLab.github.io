@@ -1,0 +1,18 @@
+/* AI Coach-only presentation. Frozen text and other Skill pages are untouched. */
+.coach-work .trace { font-size: 12px; color: #6b6b6b; margin: 16px 0 12px; }
+.coach-work .how > .note { margin-top: 24px; }
+.coach-work .page-illustration { top: 0; }
+.coach-evidence .back { display: inline-block; margin-bottom: 28px; }
+.coach-evidence h1 { max-width: 700px; }
+.coach-evidence .meta { margin: 22px 0 48px; }
+.coach-evidence h2 { margin: 48px 0 22px; scroll-margin-top: 32px; }
+.coach-evidence p { font-size: 15px; color: #555; margin: 18px 0; }
+.coach-evidence pre { white-space: pre-wrap; overflow-wrap: anywhere; font-family: 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 1.9; border: 1px solid #e6e6e3; border-radius: 8px; background: #f7f7f5; padding: 24px; margin: 26px 0; }
+.coach-evidence .q { font-size: inherit; color: #6b6b6b; }
+.frozen-page.coach-evidence .a { display: inline; padding: 0; border-radius: 0; background: transparent; color: #1a1a1a; font-size: inherit; }
+.coach-evidence .divider { border: 0; border-top: 1px solid #e6e6e3; margin: 44px 0; }
+.coach-evidence .note { margin-top: 40px; font-size: 13px; }
+@media(max-width:639px) {
+  .coach-evidence pre { padding: 16px; font-size: 11px; }
+  .coach-evidence h2 { scroll-margin-top: 76px; }
+}

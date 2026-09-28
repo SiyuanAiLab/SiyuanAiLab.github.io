@@ -1,7 +1,9 @@
 ---
 import SiteNavigation from '../components/SiteNavigation.astro';
 const skills = [
-  { name: 'Business Consult', category: '可溯源的商业咨询', description: '要不要进一个行业、一个想法靠不靠谱、客户的问题出在哪——都是它接的题。', scenario: '对一个商业困惑有疑问？', output: '它给你出一份咨询调研报告。', href: '/skills/business-consult/' },
+  { name: 'Business Consult', slug: 'business-consult', category: '可溯源的商业咨询', description: '要不要进一个行业、一个想法靠不靠谱、客户的问题出在哪——都是它接的题。', scenario: '对一个商业困惑有疑问？', output: '它给你出一份咨询调研报告。', href: '/skills/business-consult/' },
+  { name: 'AI Coach', slug: 'ai-coach', category: '先谈妥谁拍板，再让 AI 动手', description: '做一个新 Skill、改一个老的、打磨一段改了很多版的 prompt——都是它接的活。', scenario: '找教练', output: '开工判定卡', href: '/skills/ai-coach/' },
+  { name: '稷下学宫', slug: 'private-board Jixia Academy', category: '多席位对抗的私董会', description: '要不要转型、这笔钱该不该投、这个产品做不做、这个人要不要用——都是能摆上桌的题。', scenario: '开一场稷下', output: '行动承诺', href: '/skills/private-board/' },
 ];
 ---
 <!doctype html>
@@ -30,7 +32,7 @@ const skills = [
           <p id="search-status" role="status" aria-live="polite"></p>
         </div>
         {skills.length > 0 ? <ul class="skills-list" id="skills-list">
-          {skills.map(skill => <li data-search={[skill.name, 'business-consult', skill.category, skill.description, skill.scenario, skill.output].join(' ')}>
+          {skills.map(skill => <li data-search={[skill.name, skill.slug, skill.category, skill.description, skill.scenario, skill.output].join(' ')}>
             <p class="category">{skill.category}</p><h2><a href={skill.href}>{skill.name}</a></h2>
             <p>{skill.description}</p>
             <a class="detail-link" href={skill.href}>了解这个 Skill →</a>

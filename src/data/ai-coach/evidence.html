@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>证据页 · 判定卡与 KB 实录（ai-coach 出卡）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { max-width: 640px; margin: 0 auto; }
+  .back { font-size: 13px; color: #999; text-decoration: none; border-bottom: 1px solid #ddd; }
+  h1 { font-size: 22px; font-weight: 600; margin: 18px 0 8px; line-height: 1.6; }
+  .meta { font-size: 13px; color: #999; margin-bottom: 48px; }
+  h2 { font-size: 17px; font-weight: 600; margin: 48px 0 16px; }
+  p, li { font-size: 14px; color: #444; }
+  pre {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    color: #333;
+    margin: 14px 0;
+  }
+  .q { color: #999; }
+  .a { color: #111; }
+  .divider { border: none; border-top: 1px solid #f0f0f0; margin: 40px 0; }
+  .note { font-size: 13px; color: #999; margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <a class="back" href="2026-09-28-skill作品卡-ai-coach-线稿v0.1.html">← 返回作品卡</a>
+
+  <h1>一张真实判定卡，和一次真实「先查再动手」</h1>
+  <p class="meta">2026-09-28 实录 ｜ 提问：ai-coach 管线 ｜ 回答与拍板：思远</p>
+
+  <h2 id="card">证据一：开工判定卡（节选）</h2>
+  <p>2026-09-28 上午，思远说「把作品卡营销包装沉淀成 Skill」。ai-coach 的第一个回应不是写文件，是这张卡：</p>
+  <pre>card_id: AC-20260928-marketing-packaging
+change_kind: new            # 新品，不是小修
+product_tier: P1            # 自用工具，不外发
+approval_required: true     # 必须人批准才许立项
+
+judgment_nodes:
+  - step: 立项批准
+    user_judgment: true     # 立不立、叫什么、放哪层——你拍
+  - step: 设计稿终审
+    user_judgment: true     # 骨架认不认——你拍
+  - step: 首跑验收
+    user_judgment: true     # 产物认不认——你拍</pre>
+  <p>哪几步必须人拍板，开工前就是白纸黑字。卡立住之后，它才许动手。</p>
+
+  <hr class="divider">
+
+  <h2 id="kb">证据二：先查三本账，才许新建（实录摘要）</h2>
+  <p>判定卡签完，它没有直接设计——先查：</p>
+  <p><span class="q">第一账 · 你自己的旧积累：</span><br><span class="a">翻遍内部登记册 77 件工具。最接近的是 product-narrative-miner（产品叙事挖矿）——它是上游，不是同类。结论：没有可复用的，不硬合并。</span></p>
+  <p><span class="q">第二账 · 市面上有没有现成的：</span><span class="a">检索 skills.sh 公开市场，命中三件相邻的：通用营销文案、落地页审计、前端设计生成——逐一比对，都不做「Skill 产品 → 作品卡」这件事。结论：无现成同类（no_comparable）。</span></p>
+  <p><span class="q">第三账 · 拆同类源码：</span><span class="a">没命中同类，这本账按规矩豁免——不为了显得勤快去拆无关项目。</span></p>
+  <p>三本账查完确认「没有」，才立项。新建是最后一招，不是第一反应。</p>
+
+  <p class="note">本页内容为 2026-09-28 一次真实立项的节选转写；判定卡原文与完整扫描记录在思远的内部仓库，可复核。</p>
+
+</div>
+</body>
+</html>

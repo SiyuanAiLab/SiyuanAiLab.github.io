@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coach 作品卡 · 线稿 v0.1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { max-width: 640px; margin: 0 auto; }
+
+  /* 模块角标：打磨期路标，定稿删除 */
+  .module-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: #bbb;
+    border: 1px dashed #ddd;
+    border-radius: 3px;
+    padding: 1px 8px;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  section { margin-bottom: 88px; }
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  /* 模块 1：我是谁 */
+  .hero .en {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .hero .sub {
+    font-size: 15px;
+    color: #777;
+  }
+
+  /* 模块 2：你的问题 */
+  .pain .scene p {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 16px;
+  }
+  .pain .scene .punch { color: #111; font-weight: 600; }
+
+  /* 模块 3：解决方案 */
+  .how .step {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .how .step:last-child { border-bottom: none; }
+  .how .no {
+    font-size: 13px;
+    color: #bbb;
+    min-width: 24px;
+    padding-top: 3px;
+  }
+  .how .body b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .how .body span { font-size: 14px; color: #777; }
+  .how .evidence {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #999;
+  }
+  .how .evidence a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+  .how .falsified {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .how .f-card {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .how .f-card span {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .how .note {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* 模块 4：评测报告 */
+  .proof .metrics {
+    display: flex;
+    gap: 48px;
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+  }
+  .proof .num { font-size: 24px; font-weight: 600; }
+  .proof .num small { font-size: 13px; color: #999; font-weight: 400; }
+  .proof .label { font-size: 12px; color: #999; margin-top: 2px; }
+  .proof blockquote {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .proof .trace { font-size: 12px; color: #aaa; margin-bottom: 10px; }
+  .proof .src { font-size: 12px; color: #aaa; }
+  .proof .src a { color: #999; }
+
+  /* 模块 5：安装方式 */
+  .install p { font-size: 14px; color: #666; margin-bottom: 12px; }
+  .install .cmd {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    background: #f5f5f5;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .install a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+
+  /* 尾巴 */
+  footer {
+    border-top: 1px solid #eee;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ============ 模块 1：我是谁 ============ -->
+  <section class="hero">
+    <span class="module-tag">模块 1 ｜我是谁</span>
+    <div class="en">AI COACH</div>
+    <h1>想让你的 AI 帮你做一个 Skill？<br>对它说「找教练」——<br>它先跟你谈妥谁拍板，再动手把它做对。</h1>
+    <p class="sub">做一个新 Skill、改一个老的、打磨一段改了很多版的 prompt——都是它接的活。</p>
+  </section>
+
+  <!-- ============ 模块 2：你的问题 ============ -->
+  <section class="pain">
+    <span class="module-tag">模块 2 ｜你的问题</span>
+    <h2>这三个时刻，你大概率都经历过</h2>
+    <div class="scene">
+      <p>你对 AI 说：帮我做个客户访谈的 Skill。它说好，转头开始写文件。十分钟后交付，又快又完整——可惜不是你要的。<br><span class="punch">它很勤快。只是开工前，没人跟它谈妥什么叫「对」。</span></p>
+      <p>它做东西全凭脑子里那点存货。你上个月踩过的坑、市面上现成的轮子，它一概不知道——没人叫它先去查，它就不查。<br><span class="punch">你花 token 让它重做一遍别人早就做好的东西，还做得更糙。</span></p>
+      <p>它说「做完了」。好不好、对不对、能不能用，你只能信它。这一次你信了，下一次它替你做主就更多一分。<br><span class="punch">AI 替你把决定做完的那天，你的判断能力也跟着下班了。</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 模块 3：解决方案 ============ -->
+  <section class="how">
+    <span class="module-tag">模块 3 ｜解决方案</span>
+    <h2>先谈妥谁拍板，再让 AI 动手</h2>
+    <div class="step">
+      <div class="no">01</div>
+      <div class="body"><b>先判定，后动手</b><span>开工第一件事不是写文件，是出一张开工判定卡：这件事分几步、哪几步必须你拍、返工最多几轮——白纸黑字，你点头它才动。</span>
+      <span class="evidence">这张卡自己就生在判定卡上：2026-09-28 上午，编号 AC-20260928，一个「作品卡包装」Skill 的开工卡。　<a href="2026-09-28-证据页-判定卡与KB实录-ai-coach出卡-v0.1.html#card">看这张真实判定卡 →</a></span></div>
+    </div>
+    <div class="step">
+      <div class="no">02</div>
+      <div class="body"><b>先查最好的，再动手</b><span>动手之前先查三本账：你自己的旧积累里有没有能复用的、市面上有没有现成同类、有就把最好的拆开看结构。查完确认「没有」，才许新建。</span>
+      <span class="evidence">还是今天这单活：内部扫描无同类 → 市场扫描三件相邻件逐一比对 → 结论「无现成同类」，才立项。　<a href="2026-09-28-证据页-判定卡与KB实录-ai-coach出卡-v0.1.html#kb">看真实扫描记录 →</a></span></div>
+    </div>
+    <div class="step">
+      <div class="no">03</div>
+      <div class="body"><b>它敢拦自己</b><span>它的纪律对谁都一样，包括对它自己：</span>
+        <div class="falsified">
+          <div class="f-card"><span>它拦住了自己 ①</span>2026-08 它给自己办发布，隐私扫描拦下一个带本地路径的缓存文件——返修清零、复验通过、拿到人的单次授权，才上线。</div>
+          <div class="f-card"><span>它拦住了自己 ②</span>同年一次大版本升级，双轨盲审打回 38 条——六个决策点全部推倒重谈，重写后才放行。</div>
+        </div>
+        <span>打回记录都在仓库里，可复核。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">04</div>
+      <div class="body"><b>交付不给「信我」，给证据</b><span>每个任务带一条验证命令，做完交的是证据不是态度：文件清单、哈希核验、检查器结果。今天这单活的验收账——七件文件在册、母本副本哈希与原件逐一比对一致、lint 检查通过。它交卡，你查账。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">05</div>
+      <div class="body"><b>这张卡，就是它今天刚做完的一单活</b><span>2026-09-28 上午立项、下午出卡：判定卡 → 查三本账 → 设计稿人拍 → 施工 → 验证，每一站都留着凭证。你看到的不是广告，是它的工作记录。</span></div>
+    </div>
+    <p class="note">它自己的规矩：没证据的话不许说。所以你在这张卡上看到的每个案例，都能追到原始凭证。</p>
+  </section>
+
+  <!-- ============ 模块 4：评测报告 ============ -->
+  <section class="proof">
+    <span class="module-tag">模块 4 ｜评测报告</span>
+    <h2>别人验过它</h2>
+    <div class="metrics">
+      <div class="metric"><div class="num">4.5<small> / 5</small></div><div class="label">SkillHub AI 评测 · 优秀</div></div>
+      <div class="metric"><div class="num">46</div><div class="label">次下载（2026-09 口径）</div></div>
+      <div class="metric"><div class="num">安全</div><div class="label">双实验室安全审核通过</div></div>
+    </div>
+    <blockquote>「它的最大优点是把『人该拍板的地方』白纸黑字定下来，文档清晰易懂。」</blockquote>
+    <p class="trace">TRACE 五维：可信任 4.8 ｜ 规范性 4.7 ｜ 有效性 4.5 ｜ 适用性 4.4 ｜ 可靠性 4.3；安全审核：科恩实验室、云鼎实验室均「安全，无风险」。</p>
+    <p class="src">—— SkillHub 评测报告 · <a href="https://skillhub.cn/skills/user_97f42772/ai-coach">查看完整评测</a></p>
+  </section>
+
+  <!-- ============ 模块 5：安装方式 ============ -->
+  <section class="install">
+    <span class="module-tag">模块 5 ｜安装方式</span>
+    <h2>装给你的 AI 用</h2>
+    <p>前置条件：你有一个支持 Skill 的 AI 助手就行（Claude Code、WorkBuddy 等），不用会编程。</p>
+    <p><b>方式一 · SkillHub（推荐，国内直连，最简单）</b><br>打开 <a href="https://skillhub.cn/skills/user_97f42772/ai-coach">它的 SkillHub 页面</a>，点「安装到本地 Agent」；或者把页面上的安装提示词复制下来，发给你的 AI——它自己会装好。</p>
+    <p><b>方式二 · GitHub（需要能正常访问 GitHub）</b></p>
+    <div class="cmd">npx skills add SiyuanAiLab/ai-coach</div>
+    <p>装完直接对它说人话：「帮我设计一个客户访谈的 Skill。」——它应该先给你一张开工判定卡；直接开始写文件 = 没触发对。</p>
+    <p style="font-size:13px;color:#999;">源码与完整示例：<a href="https://github.com/SiyuanAiLab/ai-coach">GitHub 仓库</a></p>
+  </section>
+
+  <!-- ============ 尾巴 ============ -->
+  <footer>
+    <span>v1.1.0 ｜ 2026-08 更新 ｜ active 持续维护</span>
+    <span>如实说明：跨模型一致性是设计目标、不是已验证的承诺；它不管普通问答和内容写作</span>
+    <span>免费开源 · CC BY 4.0：可自由使用和商用，署名思远即可</span>
+  </footer>
+
+</div>
+</body>
+</html>

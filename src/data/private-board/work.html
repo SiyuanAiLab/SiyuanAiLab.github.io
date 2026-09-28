@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>稷下学宫 作品卡 · 线稿 v0.1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    line-height: 1.9;
+    padding: 64px 20px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { max-width: 640px; margin: 0 auto; }
+
+  /* 模块角标：打磨期路标，定稿删除 */
+  .module-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: #bbb;
+    border: 1px dashed #ddd;
+    border-radius: 3px;
+    padding: 1px 8px;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  section { margin-bottom: 88px; }
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  /* 模块 1：我是谁 */
+  .hero .en {
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .hero .sub {
+    font-size: 15px;
+    color: #777;
+  }
+
+  /* 模块 2：你的问题 */
+  .pain .scene p {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 16px;
+  }
+  .pain .scene .punch { color: #111; font-weight: 600; }
+
+  /* 模块 3：解决方案 */
+  .how .step {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .how .step:last-child { border-bottom: none; }
+  .how .no {
+    font-size: 13px;
+    color: #bbb;
+    min-width: 24px;
+    padding-top: 3px;
+  }
+  .how .body b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .how .body span { font-size: 14px; color: #777; }
+  .how .evidence {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #999;
+  }
+  .how .evidence a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+  .how .stations {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+  .how .station {
+    background: #fff;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .how .station .seat { color: #999; min-width: 64px; }
+  .how .station .who { color: #111; font-weight: 600; flex-shrink: 0; }
+  .how .station .what { color: #777; text-align: right; }
+  .how .falsified {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .how .f-card {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .how .f-card span {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .how .note {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* 模块 4：评测报告 */
+  .proof .metrics {
+    display: flex;
+    gap: 48px;
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+  }
+  .proof .num { font-size: 24px; font-weight: 600; }
+  .proof .num small { font-size: 13px; color: #999; font-weight: 400; }
+  .proof .label { font-size: 12px; color: #999; margin-top: 2px; }
+  .proof blockquote {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  .proof .trace { font-size: 12px; color: #aaa; margin-bottom: 10px; }
+  .proof .src { font-size: 12px; color: #aaa; }
+  .proof .src a { color: #999; }
+
+  /* 模块 5：安装方式 */
+  .install p { font-size: 14px; color: #666; margin-bottom: 12px; }
+  .install .cmd {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    background: #f5f5f5;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .install a { color: #111; border-bottom: 1px solid #ccc; text-decoration: none; }
+
+  /* 尾巴 */
+  footer {
+    border-top: 1px solid #eee;
+    padding-top: 24px;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ============ 模块 1：我是谁 ============ -->
+  <section class="hero">
+    <span class="module-tag">模块 1 ｜我是谁</span>
+    <div class="en">JIXIA ACADEMY · PRIVATE BOARD</div>
+    <h1>有个重要决定想不清楚？<br>对它说「开一场稷下」——<br>它给你摆一场多席位对抗的私董会。</h1>
+    <p class="sub">要不要转型、这笔钱该不该投、这个产品做不做、这个人要不要用——都是能摆上桌的题。</p>
+  </section>
+
+  <!-- ============ 模块 2：你的问题 ============ -->
+  <section class="pain">
+    <span class="module-tag">模块 2 ｜你的问题</span>
+    <h2>这三个时刻，你大概率都经历过</h2>
+    <div class="scene">
+      <p>你问 AI「这事该不该做」。它说能做，列三个理由；你说担心风险，它马上说你考虑得对。聊了半小时，你比没聊还糊涂。<br><span class="punch">它不是在帮你想，是在顺着你说——你永远等不到一句「我不同意」。</span></p>
+      <p>好不容易收到点建议，全是正确的废话：关注用户、控制成本、想清楚再干。<br><span class="punch">谁来问都是这几句——它没有一个自己的脑子，更别说二十一个。</span></p>
+      <p>最难受的是聊完。讨论很热闹，笔记记了两页，然后呢？该纠结的还是纠结。<br><span class="punch">没有承诺的讨论，只是换了个姿势焦虑。</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 模块 3：解决方案 ============ -->
+  <section class="how">
+    <span class="module-tag">模块 3 ｜解决方案</span>
+    <h2>一场真的会吵起来的会，是怎么开的</h2>
+    <div class="step">
+      <div class="no">01</div>
+      <div class="body"><b>议题说不清，不许开会</b><span>开场先做一件事：把「你到底要判断什么」谈拢。议题没收束，会议不开——快会也不跳过这一步。聊得再多，都不如把题出对。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">02</div>
+      <div class="body"><b>席位上坐的是 21 个真脑子</b><span>五个功能位，21 位思想模型——萃取自公开人物的公开著作、演讲与访谈，不冒充真人发言：</span>
+        <div class="stations">
+          <div class="station"><span class="seat">资本纪律</span><span class="who">巴菲特 · 芒格 · 段永平 · 马克斯</span><span class="what">价值、现金流、安全边际</span></div>
+          <div class="station"><span class="seat">破局重构</span><span class="who">马斯克 · 盖茨 · 张一鸣 · 贝索斯 · 蒂尔</span><span class="what">第一性、系统瓶颈、规模机制</span></div>
+          <div class="station"><span class="seat">产品用户</span><span class="who">乔布斯 · 雷军 · 张小龙 · 俞军</span><span class="what">产品本质、用户价值、口碑</span></div>
+          <div class="station"><span class="seat">组织生存</span><span class="who">任正非 · 马云 · 王兴 · 柳传志</span><span class="what">组织韧性、核心能力、备胎</span></div>
+          <div class="station"><span class="seat">意义动机</span><span class="who">稻盛和夫 · 曹德旺 · 松下幸之助 · 德鲁克</span><span class="what">动机、利他、经营哲学</span></div>
+        </div>
+        <span>你按题挑 3-5 席。每个席位入席先交「先验」：我先怎么看这事、我最担心什么——立场先摆桌面，再开吵。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">03</div>
+      <div class="body"><b>他们真的会吵起来</b><span>互驳不是表达不同意见，是攻击对方先验里最脆弱的成立条件——把分歧逼成一个需要你当庭用证据回答的问题。追问卡住了，换席上。</span>
+      <span class="evidence">真实互驳实录：「现金流还能撑 6 个月，要不要把服务做成标准化产品」——乔布斯当场拆巴菲特的台，巴菲特把自己逼到墙角反转。　<a href="2026-09-28-证据页-互驳实录-稷下学宫-v0.1.html">看这场真实互驳 →</a></span></div>
+    </div>
+    <div class="step">
+      <div class="no">04</div>
+      <div class="body"><b>它修过它自己</b><span>2026-08 作者拿它开真实会议，发现深会开到后半场，幕僚追着追着变成各说各话——追问链断了。它没把这推给「用户用法问题」，转头给自己做了手术：</span>
+        <div class="falsified">
+          <div class="f-card"><span>它修了自己 ①</span>追问链硬约束：幕僚必须接住上一位的问题再发言，不许隔空各讲各的。</div>
+          <div class="f-card"><span>它修了自己 ②</span>案主辩护位 + 深度自查门：你被围攻时有正式答辩位；会议深度不够，自己亮红灯重开。</div>
+        </div>
+        <span>修复记录公开可查（v3.2.0 变更）。</span></div>
+    </div>
+    <div class="step">
+      <div class="no">05</div>
+      <div class="body"><b>散会前，必须落成你的承诺</b><span>会议不散在热闹里。收敛三段：共识是什么、真正分歧在哪、必须由你亲自回答的那一个问题——然后你写下行动承诺：24-72 小时第一步、期限、成功信号、明确放弃项。主持人全程只整理，不裁决。<b>决定永远是你的，它只是让你没法再糊弄自己。</b></span></div>
+    </div>
+    <p class="note">它不查事实、不替你拍板——它保证的是：上桌的每个立场都被攻击过，散会时每个分歧都有主人。</p>
+  </section>
+
+  <!-- ============ 模块 4：评测报告 ============ -->
+  <section class="proof">
+    <span class="module-tag">模块 4 ｜评测报告</span>
+    <h2>别人验过它</h2>
+    <div class="metrics">
+      <div class="metric"><div class="num">4.7<small> / 5</small></div><div class="label">SkillHub AI 评测 · 优秀</div></div>
+      <div class="metric"><div class="num">94</div><div class="label">次下载（2026-09 口径）</div></div>
+      <div class="metric"><div class="num">安全</div><div class="label">双实验室安全审核通过</div></div>
+    </div>
+    <blockquote>「多席位对抗式讨论的设计能帮你看清决策分歧，不会替你做决定这点很有原则。」</blockquote>
+    <p class="trace">TRACE 五维：<b>可信任 5.0（满分）</b> ｜ 有效性 4.8 ｜ 适用性 4.7 ｜ 规范性 4.5 ｜ 可靠性 4.4；安全审核：科恩实验室、云鼎实验室均「安全，无风险」。</p>
+    <p class="src">—— SkillHub 评测报告 · <a href="https://skillhub.cn/skills/user_97f42772/private-board">查看完整评测</a></p>
+  </section>
+
+  <!-- ============ 模块 5：安装方式 ============ -->
+  <section class="install">
+    <span class="module-tag">模块 5 ｜安装方式</span>
+    <h2>装给你的 AI 用</h2>
+    <p>前置条件：你有一个支持 Skill 的 AI 助手就行（Claude Code、WorkBuddy 等），不用会编程。</p>
+    <p><b>方式一 · SkillHub（推荐，国内直连，最简单）</b><br>打开 <a href="https://skillhub.cn/skills/user_97f42772/private-board">它的 SkillHub 页面</a>，点「安装到本地 Agent」；或者把页面上的安装提示词复制下来，发给你的 AI——它自己会装好。</p>
+    <p><b>方式二 · GitHub（需要能正常访问 GitHub）</b></p>
+    <div class="cmd">npx skills add SiyuanAiLab/private-board</div>
+    <p>装完直接对它说人话：「开一场稷下：我在纠结要不要把服务做成标准化产品。」——它应该先跟你把议题谈拢；上来就开聊 = 没触发对。</p>
+    <p style="font-size:13px;color:#999;">源码与完整示例：<a href="https://github.com/SiyuanAiLab/private-board">GitHub 仓库</a></p>
+  </section>
+
+  <!-- ============ 尾巴 ============ -->
+  <footer>
+    <span>v1.1.0 ｜ 2026-08 更新 ｜ active 持续维护</span>
+    <span>如实说明：它不查事实、不检索实时信息；法律/医疗/财务等需持证意见的事项不适用；席位=思想模型，不是真人发言</span>
+    <span>免费开源 · CC BY 4.0：可自由使用和商用，署名思远即可</span>
+  </footer>
+
+</div>
+</body>
+</html>
